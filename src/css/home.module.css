@@ -1,0 +1,13 @@
+.HomePage {
+  margin: 0 auto;
+  padding: 3rem;
+}
+
+.HomeTitle {
+  text-align: center;
+}
+
+.HomeContent {
+  max-width: 30rem;
+  margin: 0 auto;
+}

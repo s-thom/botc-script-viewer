@@ -1,20 +1,22 @@
 .Menubar {
   background-color: var(--color-control-background);
-  border: 2px solid var(--color-control-border-active);
+  box-shadow: inset 0 0 0 2px var(--color-control-border-active);
   color: var(--color-control-text);
-  padding: 0.5rem;
-  border-radius: 100vw;
+  border-radius: 25px;
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
+  justify-content: center;
+  margin: 1rem;
 }
 
 .MenuTrigger {
   background-color: var(--color-control-background);
   color: var(--color-text);
   padding: 0.5rem;
-  border-radius: 100vw;
+  border-radius: 25px;
   border: 2px solid transparent;
+  background-clip: padding-box;
 
   &:hover:not([data-pressed]) {
     background-color: var(--color-control-background-active);

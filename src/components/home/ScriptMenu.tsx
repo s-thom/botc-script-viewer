@@ -20,6 +20,7 @@ export function ScriptMenu({ title, path, scripts }: ScriptMenuProps) {
           className={styles.MenuPositioner}
           sideOffset={6}
           alignOffset={-2}
+          sticky
         >
           <Menu.Popup className={styles.MenuPopup}>
             {scripts.map((script) => (

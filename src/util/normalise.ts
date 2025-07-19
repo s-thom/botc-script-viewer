@@ -186,7 +186,7 @@ export function normaliseScript(
   }
 
   if (meta === undefined) {
-    throw new Error("Metadata not found in script");
+    meta = { id: "_meta", name: "" };
   }
 
   newScript.name = meta.name;

@@ -1,0 +1,57 @@
+.Form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 1rem;
+}
+
+.Field {
+  display: flex;
+  flex-direction: column;
+}
+
+.Input {
+  background-color: var(--color-background);
+  border: 2px solid var(--color-control-border-active);
+  color: var(--color-text);
+  padding: 0.5rem;
+  border-radius: 15px;
+
+  &:is(textarea) {
+    resize: vertical;
+  }
+
+  &:disabled {
+    filter: grayscale();
+  }
+
+  &:hover {
+    border-color: var(--color-control-border-hover);
+  }
+
+  &:active {
+    border-color: var(--color-control-border-active);
+  }
+}
+
+.Button {
+  background-color: var(--color-control-background);
+  border: 2px solid var(--color-control-border-active);
+  color: var(--color-text);
+  padding: 0.5rem;
+  border-radius: 100vw;
+
+  &:disabled {
+    filter: grayscale();
+  }
+
+  &:hover {
+    background-color: var(--color-control-background-active);
+    border-color: var(--color-control-border-hover);
+  }
+
+  &:active {
+    background-color: var(--color-control-background-active);
+    border-color: var(--color-control-border-active);
+  }
+}
