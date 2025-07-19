@@ -1,0 +1,27 @@
+.script-category {
+  margin-block: 1rem;
+}
+
+.ScriptCharacterList {
+  list-style: none;
+  padding-inline-start: 0;
+  margin-block: 1rem;
+}
+
+.ScriptCharacterListItem {
+  margin-block: 1rem;
+}
+
+.ScriptCharacter {
+  display: flex;
+  align-items: flex-start;
+}
+
+.ScriptCharacterTitle {
+  font-family: var(--font-title);
+}
+
+.ScriptCharacterIcon {
+  width: 48px;
+  height: 48px;
+}

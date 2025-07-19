@@ -1,0 +1,43 @@
+.MenuPopup {
+  border-radius: 5px;
+  background-color: #282828;
+  color: white;
+  padding: 0.5rem;
+
+  .menu-arrow {
+    position: absolute;
+    /* TODO: */
+  }
+
+  .menu-separator {
+    height: 1px;
+    background-color: #949494;
+    margin: 0.5rem 0;
+  }
+
+  .MenuItem {
+    padding: 0.2rem;
+    border-radius: 3px;
+    display: block;
+
+    &:is(a) {
+      color: white;
+      text-decoration: none;
+    }
+
+    &[tabindex="0"] {
+      background-color: white;
+      color: #282828;
+    }
+
+    &[data-disabled] {
+      opacity: 0.5;
+    }
+  }
+}
+
+.MenuInlineIcon {
+  width: 1.2em;
+  height: 1.2em;
+  display: inline;
+}
