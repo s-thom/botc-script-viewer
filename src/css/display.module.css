@@ -5,7 +5,17 @@
 }
 
 .Page {
-  break-after: always;
+  break-inside: avoid-page;
+}
+
+.TitleArea {
+  display: flex;
+  flex-direction: column;
+
+  @media print, (min-width: 848px) {
+    flex-direction: row;
+    gap: 2rem;
+  }
 }
 
 .ScriptTitleReduced {
@@ -24,6 +34,7 @@
 
 .CategoryTitle {
   margin-block: 1rem;
+  break-after: avoid;
 }
 
 .ScriptCharacterList {
@@ -55,19 +66,50 @@
   font-family: var(--font-title);
 }
 
+.ScriptFabledList {
+  flex-grow: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  list-style: none;
+  padding-inline-start: 0;
+
+  @media print, (min-width: 848px) {
+    margin-block-start: -1rem;
+  }
+
+  @media print {
+    justify-content: end;
+  }
+}
+
+.ScriptFabledListItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ScriptFabledTitle {
+  font-family: var(--font-title);
+  font-size: 1.2rem;
+}
+
+.FabledListIcon,
 .ScriptCharacterIcon {
   width: 48px;
   max-height: 48px;
 }
 
+.ScriptCharacterIcon {
+  translate: -4px -4px;
+}
+
 .TwoColumn {
   display: grid;
   grid-template-columns: 1fr;
+  break-inside: page;
 
-  @media (min-width: 848px) {
-    grid-template-columns: 1fr 1fr;
-  }
-  @media print {
+  @media print, (min-width: 848px) {
     grid-template-columns: 1fr 1fr;
   }
 
