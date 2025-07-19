@@ -15,6 +15,7 @@ export interface CharacterNightInfo {
 }
 export interface SpecialNightInfo {
   type: "special";
+  id: string;
   name: string;
   reminderText?: string;
 }

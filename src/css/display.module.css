@@ -4,6 +4,10 @@
   }
 }
 
+.Page {
+  break-after: always;
+}
+
 .CategoryTitle {
   margin-block: 1rem;
 }
@@ -17,7 +21,7 @@
 }
 
 .ScriptCharacterListItem {
-  break-inside: avoid;
+  break-inside: avoid-column;
 
   &:not(:first-child) {
     margin-block-start: 1rem;
@@ -39,5 +43,21 @@
 
 .ScriptCharacterIcon {
   width: 48px;
-  height: 48px;
+  max-height: 48px;
+}
+
+.TwoColumn {
+  display: grid;
+  grid-template-columns: 1fr;
+
+  @media (min-width: 848px) {
+    grid-template-columns: 1fr 1fr;
+  }
+  @media print {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .ScriptCharacterList {
+    columns: 1;
+  }
 }

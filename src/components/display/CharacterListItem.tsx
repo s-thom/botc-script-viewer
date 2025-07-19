@@ -3,7 +3,7 @@ import type { ScriptCharacter } from "../../generated/script-schema";
 import { CharacterIcon } from "./CharacterIcon";
 
 export interface CharacterListItemProps {
-  character: ScriptCharacter;
+  character: ScriptCharacter | null;
   character2?: ScriptCharacter;
   title?: string;
   description?: string;
@@ -17,10 +17,14 @@ export function CharacterListItem({
 }: CharacterListItemProps) {
   return (
     <div className={styles.ScriptCharacter}>
-      <CharacterIcon
-        character={character}
-        className={styles.ScriptCharacterIcon}
-      />
+      {character ? (
+        <CharacterIcon
+          character={character}
+          className={styles.ScriptCharacterIcon}
+        />
+      ) : (
+        <div className={styles.ScriptCharacterIcon} />
+      )}
       {character2 && (
         <CharacterIcon
           character={character2}

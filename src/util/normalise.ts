@@ -3,8 +3,23 @@ import type {
   ScriptCharacter,
   ScriptMetadata,
 } from "../generated/script-schema";
-import type { NormalisedScript } from "../types/botc";
+import type { NormalisedScript, SpecialNightInfo } from "../types/botc";
 import { CHARACTERS_BY_ID } from "./characters";
+
+function getSpecialNightInfo(id: string): SpecialNightInfo | null {
+  switch (id) {
+    case "dusk":
+      return { type: "special", id, name: "Dusk" };
+    case "dawn":
+      return { type: "special", id, name: "Dawn" };
+    case "minioninfo":
+      return { type: "special", id, name: "Minion Info" };
+    case "demoninfo":
+      return { type: "special", id, name: "Demon Info" };
+    default:
+      return null;
+  }
+}
 
 function getNightOrderArrays(
   charactersById: Map<string, ScriptCharacter>,
@@ -16,16 +31,9 @@ function getNightOrderArrays(
 
   if (meta.firstNight) {
     firstNight = meta.firstNight.map((id) => {
-      if (
-        id === "dusk" ||
-        id === "dawn" ||
-        id === "minioninfo" ||
-        id === "demoninfo"
-      ) {
-        return {
-          type: "special",
-          name: id,
-        };
+      const special = getSpecialNightInfo(id);
+      if (special) {
+        return special;
       }
 
       if (!charactersById.has(id)) {
@@ -66,17 +74,11 @@ function getNightOrderArrays(
 
   if (meta.otherNight) {
     otherNight = meta.otherNight.map((id) => {
-      if (
-        id === "dusk" ||
-        id === "dawn" ||
-        id === "minioninfo" ||
-        id === "demoninfo"
-      ) {
-        return {
-          type: "special",
-          name: id,
-        };
+      const special = getSpecialNightInfo(id);
+      if (special) {
+        return special;
       }
+
       if (!charactersById.has(id)) {
         // If the night order refers to a traveller not on the script, add it.
         if (CHARACTERS_BY_ID.has(id)) {

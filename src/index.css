@@ -158,4 +158,8 @@ body {
   :root {
     font-size: 11px;
   }
+
+  .screen-only {
+    display: none;
+  }
 }
