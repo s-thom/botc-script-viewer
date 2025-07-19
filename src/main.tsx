@@ -1,12 +1,14 @@
 import { StrictMode, Suspense } from "react";
 import { createRoot } from "react-dom/client";
-import { BrowserRouter, Route, Routes } from "react-router";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router";
 import "./index.css";
 import { AppLoadingPage } from "./pages/AppLoadingPage.tsx";
 import { BotCScriptsPage } from "./pages/BotCScriptsPage.tsx";
+import { CompressedJSONPage } from "./pages/CompressedJSONPage.tsx";
 import { HomePage } from "./pages/Home.tsx";
 import { HostedScriptPage } from "./pages/HostedScriptPage.tsx";
 import { ScriptLoadingPage } from "./pages/ScriptLoadingPage.tsx";
+import { UncompressedJSONPage } from "./pages/UncompressedJSONPage.tsx";
 import { UrlScriptPage } from "./pages/UrlScriptPage.tsx";
 import { BASE_3 } from "./scripts/base3/index.ts";
 import { CAROUSEL_COLLECTION } from "./scripts/carousel-collection/index.ts";
@@ -73,6 +75,23 @@ createRoot(document.getElementById("root")!).render(
               </Suspense>
             }
           />
+          <Route
+            path="gz/:json"
+            element={
+              <Suspense fallback={<ScriptLoadingPage />}>
+                <CompressedJSONPage />
+              </Suspense>
+            }
+          />
+          <Route
+            path="uncompressed/:json"
+            element={
+              <Suspense fallback={<ScriptLoadingPage />}>
+                <UncompressedJSONPage />
+              </Suspense>
+            }
+          />
+          <Route path="/*" element={<Navigate to="/" />} />
         </Routes>
       </Suspense>
     </BrowserRouter>
