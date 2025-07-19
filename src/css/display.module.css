@@ -1,6 +1,6 @@
 @media screen {
   .ScriptDisplay {
-    margin: 2em;
+    margin: 2rem;
   }
 }
 
@@ -16,6 +16,10 @@
   opacity: 0.7;
   font-size: 0.9rem;
   margin-block-start: 2rem;
+
+  a {
+    color: inherit;
+  }
 }
 
 .CategoryTitle {

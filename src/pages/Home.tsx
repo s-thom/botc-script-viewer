@@ -12,14 +12,17 @@ export default function HomePage() {
         Blood on the Clocktower Script Viewer
       </h1>
       <div className={styles.HomeContent}>
-        <p className="visually-hidden">Select an existing script</p>
         <HostedScriptsMenu />
-        <p>or view a custom script</p>
         <CustomScriptForm />
         <footer className={styles.HomeFooter}>
-          This website is not affiliated with The Pandemonium Institute.
-          Character icons and descriptions are the property of Steven Medway and
-          The Pandemonium Institute.
+          <p>
+            This website is not affiliated with The Pandemonium Institute.
+            Character icons and descriptions are the property of Steven Medway
+            and The Pandemonium Institute.
+          </p>
+          <p>
+            Website made by <a href="https://sthom.kiwi">Stuart Thomson</a>.
+          </p>
         </footer>
       </div>
     </div>

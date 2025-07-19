@@ -73,7 +73,8 @@ export function ScriptDisplay({ script }: ScriptDisplayProps) {
       <footer className={styles.ScriptDisplayFooter}>
         This website is not affiliated with The Pandemonium Institute. Character
         icons and descriptions are the property of Steven Medway and The
-        Pandemonium Institute.
+        Pandemonium Institute. Website made by{" "}
+        <a href="https://sthom.kiwi">Stuart Thomson</a>.
       </footer>
     </div>
   );
