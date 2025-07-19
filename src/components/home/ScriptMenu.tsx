@@ -3,7 +3,7 @@ import styles from "../../css/menu.module.css";
 import type { HostedScriptDefinition } from "../../types/botc";
 import { CHARACTERS_BY_ID } from "../../util/characters";
 import { CharacterIcon } from "../display/CharacterIcon";
-import { MenuItemNavLink } from "../ui/MenuItemLink";
+import { MenuItemNavLink } from "./MenuItemLink";
 
 export interface ScriptMenuProps {
   title: string;

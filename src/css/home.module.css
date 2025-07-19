@@ -11,3 +11,22 @@
   max-width: 30rem;
   margin: 0 auto;
 }
+
+.BigPageContent {
+  margin: 2rem auto;
+  text-align: center;
+}
+
+.BigPageImage {
+  display: inline;
+  animation: SlowRotate 40s linear infinite;
+}
+
+@keyframes SlowRotate {
+  0% {
+    rotate: 0;
+  }
+  100% {
+    rotate: 360deg;
+  }
+}
