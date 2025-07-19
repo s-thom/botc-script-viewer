@@ -7,7 +7,7 @@ export interface HostedScriptPageProps {
   script: HostedScriptDefinition;
 }
 
-export function HostedScriptPage({ script }: HostedScriptPageProps) {
+export default function HostedScriptPage({ script }: HostedScriptPageProps) {
   const [promise] = useState(() => script.getScript());
 
   const rawScript = use(promise);

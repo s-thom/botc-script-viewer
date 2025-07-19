@@ -4,7 +4,7 @@ import { ScriptDisplay } from "../components/display/ScriptDisplay";
 import { decodeUrlSafeBase64 } from "../util/compression";
 import { normaliseScript } from "../util/normalise";
 
-export function UncompressedJSONPage() {
+export default function UncompressedJSONPage() {
   const { json: uncompressedBase64 } = useParams();
 
   const normalisedScript = useMemo(() => {

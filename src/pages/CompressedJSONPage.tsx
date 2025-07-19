@@ -23,7 +23,7 @@ function decodeScript(base64: string) {
   return promise;
 }
 
-export function CompressedJSONPage() {
+export default function CompressedJSONPage() {
   const { json: compressedBase64 } = useParams();
 
   const promise = useMemo(() => {

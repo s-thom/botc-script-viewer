@@ -2,7 +2,7 @@ import { CustomScriptForm } from "../components/home/CustomScriptForm";
 import { HostedScriptsMenu } from "../components/home/HostedScriptsMenu";
 import styles from "../css/home.module.css";
 
-export function HomePage() {
+export default function HomePage() {
   return (
     <div className={styles.HomePage}>
       <h1 className={styles.HomeTitle}>

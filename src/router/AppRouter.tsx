@@ -1,14 +1,18 @@
+import { lazy } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router";
 import { ScriptPageWrapper } from "../components/misc/ScriptPageWrapper";
-import { BotCScriptsPage } from "../pages/BotCScriptsPage";
-import { CompressedJSONPage } from "../pages/CompressedJSONPage";
-import { HomePage } from "../pages/Home";
-import { HostedScriptPage } from "../pages/HostedScriptPage";
-import { UncompressedJSONPage } from "../pages/UncompressedJSONPage";
-import { UrlScriptPage } from "../pages/UrlScriptPage";
 import { BASE_3 } from "../scripts/base3";
 import { CAROUSEL_COLLECTION } from "../scripts/carousel-collection";
 import { WORLD_CUP_25 } from "../scripts/wc25";
+
+const BotCScriptsPage = lazy(() => import("../pages/BotCScriptsPage"));
+const CompressedJSONPage = lazy(() => import("../pages/CompressedJSONPage"));
+const UncompressedJSONPage = lazy(
+  () => import("../pages/UncompressedJSONPage"),
+);
+const HostedScriptPage = lazy(() => import("../pages/HostedScriptPage"));
+const HomePage = lazy(() => import("../pages/Home"));
+const UrlScriptPage = lazy(() => import("../pages/UrlScriptPage"));
 
 export function AppRouter() {
   return (

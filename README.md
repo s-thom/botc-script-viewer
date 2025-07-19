@@ -1,6 +1,6 @@
 # [BotC Script Viewer](https://botc-script-viewer.sthom.kiwi)
 
-A web app for viewing scripts for [Blood on the Clocktower](https://bloodontheclocktower.com/).
+A web app for viewing scripts for [Blood on the Clocktower](https://bloodontheclocktower.com/). i made this because I was going somewhere I knew people would have phones but not printers.
 
 ## Development instructions
 
