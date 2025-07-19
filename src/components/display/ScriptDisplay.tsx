@@ -1,5 +1,6 @@
 import styles from "../../css/display.module.css";
 import type { NormalisedScript } from "../../types/botc";
+import { HomeLink } from "../misc/HomeLink";
 import { ScriptBootleggerList } from "./ScriptBootleggerList";
 import { ScriptCharacterList } from "./ScriptCharacterList";
 import { ScriptJinxList } from "./ScriptJinxList";
@@ -12,13 +13,14 @@ export interface ScriptDisplayProps {
 export function ScriptDisplay({ script }: ScriptDisplayProps) {
   return (
     <div className={styles.ScriptDisplay}>
+      <HomeLink />
       <div className={styles.Page}>
         <h1>
           <span>{script.name || "Custom Script"}</span>
           {script.author && (
             <>
-              <span> by </span>
-              <span>{script.author}</span>
+              <span className={styles.ScriptTitleReduced}>&ensp;by </span>
+              <span className={styles.ScriptTitleReduced}>{script.author}</span>
             </>
           )}
         </h1>
@@ -68,6 +70,11 @@ export function ScriptDisplay({ script }: ScriptDisplayProps) {
           </div>
         </div>
       </div>
+      <footer className={styles.ScriptDisplayFooter}>
+        This website is not affiliated with The Pandemonium Institute. Character
+        icons and descriptions are the property of Steven Medway and The
+        Pandemonium Institute.
+      </footer>
     </div>
   );
 }

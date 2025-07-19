@@ -160,6 +160,6 @@ body {
   }
 
   .screen-only {
-    display: none;
+    display: none !important;
   }
 }

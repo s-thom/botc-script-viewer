@@ -1,5 +1,5 @@
 import { mkdir, writeFile } from "node:fs/promises";
-import data from "../src/generated/data.json" with { type: "json" };
+import data from "../src/data/data.json" with { type: "json" };
 import type { BloodOnTheClocktowerCustomScript } from "../src/generated/script-schema";
 
 for (const edition of data.editions) {

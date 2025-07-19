@@ -13,6 +13,11 @@ export default function HomePage() {
         <HostedScriptsMenu />
         <p>or view a custom script</p>
         <CustomScriptForm />
+        <footer className={styles.HomeFooter}>
+          This website is not affiliated with The Pandemonium Institute.
+          Character icons and descriptions are the property of Steven Medway and
+          The Pandemonium Institute.
+        </footer>
       </div>
     </div>
   );

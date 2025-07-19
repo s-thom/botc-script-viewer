@@ -1,4 +1,4 @@
-import data from "../generated/data.json" with { type: "json" };
+import data from "../data/data.json" with { type: "json" };
 import type { ScriptCharacter } from "../generated/script-schema";
 
 export const CHARACTERS_BY_ID = [...data.roles, ...data.fabled].reduce<

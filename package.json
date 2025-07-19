@@ -6,9 +6,10 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "full-build": "npm run setup && npm run build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "setup": "node --experimental-strip-types scripts/write-data-json.ts && node --experimental-strip-types scripts/generate-script-schema.ts && node --experimental-strip-types scripts/download-role-icons.ts && node --experimental-strip-types scripts/generate-edition-scripts.ts"
+    "setup": "node --experimental-strip-types scripts/generate-script-schema.ts && node --experimental-strip-types scripts/download-role-icons.ts && node --experimental-strip-types scripts/generate-edition-scripts.ts"
   },
   "dependencies": {
     "@base-ui-components/react": "^1.0.0-beta.1",

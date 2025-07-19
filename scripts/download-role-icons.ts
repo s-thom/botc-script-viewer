@@ -5,7 +5,7 @@ import { Readable } from "node:stream";
 import { finished } from "node:stream/promises";
 import type { ReadableStream } from "node:stream/web";
 import PQueue from "p-queue";
-import data from "../src/generated/data.json" with { type: "json" };
+import data from "../src/data/data.json" with { type: "json" };
 
 console.log("Fetching page");
 const pageRequest = await fetch("https://botc.app");
