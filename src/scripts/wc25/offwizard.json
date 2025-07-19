@@ -1,0 +1,50 @@
+[
+  {
+    "id": "_meta",
+    "author": "Crispy Duck",
+    "name": "Off to see the Wizard",
+    "almanac": "https://beardytas.com/garden-of-djinn/off-to-see-the-wizard/",
+    "logo": "https://release.botc.app/wc25/offwizard/logo.webp",
+    "background": "https://release.botc.app/wc25/background.webp",
+    "hideTitle": true,
+    "bootlegger": [
+      "If a Wizard is in play 1 good player knows & each day, while alive, may privately guess the wizard wish & learn how accurate they are if a wish has been made."
+    ]
+  },
+  {
+    "id": "offwizard-offwizard",
+    "firstNightReminder": "",
+    "otherNightReminder": "",
+    "reminders": [
+      "Knows"
+    ],
+    "setup": false,
+    "name": "Off to see the Wizard",
+    "team": "fabled",
+    "ability": "If a Wizard is in play 1 good player knows & each day, while alive, may privately guess the wizard wish & learn how accurate they are if a wish has been made."
+  },
+  "chef",
+  "noble",
+  "clockmaker",
+  "librarian",
+  "highpriestess",
+  "acrobat",
+  "savant",
+  "nightwatchman",
+  "artist",
+  "cannibal",
+  "amnesiac",
+  "farmer",
+  "ravenkeeper",
+  "sweetheart",
+  "hatter",
+  "mutant",
+  "politician",
+  "wizard",
+  "xaan",
+  "boomdandy",
+  "scarletwoman",
+  "pukka",
+  "imp",
+  "kazali"
+]

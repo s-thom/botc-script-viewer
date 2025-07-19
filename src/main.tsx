@@ -8,6 +8,7 @@ import { HostedScriptPage } from "./pages/HostedScriptPage.tsx";
 import { ScriptLoadingPage } from "./pages/ScriptLoadingPage.tsx";
 import { BASE_3 } from "./scripts/base3/index.ts";
 import { CAROUSEL_COLLECTION } from "./scripts/carousel-collection/index.ts";
+import { WORLD_CUP_25 } from "./scripts/wc25/index.ts";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -30,6 +31,19 @@ createRoot(document.getElementById("root")!).render(
           </Route>
           <Route path="cc">
             {CAROUSEL_COLLECTION.map((script) => (
+              <Route
+                key={script.id}
+                path={script.id}
+                element={
+                  <Suspense fallback={<ScriptLoadingPage />}>
+                    <HostedScriptPage script={script} />
+                  </Suspense>
+                }
+              />
+            ))}
+          </Route>
+          <Route path="wc25">
+            {WORLD_CUP_25.map((script) => (
               <Route
                 key={script.id}
                 path={script.id}

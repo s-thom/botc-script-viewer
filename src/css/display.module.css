@@ -1,4 +1,10 @@
-.script-category {
+@media screen {
+  .ScriptDisplay {
+    margin: 2em;
+  }
+}
+
+.CategoryTitle {
   margin-block: 1rem;
 }
 
