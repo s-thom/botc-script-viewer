@@ -53,6 +53,8 @@ export function ScriptDisplay({ script }: ScriptDisplayProps) {
         </div>
       )}
 
+      <hr className="screen-only" />
+
       <div className={styles.Page}>
         <h2 className={styles.CategoryTitle}>Night Order</h2>
         <div className={styles.TwoColumn}>

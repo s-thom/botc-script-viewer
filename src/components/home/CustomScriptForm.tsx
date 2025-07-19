@@ -25,9 +25,19 @@ export function CustomScriptForm() {
         }
 
         // Check if it's a link to the scripts website
-      }
+        if (url.hostname === "botc-scripts.azurewebsites.net") {
+          const jsonPathMatch = url.pathname.match(
+            /^\/api\/scripts\/(\d+)\/json\//,
+          );
+          if (jsonPathMatch) {
+            navigate(`/s/${jsonPathMatch[1]}`);
+            return;
+          }
+        }
 
-      // It's JSON, which means we're going async.
+        navigate(`/u/${encodeURIComponent(url.toString())}`);
+        return;
+      }
     },
     [],
   );

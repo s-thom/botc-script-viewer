@@ -3,9 +3,11 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter, Route, Routes } from "react-router";
 import "./index.css";
 import { AppLoadingPage } from "./pages/AppLoadingPage.tsx";
+import { BotCScriptsPage } from "./pages/BotCScriptsPage.tsx";
 import { HomePage } from "./pages/Home.tsx";
 import { HostedScriptPage } from "./pages/HostedScriptPage.tsx";
 import { ScriptLoadingPage } from "./pages/ScriptLoadingPage.tsx";
+import { UrlScriptPage } from "./pages/UrlScriptPage.tsx";
 import { BASE_3 } from "./scripts/base3/index.ts";
 import { CAROUSEL_COLLECTION } from "./scripts/carousel-collection/index.ts";
 import { WORLD_CUP_25 } from "./scripts/wc25/index.ts";
@@ -55,6 +57,22 @@ createRoot(document.getElementById("root")!).render(
               />
             ))}
           </Route>
+          <Route
+            path="s/:id"
+            element={
+              <Suspense fallback={<ScriptLoadingPage />}>
+                <BotCScriptsPage />
+              </Suspense>
+            }
+          />
+          <Route
+            path="u/:url"
+            element={
+              <Suspense fallback={<ScriptLoadingPage />}>
+                <UrlScriptPage />
+              </Suspense>
+            }
+          />
         </Routes>
       </Suspense>
     </BrowserRouter>
