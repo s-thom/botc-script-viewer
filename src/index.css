@@ -91,8 +91,15 @@ textarea:not([rows]) {
 
   --border-radius: 0.5rem;
 
-  --color-control-background: #555;
-  --color-control-text: #282828;
+  --color-background: #e1dbc7;
+  --color-text: #282828;
+  --color-control-background: #c6b99a;
+  --color-control-background-active: var(--color-background);
+  --color-control-border-hover: #c1b28f;
+  --color-control-border-active: #bba67e;
+
+  --box-shadow:
+    0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
 
   font-family: var(--font-body);
 }
@@ -133,4 +140,6 @@ textarea:not([rows]) {
 
 body {
   margin: 0;
+  background-color: var(--color-background);
+  color: var(--color-text);
 }

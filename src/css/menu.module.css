@@ -1,8 +1,39 @@
-.MenuPopup {
-  border-radius: 5px;
-  background-color: #282828;
-  color: white;
+.Menubar {
+  background-color: var(--color-control-background);
+  border: 2px solid var(--color-control-border-active);
+  color: var(--color-control-text);
   padding: 0.5rem;
+  border-radius: 100vw;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.MenuTrigger {
+  background-color: var(--color-control-background);
+  color: var(--color-text);
+  padding: 0.5rem;
+  border-radius: 100vw;
+  border: 2px solid transparent;
+
+  &:hover:not([data-pressed]) {
+    background-color: var(--color-control-background-active);
+    border-color: var(--color-control-border-hover);
+  }
+  &[data-pressed] {
+    background-color: var(--color-control-background-active);
+    border-color: var(--color-control-border-active);
+  }
+}
+
+.MenuPopup {
+  border-radius: 15px;
+  background-color: var(--color-control-background);
+  border: 2px solid var(--color-control-border-active);
+  box-shadow: var(--box-shadow);
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
 
   .menu-arrow {
     position: absolute;
@@ -16,18 +47,26 @@
   }
 
   .MenuItem {
-    padding: 0.2rem;
-    border-radius: 3px;
-    display: block;
+    padding: 0.2rem 0.4rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 2px solid transparent;
 
     &:is(a) {
-      color: white;
+      color: var(--color-text);
       text-decoration: none;
     }
 
     &[tabindex="0"] {
-      background-color: white;
+      border-color: var(--color-control-border-hover);
+      background-color: var(--color-control-background-active);
       color: #282828;
+
+      &:active {
+        border-color: var(--color-control-border-active);
+      }
     }
 
     &[data-disabled] {
@@ -37,7 +76,7 @@
 }
 
 .MenuInlineIcon {
-  width: 1.2em;
-  height: 1.2em;
+  width: 2em;
+  height: 2em;
   display: inline;
 }
