@@ -3,8 +3,10 @@ import { useParams } from "react-router";
 import { ScriptDisplay } from "../components/display/ScriptDisplay";
 import { decodeUrlSafeBase64 } from "../util/compression";
 import { normaliseScript } from "../util/normalise";
+import { usePageView } from "../util/usePageView";
 
 export default function UncompressedJSONPage() {
+  usePageView("/uncompressed/<path>");
   const { json: uncompressedBase64 } = useParams();
 
   const normalisedScript = useMemo(() => {

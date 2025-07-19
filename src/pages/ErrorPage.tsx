@@ -1,7 +1,12 @@
+import { useEffect } from "react";
 import { NavLink } from "react-router";
 import styles from "../css/home.module.css";
 
 export function ErrorPage() {
+  useEffect(() => {
+    window.umami?.track("error-page");
+  }, []);
+
   return (
     <div className={styles.HomePage}>
       <h1 className={styles.HomeTitle}>Error trying to display script</h1>

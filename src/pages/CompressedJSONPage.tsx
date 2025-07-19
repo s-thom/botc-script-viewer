@@ -3,6 +3,7 @@ import { useParams } from "react-router";
 import { ScriptDisplay } from "../components/display/ScriptDisplay";
 import { decompressFromBase64 } from "../util/compression";
 import { normaliseScript } from "../util/normalise";
+import { usePageView } from "../util/usePageView";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const CACHE = new Map<string, Promise<any>>();
@@ -24,6 +25,7 @@ function decodeScript(base64: string) {
 }
 
 export default function CompressedJSONPage() {
+  usePageView("/gz/<path>");
   const { json: compressedBase64 } = useParams();
 
   const promise = useMemo(() => {

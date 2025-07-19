@@ -1,8 +1,11 @@
 import { CustomScriptForm } from "../components/home/CustomScriptForm";
 import { HostedScriptsMenu } from "../components/home/HostedScriptsMenu";
 import styles from "../css/home.module.css";
+import { usePageView } from "../util/usePageView";
 
 export default function HomePage() {
+  usePageView("/");
+
   return (
     <div className={styles.HomePage}>
       <h1 className={styles.HomeTitle}>
