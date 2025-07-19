@@ -12,6 +12,17 @@ export default function HomePage() {
         Blood on the Clocktower Script Viewer
       </h1>
       <div className={styles.HomeContent}>
+        <p className={styles.InfoText}>
+          View scripts for{" "}
+          <a
+            href="https://bloodontheclocktower.com/"
+            target="_blank"
+            rel="external noreferrer"
+          >
+            Blood on the Clocktower
+          </a>{" "}
+          in your browser.
+        </p>
         <HostedScriptsMenu />
         <CustomScriptForm />
         <footer className={styles.HomeFooter}>
@@ -21,7 +32,15 @@ export default function HomePage() {
             and The Pandemonium Institute.
           </p>
           <p>
-            Website made by <a href="https://sthom.kiwi">Stuart Thomson</a>.
+            Website made by{" "}
+            <a
+              href="https://sthom.kiwi"
+              target="_blank"
+              rel="external noreferrer"
+            >
+              Stuart Thomson
+            </a>
+            .
           </p>
         </footer>
       </div>

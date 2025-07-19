@@ -154,6 +154,10 @@ body {
   color: var(--color-text);
 }
 
+a {
+  color: inherit;
+}
+
 @media print {
   :root {
     font-size: 11px;
@@ -162,4 +166,19 @@ body {
   .screen-only {
     display: none !important;
   }
+}
+
+.ns-home {
+  margin: 0 auto;
+  max-width: 30rem;
+  padding: 2rem;
+}
+
+.ns-title {
+  text-align: center;
+  margin: 2rem;
+}
+
+.ns-text {
+  margin: 0.5rem;
 }

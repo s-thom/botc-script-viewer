@@ -66,6 +66,10 @@
   font-family: var(--font-title);
 }
 
+.ScriptCharacterDescription {
+  line-height: 1.3rem;
+}
+
 .ScriptFabledList {
   flex-grow: 1;
   display: flex;

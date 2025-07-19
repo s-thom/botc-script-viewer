@@ -103,7 +103,10 @@ export function ScriptDisplay({ script }: ScriptDisplayProps) {
         This website is not affiliated with The Pandemonium Institute. Character
         icons and descriptions are the property of Steven Medway and The
         Pandemonium Institute. Website made by{" "}
-        <a href="https://sthom.kiwi">Stuart Thomson</a>.
+        <a href="https://sthom.kiwi" target="_blank" rel="external noreferrer">
+          Stuart Thomson
+        </a>
+        .
       </footer>
     </div>
   );
