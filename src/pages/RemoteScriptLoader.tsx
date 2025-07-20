@@ -1,5 +1,6 @@
 import { use, useMemo } from "react";
 import { ScriptDisplay } from "../components/display/ScriptDisplay";
+import { RawScriptContextProvider } from "../components/misc/RawScriptContext";
 import { normaliseScript } from "../util/normalise";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -37,5 +38,9 @@ export function RemoteScriptLoader({ url }: RemoteScriptLoaderProps) {
     [rawScript],
   );
 
-  return <ScriptDisplay script={normalisedScript} />;
+  return (
+    <RawScriptContextProvider value={rawScript}>
+      <ScriptDisplay script={normalisedScript} />
+    </RawScriptContextProvider>
+  );
 }

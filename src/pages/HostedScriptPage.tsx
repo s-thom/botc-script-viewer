@@ -1,5 +1,6 @@
 import { use, useMemo, useState } from "react";
 import { ScriptDisplay } from "../components/display/ScriptDisplay";
+import { RawScriptContextProvider } from "../components/misc/RawScriptContext";
 import type { HostedScriptDefinition } from "../types/botc";
 import { normaliseScript } from "../util/normalise";
 import { usePageView } from "../util/usePageView";
@@ -18,5 +19,9 @@ export default function HostedScriptPage({ script }: HostedScriptPageProps) {
     [rawScript],
   );
 
-  return <ScriptDisplay script={normalisedScript} />;
+  return (
+    <RawScriptContextProvider value={rawScript}>
+      <ScriptDisplay script={normalisedScript} />
+    </RawScriptContextProvider>
+  );
 }

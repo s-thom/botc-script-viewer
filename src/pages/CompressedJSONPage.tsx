@@ -1,6 +1,7 @@
 import { use, useMemo } from "react";
 import { useParams } from "react-router";
 import { ScriptDisplay } from "../components/display/ScriptDisplay";
+import { RawScriptContextProvider } from "../components/misc/RawScriptContext";
 import { decompressFromBase64 } from "../util/compression";
 import { normaliseScript } from "../util/normalise";
 import { usePageView } from "../util/usePageView";
@@ -41,5 +42,9 @@ export default function CompressedJSONPage() {
     [rawScript],
   );
 
-  return <ScriptDisplay script={normalisedScript} />;
+  return (
+    <RawScriptContextProvider value={rawScript}>
+      <ScriptDisplay script={normalisedScript} />
+    </RawScriptContextProvider>
+  );
 }

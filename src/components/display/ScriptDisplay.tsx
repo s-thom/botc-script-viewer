@@ -1,7 +1,8 @@
 import clsx from "clsx";
+import { NavLink } from "react-router";
 import styles from "../../css/display.module.css";
 import type { NormalisedScript } from "../../types/botc";
-import { HomeLink } from "../misc/HomeLink";
+import { ScriptDownloadLink } from "../misc/ScriptDownloadLink";
 import { CharacterIcon } from "./CharacterIcon";
 import { ScriptBootleggerList } from "./ScriptBootleggerList";
 import { ScriptCharacterList } from "./ScriptCharacterList";
@@ -15,7 +16,10 @@ export interface ScriptDisplayProps {
 export function ScriptDisplay({ script }: ScriptDisplayProps) {
   return (
     <div className={styles.ScriptDisplay}>
-      <HomeLink />
+      <div className={clsx(styles.TopLinks, "screen-only")}>
+        <NavLink to="/">Change script</NavLink>
+        <ScriptDownloadLink />
+      </div>
       <div className={styles.Page}>
         <div className={styles.TitleArea}>
           <h1 className={styles.ScriptTitle}>
