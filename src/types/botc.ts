@@ -4,8 +4,6 @@ import type {
   ScriptCharacter,
 } from "../generated/script-schema";
 
-export type Alignment = "good" | "evil" | "neutral";
-
 export type NightInfo = CharacterNightInfo | SpecialNightInfo;
 
 export interface CharacterNightInfo {

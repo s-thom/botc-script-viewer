@@ -33,6 +33,7 @@
 
 .BigPageImage {
   display: inline;
+  width: 144px;
   animation: SlowRotate 40s linear infinite;
 }
 

@@ -2,49 +2,28 @@ import { clsx } from "clsx";
 import { memo, useRef } from "react";
 import * as CHARACTER_ICONS from "../../generated/character-icons";
 import type { ScriptCharacter } from "../../generated/script-schema";
-import type { Alignment } from "../../types/botc";
 import { CHARACTERS_BY_ID } from "../../util/characters";
-import { defaultAlignmentForTeam } from "../../util/teams";
 
 const ALLOWED_EXTERNAL_HOSTNAMES = ["release.botc.app", "i.imgur.com"];
 
-function getFallbackIconUrl(
-  team: ScriptCharacter["team"],
-  alignment: Alignment,
-): string {
+function getFallbackIconUrl(team: ScriptCharacter["team"]): string {
   switch (team) {
     case "townsfolk":
-      return alignment === "evil"
-        ? CHARACTER_ICONS.townsfolk_e
-        : CHARACTER_ICONS.townsfolk_g;
+      return CHARACTER_ICONS.townsfolk;
     case "outsider":
-      return alignment === "evil"
-        ? CHARACTER_ICONS.outsider_e
-        : CHARACTER_ICONS.outsider_g;
+      return CHARACTER_ICONS.outsider;
     case "minion":
-      return alignment === "good"
-        ? CHARACTER_ICONS.minion_g
-        : CHARACTER_ICONS.minion_e;
+      return CHARACTER_ICONS.minion;
     case "demon":
-      return alignment === "good"
-        ? CHARACTER_ICONS.demon_g
-        : CHARACTER_ICONS.demon_e;
+      return CHARACTER_ICONS.demon;
     case "traveller":
-      return alignment === "neutral"
-        ? CHARACTER_ICONS.traveller
-        : alignment === "good"
-          ? CHARACTER_ICONS.traveller_g
-          : CHARACTER_ICONS.traveller_e;
+      return CHARACTER_ICONS.traveller;
     case "fabled":
       return CHARACTER_ICONS.fabled;
   }
 }
 
-function ensureImageHostname(
-  character: ScriptCharacter,
-  alignment: Alignment,
-  imageUrl: string,
-) {
+function ensureImageHostname(character: ScriptCharacter, imageUrl: string) {
   try {
     const url = new URL(imageUrl);
     if (ALLOWED_EXTERNAL_HOSTNAMES.includes(url.hostname)) {
@@ -54,80 +33,26 @@ function ensureImageHostname(
   } catch (err) {
     // Do nothing
   }
-  return getFallbackIconUrl(character.team, alignment);
+  return getFallbackIconUrl(character.team);
 }
 
-function getCharacterIconUrl(
-  character: ScriptCharacter,
-  alignment: Alignment,
-): string {
+function getCharacterIconUrl(character: ScriptCharacter): string {
   // Check for images defined in script
   if (typeof character.image === "string") {
-    return ensureImageHostname(character, alignment, character.image);
+    return ensureImageHostname(character, character.image);
   }
   if (Array.isArray(character.image)) {
     switch (character.team) {
       case "townsfolk":
       case "outsider":
-        switch (alignment) {
-          case "good":
-            return ensureImageHostname(
-              character,
-              alignment,
-              character.image[0],
-            );
-          case "evil":
-            return ensureImageHostname(
-              character,
-              alignment,
-              character.image[1],
-            );
-          default:
-        }
-        break;
+        return ensureImageHostname(character, character.image[0]);
       case "minion":
       case "demon":
-        switch (alignment) {
-          case "good":
-            return ensureImageHostname(
-              character,
-              alignment,
-              character.image[1],
-            );
-          case "evil":
-            return ensureImageHostname(
-              character,
-              alignment,
-              character.image[0],
-            );
-          default:
-        }
-        break;
+        return ensureImageHostname(character, character.image[0]);
       case "traveller":
-        switch (alignment) {
-          case "neutral":
-            return ensureImageHostname(
-              character,
-              alignment,
-              character.image[0],
-            );
-          case "good":
-            return ensureImageHostname(
-              character,
-              alignment,
-              character.image[1],
-            );
-          case "evil":
-            return ensureImageHostname(
-              character,
-              alignment,
-              character.image[2],
-            );
-          default:
-        }
-        break;
+        return ensureImageHostname(character, character.image[0]);
       case "fabled":
-        return character.image[0];
+        return ensureImageHostname(character, character.image[0]);
     }
   }
 
@@ -135,56 +60,46 @@ function getCharacterIconUrl(
   if (CHARACTERS_BY_ID.get(character.id) !== undefined) {
     if (character.team === "traveller") {
       return (
-        (CHARACTER_ICONS as Partial<Record<string, string>>)[
-          `${character.id}${alignment === "neutral" ? "" : alignment === "good" ? "_g" : "_e"}`
-        ] ?? getFallbackIconUrl(character.team, alignment)
+        (CHARACTER_ICONS as Partial<Record<string, string>>)[character.id] ??
+        getFallbackIconUrl(character.team)
       );
     }
     if (character.team === "fabled") {
       return (
         (CHARACTER_ICONS as Partial<Record<string, string>>)[character.id] ??
-        getFallbackIconUrl(character.team, alignment)
+        getFallbackIconUrl(character.team)
       );
     }
     return (
-      (CHARACTER_ICONS as Partial<Record<string, string>>)[
-        `${character.id}${alignment === "good" ? "_g" : "_e"}`
-      ] ?? getFallbackIconUrl(character.team, alignment)
+      (CHARACTER_ICONS as Partial<Record<string, string>>)[character.id] ??
+      getFallbackIconUrl(character.team)
     );
   }
 
   // Otherwise return default icon for type
-  return getFallbackIconUrl(character.team, alignment);
+  return getFallbackIconUrl(character.team);
 }
 
 export interface CharacterIconProps {
   character: ScriptCharacter;
-  alignment?: Alignment;
   className?: string;
 }
 
 export const CharacterIcon = memo(function CharacterIcon({
   character,
-  alignment,
   className,
 }: CharacterIconProps) {
   const imgRef = useRef<HTMLImageElement>(null);
 
-  const resolvedAlignment =
-    alignment ?? defaultAlignmentForTeam(character.team);
-
   return (
     <img
       className={clsx("token-image", className)}
-      src={getCharacterIconUrl(character, resolvedAlignment)}
-      alt={`${character.name} (${resolvedAlignment})`}
+      src={getCharacterIconUrl(character)}
+      alt={character.name}
       ref={imgRef}
       onError={() => {
         if (imgRef.current) {
-          imgRef.current.src = getFallbackIconUrl(
-            character.team,
-            resolvedAlignment,
-          );
+          imgRef.current.src = getFallbackIconUrl(character.team);
         }
       }}
     />

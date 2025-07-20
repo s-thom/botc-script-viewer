@@ -1,11 +1,13 @@
 import { createWriteStream } from "node:fs";
-import { mkdir, stat } from "node:fs/promises";
+import { mkdir, stat, writeFile } from "node:fs/promises";
 import { join } from "node:path";
-import { Readable } from "node:stream";
-import { finished } from "node:stream/promises";
-import type { ReadableStream } from "node:stream/web";
 import PQueue from "p-queue";
+import sharp from "sharp";
 import data from "../src/data/data.json" with { type: "json" };
+
+// The largest an icon is normally shown is 48px,
+// and high-end devices have a pixel ratio of 3.
+const RESIZE_WIDTH = 48 * 3;
 
 console.log("Fetching page");
 const pageRequest = await fetch("https://botc.app");
@@ -40,7 +42,7 @@ for (const match of iconMatches) {
   originalFilenamesById[match[2]] = match[1];
 }
 
-const iconsToFetch: Record<string, string[]> = {};
+const iconsToFetch: Record<string, string> = {};
 for (const role of data.roles) {
   if (role.edition === "special") {
     continue;
@@ -48,41 +50,33 @@ for (const role of data.roles) {
 
   switch (role.team) {
     case "traveller":
-      iconsToFetch[role.id] = [role.id, `${role.id}_g`, `${role.id}_e`];
+      iconsToFetch[role.id] = role.id;
       break;
     case "townsfolk":
     case "outsider":
-      iconsToFetch[role.id] = [`${role.id}_g`, `${role.id}_e`];
+      iconsToFetch[role.id] = `${role.id}_g`;
       break;
     case "minion":
     case "demon":
-      iconsToFetch[role.id] = [`${role.id}_e`, `${role.id}_g`];
+      iconsToFetch[role.id] = `${role.id}_e`;
       break;
     default:
   }
 }
 for (const role of data.fabled) {
-  iconsToFetch[role.id] = [role.id];
+  iconsToFetch[role.id] = role.id;
 }
 
 originalFilenamesById.minioninfo = originalFilenamesById["minion-info"];
 originalFilenamesById.demoninfo = originalFilenamesById["demon-info"];
-iconsToFetch.special = [
-  "minioninfo",
-  "demoninfo",
-  "townsfolk_g",
-  "townsfolk_e",
-  "outsider_g",
-  "outsider_e",
-  "minion_g",
-  "minion_e",
-  "demon_g",
-  "demon_e",
-  "traveller",
-  "traveller_g",
-  "traveller_e",
-  "fabled",
-];
+iconsToFetch.townsfolk = "townsfolk_g";
+iconsToFetch.outsider = "outsider_g";
+iconsToFetch.minion = "minion_e";
+iconsToFetch.demon = "demon_e";
+iconsToFetch.traveller = "traveller";
+iconsToFetch.fabled = "fabled";
+iconsToFetch.demoninfo = "demoninfo";
+iconsToFetch.minioninfo = "minioninfo";
 
 await mkdir("src/generated/character-icons", { recursive: true });
 
@@ -91,8 +85,15 @@ async function saveIcon(url: string, filename: string) {
 
   const res = await fetch(url);
   const destination = join("src/generated/character-icons", filename);
-  const fileStream = createWriteStream(destination, { flags: "w" });
-  await finished(Readable.fromWeb(res.body as ReadableStream).pipe(fileStream));
+
+  const inputBuffer = await res.arrayBuffer();
+
+  console.log(`Resizing ${filename}...`);
+  const sharpInstance = sharp(inputBuffer);
+  sharpInstance.resize(RESIZE_WIDTH);
+  const output = await sharpInstance.webp().toBuffer();
+
+  await writeFile(destination, output);
 
   console.log(`Saved ${filename}`);
 }
@@ -104,18 +105,20 @@ const requestQueue = new PQueue({
   interval: 1000,
   intervalCap: 6,
 });
-async function processIcon(id: string) {
-  const filename = `${id}.webp`;
+async function processIcon(characterId: string, originalFileName: string) {
+  const filename = `${characterId}-${RESIZE_WIDTH}.webp`;
 
-  importLines.push(`export { default as ${id} } from './${filename}';\n`);
+  importLines.push(
+    `export { default as ${characterId} } from './${filename}?no-inline';\n`,
+  );
 
   try {
     await stat(join("src/generated/character-icons", filename));
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (err) {
-    const urlPath = originalFilenamesById[id];
+    const urlPath = originalFilenamesById[originalFileName];
     if (urlPath === undefined) {
-      console.warn(`No icon known for ${id}`);
+      console.warn(`No icon known for ${originalFileName}`);
       return;
     }
 
@@ -125,10 +128,11 @@ async function processIcon(id: string) {
 }
 
 const queue = new PQueue({ concurrency: 5 });
-Object.values(iconsToFetch)
-  .flatMap((ids) => ids)
-  .sort()
-  .forEach((id) => queue.add(() => processIcon(id)));
+Object.entries(iconsToFetch)
+  .sort((a, b) => a[0].localeCompare(b[0]))
+  .forEach(([id, originalFileName]) =>
+    queue.add(() => processIcon(id, originalFileName)),
+  );
 
 await queue.onIdle();
 await requestQueue.onIdle();
