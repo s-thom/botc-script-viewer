@@ -63,7 +63,6 @@
     &[tabindex="0"] {
       border-color: var(--color-control-border-hover);
       background-color: var(--color-control-background-active);
-      color: #282828;
 
       &:active {
         border-color: var(--color-control-border-active);
