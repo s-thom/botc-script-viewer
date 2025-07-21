@@ -3,6 +3,7 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
+    "setup": "node --experimental-strip-types setup/generate-script-schema.ts && node --experimental-strip-types setup/download-role-icons.ts && node --experimental-strip-types setup/generate-edition-scripts.ts",
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
@@ -29,6 +30,7 @@
     "eslint-plugin-react-refresh": "^0.4.20",
     "globals": "^16.3.0",
     "json-schema-to-typescript": "^15.0.4",
+    "p-queue": "^8.1.0",
     "prettier": "^3.6.2",
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-organize-imports": "^4.1.0",
