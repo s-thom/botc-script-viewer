@@ -1,0 +1,59 @@
+[
+  {
+    "id": "_meta",
+    "author": "JC",
+    "name": "This Is Not My Beautiful House",
+    "almanac": "https://beardytas.com/garden-of-djinn/this-is-not-my-beautiful-house/",
+    "logo": "https://release.botc.app/wc25/beautifulhouse/logo.webp",
+    "background": "https://release.botc.app/wc25/background.webp",
+    "hideTitle": true,
+    "bootlegger": [
+      "The Amnesiac is considered an Outsider character type."
+    ]
+  },
+  "grandmother",
+  "shugenja",
+  "empath",
+  "sailor",
+  "balloonist",
+  "mathematician",
+  "towncrier",
+  "monk",
+  "gambler",
+  "exorcist",
+  "gossip",
+  "ravenkeeper",
+  "pacifist",
+  {
+    "id": "beautifulhouse-amnesiac",
+    "name": "Amnesiac",
+    "team": "outsider",
+    "image": [
+      "https://release.botc.app/wc25/beautifulhouse/amnesiac_g.webp",
+      "https://release.botc.app/wc25/beautifulhouse/amnesiac_e.webp"
+    ],
+    "firstNight": 45,
+    "firstNightReminder": "Run the Amnesiac's ability, if applicable.",
+    "otherNight": 63,
+    "otherNightReminder": "Run the Amnesiac's ability, if applicable.",
+    "reminders": [
+      "?",
+      "?",
+      "?"
+    ],
+    "setup": false,
+    "ability": "You do not know what your ability is. Each day, privately guess what it is: you learn how accurate you are.",
+    "flavor": "Wait. What. Who? Oh, ok. Wait. What?"
+  },
+  "tinker",
+  "recluse",
+  "puzzlemaster",
+  "godfather",
+  "poisoner",
+  "devilsadvocate",
+  "marionette",
+  "yaggababble",
+  "pukka",
+  "imp",
+  "vigormortis"
+]

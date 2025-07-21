@@ -1,0 +1,350 @@
+[
+{
+	"id":"_meta",
+	"author":"Patrick and Josie",
+	"name": "Muppets on a Clocktower v1.0",
+	"background": "https://i.imgur.com/ZUuFN0R.png",
+	"firstNight": ["dusk", "minioninfo", "demoninfo", "bunsenhoneydew", "rowlfthedog", "pepetheprawn", "samtheeagle", "dawn"],
+	"otherNight": ["dusk", "thegreatgonzo", "rizzotherat", "animal", "crazyharry", "constantine", "misspiggy", "waldorf", "statler", "uncledeadly", "drteeth", "longjohnsilver", "kermitthefrog", "samtheeagle", "camillathechicken", "sweetums", "fozziebear", "beaker", "swedishchef", "dawn"]
+},
+{
+    "id": "nonverbal",
+    "name": "Non-Verbal",
+    "image": "https://i.imgur.com/mqPBISO.png",
+	"edition": "Muppets",
+    "team": "fabled",
+    "ability": "Communicating without real words. Gestures, noises, and pointing (and names when online) all count as non-verbal."
+  },
+{
+    "id": "manormuppet",
+    "name": "Am I Man or Muppet?",
+	"image": "https://i.imgur.com/YuZqpPt.png",
+	"edition": "Muppets",
+    "team": "fabled",
+    "ability": "If a Townsfolk is turned into a Human they are not told of the change. If a Human is turned into a Townsfolk they are not told and become the Townsfolk they believe themselves to be."
+  },
+{
+		"id": "bunsenhoneydew",
+		"name": "Bunsen Honeydew",
+		"edition": "Muppets",
+		"team": "townsfolk",
+		"ability": "You start knowing how many characters there are in play who can create humans.",
+		"image": [
+		"https://i.imgur.com/EO3fw6z.png",
+		"https://i.imgur.com/FSP9m2i.png"
+		],
+		"firstNightReminder": "Give a finger signal"
+},
+{
+		"id": "rowlfthedog",
+		"name": "Rowlf the Dog",
+		"edition": "Muppets",
+		"team": "townsfolk",
+		"ability": "You start knowing 2 players who are not townsfolk.",
+		"image": [
+		"https://i.imgur.com/NehpqMd.png",
+		"https://i.imgur.com/RVQese6.png"
+		],
+		"reminders": ["Not Townsfolk","Not Townsfolk"],
+		"firstNightReminder": "Point to two players who are not townsfolk"
+},
+{
+		"id": "pepetheprawn",
+		"name": "Pepe the Prawn",
+		"edition": "Muppets",
+		"team": "townsfolk",
+		"ability": "You start knowing which demon is in play.",
+		"image": [
+		"https://i.imgur.com/OOSGvVN.png",
+		"https://i.imgur.com/Iv9lhXU.png"
+		],
+		"firstNightReminder": "Show the Demon character token."
+},
+{
+		"id": "samtheeagle",
+		"name": "Sam the Eagle",
+		"edition": "Muppets",
+		"team": "townsfolk",
+		"ability": "Each night you learn how many steps a living evil is from you. [+1 Human]",
+		"image": [
+		"https://i.imgur.com/sQTTnkY.png",
+		"https://i.imgur.com/tkPKDG9.png"
+		],
+		"setup": true,
+		"firstNightReminder": "Give a finger signal",
+		"otherNightReminder": "Give a finger signal"
+},
+{
+		"id": "kermitthefrog",
+		"name": "Kermit the Frog",
+		"edition": "Muppets",
+		"team": "townsfolk",
+		"ability": "Each night*, choose a player (not yourself): if they are a human they become a townsfolk.",
+		"image": [
+		"https://i.imgur.com/gIAmv2r.png",
+		"https://i.imgur.com/5MeFyfo.png"
+		],
+		"otherNightReminder": "If Kermit selected a human, remove the human reminder token. If Miss Piggy is in play instead add a human reminder token"
+},
+{
+		"id": "camillathechicken",
+		"name": "Camilla the Chicken",
+		"edition": "Muppets",
+		"team": "townsfolk",
+		"ability": "Each night*, if a player died by execution today: you learn a player of their alignment.",
+		"image": [
+		"https://i.imgur.com/pNMedq0.png",
+		"https://i.imgur.com/aWb2ZlT.png"
+		],
+		"reminders": ["Executed Today"],
+		"otherNightReminder": "Show a player"
+},
+{
+		"id": "sweetums",
+		"name": "Sweetums",
+		"edition": "Muppets",
+		"team": "townsfolk",
+		"ability": "Each night*, you learn how many evil players voted.",
+		"image": [
+		"https://i.imgur.com/F25gps8.png",
+		"https://i.imgur.com/Md3Q5Fb.png"
+		],
+		"reminders": ["Voted","Voted","Voted","Voted","Voted"],
+		"otherNightReminder": "Give a finger signal"
+},
+{
+		"id": "swedishchef",
+		"name": "Swedish Chef",
+		"edition": "Muppets",
+		"team": "townsfolk",
+		"ability": "Each night*, you learn if there are more or less humans than last night. If you were non-verbal on the 1st day, you instead learn how many humans are in play.",
+		"image": [
+		"https://i.imgur.com/oq87pjt.png",
+		"https://i.imgur.com/Xo3Jf0l.png"
+		],
+		"reminders": ["Non-verbal"],
+		"otherNightReminder": "Give a finger signal (up, down, or number)"
+},
+{
+		"id": "thegreatgonzo",
+		"name": "The Great Gonzo",
+		"edition": "Muppets",
+		"team": "townsfolk",
+		"ability": "Each night*, you may choose a player: if you choose a minion they die, if you choose a townsfolk you die.",
+		"image": [
+		"https://i.imgur.com/9AQRPit.png",
+		"https://i.imgur.com/83mzREx.png"
+		],
+		"reminders": ["Died tonight"],
+		"otherNightReminder": "Gonzo chooses a player."
+},
+{
+		"id": "rizzotherat",
+		"name": "Rizzo the Rat",
+		"edition": "Muppets",
+		"team": "townsfolk",
+		"ability": "Each night*, choose a player: if they are killed by the demon tonight, you learn an alive character.",
+		"image": [
+		"https://i.imgur.com/aDPPEH6.png",
+		"https://i.imgur.com/6hawUZ9.png"
+		],
+		"reminders": ["Chosen"],
+		"otherNightReminder": "Rizzo chooses a player. Wake them again if that player dies tonight."
+},
+{
+		"id": "fozziebear",
+		"name": "Fozzie Bear",
+		"edition": "Muppets",
+		"team": "townsfolk",
+		"ability": "Each day, you may make a public joke. Waka waka. Tonight, you learn if it was true.",
+		"image": [
+		"https://i.imgur.com/4oxiSBf.png",
+		"https://i.imgur.com/50VhsDj.png"
+		],
+		"reminders": ["True"],
+		"otherNightReminder": "Nod if a *True* reminder was placed today."
+},
+{
+		"id": "drteeth",
+		"name": "Dr. Teeth",
+		"edition": "Muppets",
+		"team": "townsfolk",
+		"ability": "If you are killed by the demon, a human becomes a townsfolk, you learn who.",
+		"image": [
+		"https://i.imgur.com/bn8msWB.png",
+		"https://i.imgur.com/rb2lnfG.png"
+		],
+		"otherNightReminder": "If Dr. Teeth was killed by the demon tonight, remove the human reminder token from a player, show them the player."
+},
+{
+		"id": "beaker",
+		"name": "Beaker",
+		"edition": "Muppets",
+		"team": "townsfolk",
+		"ability": "If you were non-verbal on the 1st day, that night you learn the characters of players who were nonverbal (up to 4) +1 character which is not in play.",
+		"image": [
+		"https://i.imgur.com/l4RDsZj.png",
+		"https://i.imgur.com/eDVdf9L.jpg"
+		],
+		"reminders": ["Non-verbal", "Non-verbal", "Non-verbal", "Non-verbal", "Non-verbal", "Non-verbal", "Non-verbal", "Non-verbal", "Non-verbal", "Non-verbal", "Non-verbal", "Non-verbal", "Non-verbal", "Non-verbal", "Non-verbal"],
+		"firstNightReminder": "Show up to 5 character tokens"
+},
+{
+		"id": "longjohnsilver",
+		"name": "Long John Silver",
+		"edition": "Muppets",
+		"team": "outsider",
+		"ability": "Each night*, one player who voted on you that day might die, even if you are dead.",
+		"image": [
+		"https://i.imgur.com/zY2WleC.png",
+		"https://i.imgur.com/eBAR8sD.png"
+		],
+		"reminders": ["Voted", "Voted", "Voted", "Voted", "Voted", "Voted", "Voted", "Voted", "Voted", "Voted", "Voted", "Voted", "Voted", "Voted", "Voted", "Died tonight"]
+},
+{
+		"id": "scrooge",
+		"name": "Scrooge",
+		"edition": "Muppets",
+		"team": "outsider",
+		"ability": "At night, if a player chooses another player, they might target you instead.",
+		"image": [
+		"https://i.imgur.com/NFVgT7B.png",
+		"https://i.imgur.com/BXY00gL.png"
+		],
+		"reminders": ["Scrooged"]
+},
+{
+		"id": "cameraman",
+		"name": "Cameraman",
+		"edition": "Muppets",
+		"team": "outsider",
+		"ability": "If you commmunicate verbally on the 1st day, a townsfolk might become Human immediately.",
+		"image": [
+		"https://i.imgur.com/IMiEylx.png",
+		"https://i.imgur.com/0Q0MeHF.png"
+		]
+},
+{
+		"id": "human",
+		"name": "Human",
+		"edition": "Muppets",
+		"team": "outsider",
+		"ability": "You do not know you are a Human. You think you are a Townsfolk character, but you are not.",
+		"image": [
+		"https://i.imgur.com/pgQoiHP.png",
+		"https://i.imgur.com/uTVG8UZ.png"
+		],
+		"remindersGlobal": ["Human", "Human", "Human", "Human", "Human", "Human", "Human", "Human", "Human", "Human", "Human", "Human", "Human", "Human", "Human"],
+		"otherNightReminder": "Treat them as if they were the character they think they are, but human.",
+		"special": [{"type": "reveal", "name": "replace-character"}, {"type": "selection", "name": "bag-disabled"}]
+},
+{
+		"id": "crazyharry",
+		"name": "Crazy Harry",
+		"edition": "Muppets",
+		"team": "minion",
+		"ability": "Each night*, choose a player, the first outsider you choose becomes evil. [+1 outsider]",
+		"image": [
+		"https://i.imgur.com/LLoDoIu.png",
+		"https://i.imgur.com/AP787MW.png"
+		],
+		"reminders": ["Turns Evil"],
+		"otherNightReminder": "Crazy Harry selects a player.",
+		"setup": true
+},
+{
+		"id": "scooter",
+		"name": "Scooter",
+		"edition": "Muppets",
+		"team": "minion",
+		"ability": "Once per day you may choose to take one player off the block. If just 3 players live you lose this ability.",
+		"image": [
+		"https://i.imgur.com/tbIKSDk.png",
+		"https://i.imgur.com/h1WMaCn.png"
+		],
+		"reminders": ["Used today", "No ability"]
+},
+{
+		"id": "constantine",
+		"name": "Constantine",
+		"edition": "Muppets",
+		"team": "minion",
+		"ability": "Each night* you may choose 2 players (not the demon), they swap characters, abilities do not refresh. You might register as good, and as Kermit, even if dead.",
+		"image": [
+		"https://i.imgur.com/0sZtiAb.png",
+		"https://i.imgur.com/frw5qvp.png"
+		],
+		"otherNightReminder": "Constanine selects two players (not the demon)."
+},
+{
+		"id": "animal",
+		"name": "Animal",
+		"edition": "Muppets",
+		"team": "minion",
+		"ability": "Once per game at night*, choose a player: they die, if you were nonverbal on the 1st day, 1 of their Townsfolk neighbours becomes Human.",
+		"image": [
+		"https://i.imgur.com/rmdkVtH.png",
+		"https://imgur.com/CgZ4nMe.png"
+		],
+		"reminders": ["Non-verbal", "Died tonight"],
+		"otherNightReminder": "Does Animal want to use it? If yes, Animal chooses a player."
+},
+{
+		"id": "misspiggy",
+		"name": "Miss Piggy",
+		"edition": "Muppets",
+		"team": "demon",
+		"ability": "Each night*, choose a player: they die. Townsfolk chosen by Kermit the Frog might become Humans instead. [+ Kermit the Frog]",
+		"image": [
+		"https://i.imgur.com/ouBIjmM.png",
+		"https://i.imgur.com/voTG6vE.png"
+		],
+		"setup": true,
+		"reminders": ["Died tonight", "Corrupted"],
+		"otherNightReminder": "Miss Piggy chooses a player"
+},
+{
+		"id": "uncledeadly",
+		"name": "Uncle Deadly",
+		"edition": "Muppets",
+		"team": "demon",
+		"ability": "Each night*, choose a player: they die. Townsfolk who nominate you become Human.",
+		"image": [
+		"https://i.imgur.com/0CWUaZg.png",
+		"https://i.imgur.com/eR7zFq4.png"
+		],
+		"reminders": ["Died tonight"],
+		"otherNightReminder": "Uncle Deadly chooses a player."
+},
+{
+		"id": "statler",
+		"name": "Statler",
+		"edition": "Muppets",
+		"team": "demon",
+		"ability": "Each night*, wake with Waldorf, together choose one player: they die.[+ Waldorf, -1 minion]",
+		"image": [
+		"https://i.imgur.com/LYA0dQK.png",
+		"https://i.imgur.com/jkpvQTz.png"
+		],
+		"setup": true,
+		"reminders": ["Died tonight"],
+		"otherNightReminder": "Wake with Waldorf: choose a player.",
+                "special": [{"type": "ability", "name": "pointing", "time": "night", "global": "demon"}]
+},
+{
+		"id": "waldorf",
+		"name": "Waldorf",
+		"edition": "Muppets",
+		"team": "demon",
+		"ability": "Each night*, wake with Statler, together choose one player: they die.[+ Statler]",
+		"image": [
+		"https://i.imgur.com/x0RyFLt.png",
+		"https://i.imgur.com/GtcDrFJ.png"
+		],
+		"setup": true,
+		"reminders": ["Died tonight"],
+		"otherNightReminder": "Wake with Statler: choose a player.",
+                "special": [{"type": "ability", "name": "pointing", "time": "night", "global": "demon"}]
+},
+	"bootlegger"
+]

@@ -1,0 +1,43 @@
+[
+  {
+    "id": "_meta",
+    "author": "Hystrex",
+    "name": "Binary Supernovae",
+    "almanac": "https://beardytas.com/garden-of-djinn/binary-supernovae/",
+    "logo": "https://release.botc.app/wc25/binarysupernovae/logo.webp",
+    "background": "https://release.botc.app/wc25/background.webp",
+    "hideTitle": true,
+    "bootlegger": [
+      "If a Demon dies by execution, good wins. Summoner only removes 1 Demon. [+1 Demon]"
+    ]
+  },
+  "chef",
+  "empath",
+  "chambermaid",
+  "mathematician",
+  "fortuneteller",
+  "oracle",
+  "innkeeper",
+  "gambler",
+  "exorcist",
+  "philosopher",
+  "soldier",
+  "fool",
+  "magician",
+  "butler",
+  "tinker",
+  "golem",
+  "moonchild",
+  "godfather",
+  "assassin",
+  "summoner",
+  "mastermind",
+  "imp",
+  "pukka",
+  "ojo",
+  "beggar",
+  "deviant",
+  "matron",
+  "apprentice",
+  "scapegoat"
+]

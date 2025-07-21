@@ -1,0 +1,63 @@
+[
+  {
+    "id": "_meta",
+    "name": "The Djinn's Bargain",
+    "author": "phillyCHEEEEEZ",
+    "almanac": "https://beardytas.com/garden-of-djinn/the-djinns-bargain/",
+    "logo": "https://release.botc.app/wc25/djinnsbargain/logo.webp",
+    "background": "https://release.botc.app/wc25/background.webp",
+    "hideTitle": true,
+    "bootlegger": [
+      "Nominators may choose to die after making a nomination. If they do, their nominee's ability works twice until dusk tomorrow."
+    ]
+  },
+  {
+    "id": "djinnsbargain-djinnsbargain",
+    "firstNightReminder": "",
+    "otherNightReminder": "",
+    "reminders": [
+      "Acts Twice",
+      "Acts Twice",
+      "Acts Twice",
+      "Acts Twice",
+      "Acts Twice",
+      "Acts Twice",
+      "Acts Twice",
+      "Acts Twice"
+    ],
+    "setup": false,
+    "name": "Djinn's Bargain",
+    "team": "fabled",
+    "ability": "Nominators may choose to die after making a nomination. If they do, their nominee's ability works twice until dusk tomorrow."
+  },
+  "chef",
+  "investigator",
+  "librarian",
+  "dreamer",
+  "fortuneteller",
+  "oracle",
+  "innkeeper",
+  "exorcist",
+  "seamstress",
+  "slayer",
+  "fisherman",
+  "ravenkeeper",
+  "mayor",
+  "drunk",
+  "plaguedoctor",
+  "hatter",
+  "politician",
+  "witch",
+  "assassin",
+  "scarletwoman",
+  "baron",
+  "nodashii",
+  "imp",
+  "vortox",
+  "butcher",
+  "bonecollector",
+  "judge",
+  "apprentice",
+  "scapegoat",
+  "djinn"
+]

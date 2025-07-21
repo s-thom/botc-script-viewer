@@ -1,0 +1,39 @@
+[
+  {
+    "id": "_meta",
+    "author": "Zets",
+    "name": "The Warrens",
+    "almanac": "https://beardytas.com/garden-of-djinn/the-warrens/",
+    "logo": "https://release.botc.app/wc25/warrens/logo.webp",
+    "background": "https://release.botc.app/wc25/background.webp",
+    "hideTitle": true,
+    "bootlegger": [
+      "If 5 or more players live, evil players who nominate other living evil players (not Travellers) immediately swap characters."
+    ]
+  },
+  "shugenja",
+  "pixie",
+  "balloonist",
+  "preacher",
+  "fortuneteller",
+  "towncrier",
+  "undertaker",
+  "savant",
+  "artist",
+  "juggler",
+  "amnesiac",
+  "ravenkeeper",
+  "mayor",
+  "butler",
+  "plaguedoctor",
+  "saint",
+  "mutant",
+  "puzzlemaster",
+  "cerenovus",
+  "assassin",
+  "widow",
+  "goblin",
+  "nodashii",
+  "kazali",
+  "fanggu"
+]

@@ -1,0 +1,188 @@
+.HomePage {
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.HomeTitle {
+  text-align: center;
+}
+
+.HomeContent {
+  max-width: 30rem;
+  margin: 2rem auto;
+}
+
+.InfoText {
+  margin: 0.5em;
+}
+
+.HomeFooter {
+  opacity: 0.7;
+  font-size: 0.9rem;
+  margin-block-start: 2rem;
+
+  a {
+    color: inherit;
+  }
+}
+
+.BigPageContent {
+  margin: 2rem auto;
+  text-align: center;
+}
+
+.BigPageImage {
+  display: inline;
+  width: 144px;
+  animation: SlowRotate 40s linear infinite;
+}
+
+@keyframes SlowRotate {
+  0% {
+    rotate: 0;
+  }
+  100% {
+    rotate: 360deg;
+  }
+}
+
+.Form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 1rem;
+}
+
+.Field {
+  display: flex;
+  flex-direction: column;
+}
+
+.Input {
+  background-color: var(--color-background);
+  border: 2px solid var(--color-control-border-active);
+  color: var(--color-text);
+  padding: 0.5rem;
+  border-radius: 15px;
+
+  &:is(textarea) {
+    resize: vertical;
+  }
+
+  &:disabled {
+    filter: grayscale();
+  }
+
+  &:hover {
+    border-color: var(--color-control-border-hover);
+  }
+
+  &:active {
+    border-color: var(--color-control-border-active);
+  }
+}
+
+.Button {
+  background-color: var(--color-control-background);
+  border: 2px solid var(--color-control-border-active);
+  color: var(--color-text);
+  padding: 0.5rem;
+  border-radius: 100vw;
+
+  &:disabled {
+    filter: grayscale();
+  }
+
+  &:hover {
+    background-color: var(--color-control-background-active);
+    border-color: var(--color-control-border-hover);
+  }
+
+  &:active {
+    background-color: var(--color-control-background-active);
+    border-color: var(--color-control-border-active);
+  }
+}
+
+.Menubar {
+  background-color: var(--color-control-background);
+  box-shadow: inset 0 0 0 2px var(--color-control-border-active);
+  color: var(--color-control-text);
+  border-radius: 25px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.MenuTrigger {
+  background-color: var(--color-control-background);
+  color: var(--color-text);
+  padding: 0.5rem;
+  border-radius: 25px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+
+  &:hover:not([data-pressed]) {
+    background-color: var(--color-control-background-active);
+    border-color: var(--color-control-border-hover);
+  }
+  &[data-pressed] {
+    background-color: var(--color-control-background-active);
+    border-color: var(--color-control-border-active);
+  }
+}
+
+.MenuPopup {
+  border-radius: 15px;
+  background-color: var(--color-control-background);
+  border: 2px solid var(--color-control-border-active);
+  box-shadow: var(--box-shadow);
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+
+  .menu-arrow {
+    position: absolute;
+    /* TODO: */
+  }
+
+  .menu-separator {
+    height: 1px;
+    background-color: #949494;
+    margin: 0.5rem 0;
+  }
+
+  .MenuItem {
+    padding: 0.2rem 0.4rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 2px solid transparent;
+
+    &:is(a) {
+      color: var(--color-text);
+      text-decoration: none;
+    }
+
+    &[tabindex="0"] {
+      border-color: var(--color-control-border-hover);
+      background-color: var(--color-control-background-active);
+
+      &:active {
+        border-color: var(--color-control-border-active);
+      }
+    }
+
+    &[data-disabled] {
+      opacity: 0.5;
+    }
+  }
+}
+
+.MenuInlineIcon {
+  width: 2em;
+  height: 2em;
+  display: inline;
+}

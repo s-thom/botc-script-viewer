@@ -1,4 +1,6 @@
 ---
+import { CustomScriptForm } from "../components/react/CustomScriptForm";
+import { HostedScriptsMenu } from "../components/react/HostedScriptsMenu";
 import CenteredLayout from "../layouts/CenteredLayout.astro";
 ---
 
@@ -12,8 +14,8 @@ import CenteredLayout from "../layouts/CenteredLayout.astro";
       Blood on the Clocktower
     </a> in your browser.
   </p>
-  <!-- <HostedScriptsMenu />
-        <CustomScriptForm /> -->
+  <HostedScriptsMenu client:idle />
+  <CustomScriptForm client:idle />
   <footer class="footer">
     <p>
       This website is not affiliated with The Pandemonium Institute. Character

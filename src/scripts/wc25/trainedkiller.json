@@ -1,0 +1,39 @@
+[
+  {
+    "id": "_meta",
+    "author": "Ekin",
+    "name": "Trained Killer",
+    "almanac": "https://beardytas.com/garden-of-djinn/trained-killer/",
+    "logo": "https://release.botc.app/wc25/trainedkiller/logo.webp",
+    "background": "https://release.botc.app/wc25/background.webp",
+    "hideTitle": true,
+    "bootlegger": [
+      "Each night*, the Demon attacks the next living in-play character(s) in script order. Characters who survive might get reattacked."
+    ]
+  },
+  "mayor",
+  "villageidiot",
+  "artist",
+  "lycanthrope",
+  "ravenkeeper",
+  "monk",
+  "fortuneteller",
+  "seamstress",
+  "pixie",
+  "steward",
+  "king",
+  "choirboy",
+  "amnesiac",
+  "snitch",
+  "recluse",
+  "mutant",
+  "drunk",
+  "poisoner",
+  "spy",
+  "harpy",
+  "cerenovus",
+  "godfather",
+  "boffin",
+  "yaggababble",
+  "lilmonsta"
+]
