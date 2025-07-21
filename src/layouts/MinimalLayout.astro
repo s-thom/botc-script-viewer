@@ -1,0 +1,42 @@
+---
+import type { PageMeta } from "../types/site";
+import "../css/index.css";
+
+export interface Props {
+  meta: PageMeta;
+}
+
+const { meta } = Astro.props;
+const { title = "BotC Script Viewer", description } = meta;
+---
+
+<!doctype html>
+<html lang="en" prefix="og: https://ogp.me/ns#">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:site_name"
+      content="Blood on the Clocktower Script Viewer"
+    />
+    <title>{title}</title>
+    <meta property="og:title" content={title} />
+    <meta name="twitter:title" content={title} />
+    {
+      description && (
+        <>
+          <meta name="description" content={description} />
+          <meta property="og:description" content={description} />
+          <meta name="twitter:description" content={description} />
+        </>
+      )
+    }
+    <link rel="icon" href="/favicon.png" />
+
+    <slot name="head" />
+  </head>
+  <body id="top">
+    <slot />
+  </body>
+</html>

@@ -1,0 +1,34 @@
+---
+import type { PageMeta } from "../types/site";
+import MinimalLayout from "./MinimalLayout.astro";
+
+export interface Props {
+  meta: PageMeta;
+  heading: string;
+}
+
+const { meta, heading } = Astro.props;
+---
+
+<MinimalLayout meta={meta}>
+  <div class="container">
+    <h1 class="heading">{heading}</h1>
+    <slot />
+  </div>
+</MinimalLayout>
+
+<style>
+  .container {
+    margin: 0 auto;
+    max-width: 30rem;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .heading {
+    text-align: center;
+    margin: 2rem;
+  }
+</style>

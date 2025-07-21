@@ -1,0 +1,186 @@
+/* #region Reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -moz-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul {
+  margin-block: 0;
+}
+
+body {
+  min-height: 100vh;
+  line-height: 1.5;
+}
+
+h1,
+h2,
+h3,
+h4,
+button,
+input,
+label {
+  line-height: 1.1;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  text-wrap: balance;
+  font-weight: 400;
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+h2 {
+  font-size: 1.8rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+h4 {
+  font-size: 1.3rem;
+}
+
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+input,
+button,
+textarea,
+select {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+textarea:not([rows]) {
+  min-height: 10em;
+}
+
+:target {
+  scroll-margin-block: 5ex;
+}
+/* #endregion */
+
+:root {
+  --token-size: 64px;
+  --font-body: "Sorts Mill Goudy", Georgia, "Times New Roman", serif;
+  --font-title:
+    Dumbledor, "Sorts Mill Goudy", Georgia, "Times New Roman", serif;
+
+  --border-radius: 0.5rem;
+
+  --color-background: #e6e3da;
+  --color-text: #282828;
+  --color-control-background: #dcd3bf;
+  --color-control-background-active: var(--color-background);
+  --color-control-border-hover: #d8cdb4;
+  --color-control-border-active: #d0c3ab;
+
+  --box-shadow:
+    0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+
+  font-family: var(--font-body);
+}
+
+@media print {
+  :root {
+    --color-background: #ffffff;
+    --color-text: #000000;
+    --color-control-background: #d4d4d4;
+    --color-control-background-active: var(--color-background);
+    --color-control-border-hover: #cecece;
+    --color-control-border-active: #c4c4c4;
+  }
+}
+
+@font-face {
+  font-family: "Dumbledor";
+  font-style: normal;
+  font-weight: 400;
+  src: url("/fonts/Dumbledor-Regular.woff2");
+  font-display: swap;
+}
+@font-face {
+  font-family: "Dumbledor";
+  font-style: italic;
+  font-weight: 400;
+  src: url("/fonts/Dumbledor-Italic.woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Sorts Mill Goudy";
+  font-style: normal;
+  font-weight: 400;
+  src: url("/fonts/SortsMillGoudy-Regular.woff2");
+  font-display: swap;
+}
+@font-face {
+  font-family: "Sorts Mill Goudy";
+  font-style: italic;
+  font-weight: 400;
+  src: url("/fonts/SortsMillGoudy-Italic.woff2");
+  font-display: swap;
+}
+
+.visually-hidden:not(:focus):not(:active) {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.root {
+  isolation: isolate;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-background);
+  color: var(--color-text);
+}
+
+a {
+  color: inherit;
+}
+
+@media print {
+  :root {
+    font-size: 11px;
+  }
+
+  .screen-only {
+    display: none !important;
+  }
+}
+
+.footer {
+  opacity: 0.7;
+  font-size: 0.9rem;
+  margin-block-start: 2rem;
+}
