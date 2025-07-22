@@ -1,0 +1,47 @@
+---
+import type { ScriptCharacter } from "../../generated/script-schema";
+import CharacterListItem from "./CharacterListItem.astro";
+
+export interface Props {
+  characters: ScriptCharacter[];
+  class?: string;
+}
+
+const { characters, class: className } = Astro.props;
+---
+
+<ul class:list={["character-list", className]}>
+  {
+    characters.map((character) => (
+      <li class={"character-list-item"}>
+        <CharacterListItem
+          character={character}
+          title={character.name}
+          description={character.ability}
+        />
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .character-list {
+    list-style: none;
+    padding-inline-start: 0;
+    margin-block: 1rem;
+    columns: 24rem;
+    column-gap: 1rem;
+  }
+
+  .character-list-item {
+    break-inside: avoid-column;
+
+    &:not(:first-child) {
+      margin-block-start: 1rem;
+    }
+
+    &:not(:last-child) {
+      margin-block-end: 1rem;
+    }
+  }
+</style>

@@ -1,0 +1,53 @@
+---
+import type { NightInfo } from "../../types/botc";
+import CharacterListItem from "./CharacterListItem.astro";
+
+export interface Props {
+  info: NightInfo[];
+  class?: string;
+}
+
+const { info, class: className } = Astro.props;
+---
+
+<ul class:list={["night-order-list", className]}>
+  {
+    info.map((rule) => (
+      <li class={"night-order-list-item"}>
+        {rule.type === "character" ? (
+          <CharacterListItem
+            character={rule.character}
+            title={rule.character.name}
+            description={rule.reminderText}
+          />
+        ) : (
+          <CharacterListItem
+            character={null}
+            title={rule.name}
+            description={rule.reminderText}
+          />
+        )}
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .night-order-list {
+    list-style: none;
+    padding-inline-start: 0;
+    margin-block: 1rem;
+  }
+
+  .night-order-list-item {
+    break-inside: avoid-column;
+
+    &:not(:first-child) {
+      margin-block-start: 1rem;
+    }
+
+    &:not(:last-child) {
+      margin-block-end: 1rem;
+    }
+  }
+</style>

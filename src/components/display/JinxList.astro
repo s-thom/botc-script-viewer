@@ -1,0 +1,47 @@
+---
+import type { JinxInfo } from "../../types/botc";
+import CharacterListItem from "./CharacterListItem.astro";
+
+export interface Props {
+  jinxes: JinxInfo[];
+  class?: string;
+}
+
+const { jinxes, class: className } = Astro.props;
+---
+
+<ul class:list={["jinx-list", className]}>
+  {
+    jinxes.map((jinx) => (
+      <li class="jinx-list-item">
+        <CharacterListItem
+          character={jinx.character1}
+          character2={jinx.character2}
+          description={jinx.reason}
+        />
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .jinx-list {
+    list-style: none;
+    padding-inline-start: 0;
+    margin-block: 1rem;
+    columns: 24rem;
+    column-gap: 1rem;
+  }
+
+  .jinx-list-item {
+    break-inside: avoid-column;
+
+    &:not(:first-child) {
+      margin-block-start: 1rem;
+    }
+
+    &:not(:last-child) {
+      margin-block-end: 1rem;
+    }
+  }
+</style>

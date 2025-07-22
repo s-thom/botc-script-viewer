@@ -1,0 +1,206 @@
+---
+import { URL } from "url";
+import type { NormalisedScript } from "../../types/botc";
+import BootleggerList from "./BootleggerList.astro";
+import CharacterIcon from "./CharacterIcon.astro";
+import CharacterList from "./CharacterList.astro";
+import JinxList from "./JinxList.astro";
+import NightOrderList from "./NightOrderList.astro";
+
+export interface Props {
+  script: NormalisedScript;
+}
+
+const { script } = Astro.props;
+
+const downloadPath = new URL(`${Astro.url.pathname}/json`, Astro.url);
+const downloadFilename = `${(script.name || "script").replace(/[\\/:*?"<>|]+/g, "_")}.json`;
+---
+
+<div class="script-display">
+  <div class:list={["top-links", "screen-only"]}>
+    <a href="/">Change script</a>
+    <a href={downloadPath} download={downloadFilename}>Download JSON</a>
+  </div>
+  <div class="page">
+    <div class="title-area">
+      <h1 class="title">
+        <span>{script.name || "Custom Script"}</span>
+        {
+          script.author && (
+            <>
+              <span class="title-reduced">&ensp;by </span>
+              <span class="title-reduced">{script.author}</span>
+            </>
+          )
+        }
+      </h1>
+      {
+        script.teams.fabled.length > 0 && (
+          <ul class="fabled-list">
+            {script.teams.fabled.map((character) => (
+              <li class="fabled-list-item">
+                <CharacterIcon character={character} />
+                <span class="fabled-title">{character.name}</span>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </div>
+    {
+      script.bootlegger && script.bootlegger.length > 0 && (
+        <BootleggerList rules={script.bootlegger} />
+      )
+    }
+    <h2 class="category-title">Characters</h2>
+    <h3 class="category-title">Townsfolk</h3>
+    <CharacterList characters={script.teams.townsfolk} />
+    <h3 class="category-title">Outsiders</h3>
+    <CharacterList characters={script.teams.outsider} />
+    <h3 class="category-title">Minions</h3>
+    <CharacterList characters={script.teams.minion} />
+    <h3 class="category-title">Demons</h3>
+    <CharacterList characters={script.teams.demon} />
+  </div>
+
+  {
+    (script.jinxes.length > 0 ||
+      script.teams.traveller.length > 0 ||
+      script.teams.fabled.length > 0) && (
+      <div class="page">
+        {script.teams.traveller.length > 0 && (
+          <>
+            <h3 class="category-title">Travellers</h3>
+            <CharacterList characters={script.teams.traveller} />
+          </>
+        )}
+        {script.teams.fabled.length > 0 && (
+          <>
+            <h3 class="category-title">Fabled</h3>
+            <CharacterList characters={script.teams.fabled} />
+          </>
+        )}
+        {script.jinxes.length > 0 && (
+          <>
+            <h3 class="category-title">Jinxes</h3>
+            <JinxList jinxes={script.jinxes} />
+          </>
+        )}
+      </div>
+    )
+  }
+
+  <hr class="screen-only" />
+
+  <div class="page">
+    <h2 class="category-title">Night Order</h2>
+    <div class="two-column">
+      <div>
+        <h3 class="category-title">First Night</h3>
+        <NightOrderList info={script.firstNight} />
+      </div>
+      <div>
+        <h3 class="category-title">Other Nights</h3>
+        <NightOrderList info={script.otherNight} />
+      </div>
+    </div>
+  </div>
+  <footer class:list={["footer", "screen-only"]}>
+    This website is not affiliated with The Pandemonium Institute. Character
+    icons and descriptions are the property of Steven Medway and The Pandemonium
+    Institute. Website made by{" "}
+    <a href="https://sthom.kiwi" target="_blank" rel="external noreferrer">
+      Stuart Thomson
+    </a>
+    .
+  </footer>
+</div>
+
+<style>
+  @media screen {
+    .script-display {
+      margin: 2rem;
+    }
+  }
+
+  .top-links {
+    opacity: 0.7;
+    display: flex;
+    gap: 0.5rem;
+    margin-block-start: -1rem;
+    margin-block-end: 1rem;
+    transition: opacity 0.1s ease-in-out;
+  }
+
+  .page {
+    break-inside: avoid-page;
+  }
+
+  .title-area {
+    display: flex;
+    flex-direction: column;
+
+    @media print, (min-width: 848px) {
+      flex-direction: row;
+      gap: 2rem;
+    }
+  }
+
+  .title-reduced {
+    font-size: 1.4rem;
+  }
+
+  .category-title {
+    margin-block: 1rem;
+    break-after: avoid;
+  }
+
+  .fabled-list {
+    flex-grow: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    list-style: none;
+    padding-inline-start: 0;
+
+    @media print, (min-width: 848px) {
+      margin-block-start: -1rem;
+    }
+
+    @media print {
+      justify-content: end;
+    }
+  }
+
+  .fabled-list-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .fabled-title {
+    font-family: var(--font-title);
+    font-size: 1.2rem;
+  }
+
+  .two-column {
+    display: grid;
+    grid-template-columns: 1fr;
+    break-inside: page;
+
+    @media print, (min-width: 848px) {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    :global(.character-list) {
+      columns: 1;
+    }
+  }
+
+  .footer {
+    opacity: 0.7;
+    font-size: 0.9rem;
+    margin-block-start: 2rem;
+  }
+</style>
