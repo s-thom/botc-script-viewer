@@ -1,0 +1,40 @@
+---
+import { Image } from "astro:assets";
+import { goblin } from "../generated/character-icons";
+import CenteredLayout from "../layouts/CenteredLayout.astro";
+import { AppError } from "../types/site";
+
+interface Props {
+  error: unknown;
+}
+
+const { error } = Astro.props;
+
+let title = "Website error";
+let description = "There must be a goblin in the code.";
+
+if (error instanceof Error) {
+  console.error(error);
+
+  if (error instanceof AppError) {
+    title = error.title ?? title;
+    description = error.title ?? description;
+  }
+}
+---
+
+<CenteredLayout meta={{ title: "Error - BotC Script Viewer" }} heading={title}>
+  <Fragment slot="head">
+    <meta name="robots" content="noindex" />
+  </Fragment>
+
+  <Image
+    src={goblin}
+    class="slow-spin"
+    alt="Goblin"
+    width={144}
+    densities={[1, 2, 3]}
+  />
+  <p>{description}</p>
+  <p><a href="/">Back to home</a></p>
+</CenteredLayout>

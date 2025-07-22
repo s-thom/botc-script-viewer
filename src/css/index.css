@@ -184,3 +184,16 @@ a {
   font-size: 0.9rem;
   margin-block-start: 2rem;
 }
+
+.slow-spin {
+  animation: Spin 40s linear infinite;
+}
+
+@keyframes Spin {
+  0% {
+    rotate: 0;
+  }
+  100% {
+    rotate: 360deg;
+  }
+}

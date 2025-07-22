@@ -11,6 +11,8 @@ const { meta, heading } = Astro.props;
 ---
 
 <MinimalLayout meta={meta}>
+  <slot slot="head" name="head" />
+
   <div class="container">
     <h1 class="heading">{heading}</h1>
     <slot />
@@ -25,6 +27,7 @@ const { meta, heading } = Astro.props;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    align-items: center;
   }
 
   .heading {
