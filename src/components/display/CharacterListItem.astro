@@ -15,14 +15,22 @@ const { character, character2, title, description } = Astro.props;
 <div class="character">
   {
     character ? (
-      <CharacterIcon character={character} class="character-icon-offset" />
+      <CharacterIcon
+        character={character}
+        size={48}
+        class="character-icon-offset"
+      />
     ) : (
       <div class="character-icon-placeholder" />
     )
   }
   {
     character2 && (
-      <CharacterIcon character={character2} class="character-icon-offset" />
+      <CharacterIcon
+        character={character2}
+        size={48}
+        class="character-icon-offset"
+      />
     )
   }
   <div class="character-info">

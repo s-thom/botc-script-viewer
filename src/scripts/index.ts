@@ -16,7 +16,7 @@ export const LOCAL_SCRIPT_COLLECTIONS: Record<
   cc: {
     title: "Carousel Collection",
     description:
-      "Community-created scripts that show off the Carousel set of characters.",
+      "Community-created scripts that show off the characters released in the Carousel.",
     scripts: CAROUSEL_COLLECTION,
   },
   wc25: {

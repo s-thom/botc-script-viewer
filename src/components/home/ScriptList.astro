@@ -1,0 +1,57 @@
+---
+import { CHARACTERS_BY_ID } from "../../lib/characters";
+import type { LocalScriptDefinition } from "../../types/botc";
+import CharacterIcon from "../display/CharacterIcon.astro";
+
+export interface Props {
+  collectionId: string;
+  scripts: LocalScriptDefinition[];
+}
+
+const { collectionId, scripts } = Astro.props;
+---
+
+<ul class="script-list">
+  {
+    scripts.map((script) => (
+      <li class="script-list-item">
+        <a href={`/${collectionId}/${script.id}`} class="script-link">
+          <CharacterIcon
+            class="script-icon"
+            size={32}
+            character={CHARACTERS_BY_ID.get(script.character)!}
+          />
+          <span class="script-title">{script.title}</span>
+        </a>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .script-list {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    padding-inline-start: 0;
+  }
+
+  .script-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.2rem 0.4rem;
+    border-radius: 8px;
+    border: 2px solid transparent;
+
+    &:hover {
+      border-color: var(--color-control-border-hover);
+      background-color: var(--color-control-background);
+    }
+
+    &:active,
+    &:focus-within {
+      border-color: var(--color-control-border-active);
+    }
+  }
+</style>

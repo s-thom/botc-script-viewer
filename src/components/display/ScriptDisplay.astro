@@ -40,7 +40,7 @@ const downloadFilename = `${(script.name || "script").replace(/[\\/:*?"<>|]+/g, 
           <ul class="fabled-list">
             {script.teams.fabled.map((character) => (
               <li class="fabled-list-item">
-                <CharacterIcon character={character} />
+                <CharacterIcon size={48} character={character} />
                 <span class="fabled-title">{character.name}</span>
               </li>
             ))}
@@ -187,6 +187,7 @@ const downloadFilename = `${(script.name || "script").replace(/[\\/:*?"<>|]+/g, 
   .two-column {
     display: grid;
     grid-template-columns: 1fr;
+    gap: 1rem;
     break-inside: page;
 
     @media print, (min-width: 848px) {

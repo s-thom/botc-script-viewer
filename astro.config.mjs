@@ -10,4 +10,5 @@ export default defineConfig({
   image: {
     domains: ALLOWED_EXTERNAL_HOSTNAMES,
   },
+  scopedStyleStrategy: "class",
 });

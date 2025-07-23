@@ -1,0 +1,41 @@
+---
+import ScriptList from "../../components/home/ScriptList.astro";
+import CenteredLayout from "../../layouts/CenteredLayout.astro";
+import { LOCAL_SCRIPT_COLLECTIONS } from "../../scripts";
+
+export function getStaticPaths() {
+  return Object.keys(LOCAL_SCRIPT_COLLECTIONS).map((collectionId) => ({
+    params: {
+      collectionId: collectionId as keyof typeof LOCAL_SCRIPT_COLLECTIONS,
+    },
+  }));
+}
+
+const { collectionId } = Astro.params;
+
+if (!(collectionId in LOCAL_SCRIPT_COLLECTIONS)) {
+  return Astro.rewrite("/404");
+}
+
+const collection = LOCAL_SCRIPT_COLLECTIONS[collectionId];
+---
+
+<CenteredLayout
+  meta={{
+    title: `Collection: ${collection.title} - BotC Script Viewer`,
+    description: collection.description,
+  }}
+  heading={`Collection: ${collection.title}`}
+>
+  <p>{collection.description}</p>
+  <ScriptList collectionId={collectionId} scripts={collection.scripts} />
+  <footer class="footer">
+    This website is not affiliated with The Pandemonium Institute. Character
+    icons and descriptions are the property of Steven Medway and The Pandemonium
+    Institute. Website made by{" "}
+    <a href="https://sthom.kiwi" target="_blank" rel="external noreferrer">
+      Stuart Thomson
+    </a>
+    .
+  </footer>
+</CenteredLayout>
