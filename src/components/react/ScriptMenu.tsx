@@ -1,14 +1,14 @@
 import { Menu } from "@base-ui-components/react/menu";
 import styles from "../../css/home.module.css";
 // import { CHARACTERS_BY_ID } from "../../lib/characters";
-import type { HostedScriptDefinition } from "../../types/botc";
+import type { LocalScriptDefinition } from "../../types/botc";
 // import { CharacterIcon } from "../display/CharacterIcon";
 import { MenuItemNavLink } from "./MenuItemLink";
 
 export interface ScriptMenuProps {
   title: string;
   path: string;
-  scripts: HostedScriptDefinition[];
+  scripts: LocalScriptDefinition[];
 }
 
 export function ScriptMenu({ title, path, scripts }: ScriptMenuProps) {

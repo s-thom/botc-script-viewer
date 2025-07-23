@@ -1,6 +1,6 @@
-import type { HostedScriptDefinition } from "../../types/botc";
+import type { LocalScriptDefinition } from "../../types/botc";
 
-export const WORLD_CUP_25: HostedScriptDefinition[] = [
+export const WORLD_CUP_25: LocalScriptDefinition[] = [
   {
     id: "1daymore",
     title: "1 Day More",

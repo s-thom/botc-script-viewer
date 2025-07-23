@@ -1,6 +1,6 @@
-import type { HostedScriptDefinition } from "../../types/botc";
+import type { LocalScriptDefinition } from "../../types/botc";
 
-export const CAROUSEL_COLLECTION: HostedScriptDefinition[] = [
+export const CAROUSEL_COLLECTION: LocalScriptDefinition[] = [
   {
     id: "anonymous-dishonesty",
     title: "Anonymous Dishonesty",

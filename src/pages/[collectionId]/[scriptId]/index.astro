@@ -1,0 +1,44 @@
+---
+import ScriptDisplay from "../../../components/display/ScriptDisplay.astro";
+import MinimalLayout from "../../../layouts/MinimalLayout.astro";
+import { normaliseScript } from "../../../lib/normalise";
+import { LOCAL_SCRIPT_COLLECTIONS } from "../../../scripts";
+
+export function getStaticPaths() {
+  return Object.entries(LOCAL_SCRIPT_COLLECTIONS).flatMap(
+    ([collectionId, collection]) =>
+      collection.scripts.map((script) => ({
+        params: {
+          collectionId: collectionId as keyof typeof LOCAL_SCRIPT_COLLECTIONS,
+          scriptId: script.id,
+        },
+      })),
+  );
+}
+
+const { collectionId, scriptId } = Astro.params;
+
+if (!(collectionId in LOCAL_SCRIPT_COLLECTIONS)) {
+  return Astro.rewrite("/404");
+}
+
+const collection = LOCAL_SCRIPT_COLLECTIONS[collectionId];
+
+const scriptDefinition = collection.scripts.find(
+  (script) => script.id === scriptId,
+);
+if (!scriptDefinition) {
+  return Astro.rewrite("/404");
+}
+
+const rawScript = await scriptDefinition.getScript();
+const script = normaliseScript(rawScript);
+---
+
+<MinimalLayout
+  meta={{
+    title: script.name ? `${script.name} - BotC Script Viewer` : undefined,
+  }}
+>
+  <ScriptDisplay script={script} />
+</MinimalLayout>

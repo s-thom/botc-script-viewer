@@ -38,7 +38,13 @@ export interface NormalisedScript {
   jinxes: JinxInfo[];
 }
 
-export interface HostedScriptDefinition {
+export interface LocalScriptCollection {
+  title: string;
+  description: string;
+  scripts: LocalScriptDefinition[];
+}
+
+export interface LocalScriptDefinition {
   id: string;
   title: string;
   character: string;

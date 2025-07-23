@@ -1,6 +1,6 @@
-import type { HostedScriptDefinition } from "../../types/botc";
+import type { LocalScriptDefinition } from "../../types/botc";
 
-export const RANDOM_SCRIPTS: HostedScriptDefinition[] = [
+export const RANDOM_SCRIPTS: LocalScriptDefinition[] = [
   {
     id: "nfm",
     title: "Nobody FUCKING MOVE!",

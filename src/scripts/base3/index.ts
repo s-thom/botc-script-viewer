@@ -1,6 +1,6 @@
-import type { HostedScriptDefinition } from "../../types/botc";
+import type { LocalScriptDefinition } from "../../types/botc";
 
-export const BASE_3: HostedScriptDefinition[] = [
+export const BASE_3: LocalScriptDefinition[] = [
   {
     id: "tb",
     title: "Trouble Brewing",
