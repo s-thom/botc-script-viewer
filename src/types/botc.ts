@@ -42,6 +42,7 @@ export interface LocalScriptCollection {
   title: string;
   description: string;
   scripts: LocalScriptDefinition[];
+  showOnHome?: boolean;
 }
 
 export interface LocalScriptDefinition {

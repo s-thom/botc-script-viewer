@@ -6,9 +6,10 @@ import CharacterIcon from "../display/CharacterIcon.astro";
 export interface Props {
   collectionId: string;
   scripts: LocalScriptDefinition[];
+  loading?: "eager" | "lazy";
 }
 
-const { collectionId, scripts } = Astro.props;
+const { collectionId, scripts, loading } = Astro.props;
 ---
 
 <ul class="script-list">
@@ -20,6 +21,7 @@ const { collectionId, scripts } = Astro.props;
             class="script-icon"
             size={32}
             character={CHARACTERS_BY_ID.get(script.character)!}
+            loading={loading}
           />
           <span class="script-title">{script.title}</span>
         </a>

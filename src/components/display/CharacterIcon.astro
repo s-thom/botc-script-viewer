@@ -9,10 +9,11 @@ import { Image } from "astro:assets";
 export interface Props {
   character: ScriptCharacter;
   size: number;
+  loading?: "eager" | "lazy";
   class?: string;
 }
 
-const { character, size, class: className } = Astro.props;
+const { character, size, class: className, loading = "eager" } = Astro.props;
 
 function getFallbackIcon(team: ScriptCharacter["team"]): ImageMetadata {
   switch (team) {
@@ -107,6 +108,7 @@ const icon = getCharacterIcon(character);
       width={size}
       height={size}
       densities={[1, 2, 3]}
+      loading={loading}
     />
   ) : (
     <Image
@@ -116,6 +118,7 @@ const icon = getCharacterIcon(character);
       width={size}
       height={size}
       densities={[1, 2, 3]}
+      loading={loading}
     />
   )
 }

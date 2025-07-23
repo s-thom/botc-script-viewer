@@ -1,6 +1,6 @@
 ---
+import CollectionsMenu from "../components/home/CollectionsMenu.astro";
 import { CustomScriptForm } from "../components/react/CustomScriptForm";
-import { HostedScriptsMenu } from "../components/react/HostedScriptsMenu";
 import CenteredLayout from "../layouts/CenteredLayout.astro";
 ---
 
@@ -14,7 +14,8 @@ import CenteredLayout from "../layouts/CenteredLayout.astro";
       Blood on the Clocktower
     </a> in your browser.
   </p>
-  <HostedScriptsMenu client:idle />
+  <p>Select a script or enter a custom script by JSON or URL.</p>
+  <CollectionsMenu />
   <CustomScriptForm client:idle />
   <footer class="footer">
     <p>

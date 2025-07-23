@@ -1,0 +1,133 @@
+---
+import { LOCAL_SCRIPT_COLLECTIONS } from "../../scripts";
+import ScriptList from "./ScriptList.astro";
+---
+
+<div class="menu-box">
+  {
+    Object.entries(LOCAL_SCRIPT_COLLECTIONS)
+      .filter(([, collection]) => collection.showOnHome !== false)
+      .map(([collectionId, collection]) => (
+        <details class="menu" name="script-collection">
+          <summary class="menu-trigger">{collection.title}</summary>
+          <div class="menu-popover">
+            <ScriptList
+              collectionId={collectionId}
+              scripts={collection.scripts}
+              loading="lazy"
+            />
+          </div>
+        </details>
+      ))
+  }
+</div>
+
+<script>
+  const POPOVER_PADDING_PX = 20;
+
+  const listeners: (() => void)[] = [];
+  window.addEventListener("resize", () => {
+    listeners.forEach((listener) => listener());
+  });
+
+  document
+    .querySelectorAll<HTMLDetailsElement>(
+      'details.menu[name="script-collection"]',
+    )
+    .forEach((details) => {
+      const popover =
+        details.querySelector<HTMLDivElement>("div.menu-popover")!;
+
+      function reposition() {
+        const detailsRect = details.getBoundingClientRect();
+        const popoverRect = popover.getBoundingClientRect();
+
+        const halfDetails = detailsRect.width / 2;
+        const halfPopover = popoverRect.width / 2;
+        let left = halfDetails - halfPopover;
+
+        const maxWidth = window.innerWidth - 2 * POPOVER_PADDING_PX;
+        const screenLeft = left + detailsRect.left;
+        const screenRight = screenLeft + popoverRect.width;
+
+        if (screenRight > window.innerWidth - POPOVER_PADDING_PX) {
+          // Too far to the right, move back.
+          const adjustment =
+            screenRight - (window.innerWidth - POPOVER_PADDING_PX);
+          left -= adjustment;
+        }
+        if (screenLeft < POPOVER_PADDING_PX) {
+          // Too far to the left, move forward.
+          // If there  was an adjustment to the right, this overrides it but that's
+          // fine because the max width should fix that.
+          const adjustment = POPOVER_PADDING_PX - screenLeft;
+          left += adjustment;
+        }
+
+        popover.style.maxWidth = `${maxWidth}px`;
+        popover.style.left = `${left}px`;
+      }
+
+      reposition();
+      // If a max-width change is needed then the position is still wrong after the first time.
+      // The simplest fix is to just run the adjustment again.
+      // Is it hacky? Yes. Does it work? Also yes.
+      reposition();
+      listeners.push(reposition);
+    });
+</script>
+
+<style>
+  .menu-box {
+    width: 100%;
+    background-color: var(--color-control-background);
+    box-shadow: inset 0 0 0 2px var(--color-control-border-active);
+    color: var(--color-control-text);
+    border-radius: 25px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+  }
+
+  .menu {
+    position: relative;
+  }
+
+  .menu-trigger {
+    background-color: var(--color-control-background);
+    color: var(--color-text);
+    padding: 0.5rem;
+    border-radius: 25px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    list-style: none;
+
+    &::marker,
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    &:hover:not(:active) {
+      background-color: var(--color-control-background-active);
+      border-color: var(--color-control-border-hover);
+    }
+    &:active,
+    &:open,
+    &:is(.menu[open] &) {
+      background-color: var(--color-control-background-active);
+      border-color: var(--color-control-border-active);
+    }
+  }
+
+  .menu-popover {
+    position: absolute;
+    z-index: 1;
+    width: max-content;
+    top: calc(100% + 0.25rem);
+    padding: 0.5rem;
+    border-radius: 15px;
+    background-color: var(--color-control-background-active);
+    border: 2px solid var(--color-control-border-active);
+  }
+</style>

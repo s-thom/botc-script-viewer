@@ -30,5 +30,6 @@ export const LOCAL_SCRIPT_COLLECTIONS: Record<
     description:
       "Scripts that I've collected on my travels. This is not in any way a “best of” list.",
     scripts: RANDOM_SCRIPTS,
+    showOnHome: false,
   },
 };
