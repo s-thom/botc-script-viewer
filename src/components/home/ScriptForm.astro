@@ -1,0 +1,68 @@
+---
+
+---
+
+<form method="POST" action="/go" enctype="multipart/form-data" class="form">
+  <label for="script">Script JSON or URL</label>
+  <textarea
+    class="textarea"
+    name="script"
+    id="script"
+    required
+    aria-describedby="script-error"></textarea>
+  <button type="submit" class="submit"> View script </button>
+</form>
+
+<style>
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 1rem;
+    width: 100%;
+  }
+
+  .textarea {
+    background-color: var(--color-background);
+    border: 2px solid var(--color-control-border-active);
+    color: var(--color-text);
+    padding: 0.5rem;
+    border-radius: 15px;
+    width: 100%;
+    resize: vertical;
+
+    &:disabled {
+      filter: grayscale();
+    }
+
+    &:hover {
+      border-color: var(--color-control-border-hover);
+    }
+
+    &:active {
+      border-color: var(--color-control-border-active);
+    }
+  }
+
+  .submit {
+    background-color: var(--color-control-background);
+    border: 2px solid var(--color-control-border-active);
+    color: var(--color-text);
+    padding: 0.5rem;
+    border-radius: 100vw;
+
+    &:disabled {
+      filter: grayscale();
+    }
+
+    &:hover {
+      background-color: var(--color-control-background-active);
+      border-color: var(--color-control-border-hover);
+    }
+
+    &:active {
+      background-color: var(--color-control-background-active);
+      border-color: var(--color-control-border-active);
+    }
+  }
+</style>

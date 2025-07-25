@@ -38,5 +38,7 @@ export const GET: APIRoute = async ({ params, rewrite }) => {
 
   const rawScript = await scriptDefinition.getScript();
 
-  return new Response(JSON.stringify(rawScript));
+  const headers = new Headers();
+  headers.set("Content-Type", "application/json");
+  return new Response(JSON.stringify(rawScript), { headers });
 };

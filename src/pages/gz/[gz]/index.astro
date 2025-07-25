@@ -1,0 +1,27 @@
+---
+import ScriptDisplay from "../../../components/display/ScriptDisplay.astro";
+import type { BloodOnTheClocktowerCustomScript } from "../../../generated/script-schema";
+import MinimalLayout from "../../../layouts/MinimalLayout.astro";
+import { decompressFromBase64 } from "../../../lib/compression";
+import { normaliseScript } from "../../../lib/normalise";
+
+export const prerender = false;
+
+const { gz } = Astro.params;
+
+if (!gz) {
+  return Astro.rewrite("/404");
+}
+
+const rawScriptString = await decompressFromBase64(gz);
+const rawScript: BloodOnTheClocktowerCustomScript = JSON.parse(rawScriptString);
+const script = normaliseScript(rawScript);
+---
+
+<MinimalLayout
+  meta={{
+    title: script.name ? `${script.name} - BotC Script Viewer` : undefined,
+  }}
+>
+  <ScriptDisplay script={script} />
+</MinimalLayout>
