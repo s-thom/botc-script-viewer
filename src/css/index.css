@@ -80,7 +80,9 @@ textarea:not([rows]) {
 
 :target {
   scroll-margin-block: 5ex;
+  animation: TempOutline 5s linear;
 }
+
 /* #endregion */
 
 :root {
@@ -179,6 +181,12 @@ a {
   }
 }
 
+@media not print {
+  .print-only {
+    display: none !important;
+  }
+}
+
 .footer {
   opacity: 0.7;
   font-size: 0.9rem;
@@ -195,5 +203,17 @@ a {
   }
   100% {
     rotate: 360deg;
+  }
+}
+
+@keyframes TempOutline {
+  0% {
+    outline: 5px auto Highlight;
+    outline: 5px auto -webkit-focus-ring-color;
+    outline-offset: 2px;
+  }
+  100% {
+    outline: none;
+    outline-offset: 2px;
   }
 }

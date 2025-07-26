@@ -13,7 +13,10 @@ const { jinxes, class: className } = Astro.props;
 <ul class:list={["jinx-list", className]}>
   {
     jinxes.map((jinx) => (
-      <li class="jinx-list-item">
+      <li
+        id={`jinx-${jinx.character1.id}-${jinx.character2.id}`}
+        class="jinx-list-item"
+      >
         <CharacterListItem
           character={jinx.character1}
           character2={jinx.character2}

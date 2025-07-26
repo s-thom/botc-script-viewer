@@ -1,0 +1,103 @@
+---
+import type { NormalisedScript } from "../../types/botc";
+
+export interface Props {
+  script: NormalisedScript;
+}
+
+const { script } = Astro.props;
+---
+
+<nav class="skip-list-nav">
+  <span>Skip to:</span>
+  <ul class="skip-list">
+    <li class="skip-list-item"><a href="#script">Script</a></li>
+    {
+      script.teams.townsfolk.length > 0 && (
+        <li class="skip-list-item">
+          <a href="#townsfolk">Townsfolk</a>
+        </li>
+      )
+    }
+    {
+      script.teams.outsider.length > 0 && (
+        <li class="skip-list-item">
+          <a href="#outsiders">Outsiders</a>
+        </li>
+      )
+    }
+    {
+      script.teams.minion.length > 0 && (
+        <li class="skip-list-item">
+          <a href="#minions">Minions</a>
+        </li>
+      )
+    }
+    {
+      script.teams.demon.length > 0 && (
+        <li class="skip-list-item">
+          <a href="#demons">Demons</a>
+        </li>
+      )
+    }
+    {
+      script.teams.traveller.length > 0 && (
+        <li class="skip-list-item">
+          <a href="#travellers">Travellers</a>
+        </li>
+      )
+    }
+    {
+      script.teams.fabled.length > 0 && (
+        <li class="skip-list-item">
+          <a href="#fabled">Fabled</a>
+        </li>
+      )
+    }
+    {
+      script.jinxes.length > 0 && (
+        <li class="skip-list-item">
+          <a href="#jinxes">Jinxes</a>
+        </li>
+      )
+    }
+    <li class="skip-list-item"><a href="#night-order">Night order</a></li>
+  </ul>
+</nav>
+
+<style>
+  .skip-list-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+
+    padding: 1rem;
+    background-color: var(--color-control-background);
+    border-bottom: 2px solid var(--color-control-border-active);
+    text-align: center;
+
+    &:not(:focus-within) {
+      clip: rect(0 0 0 0);
+      clip-path: inset(50%);
+      height: 1px;
+      overflow: hidden;
+      position: absolute;
+      white-space: nowrap;
+      width: 1px;
+    }
+  }
+
+  .skip-list {
+    list-style: none;
+    padding-inline-start: 0;
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .skip-list-item {
+  }
+</style>

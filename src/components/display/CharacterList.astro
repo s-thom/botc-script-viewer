@@ -13,7 +13,7 @@ const { characters, class: className } = Astro.props;
 <ul class:list={["character-list", className]}>
   {
     characters.map((character) => (
-      <li class={"character-list-item"}>
+      <li class={"character-list-item"} id={character.id}>
         <CharacterListItem
           character={character}
           title={character.name}

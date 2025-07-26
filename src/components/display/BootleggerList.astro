@@ -10,7 +10,7 @@ export interface Props {
 const { rules, class: className } = Astro.props;
 ---
 
-<ul class:list={["bootlegger-list", className]}>
+<ul class:list={["bootlegger-list", className]} id="bootlegger">
   {
     rules &&
       rules.map((rule) => (

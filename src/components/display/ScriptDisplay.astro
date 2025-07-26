@@ -6,6 +6,7 @@ import CharacterIcon from "./CharacterIcon.astro";
 import CharacterList from "./CharacterList.astro";
 import JinxList from "./JinxList.astro";
 import NightOrderList from "./NightOrderList.astro";
+import SkipList from "./SkipList.astro";
 
 export interface Props {
   script: NormalisedScript;
@@ -18,13 +19,14 @@ const downloadFilename = `${(script.name || "script").replace(/[\\/:*?"<>|]+/g, 
 ---
 
 <div class="script-display">
+  <SkipList script={script} />
   <div class:list={["top-links", "screen-only"]}>
     <a href="/">Change script</a>
     <a href={downloadPath} download={downloadFilename}>Download JSON</a>
   </div>
   <div class="page">
     <div class="title-area">
-      <h1 class="title">
+      <h1 id="script" class="title">
         <span>{script.name || "Custom Script"}</span>
         {
           script.author && (
@@ -40,8 +42,10 @@ const downloadFilename = `${(script.name || "script").replace(/[\\/:*?"<>|]+/g, 
           <ul class="fabled-list">
             {script.teams.fabled.map((character) => (
               <li class="fabled-list-item">
-                <CharacterIcon size={48} character={character} />
-                <span class="fabled-title">{character.name}</span>
+                <a href={`#${character.id}`} class="fabled-list-item">
+                  <CharacterIcon size={48} character={character} />
+                  <span class="fabled-title">{character.name}</span>
+                </a>
               </li>
             ))}
           </ul>
@@ -54,13 +58,13 @@ const downloadFilename = `${(script.name || "script").replace(/[\\/:*?"<>|]+/g, 
       )
     }
     <h2 class="category-title">Characters</h2>
-    <h3 class="category-title">Townsfolk</h3>
+    <h3 id="townsfolk" class="category-title">Townsfolk</h3>
     <CharacterList characters={script.teams.townsfolk} />
-    <h3 class="category-title">Outsiders</h3>
+    <h3 id="outsiders" class="category-title">Outsiders</h3>
     <CharacterList characters={script.teams.outsider} />
-    <h3 class="category-title">Minions</h3>
+    <h3 id="minions" class="category-title">Minions</h3>
     <CharacterList characters={script.teams.minion} />
-    <h3 class="category-title">Demons</h3>
+    <h3 id="demons" class="category-title">Demons</h3>
     <CharacterList characters={script.teams.demon} />
   </div>
 
@@ -71,19 +75,25 @@ const downloadFilename = `${(script.name || "script").replace(/[\\/:*?"<>|]+/g, 
       <div class="page">
         {script.teams.traveller.length > 0 && (
           <>
-            <h3 class="category-title">Travellers</h3>
+            <h3 id="travellers" class="category-title">
+              Travellers
+            </h3>
             <CharacterList characters={script.teams.traveller} />
           </>
         )}
         {script.teams.fabled.length > 0 && (
           <>
-            <h3 class="category-title">Fabled</h3>
+            <h3 id="fabled" class="category-title">
+              Fabled
+            </h3>
             <CharacterList characters={script.teams.fabled} />
           </>
         )}
         {script.jinxes.length > 0 && (
           <>
-            <h3 class="category-title">Jinxes</h3>
+            <h3 id="jinxes" class="category-title">
+              Jinxes
+            </h3>
             <JinxList jinxes={script.jinxes} />
           </>
         )}
@@ -94,14 +104,14 @@ const downloadFilename = `${(script.name || "script").replace(/[\\/:*?"<>|]+/g, 
   <hr class="screen-only" />
 
   <div class="page">
-    <h2 class="category-title">Night Order</h2>
+    <h2 id="night-order" class="category-title">Night Order</h2>
     <div class="two-column">
       <div>
-        <h3 class="category-title">First Night</h3>
+        <h3 id="first-night" class="category-title">First Night</h3>
         <NightOrderList info={script.firstNight} />
       </div>
       <div>
-        <h3 class="category-title">Other Nights</h3>
+        <h3 id="other-night" class="category-title">Other Nights</h3>
         <NightOrderList info={script.otherNight} />
       </div>
     </div>
@@ -177,6 +187,7 @@ const downloadFilename = `${(script.name || "script").replace(/[\\/:*?"<>|]+/g, 
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-decoration: none;
   }
 
   .fabled-title {
