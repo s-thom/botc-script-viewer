@@ -4,14 +4,14 @@ import { decompressFromBase64 } from "../../../lib/compression";
 export const prerender = false;
 
 export const GET: APIRoute = async ({ params, rewrite }) => {
-  const { gz } = params;
+  const { b64 } = params;
 
-  if (!gz) {
+  if (!b64) {
     return rewrite("/404");
   }
 
   try {
-    const rawScriptString = await decompressFromBase64(gz);
+    const rawScriptString = await decompressFromBase64(b64);
 
     const headers = new Headers();
     headers.set("Content-Type", "application/json");

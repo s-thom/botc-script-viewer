@@ -7,13 +7,13 @@ import { normaliseScript } from "../../../lib/normalise";
 
 export const prerender = false;
 
-const { gz } = Astro.params;
+const { b64 } = Astro.params;
 
-if (!gz) {
+if (!b64) {
   return Astro.rewrite("/404");
 }
 
-const rawScriptString = await decompressFromBase64(gz);
+const rawScriptString = await decompressFromBase64(b64);
 const rawScript: BloodOnTheClocktowerCustomScript = JSON.parse(rawScriptString);
 const script = normaliseScript(rawScript);
 ---
@@ -23,5 +23,9 @@ const script = normaliseScript(rawScript);
     title: script.name ? `${script.name} - BotC Script Viewer` : undefined,
   }}
 >
+  <Fragment slot="head">
+    <meta name="robots" content="noindex" />
+  </Fragment>
+
   <ScriptDisplay script={script} />
 </MinimalLayout>
