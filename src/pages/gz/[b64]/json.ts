@@ -1,5 +1,5 @@
 import type { APIRoute } from "astro";
-import { decompressFromBase64 } from "../../../lib/compression";
+import { bytesToString, decompressFromBase64 } from "../../../lib/compression";
 
 export const prerender = false;
 
@@ -11,7 +11,8 @@ export const GET: APIRoute = async ({ params, rewrite }) => {
   }
 
   try {
-    const rawScriptString = await decompressFromBase64(b64);
+    const bytes = await decompressFromBase64(b64);
+    const rawScriptString = bytesToString(bytes);
 
     const headers = new Headers();
     headers.set("Content-Type", "application/json");

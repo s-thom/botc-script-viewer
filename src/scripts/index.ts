@@ -5,15 +5,15 @@ import { RANDOM_SCRIPTS } from "./random";
 import { WORLD_CUP_25 } from "./wc25";
 
 export const LOCAL_SCRIPT_COLLECTIONS: Record<
-  "b3" | "cc" | "wc25" | "v",
+  "base3" | "carousel" | "wc25" | "v",
   LocalScriptCollection
 > = {
-  b3: {
+  base3: {
     title: "Base 3",
     description: "Official scripts provided by The Pandemonium Institute.",
     scripts: BASE_3,
   },
-  cc: {
+  carousel: {
     title: "Carousel Collection",
     description:
       "Community-created scripts that show off the characters released in the Carousel.",

@@ -1,7 +1,7 @@
 import type { APIRoute } from "astro";
 import { z } from "astro:schema";
 import type { BloodOnTheClocktowerCustomScript } from "../generated/script-schema";
-import { compressToBase64 } from "../lib/compression";
+import { compressToBase64, stringToBytes } from "../lib/compression";
 import { rawScriptValidator } from "../lib/parse";
 import { KeyedRateLimit } from "../lib/rate-limits";
 
@@ -21,9 +21,11 @@ export const POST: APIRoute = async ({
   async function handleRawScriptJson(
     rawScriptJson: unknown,
   ): Promise<Response> {
-    let rawScript: BloodOnTheClocktowerCustomScript;
+    let minifiedScript: string;
     try {
-      rawScript = rawScriptValidator.parse(rawScriptJson);
+      const rawScript: BloodOnTheClocktowerCustomScript =
+        rawScriptValidator.parse(rawScriptJson);
+      minifiedScript = JSON.stringify(rawScript);
     } catch (err) {
       if (err instanceof z.ZodError) {
         console.error("Error parsing script", JSON.stringify(err.format()));
@@ -32,17 +34,14 @@ export const POST: APIRoute = async ({
       }
 
       // The script failed validation, but maybe it's OK. Send forth and see if the renderer will handle it.
-      const minifiedScript = JSON.stringify(rawScriptJson);
-      const gz = await compressToBase64(minifiedScript);
-
-      return redirect(`/gz/${gz}`);
+      minifiedScript = JSON.stringify(rawScriptJson);
     }
 
     // Only gz is implemented right now.
-    const minifiedScript = JSON.stringify(rawScript);
-    const gz = await compressToBase64(minifiedScript);
+    const bytes = stringToBytes(minifiedScript);
+    const base64 = await compressToBase64(bytes);
 
-    return redirect(`/gz/${gz}`);
+    return redirect(`/gz/${base64}`);
   }
 
   try {

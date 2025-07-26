@@ -26,9 +26,17 @@ export function decodeUrlSafeBase64(str: string): string {
   );
 }
 
-export async function compressToBase64(input: string): Promise<string> {
-  const inputBytes = new TextEncoder().encode(input);
+export function stringToBytes(input: string): Uint8Array {
+  return new TextEncoder().encode(input);
+}
 
+export function bytesToString(bytes: Uint8Array): string {
+  return new TextDecoder().decode(bytes);
+}
+
+export async function compressToBase64(
+  inputBytes: Uint8Array,
+): Promise<string> {
   const reader = new ReadableStream({
     start(controller) {
       controller.enqueue(inputBytes);
@@ -51,7 +59,9 @@ export async function compressToBase64(input: string): Promise<string> {
   return encodeUrlSafeBase64(String.fromCharCode(...compressedBytes));
 }
 
-export async function decompressFromBase64(base64: string): Promise<string> {
+export async function decompressFromBase64(
+  base64: string,
+): Promise<Uint8Array> {
   const binaryString = decodeUrlSafeBase64(base64);
   const bytes = new Uint8Array(binaryString.length);
   for (let i = 0; i < binaryString.length; i++) {
@@ -77,5 +87,5 @@ export async function decompressFromBase64(base64: string): Promise<string> {
     chunks.flatMap((chunk) => Array.from(chunk)),
   );
 
-  return new TextDecoder().decode(decompressedBytes);
+  return decompressedBytes;
 }

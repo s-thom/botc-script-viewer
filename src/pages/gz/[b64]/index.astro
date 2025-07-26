@@ -2,7 +2,7 @@
 import ScriptDisplay from "../../../components/display/ScriptDisplay.astro";
 import type { BloodOnTheClocktowerCustomScript } from "../../../generated/script-schema";
 import MinimalLayout from "../../../layouts/MinimalLayout.astro";
-import { decompressFromBase64 } from "../../../lib/compression";
+import { bytesToString, decompressFromBase64 } from "../../../lib/compression";
 import { normaliseScript } from "../../../lib/normalise";
 
 export const prerender = false;
@@ -13,7 +13,8 @@ if (!b64) {
   return Astro.rewrite("/404");
 }
 
-const rawScriptString = await decompressFromBase64(b64);
+const bytes = await decompressFromBase64(b64);
+const rawScriptString = bytesToString(bytes);
 const rawScript: BloodOnTheClocktowerCustomScript = JSON.parse(rawScriptString);
 const script = normaliseScript(rawScript);
 ---
