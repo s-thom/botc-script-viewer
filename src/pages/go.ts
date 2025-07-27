@@ -85,8 +85,8 @@ export const POST: APIRoute = async ({
     // Fall back to gzip
     const bytes = stringToBytes(minifiedScript);
 
-    const base64 = await compressToBase64(bytes, "gzip");
-    return redirect(`/gz/${base64}`);
+    const base64 = await compressToBase64(bytes, "deflate-raw");
+    return redirect(`/json/${base64}`);
   }
 
   try {

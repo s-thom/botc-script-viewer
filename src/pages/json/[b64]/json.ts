@@ -11,7 +11,7 @@ export const GET: APIRoute = async ({ params, rewrite }) => {
   }
 
   try {
-    const bytes = await decompressFromBase64(b64, "gzip");
+    const bytes = await decompressFromBase64(b64, "deflate-raw");
     const rawScriptString = bytesToString(bytes);
 
     const headers = new Headers();
