@@ -27,7 +27,9 @@ export interface JinxInfo {
 export interface NormalisedScript {
   name: string;
   author?: string;
+  hideTitle?: boolean;
   logo?: string;
+  background?: string;
   almanac?: string;
   bootlegger?: string[];
   firstNight: NightInfo[];

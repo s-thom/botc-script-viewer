@@ -1,0 +1,31 @@
+---
+import ScriptDisplay from "../../../components/display/ScriptDisplay.astro";
+import MinimalLayout from "../../../layouts/MinimalLayout.astro";
+import { decompressFromBase64 } from "../../../lib/compression";
+import { normaliseScript } from "../../../lib/normalise";
+import { decodeScript } from "../../../lib/number-store";
+
+export const prerender = false;
+
+const { b64 } = Astro.params;
+
+if (!b64) {
+  return Astro.rewrite("/404");
+}
+
+const bytes = await decompressFromBase64(b64);
+const rawScript = decodeScript(bytes);
+const script = normaliseScript(rawScript);
+---
+
+<MinimalLayout
+  meta={{
+    title: script.name ? `${script.name} - BotC Script Viewer` : undefined,
+  }}
+>
+  <Fragment slot="head">
+    <meta name="robots" content="noindex" />
+  </Fragment>
+
+  <ScriptDisplay script={script} />
+</MinimalLayout>

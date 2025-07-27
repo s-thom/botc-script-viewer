@@ -2,6 +2,7 @@ import type { APIRoute } from "astro";
 import { z } from "astro:schema";
 import type { BloodOnTheClocktowerCustomScript } from "../generated/script-schema";
 import { compressToBase64, stringToBytes } from "../lib/compression";
+import { encodeScript } from "../lib/number-store";
 import { rawScriptValidator } from "../lib/parse";
 import { KeyedRateLimit } from "../lib/rate-limits";
 
@@ -11,6 +12,36 @@ const formSchema = z.object({ script: z.string() });
 
 // Only allow 5 requests per second per hostname when requesting scripts.
 const FETCH_QUEUE = new KeyedRateLimit({ intervalMs: 1000, intervalCap: 5 });
+
+/** A quick heuristic for  */
+function shouldUseNumberStore(
+  rawScript: BloodOnTheClocktowerCustomScript,
+  jsonStringLength: number,
+): boolean {
+  if (jsonStringLength > 4096) {
+    // Long JSON, the format is unlikely to be too helpful.
+    return false;
+  }
+
+  let numHomebrews = 0;
+
+  for (const item of rawScript) {
+    if (
+      typeof item === "object" &&
+      item.id !== "_meta" &&
+      Object.keys(item).length > 1
+    ) {
+      numHomebrews++;
+    }
+  }
+
+  // An arbitrarily picked number.
+  if (numHomebrews > 5) {
+    return false;
+  }
+
+  return true;
+}
 
 export const POST: APIRoute = async ({
   request,
@@ -22,9 +53,9 @@ export const POST: APIRoute = async ({
     rawScriptJson: unknown,
   ): Promise<Response> {
     let minifiedScript: string;
+    let rawScript: BloodOnTheClocktowerCustomScript;
     try {
-      const rawScript: BloodOnTheClocktowerCustomScript =
-        rawScriptValidator.parse(rawScriptJson);
+      rawScript = rawScriptValidator.parse(rawScriptJson);
       minifiedScript = JSON.stringify(rawScript);
     } catch (err) {
       if (err instanceof z.ZodError) {
@@ -33,15 +64,34 @@ export const POST: APIRoute = async ({
         console.error("Error parsing script (unknown)");
       }
 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      rawScript = rawScriptJson as any;
+
       // The script failed validation, but maybe it's OK. Send forth and see if the renderer will handle it.
       minifiedScript = JSON.stringify(rawScriptJson);
     }
 
-    // Only gz is implemented right now.
-    const bytes = stringToBytes(minifiedScript);
-    const base64 = await compressToBase64(bytes);
+    let bytes: Uint8Array;
+    let scheme: string;
 
-    return redirect(`/gz/${base64}`);
+    if (shouldUseNumberStore(rawScript, minifiedScript.length)) {
+      try {
+        bytes = encodeScript(rawScript);
+        scheme = "ns";
+      } catch (err) {
+        console.warn("Error while encoding script using Number Store", err);
+        // Fall back to gzip
+        bytes = stringToBytes(minifiedScript);
+        scheme = "gz";
+      }
+    } else {
+      // Fall back to gzip
+      bytes = stringToBytes(minifiedScript);
+      scheme = "gz";
+    }
+
+    const base64 = await compressToBase64(bytes);
+    return redirect(`/${scheme}/${base64}`);
   }
 
   try {
@@ -101,14 +151,18 @@ export const POST: APIRoute = async ({
 
       const responseType = response.headers.get("Content-Type");
       if (!(responseType === "application/json" || responseType === null)) {
-        return redirect(
-          `/?error=${encodeURIComponent("URL is not a script JSON.")}`,
-        );
+        return redirect(`/?error=${encodeURIComponent("URL is not JSON.")}`);
       }
 
       let rawScriptJson: unknown;
       try {
         rawScriptJson = await response.json();
+
+        if (!Array.isArray(rawScriptJson)) {
+          return redirect(
+            `/?error=${encodeURIComponent("Cannot find script at this URL.")}`,
+          );
+        }
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (err) {
         return redirect(

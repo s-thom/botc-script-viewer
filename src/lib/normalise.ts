@@ -193,7 +193,9 @@ export function normaliseScript(
 
   newScript.name = meta.name;
   newScript.author = meta.author;
+  newScript.hideTitle = meta.hideTitle;
   newScript.logo = meta.logo;
+  newScript.background = meta.background;
   newScript.almanac = meta.almanac;
 
   if (meta.bootlegger && meta.bootlegger.length) {
