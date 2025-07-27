@@ -1,0 +1,35 @@
+---
+
+---
+
+<span class="hover-detail"
+  ><span class="content"><slot /></span><span class="anchor"
+    ><div class="hover">
+      <slot name="hover" />
+    </div></span
+  ></span
+><style>
+  .hover-detail {
+    position: relative;
+
+    &:not(:is(:hover, :focus-within)) .hover {
+      display: none;
+    }
+  }
+
+  .anchor {
+    position: relative;
+    display: inline-block;
+  }
+
+  .hover {
+    position: absolute;
+    top: -1em;
+    z-index: 1;
+    pointer-events: none;
+
+    border: 1px solid var(--border-color);
+    background-color: oklch(0.7151 0.073 var(--hue-angle));
+    padding: 0.5rem;
+  }
+</style>

@@ -1,0 +1,76 @@
+---
+import ByteList from "../../../components/number-store/ByteList.astro";
+import ExplainNode from "../../../components/number-store/ExplainNode.astro";
+import MinimalLayout from "../../../layouts/MinimalLayout.astro";
+import { decompressFromBase64 } from "../../../lib/compression";
+import { explainDecodeScript } from "../../../lib/number-store/explain";
+
+export const prerender = false;
+
+const { b64 } = Astro.params;
+
+if (!b64) {
+  return Astro.rewrite("/404");
+}
+
+const bytes = await decompressFromBase64(b64, "deflate-raw");
+
+const nodes = explainDecodeScript(bytes);
+---
+
+<MinimalLayout meta={{ title: "Inspect - BotC Script Viewer" }}>
+  <Fragment slot="head">
+    <meta name="robots" content="noindex" />
+  </Fragment>
+
+  <div class="inspect-page">
+    <h1>Inspect URL</h1>
+
+    <table>
+      <tbody>
+        <tr>
+          <td>View script</td>
+          <td><a href=".">Link</a></td>
+        </tr>
+        <tr>
+          <td>Base64</td>
+          <td><code>{b64}</code></td>
+        </tr>
+        <tr>
+          <td>Compression</td>
+          <td><code>deflate-raw</code></td>
+        </tr>
+        <tr>
+          <td>Unformatted bytes</td>
+          <td
+            ><details>
+              <summary>Expand</summary>
+
+              <code><ByteList bytes={bytes} /></code>
+            </details></td
+          >
+        </tr>
+      </tbody>
+    </table>
+
+    <code class="node-container"
+      >{nodes.map((node) => <ExplainNode node={node} />)}</code
+    >
+  </div>
+</MinimalLayout>
+
+<style>
+  .inspect-page {
+    max-width: 80rem;
+    padding: 10px;
+    margin: 0 auto;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .node-container {
+    display: inline-block;
+  }
+</style>

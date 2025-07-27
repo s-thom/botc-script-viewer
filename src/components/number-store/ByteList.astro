@@ -1,0 +1,27 @@
+---
+export interface Props {
+  bytes: Uint8Array;
+}
+
+const { bytes } = Astro.props;
+---
+
+<span class="byte-list"
+  >&ZeroWidthSpace;{
+    Array.from(bytes).map((byte) => (
+      <Fragment>
+        &ZeroWidthSpace;
+        <span class="byte">{byte.toString(16).padStart(2, "0")}</span>
+        &ZeroWidthSpace;
+      </Fragment>
+    ))
+  }</span
+><style>
+  .byte {
+    padding-inline: 0.5ch;
+    word-break: keep-all;
+    &:hover {
+      background-color: rgba(0 0 0 / 0.2);
+    }
+  }
+</style>

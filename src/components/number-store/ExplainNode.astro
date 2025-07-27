@@ -1,0 +1,115 @@
+---
+import type { ExplainNode } from "../../lib/number-store/explain";
+import ByteList from "./ByteList.astro";
+import HoverDetail from "./HoverDetail.astro";
+
+export interface Props {
+  node: ExplainNode;
+}
+
+const { node } = Astro.props;
+---
+
+{
+  node.type === "value" && (
+    <span class:list={["node", "node-value", `node-value-${node.valueType}`]}>
+      <HoverDetail>
+        <ByteList bytes={node.bytes} />
+        <span slot="hover">{node.value}</span>
+      </HoverDetail>
+    </span>
+  )
+}
+{
+  node.type === "tlv" && (
+    <span class:list={["node", "node-tlv"]}>
+      <span class="tlv-field tlv-type">
+        <HoverDetail>
+          <ByteList bytes={node.typeBytes} />
+          <span slot="hover">{node.typeName}</span>
+        </HoverDetail>
+      </span>
+      <span class="tlv-field tlv-length">
+        <HoverDetail>
+          <ByteList bytes={node.lengthBytes} />
+          <span slot="hover">{`${node.length} bytes`}</span>
+        </HoverDetail>
+      </span>
+      <span class="tlv-field tlv-value">
+        {node.value.map((innerNode) => (
+          <Astro.self node={innerNode} />
+        ))}
+      </span>
+    </span>
+  )
+}
+{
+  node.type === "warning" && (
+    <span class:list={["node", "node-warning"]}>
+      <ByteList bytes={node.bytes} />
+    </span>
+  )
+}
+{
+  node.type === "error" && (
+    <span class:list={["node", "node-error"]}>
+      <ByteList bytes={node.bytes} />
+    </span>
+  )
+}
+
+<style>
+  @property --rotation {
+    syntax: "<angle>";
+    inherits: false;
+    initial-value: 45deg;
+  }
+
+  .node {
+    --hue-angle: 0;
+    --border-color: oklch(0.451 0.073 var(--hue-angle));
+    --box-shadow-border: 0 0 0 1px var(--border-color);
+
+    box-shadow: var(--box-shadow-border);
+    background-color: oklch(0.7151 0.073 var(--hue-angle));
+
+    /* &:hover:not(:has(.node:hover)) {
+      background-color: oklch(0.6291 0.073 var(--hue-angle));
+    } */
+
+    &:hover {
+      background-color: oklch(0.6291 0.073 var(--hue-angle));
+    }
+
+    &.node-value {
+      &.node-value-string {
+        --hue-angle: 160.77deg;
+      }
+      &.node-value-enum {
+        --hue-angle: 253.71deg;
+      }
+      &.node-value-boolean {
+        --hue-angle: 190deg;
+      }
+      &.node-value-json {
+        --hue-angle: 296.97deg;
+      }
+    }
+
+    &.node-tlv {
+      --hue-angle: 325.28deg;
+
+      .tlv-field:not(:last-child) {
+        box-shadow: var(--box-shadow-border);
+      }
+    }
+
+    &.node-warning {
+      --hue-angle: 64deg;
+    }
+
+    &.node-error {
+      --hue-angle: 17.63deg;
+    }
+  }
+</style>
