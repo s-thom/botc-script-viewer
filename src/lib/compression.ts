@@ -36,6 +36,7 @@ export function bytesToString(bytes: Uint8Array): string {
 
 export async function compressToBase64(
   inputBytes: Uint8Array,
+  format: CompressionFormat,
 ): Promise<string> {
   const reader = new ReadableStream({
     start(controller) {
@@ -43,7 +44,7 @@ export async function compressToBase64(
       controller.close();
     },
   })
-    .pipeThrough(new CompressionStream("gzip"))
+    .pipeThrough(new CompressionStream(format))
     .getReader();
 
   const compressedChunks: Uint8Array[] = [];
@@ -61,6 +62,7 @@ export async function compressToBase64(
 
 export async function decompressFromBase64(
   base64: string,
+  format: CompressionFormat,
 ): Promise<Uint8Array> {
   const binaryString = decodeUrlSafeBase64(base64);
   const bytes = new Uint8Array(binaryString.length);
@@ -74,7 +76,7 @@ export async function decompressFromBase64(
       controller.close();
     },
   })
-    .pipeThrough(new DecompressionStream("gzip"))
+    .pipeThrough(new DecompressionStream(format))
     .getReader();
 
   const chunks: Uint8Array[] = [];

@@ -71,27 +71,22 @@ export const POST: APIRoute = async ({
       minifiedScript = JSON.stringify(rawScriptJson);
     }
 
-    let bytes: Uint8Array;
-    let scheme: string;
-
     if (shouldUseNumberStore(rawScript, minifiedScript.length)) {
       try {
-        bytes = encodeScript(rawScript);
-        scheme = "ns";
+        const bytes = encodeScript(rawScript);
+
+        const base64 = await compressToBase64(bytes, "deflate-raw");
+        return redirect(`/ns/${base64}`);
       } catch (err) {
         console.warn("Error while encoding script using Number Store", err);
-        // Fall back to gzip
-        bytes = stringToBytes(minifiedScript);
-        scheme = "gz";
       }
-    } else {
-      // Fall back to gzip
-      bytes = stringToBytes(minifiedScript);
-      scheme = "gz";
     }
 
-    const base64 = await compressToBase64(bytes);
-    return redirect(`/${scheme}/${base64}`);
+    // Fall back to gzip
+    const bytes = stringToBytes(minifiedScript);
+
+    const base64 = await compressToBase64(bytes, "gzip");
+    return redirect(`/gz/${base64}`);
   }
 
   try {

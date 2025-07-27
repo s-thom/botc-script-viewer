@@ -13,7 +13,7 @@ if (!b64) {
   return Astro.rewrite("/404");
 }
 
-const bytes = await decompressFromBase64(b64);
+const bytes = await decompressFromBase64(b64, "gzip");
 const rawScriptString = bytesToString(bytes);
 const rawScript: BloodOnTheClocktowerCustomScript = JSON.parse(rawScriptString);
 const script = normaliseScript(rawScript);
