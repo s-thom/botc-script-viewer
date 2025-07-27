@@ -4,6 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "setup": "node --experimental-strip-types setup/generate-script-schema.ts && node --experimental-strip-types setup/download-role-icons.ts && node --experimental-strip-types setup/generate-edition-scripts.ts",
+    "validate": "node --experimental-strip-types setup/ensure-characters-in-number-store.ts",
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",

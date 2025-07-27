@@ -1,0 +1,43 @@
+name: Lint and Build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  lint-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+
+      - name: Cache src/generated
+        uses: actions/cache@v4
+        with:
+          path: src/generated
+          key: ${{ runner.os }}-src-generated-${{ hashFiles('src/data/data.json', 'setup/*.ts') }}
+          restore-keys: |
+            ${{ runner.os }}-src-generated-
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run setup
+        run: npm run setup
+
+      - name: Validate data
+        run: npm run validate
+
+      # React ESLint plugin is broken
+      # - name: Run lint
+      #   run: npm run lint
+
+      - name: Run build
+        run: npm run build
