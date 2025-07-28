@@ -7,6 +7,7 @@
     "validate": "node --experimental-strip-types setup/ensure-characters-in-number-store.ts",
     "dev": "astro dev",
     "build": "astro build",
+    "full-build": "npm run setup && npm run build",
     "preview": "astro preview",
     "lint": "eslint .",
     "astro": "astro"
