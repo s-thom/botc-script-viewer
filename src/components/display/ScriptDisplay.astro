@@ -122,7 +122,7 @@ const qrPath = new URL(`${Astro.url.pathname}/qr.svg`, Astro.url).toString();
 
   <div class="page force-page qr-page print-only">
     <img class="qr" src={qrPath} alt="QR code for this page" loading="lazy" />
-    <p>{selfPath}</p>
+    <p class="qr-text">{selfPath}</p>
   </div>
 
   <footer class:list={["footer", "screen-only"]}>
@@ -239,6 +239,10 @@ const qrPath = new URL(`${Astro.url.pathname}/qr.svg`, Astro.url).toString();
     @media print {
       max-width: 75vw;
     }
+  }
+
+  .qr-text {
+    word-break: break-all;
   }
 
   .footer {
