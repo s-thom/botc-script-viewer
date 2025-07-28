@@ -25,3 +25,4 @@ pnpm-debug.log*
 
 /src/generated/*
 worker-configuration.d.ts
+.wrangler/*
