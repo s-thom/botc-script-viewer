@@ -1,9 +1,9 @@
 {
-  "name": "vigorous-visual",
+  "name": "botc-script-viewer",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "setup": "node --experimental-strip-types setup/generate-script-schema.ts && node --experimental-strip-types setup/download-role-icons.ts && node --experimental-strip-types setup/generate-edition-scripts.ts",
+    "setup": "wrangler types && node --experimental-strip-types setup/generate-script-schema.ts && node --experimental-strip-types setup/download-role-icons.ts && node --experimental-strip-types setup/generate-edition-scripts.ts",
     "validate": "node --experimental-strip-types setup/ensure-characters-in-number-store.ts",
     "dev": "astro dev",
     "build": "astro build",
@@ -12,7 +12,7 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/node": "^9.3.0",
+    "@astrojs/cloudflare": "^12.6.0",
     "@astrojs/react": "^4.3.0",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
@@ -43,6 +43,7 @@
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-organize-imports": "^4.1.0",
     "typescript": "^5.8.3",
-    "typescript-eslint": "^8.37.0"
+    "typescript-eslint": "^8.37.0",
+    "wrangler": "^4.26.0"
   }
 }

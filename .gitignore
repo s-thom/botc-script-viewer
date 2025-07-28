@@ -24,3 +24,4 @@ pnpm-debug.log*
 .idea/
 
 /src/generated/*
+worker-configuration.d.ts
