@@ -16,6 +16,9 @@ const { script } = Astro.props;
 
 const downloadPath = new URL(`${Astro.url.pathname}/json`, Astro.url);
 const downloadFilename = `${(script.name || "script").replace(/[\\/:*?"<>|]+/g, "_")}.json`;
+
+const selfPath = Astro.url.toString();
+const qrPath = new URL(`${Astro.url.pathname}/qr.svg`, Astro.url).toString();
 ---
 
 <div class="script-display">
@@ -116,6 +119,12 @@ const downloadFilename = `${(script.name || "script").replace(/[\\/:*?"<>|]+/g, 
       </div>
     </div>
   </div>
+
+  <div class="page force-page qr-page print-only">
+    <img class="qr" src={qrPath} alt="QR code for this page" loading="lazy" />
+    <p>{selfPath}</p>
+  </div>
+
   <footer class:list={["footer", "screen-only"]}>
     This website is not affiliated with The Pandemonium Institute. Character
     icons and descriptions are the property of Steven Medway and The Pandemonium
@@ -145,6 +154,11 @@ const downloadFilename = `${(script.name || "script").replace(/[\\/:*?"<>|]+/g, 
 
   .page {
     break-inside: avoid-page;
+  }
+
+  .force-page {
+    break-before: always;
+    break-after: always;
   }
 
   .title-area {
@@ -207,6 +221,23 @@ const downloadFilename = `${(script.name || "script").replace(/[\\/:*?"<>|]+/g, 
 
     :global(.character-list) {
       columns: 1;
+    }
+  }
+
+  .qr-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    padding: 2rem;
+  }
+
+  .qr {
+    max-width: 256px;
+
+    @media print {
+      max-width: 75vw;
     }
   }
 
