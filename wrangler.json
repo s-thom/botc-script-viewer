@@ -9,8 +9,5 @@
   },
   "observability": {
     "enabled": true
-  },
-  "vars": {
-    "SITE_DOMAIN": "botc-script-viewer.sthom.kiwi"
   }
 }
