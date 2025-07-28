@@ -1,0 +1,110 @@
+---
+import Image from "astro/components/Image.astro";
+import CenteredLayout from "../layouts/CenteredLayout.astro";
+import pagesImg from "../assets/print/pages.png";
+import scaleImg from "../assets/print/scale.png";
+---
+
+<CenteredLayout
+  meta={{ title: "Printing Tips - BotC Script Viewer" }}
+  heading="Printing Tips"
+>
+  <div>
+    <p>
+      This website was built with printing in mind. For the most part, this
+      means you can use the print functionality in your browser (<code
+        >ctrl/cmd + P</code
+      >) and not have to worry about formatting anything.
+    </p>
+    <p>
+      Given you're probably trying to print a script to actually play with,
+      you'll want to be smart about how you print. It's all pretty common sense
+      stuff, but if you've never used these options in the print menu before
+      then you might not think to use them.
+    </p>
+
+    <h2>Multiple print jobs</h2>
+    <p>
+      If you print with no changes to the print settings, then you're going to
+      get a copy of every page for every copy. If you're in a 15 player game,
+      you don't need 15 copies of the night order. What you should probably do
+      instead is go through the print menu multiple times.
+    </p>
+    <ol>
+      <li>Print only page 1, but make 15 copies...</li>
+      <li>...then print every page except page 1, making only 1 copy.</li>
+    </ol>
+    <Image
+      src={pagesImg}
+      width={400}
+      layout="constrained"
+      fit="contain"
+      alt="Page selection settings in the browser print menu"
+    />
+
+    <h2>Scaling</h2>
+    <p>
+      Scripts can be all shapes and sizes, and sometimes have slightly too much
+      to fit on a single page. While the layout will try to prevent other parts
+      of the script, like the night order, from appearing directly below, you
+      might want to save the paper by fitting all of the characters on the first
+      page.
+    </p>
+    <p>
+      This problem cam happen more often on scripts with custom characters, as
+      their abilities might be longer than the official ones.
+    </p>
+    <p>
+      If characters are jumping onto the next page, just change the scaling in
+      the print menu. Usually you won't need to go under 90% in order to fit the
+      entire script on.
+    </p>
+    <Image
+      src={scaleImg}
+      width={400}
+      layout="constrained"
+      fit="contain"
+      alt="Scaling settings in the browser print menu"
+    />
+
+    <h2>Night Order</h2>
+    <p>
+      Sometimes the heading for the night order ends up on its own page, with
+      the actual list below it. I'll be honest, I don't know how to fix this one
+      properly. I've tried.
+    </p>
+    <p>If this happens, you can try one of two things:</p>
+    <ol>
+      <li>
+        Use the same scaling as above until the night order fits on one page.
+      </li>
+      <li>Skip printing the page with just the heading on.</li>
+    </ol>
+
+    <p>
+      Hopefully these tips help to make printing your scripts just a little bit
+      easier.
+    </p>
+  </div>
+
+  <footer class="footer">
+    <p>
+      This website is not affiliated with The Pandemonium Institute. Character
+      icons and descriptions are the property of Steven Medway and The
+      Pandemonium Institute.
+    </p>
+    <p>
+      Website made by{" "}
+      <a href="https://sthom.kiwi" target="_blank" rel="external noreferrer">
+        Stuart Thomson
+      </a>
+      .
+    </p>
+  </footer>
+</CenteredLayout>
+
+<style>
+  h2 {
+    margin-top: 1rem;
+  }
+</style>

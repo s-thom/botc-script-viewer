@@ -1,15 +1,7 @@
 ---
-import { actions, isInputError } from "astro:actions";
 import CollectionsMenu from "../components/home/CollectionsMenu.astro";
 import ScriptForm from "../components/home/ScriptForm.astro";
 import CenteredLayout from "../layouts/CenteredLayout.astro";
-
-const result = Astro.getActionResult(actions.script);
-if (result && !result.error) {
-  return Astro.redirect(`/${result.data.scheme}/${result.data.data}`);
-}
-
-const inputErrors = isInputError(result?.error) ? result.error.fields : {};
 ---
 
 <CenteredLayout meta={{}} heading="Blood on the Clocktower Script Viewer">
@@ -25,13 +17,6 @@ const inputErrors = isInputError(result?.error) ? result.error.fields : {};
   <p>Select a script or enter a custom script by JSON or URL.</p>
   <CollectionsMenu />
   <ScriptForm />
-  {
-    inputErrors.script && (
-      <p class="error" id="script-error">
-        Unable to sign up. Please try again later.
-      </p>
-    )
-  }
   <footer class="footer">
     <p>
       This website is not affiliated with The Pandemonium Institute. Character
