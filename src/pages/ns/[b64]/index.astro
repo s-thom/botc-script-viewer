@@ -2,6 +2,7 @@
 import ScriptDisplay from "../../../components/display/ScriptDisplay.astro";
 import MinimalLayout from "../../../layouts/MinimalLayout.astro";
 import { decompressFromBase64 } from "../../../lib/compression";
+import { MAX_AGE_SECONDS } from "../../../lib/constants";
 import { normaliseScript } from "../../../lib/normalise";
 import { decodeScript } from "../../../lib/number-store";
 
@@ -16,6 +17,11 @@ if (!b64) {
 const bytes = await decompressFromBase64(b64, "deflate-raw");
 const rawScript = decodeScript(bytes);
 const script = normaliseScript(rawScript);
+
+Astro.response.headers.set(
+  "Cache-Control",
+  `public, max-age=${MAX_AGE_SECONDS}`,
+);
 ---
 
 <MinimalLayout

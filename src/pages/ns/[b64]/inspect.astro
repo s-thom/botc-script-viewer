@@ -6,6 +6,7 @@ import {
   decodeUrlSafeBase64,
   decompressFromBase64,
 } from "../../../lib/compression";
+import { MAX_AGE_SECONDS } from "../../../lib/constants";
 import { decodeScript } from "../../../lib/number-store";
 import { explainDecodeScript } from "../../../lib/number-store/explain";
 
@@ -28,6 +29,11 @@ const bytes = await decompressFromBase64(b64, "deflate-raw");
 const nodes = explainDecodeScript(bytes);
 const script = decodeScript(bytes);
 const scriptString = JSON.stringify(script);
+
+Astro.response.headers.set(
+  "Cache-Control",
+  `public, max-age=${MAX_AGE_SECONDS}`,
+);
 ---
 
 <MinimalLayout meta={{ title: "Inspect - BotC Script Viewer" }}>

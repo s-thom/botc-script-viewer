@@ -1,4 +1,5 @@
 import type { APIRoute } from "astro";
+import { MAX_AGE_SECONDS } from "../../../lib/constants";
 import { LOCAL_SCRIPT_COLLECTIONS } from "../../../scripts";
 
 export function getStaticPaths() {
@@ -40,5 +41,6 @@ export const GET: APIRoute = async ({ params, rewrite }) => {
 
   const headers = new Headers();
   headers.set("Content-Type", "application/json");
+  headers.set("Cache-Control", `public, max-age=${MAX_AGE_SECONDS}`);
   return new Response(JSON.stringify(rawScript), { headers });
 };
