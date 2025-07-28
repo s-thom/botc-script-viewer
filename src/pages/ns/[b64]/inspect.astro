@@ -3,8 +3,10 @@ import ByteList from "../../../components/number-store/ByteList.astro";
 import ExplainNode from "../../../components/number-store/ExplainNode.astro";
 import MinimalLayout from "../../../layouts/MinimalLayout.astro";
 import {
+  compressToBase64,
   decodeUrlSafeBase64,
   decompressFromBase64,
+  stringToBytes,
 } from "../../../lib/compression";
 import { MAX_AGE_SECONDS } from "../../../lib/constants";
 import { decodeScript } from "../../../lib/number-store";
@@ -18,6 +20,10 @@ if (!b64) {
   return Astro.rewrite("/404");
 }
 
+function formatPercent2DP(n: number) {
+  return `${(n * 100).toFixed(2)}%`;
+}
+
 const binaryString = decodeUrlSafeBase64(b64);
 const compressedBytes = new Uint8Array(binaryString.length);
 for (let i = 0; i < binaryString.length; i++) {
@@ -29,6 +35,16 @@ const bytes = await decompressFromBase64(b64, "deflate-raw");
 const nodes = explainDecodeScript(bytes);
 const script = decodeScript(bytes);
 const scriptString = JSON.stringify(script);
+
+const compressedJsonB64 = await compressToBase64(
+  stringToBytes(scriptString),
+  "deflate-raw",
+);
+const binaryCompressedJsonString = decodeUrlSafeBase64(compressedJsonB64);
+const jsonCompressedBytes = new Uint8Array(binaryCompressedJsonString.length);
+for (let i = 0; i < binaryCompressedJsonString.length; i++) {
+  jsonCompressedBytes[i] = binaryCompressedJsonString.charCodeAt(i);
+}
 
 Astro.response.headers.set(
   "Cache-Control",
@@ -44,22 +60,31 @@ Astro.response.headers.set(
   <div class="inspect-page">
     <h1>Inspect URL</h1>
 
+    <p><a href={`/ns/${b64}`}>View script</a></p>
+
+    <h2>NS breakdown</h2>
+    <code class="node-container"
+      >{nodes.map((node) => <ExplainNode node={node} />)}</code
+    >
+
+    <h2>URL data</h2>
     <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>Length</th>
+          <th>Data</th>
+        </tr>
+      </thead>
       <tbody>
         <tr>
-          <td>View script</td>
-          <td><a href={`/ns/${b64}`}>Link</a></td>
-        </tr>
-        <tr>
           <td>Base64</td>
-          <td><code>{b64}</code></td>
+          <td>{b64.length}</td>
+          <td><code class="allow-word-break">{b64}</code></td>
         </tr>
         <tr>
-          <td>Compression</td>
-          <td><code>deflate-raw</code></td>
-        </tr>
-        <tr>
-          <td>Compressed bytes ({compressedBytes.length})</td>
+          <td>Compressed bytes</td>
+          <td>{compressedBytes.length}</td>
           <td
             ><details>
               <summary>Expand</summary>
@@ -69,7 +94,8 @@ Astro.response.headers.set(
           >
         </tr>
         <tr>
-          <td>Decompressed bytes ({bytes.length})</td>
+          <td>Decompressed bytes</td>
+          <td>{bytes.length}</td>
           <td
             ><details>
               <summary>Expand</summary>
@@ -79,21 +105,68 @@ Astro.response.headers.set(
           >
         </tr>
         <tr>
-          <td>Script ({scriptString.length})</td>
+          <td>Decoded Script JSON</td>
+          <td>{scriptString.length}</td>
           <td
             ><details>
               <summary>Expand</summary>
-
-              <code>{scriptString}</code>
+              <p>This may not be a byte-byte match for the input script.</p>
+              <code class="allow-word-break">{scriptString}</code>
+            </details></td
+          >
+        </tr>
+        <tr>
+          <td>Script JSON Compressed Bytes</td>
+          <td>{jsonCompressedBytes.length}</td>
+          <td
+            ><details>
+              <summary>Expand</summary>
+              <code><ByteList bytes={jsonCompressedBytes} /></code>
             </details></td
           >
         </tr>
       </tbody>
     </table>
 
-    <code class="node-container"
-      >{nodes.map((node) => <ExplainNode node={node} />)}</code
-    >
+    <h2>Compression stats</h2>
+    <table>
+      <tbody>
+        <tr>
+          <td>DEFLATE</td>
+          <td
+            >Saving: {
+              formatPercent2DP(1 - compressedBytes.length / bytes.length)
+            }</td
+          >
+        </tr>
+        <tr>
+          <td>NS vs. JSON (Before DEFLATE)</td>
+          <td
+            >Saving: {
+              formatPercent2DP(1 - bytes.length / scriptString.length)
+            }</td
+          >
+        </tr>
+        <tr>
+          <td>NS vs. JSON (After DEFLATE)</td>
+          <td
+            >Saving: {
+              formatPercent2DP(
+                1 - compressedBytes.length / jsonCompressedBytes.length,
+              )
+            }</td
+          >
+        </tr>
+        <tr>
+          <td>Base64 URL encoding</td>
+          <td
+            >Saving: {
+              formatPercent2DP(1 - b64.length / compressedBytes.length)
+            }</td
+          >
+        </tr>
+      </tbody>
+    </table>
   </div>
 </MinimalLayout>
 
@@ -106,6 +179,20 @@ Astro.response.headers.set(
     display: flex;
     flex-direction: column;
     gap: 1rem;
+  }
+
+  table {
+    border-collapse: collapse;
+  }
+
+  th,
+  td {
+    border: 1px solid currentColor;
+    padding: 0.5rem;
+  }
+
+  .allow-word-break {
+    word-break: break-all;
   }
 
   .node-container {
