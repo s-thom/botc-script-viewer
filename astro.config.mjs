@@ -14,5 +14,5 @@ export default defineConfig({
     domains: ALLOWED_EXTERNAL_HOSTNAMES,
   },
   scopedStyleStrategy: "class",
-  adapter: cloudflare({ imageService: "cloudflare" }),
+  adapter: cloudflare({ imageService: "compile" }),
 });
