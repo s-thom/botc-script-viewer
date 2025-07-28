@@ -1,11 +1,14 @@
 import { createWriteStream } from "node:fs";
-import { mkdir, stat } from "node:fs/promises";
+import { copyFile, mkdir, stat } from "node:fs/promises";
 import { join } from "node:path";
 import { Readable } from "node:stream";
 import { finished } from "node:stream/promises";
 import type { ReadableStream } from "node:stream/web";
 import PQueue from "p-queue";
 import data from "../src/data/data.json" with { type: "json" };
+
+const CACHE_DIR = "node_modules/.cache/character-icons";
+const DESTINATION_DIR = "src/generated/character-icons";
 
 console.log("Fetching page");
 const pageRequest = await fetch("https://botc.app");
@@ -76,13 +79,14 @@ iconsToFetch.fabled = "fabled";
 iconsToFetch.demoninfo = "demoninfo";
 iconsToFetch.minioninfo = "minioninfo";
 
-await mkdir("src/generated/character-icons", { recursive: true });
+await mkdir(CACHE_DIR, { recursive: true });
+await mkdir(DESTINATION_DIR, { recursive: true });
 
-async function saveIcon(url: string, filename: string) {
+async function saveIconToCache(url: string, filename: string) {
   console.log(`Downloading ${filename}...`);
 
   const res = await fetch(url);
-  const destination = join("src/generated/character-icons", filename);
+  const destination = join(CACHE_DIR, filename);
   const fileStream = createWriteStream(destination, { flags: "w" });
   await finished(Readable.fromWeb(res.body as ReadableStream).pipe(fileStream));
 
@@ -103,18 +107,32 @@ async function processIcon(characterId: string, originalFileName: string) {
     `export { default as ${characterId} } from "./${filename}";\n`,
   );
 
+  const cacheFilePath = join(CACHE_DIR, filename);
+  const destinationFilePath = join(DESTINATION_DIR, filename);
+
   try {
-    await stat(join("src/generated/character-icons", filename));
+    await stat(destinationFilePath);
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (err) {
-    const urlPath = originalFilenamesById[originalFileName];
-    if (urlPath === undefined) {
-      console.warn(`No icon known for ${originalFileName}`);
-      return;
+    // Not in destination dir, check cache dir
+    try {
+      await stat(cacheFilePath);
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (err2) {
+      // Not in destination dir, check cache dir
+
+      const urlPath = originalFilenamesById[originalFileName];
+      if (urlPath === undefined) {
+        console.warn(`No icon known for ${originalFileName}`);
+        return;
+      }
+
+      const url = `https://botc.app${urlPath}`;
+      await requestQueue.add(() => saveIconToCache(url, filename));
     }
 
-    const url = `https://botc.app${urlPath}`;
-    requestQueue.add(() => saveIcon(url, filename));
+    // Should be saved now, copy to destination dir
+    await copyFile(cacheFilePath, destinationFilePath);
   }
 }
 
@@ -129,9 +147,7 @@ await queue.onIdle();
 await requestQueue.onIdle();
 console.log("All icons downloaded successfully.");
 
-const indexStream = createWriteStream(
-  join("src/generated/character-icons", "index.ts"),
-);
+const indexStream = createWriteStream(join(DESTINATION_DIR, "index.ts"));
 const awaitDrain = () =>
   new Promise<void>((res) => indexStream.once("drain", res));
 for await (const line of importLines) {
