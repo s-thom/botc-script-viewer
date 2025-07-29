@@ -10,7 +10,7 @@ export const STREAMER_STACK: LocalScriptDefinition[] = [
   {
     id: "switchcraft",
     title: "Switchcraft",
-    character: "engineer",
+    character: "hermit",
     getScript: () => import("./Switchcraft.json").then((m) => m.default),
   },
   {
@@ -23,7 +23,7 @@ export const STREAMER_STACK: LocalScriptDefinition[] = [
   {
     id: "conclusions",
     title: "Jumping to Conclusions",
-    character: "politician",
+    character: "heretic",
     getScript: () =>
       import("./Jumping to Conclusions.json").then((m) => m.default),
   },
