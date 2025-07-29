@@ -1,0 +1,33 @@
+---
+export interface Props {
+  isScreenOnly?: boolean;
+}
+
+const { isScreenOnly } = Astro.props;
+---
+
+<footer class:list={["footer", isScreenOnly && "screen-only"]}>
+  <p>
+    This website is not affiliated with The Pandemonium Institute. Character
+    icons and descriptions are the property of Steven Medway and The Pandemonium
+    Institute.
+  </p>
+  <p>
+    Website made by{" "}
+    <a href="https://sthom.kiwi" target="_blank" rel="external noreferrer"
+      >Stuart Thomson</a
+    >. <a
+      href="https://github.com/s-thom/botc-script-viewer"
+      target="_blank"
+      rel="external noreferrer">Source code</a
+    >.
+  </p>
+</footer>
+
+<style>
+  .footer {
+    opacity: 0.7;
+    font-size: 0.9rem;
+    margin-block-start: 2rem;
+  }
+</style>

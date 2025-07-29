@@ -1,5 +1,6 @@
 ---
 import type { NormalisedScript } from "../../types/botc";
+import Footer from "../misc/Footer.astro";
 import BootleggerList from "./BootleggerList.astro";
 import CharacterIcon from "./CharacterIcon.astro";
 import CharacterList from "./CharacterList.astro";
@@ -124,15 +125,7 @@ const qrPath = new URL(`${Astro.url.pathname}/qr.svg`, Astro.url).toString();
     <p class="qr-text">{selfPath}</p>
   </div>
 
-  <footer class:list={["footer", "screen-only"]}>
-    This website is not affiliated with The Pandemonium Institute. Character
-    icons and descriptions are the property of Steven Medway and The Pandemonium
-    Institute. Website made by{" "}
-    <a href="https://sthom.kiwi" target="_blank" rel="external noreferrer">
-      Stuart Thomson
-    </a>
-    .
-  </footer>
+  <Footer isScreenOnly />
 </div>
 
 <style>

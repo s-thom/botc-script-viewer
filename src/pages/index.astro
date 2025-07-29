@@ -1,6 +1,7 @@
 ---
 import CollectionsMenu from "../components/home/CollectionsMenu.astro";
 import ScriptForm from "../components/home/ScriptForm.astro";
+import Footer from "../components/misc/Footer.astro";
 import CenteredLayout from "../layouts/CenteredLayout.astro";
 ---
 
@@ -17,18 +18,5 @@ import CenteredLayout from "../layouts/CenteredLayout.astro";
   <p>Select a script or enter a custom script by JSON or URL.</p>
   <CollectionsMenu />
   <ScriptForm />
-  <footer class="footer">
-    <p>
-      This website is not affiliated with The Pandemonium Institute. Character
-      icons and descriptions are the property of Steven Medway and The
-      Pandemonium Institute.
-    </p>
-    <p>
-      Website made by{" "}
-      <a href="https://sthom.kiwi" target="_blank" rel="external noreferrer">
-        Stuart Thomson
-      </a>
-      .
-    </p>
-  </footer>
+  <Footer />
 </CenteredLayout>

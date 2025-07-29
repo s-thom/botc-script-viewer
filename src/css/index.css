@@ -198,12 +198,6 @@ a {
   }
 }
 
-.footer {
-  opacity: 0.7;
-  font-size: 0.9rem;
-  margin-block-start: 2rem;
-}
-
 .slow-spin {
   animation: Spin 40s linear infinite;
 }
