@@ -7,7 +7,7 @@ import type { ReadableStream } from "node:stream/web";
 import PQueue from "p-queue";
 import data from "../src/data/data.json" with { type: "json" };
 
-const CACHE_DIR = "node_modules/.cache/character-icons";
+const CACHE_DIR = "node_modules/.astro/sthom/character-icons";
 const DESTINATION_DIR = "src/generated/character-icons";
 
 console.log("Fetching page");
