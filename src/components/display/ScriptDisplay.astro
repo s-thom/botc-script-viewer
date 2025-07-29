@@ -12,13 +12,22 @@ export interface Props {
   script: NormalisedScript;
 }
 
+function fixDoubleSlashPaths(url: URL): URL {
+  const fixedPath = url.pathname.replace(/\/{2,}/, "/");
+  return new URL(fixedPath, url);
+}
+
 const { script } = Astro.props;
 
-const downloadPath = new URL(`${Astro.url.pathname}/json`, Astro.url);
+const downloadPath = fixDoubleSlashPaths(
+  new URL(`${Astro.url.pathname}/json`, Astro.url),
+);
 const downloadFilename = `${(script.name || "script").replace(/[\\/:*?"<>|]+/g, "_")}.json`;
 
 const selfPath = Astro.url.toString();
-const qrPath = new URL(`${Astro.url.pathname}/qr.svg`, Astro.url).toString();
+const qrPath = fixDoubleSlashPaths(
+  new URL(`${Astro.url.pathname}/qr.svg`, Astro.url),
+).toString();
 ---
 
 <div class="script-display">
