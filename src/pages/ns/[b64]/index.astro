@@ -1,5 +1,6 @@
 ---
 import ScriptDisplay from "../../../components/display/ScriptDisplay.astro";
+import PageView from "../../../components/misc/PageView.astro";
 import MinimalLayout from "../../../layouts/MinimalLayout.astro";
 import { decompressFromBase64 } from "../../../lib/compression";
 import { MAX_AGE_SECONDS } from "../../../lib/constants";
@@ -31,6 +32,7 @@ Astro.response.headers.set(
 >
   <Fragment slot="head">
     <meta name="robots" content="noindex" />
+    <PageView path="/ns/REDACTED" />
   </Fragment>
 
   <ScriptDisplay script={script} />

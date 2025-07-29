@@ -1,5 +1,6 @@
 ---
 import ScriptList from "../../components/home/ScriptList.astro";
+import PageView from "../../components/misc/PageView.astro";
 import CenteredLayout from "../../layouts/CenteredLayout.astro";
 import { LOCAL_SCRIPT_COLLECTIONS } from "../../scripts";
 
@@ -27,6 +28,10 @@ const collection = LOCAL_SCRIPT_COLLECTIONS[collectionId];
   }}
   heading={`Collection: ${collection.title}`}
 >
+  <Fragment slot="head">
+    <PageView path={null} />
+  </Fragment>
+
   <p>{collection.description}</p>
   <ScriptList collectionId={collectionId} scripts={collection.scripts} />
   <footer class="footer">

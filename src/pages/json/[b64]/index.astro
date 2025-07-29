@@ -1,5 +1,6 @@
 ---
 import ScriptDisplay from "../../../components/display/ScriptDisplay.astro";
+import PageView from "../../../components/misc/PageView.astro";
 import type { BloodOnTheClocktowerCustomScript } from "../../../generated/script-schema";
 import MinimalLayout from "../../../layouts/MinimalLayout.astro";
 import { bytesToString, decompressFromBase64 } from "../../../lib/compression";
@@ -32,6 +33,7 @@ Astro.response.headers.set(
 >
   <Fragment slot="head">
     <meta name="robots" content="noindex" />
+    <PageView path="/json/REDACTED" />
   </Fragment>
 
   <ScriptDisplay script={script} />

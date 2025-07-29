@@ -1,5 +1,6 @@
 ---
 import ScriptDisplay from "../../../components/display/ScriptDisplay.astro";
+import PageView from "../../../components/misc/PageView.astro";
 import MinimalLayout from "../../../layouts/MinimalLayout.astro";
 import { normaliseScript } from "../../../lib/normalise";
 import { LOCAL_SCRIPT_COLLECTIONS } from "../../../scripts";
@@ -40,5 +41,9 @@ const script = normaliseScript(rawScript);
     title: script.name ? `${script.name} - BotC Script Viewer` : undefined,
   }}
 >
+  <Fragment slot="head">
+    <PageView path={null} />
+  </Fragment>
+
   <ScriptDisplay script={script} />
 </MinimalLayout>

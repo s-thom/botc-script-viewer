@@ -1,11 +1,16 @@
 ---
 import CollectionsMenu from "../components/home/CollectionsMenu.astro";
 import ScriptForm from "../components/home/ScriptForm.astro";
+import PageView from "../components/misc/PageView.astro";
 import Footer from "../components/misc/Footer.astro";
 import CenteredLayout from "../layouts/CenteredLayout.astro";
 ---
 
 <CenteredLayout meta={{}} heading="Blood on the Clocktower Script Viewer">
+  <Fragment slot="head">
+    <PageView path={null} />
+  </Fragment>
+
   <p>
     View scripts for <a
       href="https://bloodontheclocktower.com/"

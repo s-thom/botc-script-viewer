@@ -3,6 +3,7 @@ import { Image } from "astro:assets";
 import { goblin } from "../generated/character-icons";
 import CenteredLayout from "../layouts/CenteredLayout.astro";
 import { AppError } from "../types/site";
+import PageView from "../components/misc/PageView.astro";
 
 interface Props {
   error: unknown;
@@ -26,6 +27,7 @@ if (error instanceof Error) {
 <CenteredLayout meta={{ title: "Error - BotC Script Viewer" }} heading={title}>
   <Fragment slot="head">
     <meta name="robots" content="noindex" />
+    <PageView path="/500" />
   </Fragment>
 
   <Image

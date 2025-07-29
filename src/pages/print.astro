@@ -3,12 +3,17 @@ import Image from "astro/components/Image.astro";
 import CenteredLayout from "../layouts/CenteredLayout.astro";
 import pagesImg from "../assets/print/pages.png";
 import scaleImg from "../assets/print/scale.png";
+import PageView from "../components/misc/PageView.astro";
 ---
 
 <CenteredLayout
   meta={{ title: "Printing Tips - BotC Script Viewer" }}
   heading="Printing Tips"
 >
+  <Fragment slot="head">
+    <PageView path={null} />
+  </Fragment>
+
   <div>
     <p>
       This website was built with printing in mind. For the most part, this

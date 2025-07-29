@@ -1,4 +1,5 @@
 ---
+import PageView from "../../../components/misc/PageView.astro";
 import ByteList from "../../../components/number-store/ByteList.astro";
 import ExplainNode from "../../../components/number-store/ExplainNode.astro";
 import MinimalLayout from "../../../layouts/MinimalLayout.astro";
@@ -55,6 +56,7 @@ Astro.response.headers.set(
 <MinimalLayout meta={{ title: "Inspect - BotC Script Viewer" }}>
   <Fragment slot="head">
     <meta name="robots" content="noindex" />
+    <PageView path="/ns/REDACTED/inspect" />
   </Fragment>
 
   <div class="inspect-page">
