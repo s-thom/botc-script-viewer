@@ -76,7 +76,7 @@ export const WORLD_CUP_25: LocalScriptDefinition[] = [
   {
     id: "trainedkiller",
     title: "Trained Killer",
-    character: "lycanthrope",
+    character: "lilmonsta",
     getScript: () => import("./trainedkiller.json").then((m) => m.default),
   },
   {
