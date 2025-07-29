@@ -29,7 +29,7 @@ export const STREAMER_STACK: LocalScriptDefinition[] = [
   },
   {
     id: "keening",
-    title: "The Keeping Call",
+    title: "The Keening Call",
     character: "banshee",
     getScript: () => import("./The Keening Call.json").then((m) => m.default),
   },
