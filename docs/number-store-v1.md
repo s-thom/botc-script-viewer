@@ -4,6 +4,10 @@ Number Store (name pending) is a format for compressing Blood on the Clocktower 
 
 The name "Number Store" comes from a recurring bit on the [Grim Scenarios Twitch channel](https://www.twitch.tv/grimscenarios). It's also relevant because all of the official characters are *store*d as *number*s.
 
+To see how and Number Store URL is interpreted by the site, add `/inspect` to the end of any `/ns/<data>` URL. This will bring up a page with how the script is encoded.
+
+![The inspection page](../.github/ns-inpsect.png)
+
 ## Summary
 
 For the most part, Number Store is a mapping of official characters to numbers, then just concatenating those numbers in a binary array.
