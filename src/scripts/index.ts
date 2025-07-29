@@ -2,10 +2,11 @@ import type { LocalScriptCollection } from "../types/botc";
 import { BASE_3 } from "./base3";
 import { CAROUSEL_COLLECTION } from "./carousel-collection";
 import { RANDOM_SCRIPTS } from "./random";
+import { STREAMER_STACK } from "./streamer-stack";
 import { WORLD_CUP_25 } from "./wc25";
 
 export const LOCAL_SCRIPT_COLLECTIONS: Record<
-  "base3" | "carousel" | "wc25" | "v",
+  "base3" | "carousel" | "wc25" | "s2" | "v",
   LocalScriptCollection
 > = {
   base3: {
@@ -24,6 +25,12 @@ export const LOCAL_SCRIPT_COLLECTIONS: Record<
     description:
       "Scripts included in the 2025 World Cup competition with special rules that change the game.",
     scripts: WORLD_CUP_25,
+  },
+  s2: {
+    title: "Streamer Stack",
+    description:
+      "A collection of scripts from some of your favourite Clocktower streamers and their communities that utilizes many of the characters available since the Carousel has been released!",
+    scripts: STREAMER_STACK,
   },
   v: {
     title: "Various",
