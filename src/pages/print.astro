@@ -4,6 +4,7 @@ import CenteredLayout from "../layouts/CenteredLayout.astro";
 import pagesImg from "../assets/print/pages.png";
 import scaleImg from "../assets/print/scale.png";
 import PageView from "../components/misc/PageView.astro";
+import Footer from "../components/misc/Footer.astro";
 ---
 
 <CenteredLayout
@@ -92,20 +93,7 @@ import PageView from "../components/misc/PageView.astro";
     </p>
   </div>
 
-  <footer class="footer">
-    <p>
-      This website is not affiliated with The Pandemonium Institute. Character
-      icons and descriptions are the property of Steven Medway and The
-      Pandemonium Institute.
-    </p>
-    <p>
-      Website made by{" "}
-      <a href="https://sthom.kiwi" target="_blank" rel="external noreferrer">
-        Stuart Thomson
-      </a>
-      .
-    </p>
-  </footer>
+  <Footer />
 </CenteredLayout>
 
 <style>

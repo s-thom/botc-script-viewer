@@ -1,5 +1,6 @@
 ---
 import ScriptList from "../../components/home/ScriptList.astro";
+import Footer from "../../components/misc/Footer.astro";
 import PageView from "../../components/misc/PageView.astro";
 import CenteredLayout from "../../layouts/CenteredLayout.astro";
 import { LOCAL_SCRIPT_COLLECTIONS } from "../../scripts";
@@ -34,13 +35,5 @@ const collection = LOCAL_SCRIPT_COLLECTIONS[collectionId];
 
   <p>{collection.description}</p>
   <ScriptList collectionId={collectionId} scripts={collection.scripts} />
-  <footer class="footer">
-    This website is not affiliated with The Pandemonium Institute. Character
-    icons and descriptions are the property of Steven Medway and The Pandemonium
-    Institute. Website made by{" "}
-    <a href="https://sthom.kiwi" target="_blank" rel="external noreferrer">
-      Stuart Thomson
-    </a>
-    .
-  </footer>
+  <Footer />
 </CenteredLayout>
