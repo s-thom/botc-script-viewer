@@ -30,51 +30,61 @@ import ScriptList from "./ScriptList.astro";
     listeners.forEach((listener) => listener());
   });
 
-  document
-    .querySelectorAll<HTMLDetailsElement>(
+  const allDetails = document.querySelectorAll<HTMLDetailsElement>(
+    'details.menu[name="script-collection"]',
+  );
+
+  window.addEventListener("click", (event) => {
+    const closest = (event.target as Element).closest(
       'details.menu[name="script-collection"]',
-    )
-    .forEach((details) => {
-      const popover =
-        details.querySelector<HTMLDivElement>("div.menu-popover")!;
+    );
+    if (!closest) {
+      for (const details of allDetails) {
+        details.removeAttribute("open");
+      }
+    }
+  });
 
-      function reposition() {
-        const detailsRect = details.getBoundingClientRect();
-        const popoverRect = popover.getBoundingClientRect();
+  allDetails.forEach((details) => {
+    const popover = details.querySelector<HTMLDivElement>("div.menu-popover")!;
 
-        const halfDetails = detailsRect.width / 2;
-        const halfPopover = popoverRect.width / 2;
-        let left = halfDetails - halfPopover;
+    function reposition() {
+      const detailsRect = details.getBoundingClientRect();
+      const popoverRect = popover.getBoundingClientRect();
 
-        const maxWidth = window.innerWidth - 2 * POPOVER_PADDING_PX;
-        const screenLeft = left + detailsRect.left;
-        const screenRight = screenLeft + popoverRect.width;
+      const halfDetails = detailsRect.width / 2;
+      const halfPopover = popoverRect.width / 2;
+      let left = halfDetails - halfPopover;
 
-        if (screenRight > window.innerWidth - POPOVER_PADDING_PX) {
-          // Too far to the right, move back.
-          const adjustment =
-            screenRight - (window.innerWidth - POPOVER_PADDING_PX);
-          left -= adjustment;
-        }
-        if (screenLeft < POPOVER_PADDING_PX) {
-          // Too far to the left, move forward.
-          // If there  was an adjustment to the right, this overrides it but that's
-          // fine because the max width should fix that.
-          const adjustment = POPOVER_PADDING_PX - screenLeft;
-          left += adjustment;
-        }
+      const maxWidth = window.innerWidth - 2 * POPOVER_PADDING_PX;
+      const screenLeft = left + detailsRect.left;
+      const screenRight = screenLeft + popoverRect.width;
 
-        popover.style.maxWidth = `${maxWidth}px`;
-        popover.style.left = `${left}px`;
+      if (screenRight > window.innerWidth - POPOVER_PADDING_PX) {
+        // Too far to the right, move back.
+        const adjustment =
+          screenRight - (window.innerWidth - POPOVER_PADDING_PX);
+        left -= adjustment;
+      }
+      if (screenLeft < POPOVER_PADDING_PX) {
+        // Too far to the left, move forward.
+        // If there  was an adjustment to the right, this overrides it but that's
+        // fine because the max width should fix that.
+        const adjustment = POPOVER_PADDING_PX - screenLeft;
+        left += adjustment;
       }
 
-      reposition();
-      // If a max-width change is needed then the position is still wrong after the first time.
-      // The simplest fix is to just run the adjustment again.
-      // Is it hacky? Yes. Does it work? Also yes.
-      reposition();
-      listeners.push(reposition);
-    });
+      popover.style.maxWidth = `${maxWidth}px`;
+      popover.style.left = `${left}px`;
+    }
+
+    reposition();
+    // If a max-width change is needed then the position is still wrong after the first time.
+    // The simplest fix is to just run the adjustment again.
+    // Is it hacky? Yes. Does it work? Also yes.
+    reposition();
+    listeners.push(reposition);
+  });
 </script>
 
 <style>
