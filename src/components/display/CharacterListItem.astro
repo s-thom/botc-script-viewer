@@ -7,34 +7,76 @@ export interface Props {
   character2?: ScriptCharacter;
   title?: string;
   description?: string;
+  character1Link?: string;
+  character2Link?: string;
+  titleLink?: string;
 }
 
-const { character, character2, title, description } = Astro.props;
+const {
+  character,
+  character2,
+  title,
+  description,
+  character1Link,
+  character2Link,
+  titleLink,
+} = Astro.props;
 ---
 
 <div class="character">
   {
     character ? (
-      <CharacterIcon
-        character={character}
-        size={48}
-        class="character-icon-offset"
-      />
+      character1Link ? (
+        <a class="character-icon-link" href={character1Link}>
+          <CharacterIcon
+            character={character}
+            size={48}
+            class="character-icon-offset"
+          />
+        </a>
+      ) : (
+        <CharacterIcon
+          character={character}
+          size={48}
+          class="character-icon-offset"
+        />
+      )
     ) : (
       <div class="character-icon-placeholder" />
     )
   }
   {
-    character2 && (
-      <CharacterIcon
-        character={character2}
-        size={48}
-        class="character-icon-offset"
-      />
-    )
+    character2 &&
+      (character2Link ? (
+        <a class="character-icon-link" href={character2Link}>
+          <CharacterIcon
+            character={character2}
+            size={48}
+            class="character-icon-offset"
+          />
+        </a>
+      ) : (
+        <CharacterIcon
+          character={character2}
+          size={48}
+          class="character-icon-offset"
+        />
+      ))
   }
   <div class="character-info">
-    {title && <h4 class="character-title">{title}</h4>}
+    {
+      title && (
+        <h4 class="character-title">
+          {titleLink ? (
+            <a class="character-title-link" href={titleLink}>
+              {title}
+            </a>
+          ) : (
+            title
+          )}
+        </h4>
+      )
+    }
     {description && <p class="character-description">{description}</p>}
   </div>
 </div>
@@ -53,8 +95,16 @@ const { character, character2, title, description } = Astro.props;
     width: 48px;
   }
 
+  .character-icon-link {
+    display: contents;
+  }
+
   .character-title {
     font-family: var(--font-title);
+  }
+
+  .character-title-link:not(:is(:hover, :focus-within)) {
+    text-decoration: none;
   }
 
   .character-description {

@@ -15,13 +15,13 @@ const { info, class: className } = Astro.props;
     info.map((rule) => (
       <li class={"night-order-list-item"}>
         {rule.type === "character" ? (
-          <a href={`#${rule.character.id}`} class="night-order-link">
-            <CharacterListItem
-              character={rule.character}
-              title={rule.character.name}
-              description={rule.reminderText}
-            />
-          </a>
+          <CharacterListItem
+            character={rule.character}
+            character1Link={`#${rule.character.id}`}
+            title={rule.character.name}
+            titleLink={`#${rule.character.id}`}
+            description={rule.reminderText}
+          />
         ) : (
           <CharacterListItem
             character={null}

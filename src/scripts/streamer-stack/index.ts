@@ -43,7 +43,7 @@ export const STREAMER_STACK: LocalScriptDefinition[] = [
   {
     id: "fizzy",
     title: "Fizzy Vizzy",
-    character: "lunatic",
+    character: "vizier",
     getScript: () => import("./Fizzy Vizzy.json").then((m) => m.default),
   },
   {

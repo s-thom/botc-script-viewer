@@ -19,7 +19,9 @@ const { jinxes, class: className } = Astro.props;
       >
         <CharacterListItem
           character={jinx.character1}
+          character1Link={`#${jinx.character1.id}`}
           character2={jinx.character2}
+          character2Link={`#${jinx.character2.id}`}
           description={jinx.reason}
         />
       </li>
