@@ -19,8 +19,8 @@ const { path } = Astro.props;
   {...path === null ? {} : { "data-path": path }}></script>
 
 <script>
-  document.addEventListener("load", () => {
-    const script = document.querySelector<HTMLScriptElement>("#umami");
+  const script = document.querySelector<HTMLScriptElement>("#umami");
+  script?.addEventListener("load", () => {
     window.umami?.track(script?.dataset.path ?? window.location.pathname);
   });
 </script>
