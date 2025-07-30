@@ -25,7 +25,7 @@ while ((match = regex.exec(content)) !== null) {
     matchedText.endsWith("*")
   ) {
     parts.push({ type: "bold", content: matchedText.slice(1, -1) });
-  } else if (matchedText.startsWith(":") && matchedText.endsWith(":")) {
+  } else if (matchedText === ":reminder:") {
     parts.push({ type: "colon", content: matchedText.slice(1, -1) });
   } else if (matchedText.startsWith("[") && matchedText.endsWith("]")) {
     parts.push({ type: "square", content: matchedText.slice(1, -1) });
