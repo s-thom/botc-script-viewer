@@ -6,6 +6,7 @@ import CharacterIcon from "./CharacterIcon.astro";
 import CharacterList from "./CharacterList.astro";
 import JinxList from "./JinxList.astro";
 import NightOrderList from "./NightOrderList.astro";
+import ReminderDefinition from "./reminder/ReminderDefinition.astro";
 import SkipList from "./SkipList.astro";
 
 export interface Props {
@@ -32,6 +33,9 @@ const qrPath = fixDoubleSlashPaths(
 
 <div class="script-display">
   <SkipList script={script} />
+
+  <ReminderDefinition />
+
   <div class:list={["top-links", "screen-only"]}>
     <a href="/">Change script</a>
     <a href={downloadPath} download={downloadFilename}>Download JSON</a>

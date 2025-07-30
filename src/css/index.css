@@ -100,8 +100,8 @@ textarea:not([rows]) {
   --color-control-border-hover: #d8cdb4;
   --color-control-border-active: #d0c3ab;
 
-  --box-shadow:
-    0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --color-reminder: #402d4f;
+  --color-reminder-border: #000000;
 
   font-family: var(--font-body);
 }
