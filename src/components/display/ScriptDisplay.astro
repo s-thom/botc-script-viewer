@@ -144,7 +144,11 @@ const qrPath = fixDoubleSlashPaths(
 <style>
   @media screen {
     .script-display {
-      margin: 2rem;
+      margin: 2rem 1rem;
+
+      @media (min-width: 900px) {
+        margin: 2rem;
+      }
     }
   }
 
