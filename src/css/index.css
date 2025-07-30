@@ -101,8 +101,8 @@ textarea:not([rows]) {
   --color-control-border-hover: #d8cdb4;
   --color-control-border-active: #d0c3ab;
 
-  --color-reminder: #402d4f;
-  --color-reminder-border: #000000;
+  --color-reminder: #6a4f7e;
+  --color-reminder-border: #282828;
 
   @media (prefers-color-scheme: dark) {
     &:not([data-theme="light"]) {
@@ -114,7 +114,7 @@ textarea:not([rows]) {
       --color-control-border-active: #393733;
 
       --color-reminder: #402d4f;
-      --color-reminder-border: #000000;
+      --color-reminder-border: #7e6b4e;
     }
   }
 
@@ -127,7 +127,7 @@ textarea:not([rows]) {
     --color-control-border-active: #393733;
 
     --color-reminder: #402d4f;
-    --color-reminder-border: #000000;
+    --color-reminder-border: #7e6b4e;
   }
 }
 
