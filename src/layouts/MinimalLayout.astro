@@ -1,4 +1,5 @@
 ---
+import ThemeToggle from "../components/misc/ThemeToggle.astro";
 import "../css/index.css";
 import type { PageMeta } from "../types/site";
 
@@ -44,6 +45,7 @@ const { title = "BotC Script Viewer", description } = meta;
     <slot name="head" />
   </head>
   <body id="top">
+    <ThemeToggle />
     <slot />
   </body>
 </html>

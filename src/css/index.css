@@ -90,6 +90,7 @@ textarea:not([rows]) {
   --font-body: "Sorts Mill Goudy", Georgia, "Times New Roman", serif;
   --font-title:
     Dumbledor, "Sorts Mill Goudy", Georgia, "Times New Roman", serif;
+  font-family: var(--font-body);
 
   --border-radius: 0.5rem;
 
@@ -103,7 +104,31 @@ textarea:not([rows]) {
   --color-reminder: #402d4f;
   --color-reminder-border: #000000;
 
-  font-family: var(--font-body);
+  @media (prefers-color-scheme: dark) {
+    &:not([data-theme="light"]) {
+      --color-background: #1a1918;
+      --color-text: #e1e1e1;
+      --color-control-background: #2c2b28;
+      --color-control-background-active: var(--color-background);
+      --color-control-border-hover: #302f2c;
+      --color-control-border-active: #393733;
+
+      --color-reminder: #402d4f;
+      --color-reminder-border: #000000;
+    }
+  }
+
+  &[data-theme="dark"] {
+    --color-background: #1a1918;
+    --color-text: #e1e1e1;
+    --color-control-background: #2c2b28;
+    --color-control-background-active: var(--color-background);
+    --color-control-border-hover: #302f2c;
+    --color-control-border-active: #393733;
+
+    --color-reminder: #402d4f;
+    --color-reminder-border: #000000;
+  }
 }
 
 @media print {
