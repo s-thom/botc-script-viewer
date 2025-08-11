@@ -1,10 +1,11 @@
 ---
-import type { ImageMetadata } from "astro";
+import type { GetImageResult, ImageMetadata } from "astro";
 import * as CHARACTER_ICONS from "../../generated/character-icons";
 import type { ScriptCharacter } from "../../generated/script-schema";
 import { CHARACTERS_BY_ID } from "../../lib/characters";
 import { ALLOWED_EXTERNAL_HOSTNAMES } from "../../lib/images";
 import { Image } from "astro:assets";
+import { getImage } from "astro:assets";
 
 export interface Props {
   character: ScriptCharacter;
@@ -12,6 +13,8 @@ export interface Props {
   loading?: "eager" | "lazy";
   class?: string;
 }
+
+type FallbackProps = Pick<GetImageResult, "src" | "srcSet" | "attributes">;
 
 const { character, size, class: className, loading = "eager" } = Astro.props;
 
@@ -96,6 +99,20 @@ function getCharacterIcon(character: ScriptCharacter): string | ImageMetadata {
 }
 
 const icon = getCharacterIcon(character);
+
+const fallbackMetadata = getFallbackIcon(character.team);
+const fallbackResult = await getImage({
+  src: fallbackMetadata,
+  width: size,
+  height: size,
+  densities: [1, 2, 3],
+});
+
+const fallback: FallbackProps = {
+  src: fallbackResult.src,
+  srcSet: fallbackResult.srcSet,
+  attributes: fallbackResult.attributes,
+};
 ---
 
 {
@@ -104,21 +121,46 @@ const icon = getCharacterIcon(character);
     <Image
       src={icon}
       alt={character.name}
-      class={className}
+      class:list={["character-icon", className]}
       width={size}
       height={size}
       densities={[1, 2, 3]}
       loading={loading}
+      data-fallback={JSON.stringify(fallback)}
     />
   ) : (
     <Image
       src={icon}
       alt={character.name}
-      class={className}
+      class:list={["character-icon", className]}
       width={size}
       height={size}
       densities={[1, 2, 3]}
       loading={loading}
+      data-fallback={JSON.stringify(fallback)}
     />
   )
 }
+
+<script>
+  import type { GetImageResult } from "astro";
+  type FallbackProps = Pick<GetImageResult, "src" | "srcSet" | "attributes">;
+
+  document
+    .querySelectorAll<HTMLImageElement>("img.character-icon[data-fallback]")
+    .forEach((img) => {
+      img.addEventListener(
+        "error",
+        () => {
+          const fallback: FallbackProps = JSON.parse(img.dataset.fallback!);
+
+          img.src = fallback.src;
+          img.srcset = fallback.srcSet.attribute;
+          for (const [name, value] of Object.entries(fallback.attributes)) {
+            img.setAttribute(name, value);
+          }
+        },
+        { once: true },
+      );
+    });
+</script>
