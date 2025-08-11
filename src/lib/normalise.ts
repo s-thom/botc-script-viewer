@@ -185,6 +185,15 @@ export function normaliseScript(
     }
 
     addCharacter(item as ScriptCharacter);
+
+    // Custom character check
+    const normalisedId = normaliseCharacterId(item.id);
+    if (!CHARACTERS_BY_ID.has(normalisedId)) {
+      // Ensure bootlegger is in play if there are custom characters
+      if (!newScript.charactersById.has("bootlegger")) {
+        addCharacter(CHARACTERS_BY_ID.get("bootlegger")!);
+      }
+    }
   }
 
   if (meta === undefined) {
