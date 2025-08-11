@@ -13,7 +13,7 @@ interface TextPart {
 const { content } = Astro.props;
 
 const parts: TextPart[] = [];
-const regex = /(\*[^*]+\*|:[^:]+:|\[[^\]]+\]|[^*:*\[\]]+|\*)/g;
+const regex = /(\*[^*]+\*|:reminder:|:|\[[^\]]+\]|[^*:\[\]]+|\*)/g;
 let match: RegExpExecArray | null;
 
 while ((match = regex.exec(content)) !== null) {
