@@ -40,7 +40,9 @@ const iconMatches = Array.from(
 
 const originalFilenamesById: Record<string, string> = {};
 for (const match of iconMatches) {
-  originalFilenamesById[match[2]] = match[1];
+  if (!originalFilenamesById[match[2]]) {
+    originalFilenamesById[match[2]] = match[1];
+  }
 }
 
 const iconsToFetch: Record<string, string> = {};
