@@ -138,15 +138,15 @@ Astro.response.headers.set(
           <td
             >Saving: {
               formatPercent2DP(1 - compressedBytes.length / bytes.length)
-            }</td
+            } ({bytes.length - compressedBytes.length} bytes)</td
           >
         </tr>
         <tr>
           <td>NS vs. JSON (Before DEFLATE)</td>
           <td
-            >Saving: {
-              formatPercent2DP(1 - bytes.length / scriptString.length)
-            }</td
+            >Saving: {formatPercent2DP(1 - bytes.length / scriptString.length)} ({
+              scriptString.length - bytes.length
+            } bytes)</td
           >
         </tr>
         <tr>
@@ -156,15 +156,14 @@ Astro.response.headers.set(
               formatPercent2DP(
                 1 - compressedBytes.length / jsonCompressedBytes.length,
               )
-            }</td
+            } ({jsonCompressedBytes.length - compressedBytes.length} bytes)</td
           >
         </tr>
         <tr>
           <td>Base64 URL encoding</td>
           <td
-            >Saving: {
-              formatPercent2DP(1 - b64.length / compressedBytes.length)
-            }</td
+            >Saving: {formatPercent2DP(1 - b64.length / compressedBytes.length)}
+            ({compressedBytes.length} bytes to {b64.length} characters in URL)</td
           >
         </tr>
       </tbody>
