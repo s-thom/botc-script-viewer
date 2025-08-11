@@ -152,6 +152,10 @@ const fallback: FallbackProps = {
       img.addEventListener(
         "error",
         () => {
+          console.log(
+            `Error loading icon for character ${img.alt}. Switching to team fallback`,
+          );
+
           const fallback: FallbackProps = JSON.parse(img.dataset.fallback!);
 
           img.src = fallback.src;
