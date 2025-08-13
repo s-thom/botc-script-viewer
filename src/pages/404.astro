@@ -1,18 +1,13 @@
 ---
 import { Image } from "astro:assets";
-import CenteredLayout from "../layouts/CenteredLayout.astro";
 import { witch } from "../generated/character-icons";
-import PageView from "../components/misc/PageView.astro";
+import CenteredLayout from "../layouts/CenteredLayout.astro";
 ---
 
 <CenteredLayout
   meta={{ title: "Not found - BotC Script Viewer" }}
   heading="Page not found"
 >
-  <Fragment slot="head">
-    <PageView path="/404" />
-  </Fragment>
-
   <Image
     src={witch}
     class="slow-spin"

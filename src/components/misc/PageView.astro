@@ -1,9 +1,5 @@
 ---
-export interface Props {
-  path: string | null;
-}
 
-const { path } = Astro.props;
 ---
 
 <script
@@ -14,13 +10,4 @@ const { path } = Astro.props;
   data-website-id="04af2bbb-faef-4c4b-8107-f4407d13fdc2"
   data-do-not-track="true"
   data-domains="botc-script-viewer.sthom.kiwi"
-  data-auto-track="false"
-  fetchpriority="low"
-  {...path === null ? {} : { "data-path": path }}></script>
-
-<script>
-  const script = document.querySelector<HTMLScriptElement>("#umami");
-  script?.addEventListener("load", () => {
-    window.umami?.track(script?.dataset.path ?? window.location.pathname);
-  });
-</script>
+  fetchpriority="low"></script>
