@@ -56,5 +56,6 @@ export const OPTIONS: APIRoute = async ({ params }) => {
   const headers = new Headers();
   headers.set("Access-Control-Allow-Origin", "*");
   headers.set("Access-Control-Allow-Methods", "GET");
+  headers.set("Access-Control-Allow-Headers", "user-agent");
   return new Response(null, { headers, status: 204 });
 };
