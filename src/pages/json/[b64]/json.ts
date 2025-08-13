@@ -18,9 +18,23 @@ export const GET: APIRoute = async ({ params, rewrite }) => {
     const headers = new Headers();
     headers.set("Content-Type", "application/json");
     headers.set("Cache-Control", `public, max-age=${MAX_AGE_SECONDS}`);
+    headers.set("Access-Control-Allow-Origin", "*");
     return new Response(rawScriptString, { headers });
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (err) {
     return rewrite("/404");
   }
+};
+
+export const OPTIONS: APIRoute = async ({ params }) => {
+  const { b64 } = params;
+
+  if (!b64) {
+    return new Response(null, { status: 404 });
+  }
+
+  const headers = new Headers();
+  headers.set("Access-Control-Allow-Origin", "*");
+  headers.set("Access-Control-Allow-Methods", "GET");
+  return new Response(null, { headers, status: 204 });
 };
