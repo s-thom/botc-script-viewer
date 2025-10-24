@@ -46,14 +46,20 @@ const { node } = Astro.props;
 {
   node.type === "warning" && (
     <span class:list={["node", "node-warning"]}>
-      <ByteList bytes={node.bytes} />
+      <HoverDetail>
+        <ByteList bytes={node.bytes} />
+        <span slot="hover">{node.message}</span>
+      </HoverDetail>
     </span>
   )
 }
 {
   node.type === "error" && (
     <span class:list={["node", "node-error"]}>
-      <ByteList bytes={node.bytes} />
+      <HoverDetail>
+        <ByteList bytes={node.bytes} />
+        <span slot="hover">{node.message}</span>
+      </HoverDetail>
     </span>
   )
 }

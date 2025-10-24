@@ -63,14 +63,13 @@ function explainTLV(
       },
       nextPointer,
     };
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (err) {
     // Force the end of the explanation
     return {
       node: {
         type: "error",
         bytes: bytes.subarray(pointer, bytes.length),
-        message: "Unrecoverable error",
+        message: `Unrecoverable error: ${err instanceof Error ? err.message : "<unknown>"}`,
       },
       nextPointer: bytes.length,
     };
