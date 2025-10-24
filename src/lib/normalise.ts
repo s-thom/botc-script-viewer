@@ -139,6 +139,7 @@ export function normaliseScript(
       demon: [],
       traveller: [],
       fabled: [],
+      loric: [],
     },
     jinxes: [],
   };

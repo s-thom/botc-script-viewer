@@ -55,6 +55,13 @@ const { script } = Astro.props;
       )
     }
     {
+      script.teams.loric.length > 0 && (
+        <li class="skip-list-item">
+          <a href="#loric">Loric</a>
+        </li>
+      )
+    }
+    {
       script.jinxes.length > 0 && (
         <li class="skip-list-item">
           <a href="#jinxes">Jinxes</a>

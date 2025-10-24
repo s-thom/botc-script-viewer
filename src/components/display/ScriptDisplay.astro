@@ -105,6 +105,14 @@ const qrPath = fixDoubleSlashPaths(
             <CharacterList characters={script.teams.fabled} />
           </>
         )}
+        {script.teams.loric.length > 0 && (
+          <>
+            <h3 id="loric" class="category-title">
+              Loric
+            </h3>
+            <CharacterList characters={script.teams.loric} />
+          </>
+        )}
         {script.jinxes.length > 0 && (
           <>
             <h3 id="jinxes" class="category-title">
