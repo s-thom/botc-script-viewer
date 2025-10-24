@@ -1,16 +1,9 @@
 import type { JSONSchema4 } from "json-schema";
 import { compile } from "json-schema-to-typescript";
 import { mkdir, writeFile } from "node:fs/promises";
+import schema from "./schema.json" with { type: "json" };
 
-console.log("Fetching schema");
-const request = await fetch(
-  "https://raw.githubusercontent.com/ThePandemoniumInstitute/botc-release/main/script-schema.json",
-);
-if (!request.ok) {
-  throw new Error(`HTTP error! status: ${request.status}`);
-}
-
-const scriptSchema: JSONSchema4 = await request.json();
+const scriptSchema = schema as JSONSchema4;
 
 console.log("Compiling schema");
 const ts = await compile(scriptSchema, "BotCScript", {

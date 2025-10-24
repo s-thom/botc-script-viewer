@@ -1,0 +1,35 @@
+name: Script schema auto-update
+
+on:
+  schedule:
+    # Friday evenings NZ time.
+    # Most app releases happen late in the week.
+    - cron: "13 6 * * 5"
+  workflow_dispatch:
+
+jobs:
+  update-schema:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Update schema
+        run: |
+          mkdir -p setup
+          curl -fsSL https://raw.githubusercontent.com/ThePandemoniumInstitute/botc-release/main/script-schema.json -o setup/schema.json
+          git add setup/schema.json
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          add-paths: |
+            setup/schema.json
+          commit-message: "[Auto] Update JSON schema"
+          branch: auto-update/schema
+          delete-branch: true
+          author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+          committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+          title: "[Auto] Update script JSON schema"
+          body: |
+            Automatic update for the script schema.
