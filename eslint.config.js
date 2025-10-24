@@ -1,12 +1,9 @@
+import { includeIgnoreFile } from "@eslint/compat";
 import css from "@eslint/css";
 import js from "@eslint/js";
 import markdown from "@eslint/markdown";
 import eslintPluginAstro from "eslint-plugin-astro";
 import eslintPluginPrettier from "eslint-plugin-prettier/recommended";
-// import pluginReact from "eslint-plugin-react";
-// import * as reactHooks from "eslint-plugin-react-hooks";
-// import reactRefresh from "eslint-plugin-react-refresh";
-import { includeIgnoreFile } from "@eslint/compat";
 import { defineConfig } from "eslint/config";
 import globals from "globals";
 import { fileURLToPath } from "node:url";
@@ -26,8 +23,6 @@ export default defineConfig([
     languageOptions: { globals: globals.browser },
   },
   tseslint.configs.recommended,
-  // pluginReact.configs.flat.recommended,
-  // pluginReact.configs.flat["jsx-runtime"],
   ...eslintPluginAstro.configs.recommended.filter((conf) => conf.files),
   ...eslintPluginAstro.configs["jsx-a11y-recommended"].filter(
     (conf) => conf.files,
@@ -42,14 +37,6 @@ export default defineConfig([
     files: ["**/*.astro"],
   },
   { settings: { react: { version: "detect" } } },
-  // reactHooks.configs["recommended-latest"],
-  // reactRefresh.configs.vite,
-  {
-    files: ["**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
-    rules: {
-      "react/react-in-jsx-scope": "off",
-    },
-  },
   {
     files: ["**/*.md"],
     plugins: { markdown },
