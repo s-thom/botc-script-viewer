@@ -14,9 +14,11 @@
   },
   "dependencies": {
     "@astrojs/cloudflare": "^12.6.10",
+    "@astrojs/svelte": "^7.2.0",
     "astro": "^5.15.1",
     "clsx": "^2.1.1",
-    "qrcode-svg": "^1.1.0"
+    "qrcode-svg": "^1.1.0",
+    "svelte": "^5.41.4"
   },
   "devDependencies": {
     "@eslint/compat": "^1.4.0",
