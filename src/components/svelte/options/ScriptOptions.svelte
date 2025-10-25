@@ -130,41 +130,6 @@
   <div class="section">
     <h3>App options</h3>
 
-    <div class="option">
-      <span>Theme</span>
-
-      <span class="button-group">
-        <label class="button" for="app-theme-system"
-          ><input
-            class="visually-hidden-always"
-            type="radio"
-            name="app-theme"
-            id="app-theme-system"
-            value="system"
-            bind:group={globalState.ui.theme}
-          /><span>System</span></label
-        ><label class="button" for="app-theme-light"
-          ><input
-            class="visually-hidden-always"
-            type="radio"
-            name="app-theme"
-            id="app-theme-light"
-            value="light"
-            bind:group={globalState.ui.theme}
-          /><span>Light</span></label
-        ><label class="button" for="app-theme-dark"
-          ><input
-            class="visually-hidden-always"
-            type="radio"
-            name="app-theme"
-            id="app-theme-dark"
-            value="dark"
-            bind:group={globalState.ui.theme}
-          /><span>Dark</span></label
-        >
-      </span>
-    </div>
-
     <label
       class="option"
       for="app-sortOrder"
@@ -292,16 +257,6 @@
     flex-direction: column;
     gap: 0.2rem;
     margin-block: 0.5rem;
-  }
-
-  .button-group {
-    display: flex;
-
-    .button {
-      display: block;
-      flex-grow: 1;
-      text-align: center;
-    }
   }
 
   .bootlegger-list {

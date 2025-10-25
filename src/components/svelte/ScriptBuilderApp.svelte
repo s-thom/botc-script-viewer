@@ -73,16 +73,6 @@
         console.error("Error while persisting state", err);
       });
   });
-
-  // Theme changes
-  $effect(() => {
-    const theme = globalState.ui.theme;
-    if (theme && theme !== "system") {
-      document.documentElement.dataset.theme = theme;
-    } else {
-      delete document.documentElement.dataset.theme;
-    }
-  });
 </script>
 
 {#if large.current}
