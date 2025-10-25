@@ -8,7 +8,13 @@ import { KeyedRateLimit } from "../lib/rate-limits";
 
 export const prerender = false;
 
-const formSchema = z.object({ script: z.string() });
+const formSchema = z.object({
+  script: z.string().optional(),
+  file: z
+    .any()
+    .refine((value) => typeof value === "object" && value instanceof File)
+    .optional(),
+});
 
 // Only allow 5 requests per second per hostname when requesting scripts.
 const FETCH_QUEUE = new KeyedRateLimit({ intervalMs: 1000, intervalCap: 5 });
@@ -95,7 +101,31 @@ export const POST: APIRoute = async ({
       Object.fromEntries(rawFormData.entries()),
     );
 
-    const url = URL.parse(formData.script);
+    if (!formData.file && !formData.script) {
+      return redirect(`/?error=${encodeURIComponent("Missing script.")}`);
+    }
+
+    if (formData.file && formData.file.size > 0) {
+      if (formData.file.type !== "application/json") {
+        return redirect(`/?error=${encodeURIComponent("File must be JSON.")}`);
+      }
+
+      const content = await formData.file.text();
+
+      let rawScriptJson: string;
+      try {
+        rawScriptJson = JSON.parse(content);
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      } catch (err) {
+        return redirect(`/?error=${encodeURIComponent("File must be JSON.")}`);
+      }
+
+      return handleRawScriptJson(rawScriptJson);
+    }
+
+    const script = formData.script!;
+
+    const url = URL.parse(script);
     if (url !== null) {
       // If it's the same hostname, then no need to do requests
       if (url.hostname === requestUrl.hostname) {
@@ -171,7 +201,7 @@ export const POST: APIRoute = async ({
     // Script input is not a URL, try parse it as raw JSON.
     let rawScriptJson: string;
     try {
-      rawScriptJson = JSON.parse(formData.script);
+      rawScriptJson = JSON.parse(script);
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {
       return redirect(`/?error=${encodeURIComponent("Invalid script JSON.")}`);

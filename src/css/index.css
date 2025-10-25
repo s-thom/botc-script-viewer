@@ -225,6 +225,7 @@ textarea:not([rows]) {
   font-display: swap;
 }
 
+.visually-hidden-always,
 .visually-hidden:not(:focus):not(:active) {
   clip: rect(0 0 0 0);
   clip-path: inset(50%);
@@ -247,6 +248,183 @@ body {
 
 a {
   color: inherit;
+}
+
+.text-input {
+  background-color: var(--color-background);
+  border: 2px solid var(--color-control-border-active);
+  color: var(--color-text);
+  padding: 0.2rem;
+  border-radius: 15px;
+  width: 100%;
+  resize: vertical;
+
+  &:disabled {
+    filter: grayscale();
+  }
+
+  &:hover {
+    border-color: var(--color-control-border-hover);
+  }
+
+  &:active {
+    border-color: var(--color-control-border-active);
+  }
+}
+
+.button {
+  background-color: var(--color-control-background);
+  border: 2px solid var(--color-control-border-active);
+  color: var(--color-text);
+  padding: 0.5rem;
+  border-radius: 100vw;
+
+  &:disabled {
+    filter: grayscale();
+  }
+
+  &:hover {
+    background-color: var(--color-control-background-active);
+    border-color: var(--color-control-border-hover);
+  }
+
+  &:active {
+    background-color: var(--color-control-background-active);
+    border-color: var(--color-control-border-active);
+  }
+}
+
+.button-group {
+  & > .button {
+    background-color: var(--color-control-background-active);
+
+    &:where(&:has(input:checked), &:hover) {
+      background-color: var(--color-control-background);
+    }
+
+    &:not(:first-child) {
+      border-start-start-radius: 0;
+      border-end-start-radius: 0;
+
+      &:is(:hover + &) {
+        border-inline-start-width: 0;
+      }
+    }
+    &:not(:last-child) {
+      border-start-end-radius: 0;
+      border-end-end-radius: 0;
+
+      &:not(:hover) {
+        border-inline-end-width: 0;
+      }
+    }
+  }
+}
+
+.link-button {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  color: var(--color-text);
+  text-decoration: underline;
+
+  &:disabled {
+    opacity: 0.7;
+  }
+
+  &:hover {
+    text-decoration: none;
+    opacity: 0.9;
+  }
+
+  &:active {
+    text-decoration: none;
+  }
+}
+
+.icon-button {
+  border: none;
+  background-color: transparent;
+  color: inherit;
+}
+
+.inline-icon {
+  width: 1em;
+  height: 1em;
+  vertical-align: sub;
+}
+
+.team-townsfolk,
+.team-outsider {
+  --color-alignment: var(--color-alignment-good);
+}
+
+.team-minion,
+.team-demon,
+.team-tb {
+  --color-alignment: var(--color-alignment-evil);
+}
+
+.team-traveller,
+.team-snv {
+  --color-alignment: var(--color-alignment-traveller);
+}
+
+.team-fabled,
+.team-bmr {
+  --color-alignment: var(--color-alignment-fabled);
+}
+
+.level-error {
+  --color-level-background: var(--color-level-background-error);
+  --color-level-border: var(--color-level-border-error);
+}
+
+.level-warning {
+  --color-level-background: var(--color-level-background-warning);
+  --color-level-border: var(--color-level-border-warning);
+}
+
+.level-info {
+  --color-level-background: var(--color-level-background-info);
+  --color-level-border: var(--color-level-border-info);
+}
+
+.flow > * + * {
+  margin-block-start: var(--flow-space, 1em);
+}
+
+:is(h1, h2, h3, blockquote):not(:first-child) {
+  --flow-space: 1.5em;
+}
+
+:is(h1, h2, h3) + * {
+  --flow-space: 0.8em;
+}
+
+:is(li) + * {
+  --flow-space: 0.5em;
+}
+
+.tiny-flow > * {
+  --flow-space: 0.5em;
+}
+
+.noscript-area {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  gap: 2rem;
+  max-width: 50rem;
+  margin: 0 auto;
+  padding: 1rem;
+
+  .status-icon {
+    width: 96px;
+    height: 96px;
+  }
 }
 
 :where([data-astro-image]) {

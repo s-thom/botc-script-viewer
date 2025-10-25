@@ -2,18 +2,52 @@
 
 ---
 
-<form method="POST" action="/go" enctype="multipart/form-data" class="form">
-  <label for="script">Script JSON or URL</label>
-  <textarea
-    class="textarea"
-    name="script"
-    id="script"
-    required
-    aria-describedby="script-error"></textarea>
-  <button type="submit" class="submit" data-umami-event="script-submit">
+<form
+  id="script-form"
+  method="POST"
+  action="/go"
+  enctype="multipart/form-data"
+  class="form"
+>
+  <label for="script">Paste script JSON or URL</label>
+  <textarea class="textarea" name="script" id="script"></textarea>
+
+  <button type="submit" class="button" data-umami-event="script-submit">
     View script
   </button>
+
+  <p>Or</p>
+  <p>
+    <label class="button" for="file">Upload JSON file.</label>
+    <input
+      class="file-input visually-hidden-always"
+      type="file"
+      name="file"
+      id="file"
+      accept="application/json"
+      autocomplete="off"
+    />
+  </p>
 </form>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>("#script-form")!;
+  const fileInput = document.querySelector<HTMLInputElement>("#file")!;
+  const fileInputLabel =
+    document.querySelector<HTMLLabelElement>("label[for=file]")!;
+
+  fileInput.addEventListener("change", () => {
+    if (!fileInput.files || fileInput.files.length === 0) {
+      fileInputLabel.textContent = "Select JSON file to upload.";
+      return;
+    }
+
+    const file = fileInput.files[0];
+    fileInputLabel.textContent = `${file.name}`;
+
+    form.submit();
+  });
+</script>
 
 <style>
   .form {
@@ -42,28 +76,6 @@
     }
 
     &:active {
-      border-color: var(--color-control-border-active);
-    }
-  }
-
-  .submit {
-    background-color: var(--color-control-background);
-    border: 2px solid var(--color-control-border-active);
-    color: var(--color-text);
-    padding: 0.5rem;
-    border-radius: 100vw;
-
-    &:disabled {
-      filter: grayscale();
-    }
-
-    &:hover {
-      background-color: var(--color-control-background-active);
-      border-color: var(--color-control-border-hover);
-    }
-
-    &:active {
-      background-color: var(--color-control-background-active);
       border-color: var(--color-control-border-active);
     }
   }
