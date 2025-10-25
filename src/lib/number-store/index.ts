@@ -140,17 +140,6 @@ export function encodeScript(
       }
 
       pointer = appendValue(bytes, pointer, index + 1);
-      if (item === "chef") {
-        console.log(
-          "is cyhef",
-          index,
-          "pointer now at",
-          pointer,
-          "prevval",
-          bytes[pointer - 1],
-          bytes[pointer - 2].toString(16),
-        );
-      }
     } else if (item.id === "_meta") {
       const meta = item as ScriptMetadata;
 
