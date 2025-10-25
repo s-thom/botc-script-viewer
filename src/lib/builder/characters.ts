@@ -1,12 +1,12 @@
-import data from "../data/data.json" with { type: "json" };
+import data from "../../data/data.json" with { type: "json" };
 import type {
   CharacterTeam,
   OfficialCharacterDeprecated,
   OfficialCharacterID,
   ScriptCharacter,
   ScriptMetadata,
-} from "../generated/script-schema";
-import type { GlobalState } from "./builder/state/types";
+} from "../../generated/script-schema";
+import type { GlobalState } from "./state/types";
 
 export const CHARACTERS_BY_ID = [...data.roles, ...data.fabled].reduce<
   Map<string, ScriptCharacter>

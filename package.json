@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "setup": "wrangler types && node --experimental-strip-types setup/generate-script-schema.ts && node --experimental-strip-types setup/download-role-icons.ts && node --experimental-strip-types setup/generate-edition-scripts.ts",
+    "setup": "wrangler types && node --experimental-strip-types setup/generate-script-schema.ts && node --experimental-strip-types setup/download-role-icons.ts && node --experimental-strip-types setup/generate-edition-scripts.ts && node --experimental-strip-types setup/generate-official-character-ids.ts",
     "validate": "node --experimental-strip-types setup/ensure-characters-in-number-store.ts",
     "dev": "astro dev",
     "build": "astro build",
@@ -15,10 +15,13 @@
   "dependencies": {
     "@astrojs/cloudflare": "^12.6.10",
     "@astrojs/svelte": "^7.2.0",
+    "@thisux/sveltednd": "^0.0.20",
     "astro": "^5.15.1",
     "clsx": "^2.1.1",
+    "nanoid": "^5.1.6",
     "qrcode-svg": "^1.1.0",
-    "svelte": "^5.41.4"
+    "svelte": "^5.41.4",
+    "svelte-codicons": "^0.17.0"
   },
   "devDependencies": {
     "@eslint/compat": "^1.4.0",

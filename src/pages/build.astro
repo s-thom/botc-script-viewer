@@ -1,0 +1,19 @@
+---
+import PageView from "../components/misc/PageView.astro";
+import MinimalLayout from "../layouts/MinimalLayout.astro";
+import ScriptBuilderApp from "../components/svelte/ScriptBuilderApp.svelte";
+
+export interface Props {}
+
+const {} = Astro.props;
+---
+
+<MinimalLayout meta={{}}>
+  <Fragment slot="head">
+    <PageView />
+  </Fragment>
+
+  <ScriptBuilderApp client:load />
+</MinimalLayout>
+
+<style></style>
