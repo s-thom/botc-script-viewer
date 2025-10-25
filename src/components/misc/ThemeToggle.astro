@@ -106,17 +106,17 @@
   }
 
   :global(:root) {
-    &[data-theme] {
+    &:global([data-theme]) {
       #icon-sunmoon {
         display: none;
       }
     }
-    &:not([data-theme="light"]) {
+    &:global(:not([data-theme="light"])) {
       #icon-sun {
         display: none;
       }
     }
-    &:not([data-theme="dark"]) {
+    &:global(:not([data-theme="dark"])) {
       #icon-moon {
         display: none;
       }
