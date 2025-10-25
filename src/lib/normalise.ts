@@ -28,12 +28,15 @@ function getNightOrderArrays(
   let firstNight: NormalisedScript["firstNight"];
   let otherNight: NormalisedScript["otherNight"];
   const missingCharacters: ScriptCharacter[] = [];
+  const invalidCharacterIds = new Set<string>();
 
   if (meta.firstNight) {
-    firstNight = meta.firstNight.map((id) => {
+    firstNight = [];
+    for (const id of meta.firstNight) {
       const special = getSpecialNightInfo(id);
       if (special) {
-        return special;
+        firstNight.push(special);
+        continue;
       }
 
       if (!charactersById.has(id)) {
@@ -44,22 +47,22 @@ function getNightOrderArrays(
             charactersById.set(id, candidateCharacter);
             missingCharacters.push(candidateCharacter);
           } else {
-            throw new Error(
-              `Script's night order has a character with id ${id}, but this is not a traveller`,
-            );
+            invalidCharacterIds.add(id);
+            continue;
           }
         } else {
-          throw new Error(`Script doesn't have a character with id ${id}`);
+          invalidCharacterIds.add(id);
+          continue;
         }
       }
 
       const character = charactersById.get(id)!;
-      return {
+      firstNight.push({
         type: "character",
         character,
         reminderText: character.firstNightReminder,
-      };
-    });
+      });
+    }
   } else {
     firstNight = Array.from(charactersById.values())
       .map((character) => ({ character, index: character.firstNight ?? 0 }))
@@ -73,10 +76,12 @@ function getNightOrderArrays(
   }
 
   if (meta.otherNight) {
-    otherNight = meta.otherNight.map((id) => {
+    otherNight = [];
+    for (const id of meta.otherNight) {
       const special = getSpecialNightInfo(id);
       if (special) {
-        return special;
+        otherNight.push(special);
+        continue;
       }
 
       if (!charactersById.has(id)) {
@@ -87,22 +92,22 @@ function getNightOrderArrays(
             charactersById.set(id, candidateCharacter);
             missingCharacters.push(candidateCharacter);
           } else {
-            throw new Error(
-              `Script's night order has a character with id ${id}, but this is not a traveller`,
-            );
+            invalidCharacterIds.add(id);
+            continue;
           }
         } else {
-          throw new Error(`Script doesn't have a character with id ${id}`);
+          invalidCharacterIds.add(id);
+          continue;
         }
       }
 
       const character = charactersById.get(id)!;
-      return {
+      otherNight.push({
         type: "character",
         character,
         reminderText: character.otherNightReminder,
-      };
-    });
+      });
+    }
   } else {
     otherNight = Array.from(charactersById.values())
       .map((character) => ({ character, index: character.otherNight ?? 0 }))
@@ -115,7 +120,12 @@ function getNightOrderArrays(
       }));
   }
 
-  return { firstNight, otherNight, missingCharacters };
+  return {
+    firstNight,
+    otherNight,
+    missingCharacters,
+    invalidCharacterIds: Array.from(invalidCharacterIds).sort(),
+  };
 }
 
 function normaliseCharacterId(id: string): string {
@@ -142,6 +152,7 @@ export function normaliseScript(
       loric: [],
     },
     jinxes: [],
+    warnings: [],
   };
 
   function addCharacter(character: ScriptCharacter) {
@@ -216,14 +227,18 @@ export function normaliseScript(
     }
   }
 
-  const { firstNight, otherNight, missingCharacters } = getNightOrderArrays(
-    newScript.charactersById,
-    meta,
-  );
+  const { firstNight, otherNight, missingCharacters, invalidCharacterIds } =
+    getNightOrderArrays(newScript.charactersById, meta);
   newScript.firstNight = firstNight;
   newScript.otherNight = otherNight;
   for (const missingCharacter of missingCharacters) {
     addCharacter(missingCharacter);
+  }
+  if (invalidCharacterIds.length > 0) {
+    newScript.warnings.push({
+      type: "extra-night-order-characters",
+      characters: invalidCharacterIds,
+    });
   }
 
   for (const character of newScript.characters) {

@@ -24,6 +24,13 @@ export interface JinxInfo {
   reason: string;
 }
 
+export interface ExtraNightOrderCharactersWarning {
+  type: "extra-night-order-characters";
+  characters: string[];
+}
+
+export type ScriptWarnings = ExtraNightOrderCharactersWarning;
+
 export interface NormalisedScript {
   name: string;
   author?: string;
@@ -38,6 +45,7 @@ export interface NormalisedScript {
   charactersById: Map<string, ScriptCharacter>;
   teams: Record<CharacterTeam, ScriptCharacter[]>;
   jinxes: JinxInfo[];
+  warnings: ScriptWarnings[];
 }
 
 export interface LocalScriptCollection {

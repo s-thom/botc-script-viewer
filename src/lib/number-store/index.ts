@@ -16,9 +16,9 @@ const INITIAL_BUFFER_SIZE = 128;
 const MAX_BUFFER_SIZE = 4096;
 
 function ensureBufferSize(bytes: Uint8Array, length: number) {
-  if (length > bytes.byteLength) {
+  if (length >= bytes.byteLength) {
     // Resize the buffer to the next power of 2.
-    const pow2 = Math.pow(2, Math.ceil(Math.log(length) / Math.log(2)));
+    const pow2 = Math.pow(2, Math.ceil(Math.log(length + 1) / Math.log(2)));
     (bytes.buffer as ArrayBuffer).resize(pow2);
   }
 }
@@ -140,6 +140,17 @@ export function encodeScript(
       }
 
       pointer = appendValue(bytes, pointer, index + 1);
+      if (item === "chef") {
+        console.log(
+          "is cyhef",
+          index,
+          "pointer now at",
+          pointer,
+          "prevval",
+          bytes[pointer - 1],
+          bytes[pointer - 2].toString(16),
+        );
+      }
     } else if (item.id === "_meta") {
       const meta = item as ScriptMetadata;
 

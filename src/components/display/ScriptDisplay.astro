@@ -29,6 +29,11 @@ const selfPath = Astro.url.toString();
 const qrPath = fixDoubleSlashPaths(
   new URL(`${Astro.url.pathname}/qr.svg`, Astro.url),
 ).toString();
+
+// Warning information
+const allExtraNightOrderCharacters = script.warnings.flatMap((warning) =>
+  warning.type === "extra-night-order-characters" ? warning.characters : [],
+);
 ---
 
 <div class="script-display">
@@ -129,6 +134,16 @@ const qrPath = fixDoubleSlashPaths(
 
   <div class="page">
     <h2 id="night-order" class="category-title">Night Order</h2>
+
+    {
+      allExtraNightOrderCharacters.length > 0 && (
+        <div class="warning-box screen-only">
+          The following characters are referenced in the night order, but are
+          not listed on the script: {allExtraNightOrderCharacters.join(", ")}.
+        </div>
+      )
+    }
+
     <div class="two-column">
       <div>
         <h3 id="first-night" class="category-title">First Night</h3>
@@ -266,5 +281,11 @@ const qrPath = fixDoubleSlashPaths(
     opacity: 0.7;
     font-size: 0.9rem;
     margin-block-start: 2rem;
+  }
+
+  .warning-box {
+    background-color: var(--color-level-background-warning);
+    border: 1px solid var(--color-level-border-warning);
+    padding: 0.5rem;
   }
 </style>
