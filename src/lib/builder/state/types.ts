@@ -13,10 +13,18 @@ export type AppScreen =
   | "checks"
   | "checks:about";
 
+type CharacterTeamBeforeLoric =
+  | "townsfolk"
+  | "outsider"
+  | "minion"
+  | "demon"
+  | "traveller"
+  | "fabled";
+
 export interface GlobalStateV1 {
   version: 1;
   meta: ScriptMetadata;
-  characters: Record<CharacterTeam, ScriptCharacter[]>;
+  characters: Record<CharacterTeamBeforeLoric, ScriptCharacter[]>;
   unknownCharacters: ScriptCharacter[];
   options: {
     useSortOrder: boolean;
@@ -39,7 +47,7 @@ export interface GlobalStateV1 {
 export interface GlobalStateV2 {
   version: 2;
   meta: ScriptMetadata;
-  characters: Record<CharacterTeam, ScriptCharacter[]>;
+  characters: Record<CharacterTeamBeforeLoric, ScriptCharacter[]>;
   unknownCharacters: ScriptCharacter[];
   options: {
     useSortOrder: boolean;
@@ -61,8 +69,32 @@ export interface GlobalStateV2 {
   };
 }
 
-export type AllPastStateTypes = GlobalStateV1 | GlobalStateV2;
+export interface GlobalStateV3 {
+  version: 3;
+  meta: ScriptMetadata;
+  characters: Record<CharacterTeam, ScriptCharacter[]>;
+  unknownCharacters: ScriptCharacter[];
+  options: {
+    useSortOrder: boolean;
+    useSortOrderFun: boolean;
+  };
+  ui: {
+    useChecks: boolean;
+    isChecksDrawerOpen: boolean;
+    ignoredChecks: string[];
+    panelSizes: {
+      script: number;
+      options: number;
+      checks: number;
+    };
+    screen: AppScreen;
+    prevScreen?: AppScreen;
+    prompt?: string;
+  };
+}
 
-export type GlobalState = GlobalStateV2;
+export type AllPastStateTypes = GlobalStateV1 | GlobalStateV2 | GlobalStateV3;
 
-export const CURRENT_STATE_VERSION: GlobalState["version"] = 2;
+export type GlobalState = GlobalStateV3;
+
+export const CURRENT_STATE_VERSION: GlobalState["version"] = 3;

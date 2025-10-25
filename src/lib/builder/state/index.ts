@@ -7,7 +7,7 @@ import {
 const KEY = "botc-script-builder-state";
 
 const DEFAULT_INITIAL_STATE: GlobalState = {
-  version: 2,
+  version: 3,
   meta: { id: "_meta", name: "" },
   characters: {
     townsfolk: [],
@@ -24,7 +24,6 @@ const DEFAULT_INITIAL_STATE: GlobalState = {
     useSortOrderFun: true,
   },
   ui: {
-    theme: "system",
     useChecks: true,
     isChecksDrawerOpen: false,
     ignoredChecks: [],
@@ -44,12 +43,14 @@ export function getInitialState(): GlobalState {
         return state;
       } else {
         const coerced = state as unknown as GlobalState;
+        coerced.version = 3;
 
-        switch (state.version) {
-          case 1:
-            coerced.version = 2;
-            coerced.ui.theme = "system";
+        switch (true) {
+          case state.version <= 1:
             coerced.options.useSortOrderFun = true;
+          // eslint-disable-next-line no-fallthrough
+          case state.version <= 2:
+            coerced.characters.loric = [];
             return coerced;
         }
         console.warn("Unknown state version, resetting to initial");
