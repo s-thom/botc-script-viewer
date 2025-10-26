@@ -81,7 +81,10 @@ const {
     {
       description && (
         <p class="character-description">
-          <FormattedDescription content={description} />
+          <FormattedDescription
+            content={description}
+            character={character ?? undefined}
+          />
         </p>
       )
     }

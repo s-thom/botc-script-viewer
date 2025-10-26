@@ -1,8 +1,10 @@
 ---
+import type { ScriptCharacter } from "../../generated/script-schema";
 import ReminderToken from "./reminder/ReminderToken.astro";
 
 export interface Props {
   content: string;
+  character?: ScriptCharacter;
 }
 
 interface TextPart {
@@ -10,7 +12,7 @@ interface TextPart {
   content: string;
 }
 
-const { content } = Astro.props;
+const { content, character } = Astro.props;
 
 const parts: TextPart[] = [];
 const regex = /(\*[^*]+\*|:reminder:|:|\[[^\]]+\]|[^*:\[\]]+|\*)/g;
@@ -44,7 +46,7 @@ while ((match = regex.exec(content)) !== null) {
         case "square":
           return <strong>[{part.content}]</strong>;
         case "colon":
-          return <ReminderToken />;
+          return <ReminderToken character={character} />;
         case "regular":
         default:
           return part.content;
