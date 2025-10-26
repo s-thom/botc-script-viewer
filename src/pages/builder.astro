@@ -1,7 +1,34 @@
 ---
+export const prerender = false;
+
 import PageView from "../components/misc/PageView.astro";
 import ScriptBuilderApp from "../components/svelte/ScriptBuilderApp.svelte";
 import TopBarLayout from "../layouts/TopBarLayout.astro";
+
+let scriptString: string | undefined;
+if (Astro.request.method === "POST") {
+  try {
+    const data = await Astro.request.formData();
+
+    if (!data.has("script")) {
+      throw new Error("POST body did not contain a script");
+    }
+
+    const value = data.get("script");
+    if (typeof value !== "string") {
+      throw new Error("POST body did not contain a script");
+    }
+
+    // Ensure it actually parses to JSON
+    JSON.parse(value);
+
+    scriptString = value;
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message);
+    }
+  }
+}
 ---
 
 <TopBarLayout meta={{}} heading="Script Builder">
@@ -9,7 +36,28 @@ import TopBarLayout from "../layouts/TopBarLayout.astro";
     <PageView />
   </Fragment>
 
+  <div id="top-nav-links-container" slot="items-start"></div>
+
+  {
+    scriptString && (
+      <script
+        id="post-data"
+        is:inline
+        type="application/json"
+        set:html={scriptString}
+      />
+    )
+  }
+
   <ScriptBuilderApp client:load />
 </TopBarLayout>
 
-<style></style>
+<style>
+  .nav-links {
+    display: flex;
+    flex-direction: row;
+    padding-inline-start: 0;
+    gap: 0.5rem;
+    list-style: none;
+  }
+</style>

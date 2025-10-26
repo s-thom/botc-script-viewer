@@ -1,16 +1,24 @@
 <svelte:options runes />
 
 <script lang="ts">
+  import { getAbortSignal, onMount } from "svelte";
   import { MediaQuery } from "svelte/reactivity";
+  import type { BloodOnTheClocktowerCustomScript } from "../../generated/script-schema";
+  import { runAllChecks } from "../../lib/builder/checks";
+  import { persistState } from "../../lib/builder/state";
+  import {
+    checksState,
+    globalState,
+    setScript,
+  } from "../../lib/builder/state.svelte";
+  import { groupBy } from "../../lib/builder/util/arrays";
+  import { delay, scheduleTask } from "../../lib/builder/util/async";
+  import { rawScriptValidator } from "../../lib/parse";
   import DesktopLayout from "./layouts/DesktopLayout.svelte";
   import MobileLayout from "./layouts/MobileLayout.svelte";
   import TabletLayout from "./layouts/TabletLayout.svelte";
-  import { getAbortSignal } from "svelte";
-  import { runAllChecks } from "../../lib/builder/checks";
-  import { checksState, globalState } from "../../lib/builder/state.svelte";
-  import { groupBy } from "../../lib/builder/util/arrays";
-  import { delay, scheduleTask } from "../../lib/builder/util/async";
-  import { persistState } from "../../lib/builder/state";
+  import { createPortal, portal } from "../../lib/builder/portal";
+  import BuilderNavLinks from "./options/BuilderNavLinks.svelte";
 
   const large = new MediaQuery("min-width: 960px");
   const medium = new MediaQuery("min-width: 600px");
@@ -73,6 +81,41 @@
         console.error("Error while persisting state", err);
       });
   });
+
+  // Load script from HTML body if needed
+  onMount(() => {
+    if (typeof document !== "undefined") {
+      const dataElement = document.querySelector("script#post-data");
+      if (!dataElement) {
+        return;
+      }
+
+      let script: BloodOnTheClocktowerCustomScript;
+      try {
+        const json = JSON.parse(dataElement.textContent);
+        script = rawScriptValidator.parse(json);
+      } catch (err) {
+        console.error("Error while parsing script content", err);
+        return;
+      }
+
+      // Whenever state is stored, we also mark it on the current entry of the history stack.
+      // Without this or similar, then refreshing the page would cause the POSTed script to be loaded again.
+      if (history.state?.hasStoredScript === "true") {
+        return;
+      }
+
+      setScript(script);
+    }
+  });
+
+  // Set up navigation bar
+  onMount(() => {
+    createPortal(
+      document.querySelector("#top-nav-links-container")!,
+      "top-nav-links-container",
+    );
+  });
 </script>
 
 {#if large.current}
@@ -82,6 +125,10 @@
 {:else}
   <MobileLayout />
 {/if}
+
+<div use:portal={"top-nav-links-container"}>
+  <BuilderNavLinks />
+</div>
 
 <span class="marker"></span>
 

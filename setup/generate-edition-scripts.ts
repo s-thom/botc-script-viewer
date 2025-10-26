@@ -2,6 +2,12 @@ import { mkdir, writeFile } from "node:fs/promises";
 import data from "../src/data/data.json" with { type: "json" };
 import type { BloodOnTheClocktowerCustomScript } from "../src/generated/script-schema";
 
+const SCRIPT_NAMES: Partial<Record<string, string>> = {
+  tb: "Trouble Brewing",
+  bmr: "Bad Moon Rising",
+  snv: "Sects and Violets",
+};
+
 for (const edition of data.editions) {
   if (edition.id === "custom") {
     continue;
@@ -10,7 +16,7 @@ for (const edition of data.editions) {
   const script: BloodOnTheClocktowerCustomScript = [
     {
       id: "_meta",
-      name: edition.name,
+      name: SCRIPT_NAMES[edition.id],
       author: "The Pandemonium Institute",
       firstNight: edition.firstNight,
       otherNight: edition.otherNight,

@@ -43,7 +43,7 @@ const downloadFilename = `${(script.name || "script").replace(/[\\/:*?"<>|]+/g, 
       <button type="button" class="link-button" id="print">Print</button>
     </li>
     <li>
-      <form action="/builder" method="post">
+      <form action="/builder" method="post" enctype="multipart/form-data">
         <input type="hidden" name="script" value={rawScriptString} />
         <button type="submit" class="link-button">Edit</button>
       </form>

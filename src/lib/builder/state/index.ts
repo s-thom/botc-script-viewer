@@ -66,4 +66,5 @@ export function getInitialState(): GlobalState {
 
 export function persistState(state: GlobalState) {
   localStorage.setItem(KEY, JSON.stringify(state));
+  history.replaceState({ hasStoredScript: "true" }, "", "/builder");
 }
