@@ -248,6 +248,19 @@ body {
 
 a {
   color: inherit;
+
+  &:not(:disabled) {
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: none;
+      opacity: 0.9;
+    }
+
+    &:active {
+      text-decoration: none;
+    }
+  }
 }
 
 .text-input {
@@ -332,13 +345,17 @@ a {
     opacity: 0.7;
   }
 
-  &:hover {
-    text-decoration: none;
-    opacity: 0.9;
-  }
+  &:not(:disabled) {
+    cursor: pointer;
 
-  &:active {
-    text-decoration: none;
+    &:hover {
+      text-decoration: none;
+      opacity: 0.9;
+    }
+
+    &:active {
+      text-decoration: none;
+    }
   }
 }
 

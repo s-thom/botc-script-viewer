@@ -1,10 +1,7 @@
 ---
-import ScriptDisplay from "../../../components/display/ScriptDisplay.astro";
-import PageView from "../../../components/misc/PageView.astro";
-import MinimalLayout from "../../../layouts/MinimalLayout.astro";
+import ScriptViewerLayout from "../../../layouts/ScriptViewerLayout.astro";
 import { decompressFromBase64 } from "../../../lib/compression";
 import { MAX_AGE_SECONDS } from "../../../lib/constants";
-import { normaliseScript } from "../../../lib/normalise";
 import { decodeScript } from "../../../lib/number-store";
 
 export const prerender = false;
@@ -17,7 +14,6 @@ if (!b64) {
 
 const bytes = await decompressFromBase64(b64, "deflate-raw");
 const rawScript = decodeScript(bytes);
-const script = normaliseScript(rawScript);
 
 Astro.response.headers.set(
   "Cache-Control",
@@ -25,15 +21,4 @@ Astro.response.headers.set(
 );
 ---
 
-<MinimalLayout
-  meta={{
-    title: script.name ? `${script.name} - BotC Script Viewer` : undefined,
-  }}
->
-  <Fragment slot="head">
-    <meta name="robots" content="noindex" />
-    <PageView />
-  </Fragment>
-
-  <ScriptDisplay script={script} />
-</MinimalLayout>
+<ScriptViewerLayout rawScript={rawScript} />

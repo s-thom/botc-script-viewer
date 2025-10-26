@@ -1,0 +1,72 @@
+---
+import ScriptDisplay from "../components/display/ScriptDisplay.astro";
+import SkipList from "../components/display/SkipList.astro";
+import PageView from "../components/misc/PageView.astro";
+import type { BloodOnTheClocktowerCustomScript } from "../generated/script-schema";
+import { normaliseScript } from "../lib/normalise";
+import { fixDoubleSlashPaths } from "../lib/url";
+import TopBarLayout from "./TopBarLayout.astro";
+
+export interface Props {
+  rawScript: BloodOnTheClocktowerCustomScript;
+}
+
+const { rawScript } = Astro.props;
+
+const rawScriptString = JSON.stringify(rawScript);
+const script = normaliseScript(rawScript);
+
+const downloadPath = fixDoubleSlashPaths(
+  new URL(`${Astro.url.pathname}/json`, Astro.url),
+);
+const downloadFilename = `${(script.name || "script").replace(/[\\/:*?"<>|]+/g, "_")}.json`;
+---
+
+<TopBarLayout
+  meta={{
+    title: script.name ? `${script.name} - BotC Script Viewer` : undefined,
+  }}
+  heading="Script Viewer"
+>
+  <Fragment slot="head">
+    <PageView />
+  </Fragment>
+
+  <SkipList script={script} slot="top" />
+
+  <ul class="nav-links" slot="items-start">
+    <li><a href="/">Change script</a></li>
+    <li>
+      <a href={downloadPath} download={downloadFilename}>Download JSON</a>
+    </li>
+    <li>
+      <button type="button" class="link-button" id="print">Print</button>
+    </li>
+    <li>
+      <form action="/builder" method="post">
+        <input type="hidden" name="script" value={rawScriptString} />
+        <button type="submit" class="link-button">Edit</button>
+      </form>
+    </li>
+  </ul>
+
+  <ScriptDisplay script={script} />
+</TopBarLayout>
+
+<script>
+  document.querySelectorAll("button#print").forEach((button) => {
+    button.addEventListener("click", () => {
+      window.print();
+    });
+  });
+</script>
+
+<style>
+  .nav-links {
+    display: flex;
+    flex-direction: row;
+    padding-inline-start: 0;
+    gap: 0.5rem;
+    list-style: none;
+  }
+</style>

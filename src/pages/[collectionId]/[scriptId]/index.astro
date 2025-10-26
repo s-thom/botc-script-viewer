@@ -1,8 +1,5 @@
 ---
-import ScriptDisplay from "../../../components/display/ScriptDisplay.astro";
-import PageView from "../../../components/misc/PageView.astro";
-import MinimalLayout from "../../../layouts/MinimalLayout.astro";
-import { normaliseScript } from "../../../lib/normalise";
+import ScriptViewerLayout from "../../../layouts/ScriptViewerLayout.astro";
 import { LOCAL_SCRIPT_COLLECTIONS } from "../../../scripts";
 
 export function getStaticPaths() {
@@ -33,17 +30,6 @@ if (!scriptDefinition) {
 }
 
 const rawScript = await scriptDefinition.getScript();
-const script = normaliseScript(rawScript);
 ---
 
-<MinimalLayout
-  meta={{
-    title: script.name ? `${script.name} - BotC Script Viewer` : undefined,
-  }}
->
-  <Fragment slot="head">
-    <PageView />
-  </Fragment>
-
-  <ScriptDisplay script={script} />
-</MinimalLayout>
+<ScriptViewerLayout rawScript={rawScript} />

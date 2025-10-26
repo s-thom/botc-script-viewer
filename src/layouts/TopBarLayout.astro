@@ -1,5 +1,5 @@
 ---
-import ThemeToggle from "../components/misc/ThemeToggle.astro";
+import TopBar from "../components/misc/TopBar.astro";
 import type { PageMeta } from "../types/site";
 import MinimalLayout from "./MinimalLayout.astro";
 
@@ -14,27 +14,26 @@ const { meta, heading } = Astro.props;
 <MinimalLayout meta={meta}>
   <slot slot="head" name="head" />
 
-  <ThemeToggle />
+  <slot name="top" />
+
+  <TopBar title={heading}>
+    <slot name="items-start" slot="items-start" />
+  </TopBar>
 
   <div class="container">
-    <h1 class="heading">{heading}</h1>
     <slot />
   </div>
 </MinimalLayout>
 
 <style>
-  .container {
-    margin: 0 auto;
-    max-width: 40rem;
-    padding: 2rem;
+  :global(body):has(.container) {
+    min-height: 100vh;
+    min-height: 100dvh;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-    align-items: center;
   }
 
-  .heading {
-    text-align: center;
-    margin: 2rem;
+  .container {
+    flex-grow: 1;
   }
 </style>

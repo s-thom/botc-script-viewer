@@ -2,14 +2,8 @@
 
 ---
 
-<label class="theme-toggle screen-only" for="dark-mode"
-  ><input
-    class="theme-toggle-input"
-    type="checkbox"
-    name="dark-mode"
-    id="dark-mode"
-    value="dark"
-  /><span class="visually-hidden"
+<button id="theme-toggle" class="theme-toggle screen-only"
+  ><span class="visually-hidden"
     >Theme: <span class="dark-mode-value">default</span></span
   ><svg
     xmlns="http://www.w3.org/2000/svg"
@@ -41,7 +35,7 @@
         d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"
       ></path></g
     >
-  </svg></label
+  </svg></button
 >
 
 <script is:inline>
@@ -54,23 +48,17 @@
   type Theme = "default" | "light" | "dark";
   let state: Theme = (localStorage.getItem("sv-theme") as Theme) ?? "default";
 
-  const label = document.querySelector<HTMLLabelElement>("label.theme-toggle")!;
-  const checkbox = label.querySelector<HTMLInputElement>(
-    'input[type="checkbox"]',
-  )!;
-  const labelText = label.querySelector<HTMLInputElement>(
+  const button = document.querySelector("button#theme-toggle")!;
+  const labelText = button.querySelector<HTMLInputElement>(
     "span.dark-mode-value",
   )!;
 
   function setTheme(theme: Theme) {
     if (theme === "default") {
-      checkbox.indeterminate = true;
       labelText.textContent = "default";
       delete document.documentElement.dataset.theme;
       localStorage.removeItem("sv-theme");
     } else {
-      checkbox.indeterminate = false;
-      checkbox.checked = theme === "dark";
       labelText.textContent = theme;
       document.documentElement.dataset.theme = theme;
       localStorage.setItem("sv-theme", theme);
@@ -79,13 +67,13 @@
   }
   setTheme(state);
 
-  checkbox.addEventListener("change", () =>
+  button.addEventListener("click", () =>
     setTheme(
       (
         state === "default"
           ? // Set to the state the system is not set to
             !window.matchMedia("(prefers-color-scheme: dark)").matches
-          : checkbox.checked
+          : state === "light"
       )
         ? "dark"
         : "light",
@@ -95,14 +83,22 @@
 
 <style>
   .theme-toggle {
+    display: block;
+    padding: 0;
+    border: none;
+    width: 24px;
+    height: 24px;
+    background: transparent;
+    opacity: 0.7;
+
     position: absolute;
-    top: 0.5rem;
-    right: 0.5rem;
+    inset-block-start: 4px;
+    inset-inline-end: 4px;
     opacity: 0.7;
   }
 
   .theme-toggle-input {
-    display: none;
+    visibility: hidden;
   }
 
   :global(:root) {

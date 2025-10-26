@@ -75,10 +75,25 @@
   });
 </script>
 
-{#if large.current}
-  <DesktopLayout />
-{:else if medium.current}
-  <TabletLayout />
-{:else}
-  <MobileLayout />
-{/if}
+<div class="container">
+  {#if large.current}
+    <DesktopLayout />
+  {:else if medium.current}
+    <TabletLayout />
+  {:else}
+    <MobileLayout />
+  {/if}
+</div>
+
+<style>
+  .container {
+    height: 100%;
+    min-height: 100%;
+    max-height: 100%;
+  }
+
+  :global(body) {
+    max-height: 100vh;
+    max-height: 100dvh;
+  }
+</style>

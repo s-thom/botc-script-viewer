@@ -1,4 +1,5 @@
 ---
+import { fixDoubleSlashPaths } from "../../lib/url";
 import type { NormalisedScript } from "../../types/botc";
 import Footer from "../misc/Footer.astro";
 import BootleggerList from "./BootleggerList.astro";
@@ -7,23 +8,11 @@ import CharacterList from "./CharacterList.astro";
 import JinxList from "./JinxList.astro";
 import NightOrderList from "./NightOrderList.astro";
 import ReminderDefinition from "./reminder/ReminderDefinition.astro";
-import SkipList from "./SkipList.astro";
 
 export interface Props {
   script: NormalisedScript;
 }
-
-function fixDoubleSlashPaths(url: URL): URL {
-  const fixedPath = url.pathname.replace(/\/{2,}/, "/");
-  return new URL(fixedPath, url);
-}
-
 const { script } = Astro.props;
-
-const downloadPath = fixDoubleSlashPaths(
-  new URL(`${Astro.url.pathname}/json`, Astro.url),
-);
-const downloadFilename = `${(script.name || "script").replace(/[\\/:*?"<>|]+/g, "_")}.json`;
 
 const selfPath = Astro.url.toString();
 const qrPath = fixDoubleSlashPaths(
@@ -37,14 +26,8 @@ const allExtraNightOrderCharacters = script.warnings.flatMap((warning) =>
 ---
 
 <div class="script-display">
-  <SkipList script={script} />
-
   <ReminderDefinition />
 
-  <div class:list={["top-links", "screen-only"]}>
-    <a href="/">Change script</a>
-    <a href={downloadPath} download={downloadFilename}>Download JSON</a>
-  </div>
   <div class="page">
     <div class="title-area">
       <h1 id="script" class="title">
@@ -157,12 +140,35 @@ const allExtraNightOrderCharacters = script.warnings.flatMap((warning) =>
   </div>
 
   <div class="page force-page qr-page print-only">
-    <img class="qr" src={qrPath} alt="QR code for this page" loading="lazy" />
+    <img
+      id="qr-code"
+      class="qr"
+      src={qrPath}
+      alt="QR code for this page"
+      loading="lazy"
+    />
     <p class="qr-text">{selfPath}</p>
   </div>
 
   <Footer isScreenOnly />
 </div>
+
+<script>
+  document.querySelectorAll(".page.qr-page").forEach((qrPage) => {
+    const img = qrPage.querySelector<HTMLImageElement>("img#qr-code")!;
+
+    function hideQrPage() {
+      // The page already has .print-only, which is mutually exclusive.
+      // No matter which media, the page will always be hidden.
+      qrPage.classList.add("screen-only");
+    }
+
+    img.addEventListener("error", hideQrPage);
+    if (img.complete && img.naturalWidth + img.naturalHeight === 0) {
+      hideQrPage();
+    }
+  });
+</script>
 
 <style>
   @media screen {

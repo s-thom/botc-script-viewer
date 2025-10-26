@@ -2,7 +2,7 @@
 import PageView from "../../../components/misc/PageView.astro";
 import ByteList from "../../../components/number-store/ByteList.astro";
 import ExplainNode from "../../../components/number-store/ExplainNode.astro";
-import MinimalLayout from "../../../layouts/MinimalLayout.astro";
+import TopBarLayout from "../../../layouts/TopBarLayout.astro";
 import {
   compressToBase64,
   decodeUrlSafeBase64,
@@ -61,7 +61,10 @@ Astro.response.headers.set(
 );
 ---
 
-<MinimalLayout meta={{ title: "Inspect - BotC Script Viewer" }}>
+<TopBarLayout
+  meta={{ title: "Inspect - BotC Script Viewer" }}
+  heading="NS Inspector"
+>
   <Fragment slot="head">
     <meta name="robots" content="noindex" />
     <PageView />
@@ -202,7 +205,7 @@ Astro.response.headers.set(
       </tbody>
     </table>
   </div>
-</MinimalLayout>
+</TopBarLayout>
 
 <style>
   .inspect-page {
