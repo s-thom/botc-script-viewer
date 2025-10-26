@@ -75,25 +75,31 @@
   });
 </script>
 
-<div class="container">
-  {#if large.current}
-    <DesktopLayout />
-  {:else if medium.current}
-    <TabletLayout />
-  {:else}
-    <MobileLayout />
-  {/if}
-</div>
+{#if large.current}
+  <DesktopLayout />
+{:else if medium.current}
+  <TabletLayout />
+{:else}
+  <MobileLayout />
+{/if}
+
+<span class="marker"></span>
 
 <style>
-  .container {
-    height: 100%;
-    min-height: 100%;
-    max-height: 100%;
-  }
-
-  :global(body) {
+  :global(body):has(.marker) {
     max-height: 100vh;
     max-height: 100dvh;
+
+    > :global(.container) {
+      display: contents;
+    }
+
+    :global(main) {
+      flex-grow: 1;
+    }
+  }
+
+  .marker {
+    display: none;
   }
 </style>

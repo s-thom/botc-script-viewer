@@ -191,7 +191,10 @@
     height: 100%;
     min-height: 100%;
     max-height: 100%;
-    display: flex;
+    display: grid;
+    grid-template-columns:
+      clamp(250px, var(--panel-script-width), 650px) 1fr
+      clamp(250px, var(--panel-options-width), 650px);
   }
 
   .panel {
@@ -213,18 +216,11 @@
   .resize-panel {
     flex-shrink: 0;
     display: flex;
+    position: relative;
 
     .resize-panel-content {
       flex-grow: 1;
     }
-  }
-
-  .script-panel-container {
-    width: clamp(250px, var(--panel-script-width), 650px);
-  }
-
-  .options-panel-container {
-    width: clamp(250px, var(--panel-options-width), 650px);
   }
 
   .main-panel {
@@ -250,6 +246,7 @@
     cursor: ew-resize;
     transition: transform 150ms ease-in-out;
     z-index: 1;
+    position: absolute;
 
     &.handle-start {
       inset-inline-start: calc(-1 * var(--panel-resize-handle-size));
