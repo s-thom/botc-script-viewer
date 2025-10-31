@@ -3,23 +3,33 @@ import { LOCAL_SCRIPT_COLLECTIONS } from "../../scripts";
 import ScriptList from "./ScriptList.astro";
 ---
 
-<div class="menu-box">
-  {
-    Object.entries(LOCAL_SCRIPT_COLLECTIONS)
-      .filter(([, collection]) => collection.showOnHome !== false)
-      .map(([collectionId, collection]) => (
-        <details class="menu" name="script-collection">
-          <summary class="menu-trigger">{collection.title}</summary>
-          <div class="menu-popover">
-            <ScriptList
-              collectionId={collectionId}
-              scripts={collection.scripts}
-              loading="lazy"
-            />
-          </div>
-        </details>
-      ))
-  }
+<div class="box">
+  <p>Select from an existing collection.</p>
+
+  <div class="menu-box">
+    {
+      Object.entries(LOCAL_SCRIPT_COLLECTIONS)
+        .filter(([, collection]) => collection.showOnHome !== false)
+        .map(([collectionId, collection]) => (
+          <details class="menu" name="script-collection">
+            <summary class="menu-trigger">{collection.title}</summary>
+            <div class="menu-popover">
+              <ScriptList
+                collectionId={collectionId}
+                scripts={collection.scripts}
+                loading="lazy"
+              />
+            </div>
+          </details>
+        ))
+    }
+  </div>
+</div>
+
+<div class="box">
+  <p>Build your own script.</p>
+
+  <a href="/builder" class="build-link"><span>Go to script builder.</span></a>
 </div>
 
 <script>
@@ -88,6 +98,13 @@ import ScriptList from "./ScriptList.astro";
 </script>
 
 <style>
+  .box {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+  }
+
   .menu-box {
     width: 100%;
     background-color: var(--color-control-background);
@@ -139,5 +156,39 @@ import ScriptList from "./ScriptList.astro";
     border-radius: 15px;
     background-color: var(--color-control-background-active);
     border: 2px solid var(--color-control-border-active);
+  }
+
+  .build-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 160px;
+    border: 2px solid var(--color-control-border-active);
+    padding: 16px;
+    border-radius: 15px;
+    background-color: var(--color-control-background);
+
+    &:disabled {
+      filter: grayscale();
+    }
+
+    &:hover {
+      border-color: var(--color-control-border-hover);
+      background-color: var(--color-background);
+    }
+
+    &:active {
+      border-color: var(--color-control-border-active);
+      background-color: var(--color-background);
+    }
+
+    &.dragover {
+      border-color: var(--color-level-border-info);
+    }
+
+    &.dragerror {
+      border-color: var(--color-level-border-error);
+    }
   }
 </style>

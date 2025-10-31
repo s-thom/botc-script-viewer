@@ -4,6 +4,7 @@ import ScriptForm from "../components/home/ScriptForm.astro";
 import PageView from "../components/misc/PageView.astro";
 import Footer from "../components/misc/Footer.astro";
 import CenteredLayout from "../layouts/CenteredLayout.astro";
+import UploadForm from "../components/home/UploadForm.astro";
 ---
 
 <CenteredLayout meta={{}} heading="Blood on the Clocktower Script Viewer">
@@ -18,8 +19,22 @@ import CenteredLayout from "../layouts/CenteredLayout.astro";
       rel="external noreferrer">Blood on the Clocktower</a
     > in your browser.
   </p>
-  <p>Select a script or enter a custom script by JSON or URL.</p>
-  <CollectionsMenu />
-  <ScriptForm />
+  <div class="grid">
+    <ScriptForm />
+    <UploadForm />
+    <CollectionsMenu />
+  </div>
   <Footer />
 </CenteredLayout>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+
+    @media (min-width: 500px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>

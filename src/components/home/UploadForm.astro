@@ -1,0 +1,220 @@
+---
+
+---
+
+<form
+  id="upload-form"
+  method="POST"
+  action="/go"
+  enctype="multipart/form-data"
+  class="form"
+>
+  <p>Upload file.</p>
+
+  <label class="file-input-label" for="file" aria-describedby="upload-error">
+    <span>Click to upload JSON file or drag file here.</span>
+  </label>
+  <input
+    class="file-input visually-hidden-always"
+    type="file"
+    name="file"
+    id="file"
+    accept="application/json"
+    autocomplete="off"
+    required
+  />
+
+  <div id="upload-status" class="visually-hidden-always" aria-live="polite">
+  </div>
+
+  <button
+    type="submit"
+    class="button upload-submit"
+    data-umami-event="upload-submit"
+  >
+    Upload script
+  </button>
+</form>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>("#upload-form")!;
+  const fileInput = form.querySelector<HTMLInputElement>("#file")!;
+  const fileInputLabel =
+    form.querySelector<HTMLLabelElement>("label[for=file]")!;
+  const statusRegion = form.querySelector<HTMLDivElement>("#upload-status")!;
+
+  function updateLabelWithFile(file: File | null) {
+    if (!file) {
+      fileInputLabel.textContent = "Select JSON file to upload.";
+      statusRegion!.textContent = "";
+      return;
+    }
+    fileInputLabel.textContent = file.name;
+    statusRegion!.textContent = `Selected file: ${file.name}`;
+  }
+
+  fileInput.addEventListener("change", () => {
+    if (!fileInput.files || fileInput.files.length === 0) {
+      updateLabelWithFile(null);
+      return;
+    }
+
+    const file = fileInput.files[0];
+    updateLabelWithFile(file);
+
+    form.submit();
+  });
+
+  const dragClass = "dragover";
+  const dragErrorClass = "dragerror";
+  function preventAndStop(e: Event) {
+    e.preventDefault();
+    e.stopPropagation();
+  }
+
+  function isJsonFile(file: File | null): file is File {
+    if (!file) {
+      return false;
+    }
+
+    return (
+      file.type === "application/json" ||
+      file.name.toLowerCase().endsWith(".json")
+    );
+  }
+
+  function getFirstValidFileFromDrag(e: DragEvent | null): File | null {
+    if (!e || !e.dataTransfer) return null;
+    const dt = e.dataTransfer;
+
+    // Prefer actual File objects when available
+    if (dt.files && dt.files.length > 0) {
+      for (const file of dt.files) {
+        if (isJsonFile(file)) {
+          return file;
+        }
+      }
+
+      return null;
+    }
+
+    if (dt.items && dt.items.length > 0) {
+      for (const item of dt.items) {
+        if (item.kind !== "file") {
+          continue;
+        }
+
+        if (item.type === "application/json") {
+          return new File([], "script.json", { type: "application/json" });
+        }
+      }
+    }
+
+    return null;
+  }
+
+  function onDragOver(e: DragEvent) {
+    preventAndStop(e);
+
+    const file = getFirstValidFileFromDrag(e);
+
+    if (e.dataTransfer) {
+      e.dataTransfer.dropEffect = file ? "copy" : "none";
+    }
+
+    if (file) {
+      fileInputLabel.classList.add(dragClass);
+      fileInputLabel.classList.remove(dragErrorClass);
+    } else {
+      fileInputLabel.classList.add(dragErrorClass);
+      fileInputLabel.classList.remove(dragClass);
+    }
+  }
+
+  function onDragLeave(e: DragEvent) {
+    preventAndStop(e);
+
+    fileInputLabel.classList.remove(dragClass);
+    fileInputLabel.classList.remove(dragErrorClass);
+  }
+
+  function onDrop(e: DragEvent) {
+    preventAndStop(e);
+
+    fileInputLabel.classList.remove(dragClass);
+    fileInputLabel.classList.remove(dragErrorClass);
+
+    const file = getFirstValidFileFromDrag(e);
+
+    if (!file) {
+      fileInput.value = "";
+      updateLabelWithFile(null);
+      return;
+    }
+
+    const dataTransfer = new DataTransfer();
+    dataTransfer.items.add(file);
+    fileInput.files = dataTransfer.files;
+    updateLabelWithFile(file);
+
+    form.submit();
+  }
+
+  fileInputLabel.addEventListener("dragover", onDragOver);
+  fileInputLabel.addEventListener("dragenter", onDragOver);
+  fileInputLabel.addEventListener("dragleave", onDragLeave);
+  fileInputLabel.addEventListener("drop", onDrop);
+</script>
+
+<style>
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+  }
+
+  .file-input-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 160px;
+    border: 2px dashed var(--color-control-border-active);
+    padding: 16px;
+    border-radius: 15px;
+    background-color: var(--color-control-background);
+
+    &:disabled {
+      filter: grayscale();
+    }
+
+    &:hover {
+      border-color: var(--color-control-border-hover);
+      background-color: var(--color-background);
+    }
+
+    &:active {
+      border-color: var(--color-control-border-active);
+      background-color: var(--color-background);
+    }
+
+    &.dragover {
+      border-color: var(--color-level-border-info);
+    }
+
+    &.dragerror {
+      border-color: var(--color-level-border-error);
+    }
+  }
+
+  .form:not(:has(.file-input:valid)) .upload-submit {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+  }
+</style>
