@@ -246,8 +246,8 @@ function top3(): Comparator {
 function xaanFace(minions: ScriptCharacter[]): Comparator {
   const hats = ["baron", "witch"];
   const eyes = ["xaan"];
-  const noses = ["boomdandy", "summoner"];
-  const mouths = ["goblin"];
+  const noses = ["boomdandy", "summoner", "boffin"];
+  const mouths = ["goblin", "scarletwoman"];
 
   const hat = hats.find((id) => minions.find((minion) => minion.id === id));
   const eye = eyes.find((id) => minions.find((minion) => minion.id === id));
