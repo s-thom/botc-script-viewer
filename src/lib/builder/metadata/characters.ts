@@ -773,4 +773,12 @@ export const CHARACTER_METADATA: Record<
     edition: "kickstarter",
     actionType: "fabled",
   },
+  bigwig: {
+    edition: "recent-release",
+    actionType: "fabled",
+  },
+  tor: {
+    edition: "recent-release",
+    actionType: "fabled",
+  },
 };

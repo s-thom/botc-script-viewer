@@ -4,7 +4,7 @@ import data from "../src/data/data.json" with { type: "json" };
 const set = new Set<string>();
 const knownExceptions = new Set(["dusk", "dawn", "minioninfo", "demoninfo"]);
 
-for (const character of [...data.roles, ...data.fabled]) {
+for (const character of data.roles) {
   if (!knownExceptions.has(character.id)) {
     set.add(character.id);
   }

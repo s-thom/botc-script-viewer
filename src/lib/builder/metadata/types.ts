@@ -6,6 +6,7 @@ export type CharacterEdition =
   | "bmr"
   | "kickstarter"
   | "carousel"
+  | "recent-release"
   | "custom";
 
 export type RegularCharacterTeam = Exclude<

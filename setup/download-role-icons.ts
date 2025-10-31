@@ -63,11 +63,12 @@ for (const role of data.roles) {
     case "demon":
       iconsToFetch[role.id] = `${role.id}_e`;
       break;
+    case "fabled":
+    case "loric":
+      iconsToFetch[role.id] = role.id;
+      break;
     default:
   }
-}
-for (const role of data.fabled) {
-  iconsToFetch[role.id] = role.id;
 }
 
 originalFilenamesById.minioninfo = originalFilenamesById["minion-info"];
@@ -78,6 +79,7 @@ iconsToFetch.minion = "minion_e";
 iconsToFetch.demon = "demon_e";
 iconsToFetch.traveller = "traveller";
 iconsToFetch.fabled = "fabled";
+iconsToFetch.loric = "loric";
 iconsToFetch.demoninfo = "demoninfo";
 iconsToFetch.minioninfo = "minioninfo";
 

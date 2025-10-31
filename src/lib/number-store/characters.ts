@@ -184,4 +184,6 @@ export const ORDERED_CHARACTER_LIST = [
   "gardener",
   "stormcatcher",
   // Characters released after the Carousel, in release order
+  "bigwig",
+  "tor",
 ];

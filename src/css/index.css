@@ -111,6 +111,7 @@ textarea:not([rows]) {
   --color-alignment-evil: #940014;
   --color-alignment-traveller: #5c2b9a;
   --color-alignment-fabled: #d49303;
+  --color-alignment-loric: #80b349;
 
   --color-level-background: var(--color-text);
   --color-level-border: var(--color-text);
@@ -142,6 +143,7 @@ textarea:not([rows]) {
       --color-alignment-evil: #7c302f;
       --color-alignment-traveller: #5a3a7a;
       --color-alignment-fabled: #957138;
+      --color-alignment-loric: #66834b;
 
       --color-level-background-error: #332828;
       --color-level-border-error: #8b4540;
@@ -170,6 +172,7 @@ textarea:not([rows]) {
     --color-alignment-evil: #7c302f;
     --color-alignment-traveller: #5a3a7a;
     --color-alignment-fabled: #957138;
+    --color-alignment-loric: #66834b;
 
     --color-level-background-error: #332828;
     --color-level-border-error: #8b4540;
@@ -388,6 +391,11 @@ a {
 .team-fabled,
 .team-bmr {
   --color-alignment: var(--color-alignment-fabled);
+}
+
+.team-loric,
+.team-recent-release {
+  --color-alignment: var(--color-alignment-loric);
 }
 
 .level-error {

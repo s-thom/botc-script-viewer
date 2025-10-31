@@ -1,3 +1,4 @@
+import data from "../data/data.json";
 import type {
   BloodOnTheClocktowerCustomScript,
   ScriptCharacter,
@@ -5,6 +6,19 @@ import type {
 } from "../generated/script-schema";
 import type { NormalisedScript, SpecialNightInfo } from "../types/botc";
 import { CHARACTERS_BY_ID } from "./characters";
+
+const FIRST_NIGHT_LOOKUP = data.nightOrder.firstNight.reduce<
+  Map<string, number>
+>((map, id, index) => {
+  map.set(id, index);
+  return map;
+}, new Map());
+const OTHER_NIGHT_LOOKUP = data.nightOrder.otherNight.reduce<
+  Map<string, number>
+>((map, id, index) => {
+  map.set(id, index);
+  return map;
+}, new Map());
 
 function getSpecialNightInfo(id: string): SpecialNightInfo | null {
   switch (id) {
@@ -65,7 +79,11 @@ function getNightOrderArrays(
     }
   } else {
     firstNight = Array.from(charactersById.values())
-      .map((character) => ({ character, index: character.firstNight ?? 0 }))
+      .map((character) => ({
+        character,
+        index:
+          character.firstNight ?? FIRST_NIGHT_LOOKUP.get(character.id) ?? 0,
+      }))
       .filter((item) => item.index > 0)
       .sort((a, b) => a.index - b.index)
       .map((item) => ({
@@ -110,7 +128,11 @@ function getNightOrderArrays(
     }
   } else {
     otherNight = Array.from(charactersById.values())
-      .map((character) => ({ character, index: character.otherNight ?? 0 }))
+      .map((character) => ({
+        character,
+        index:
+          character.otherNight ?? OTHER_NIGHT_LOOKUP.get(character.id) ?? 0,
+      }))
       .filter((item) => item.index > 0)
       .sort((a, b) => a.index - b.index)
       .map((item) => ({

@@ -50,6 +50,6 @@ export class KeyedRateLimit<K> {
     }
 
     const queue = this.queueMap.get(key)!;
-    return queue.add(callback, { throwOnTimeout: true });
+    return queue.add(callback);
   }
 }

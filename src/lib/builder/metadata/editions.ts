@@ -6,5 +6,6 @@ export const EDITIONS: Record<CharacterEdition, EditionMetadata> = {
   bmr: { name: "Bad Moon Rising", icon: "godfather" },
   kickstarter: { name: "Kickstarter", icon: "cannibal" },
   carousel: { name: "Carousel", icon: "villageidiot" },
+  "recent-release": { name: "Recent", icon: "loric" },
   custom: { name: "Custom", icon: "amnesiac" },
 };

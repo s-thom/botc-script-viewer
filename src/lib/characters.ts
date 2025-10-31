@@ -8,12 +8,13 @@ import type {
 } from "../generated/script-schema";
 import type { GlobalState } from "./builder/state/types";
 
-export const CHARACTERS_BY_ID = [...data.roles, ...data.fabled].reduce<
-  Map<string, ScriptCharacter>
->((map, character) => {
-  map.set(character.id, character as ScriptCharacter);
-  return map;
-}, new Map());
+export const CHARACTERS_BY_ID = data.roles.reduce<Map<string, ScriptCharacter>>(
+  (map, character) => {
+    map.set(character.id, character as ScriptCharacter);
+    return map;
+  },
+  new Map(),
+);
 
 export const CHARACTERS_BY_TEAM = Array.from(CHARACTERS_BY_ID.values()).reduce<
   Record<CharacterTeam, ScriptCharacter[]>

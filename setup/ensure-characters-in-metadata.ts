@@ -1,8 +1,8 @@
 import data from "../src/data/data.json" with { type: "json" };
-import type { ScriptCharacter } from "../src/generated/script-schema";
-import { ORDERED_CHARACTER_LIST } from "../src/lib/number-store/characters.ts";
+import type { ScriptCharacter } from "../src/generated/script-schema.ts";
+import { CHARACTER_METADATA } from "../src/lib/builder/metadata/characters.ts";
 
-const nsCharacterSet = new Set(ORDERED_CHARACTER_LIST);
+const nsCharacterSet = new Set(Object.keys(CHARACTER_METADATA));
 const knownExceptions = new Set(["dusk", "dawn", "minioninfo", "demoninfo"]);
 
 const missingSet = new Set<ScriptCharacter>();
@@ -14,7 +14,7 @@ for (const character of data.roles) {
 }
 
 if (missingSet.size > 0) {
-  console.error("Some characters are not assigned positions in Number Store");
+  console.error("Some characters do not have metadata");
   console.error(
     Array.from(missingSet)
       .map((character) => `${character.name} (${character.id})`)
@@ -23,4 +23,4 @@ if (missingSet.size > 0) {
   process.exit(1);
 }
 
-console.log("All characters have a number.");
+console.log("All characters have metadata.");

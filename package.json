@@ -3,8 +3,8 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "setup": "wrangler types && node --experimental-strip-types setup/generate-script-schema.ts && node --experimental-strip-types setup/download-role-icons.ts && node --experimental-strip-types setup/generate-edition-scripts.ts && node --experimental-strip-types setup/generate-official-character-ids.ts",
-    "validate": "node --experimental-strip-types setup/ensure-characters-in-number-store.ts",
+    "setup": "wrangler types && node setup/generate-script-schema.ts && node setup/download-role-icons.ts && node setup/generate-edition-scripts.ts && node setup/generate-official-character-ids.ts",
+    "validate": "node setup/ensure-characters-in-number-store.ts && node setup/ensure-characters-in-metadata.ts",
     "dev": "astro dev",
     "build": "astro build",
     "full-build": "npm run setup && npm run build",

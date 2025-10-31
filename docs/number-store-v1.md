@@ -69,6 +69,8 @@ The exact mapping of characters is as follows:
   - Fabled in alphabetical order.
 - Any future released characters, in order of release.
 
+Note: Any Loric characters that were originally classified as Fabled are in the place they would have been at the time.
+
 </details>
 
 <details>
@@ -249,6 +251,8 @@ The exact mapping of characters is as follows:
 | Ferryman         | ferryman       | `0xab` |
 | Gardener         | gardener       | `0xac` |
 | Storm Catcher    | stormcatcher   | `0xad` |
+| Big Wig          | bigwig         | `0xae` |
+| Tor              | tor            | `0xaf` |
 
 </details>
 

@@ -52,6 +52,14 @@ const allExtraNightOrderCharacters = script.warnings.flatMap((warning) =>
                 </a>
               </li>
             ))}
+            {script.teams.loric.map((character) => (
+              <li class="fabled-list-item">
+                <a href={`#${character.id}`} class="fabled-list-item">
+                  <CharacterIcon size={48} character={character} />
+                  <span class="fabled-title">{character.name}</span>
+                </a>
+              </li>
+            ))}
           </ul>
         )
       }
