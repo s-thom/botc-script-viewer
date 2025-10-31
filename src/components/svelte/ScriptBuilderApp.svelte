@@ -19,6 +19,7 @@
   import TabletLayout from "./layouts/TabletLayout.svelte";
   import { createPortal, portal } from "../../lib/builder/portal";
   import BuilderNavLinks from "./options/BuilderNavLinks.svelte";
+  import LoadingLayout from "./layouts/LoadingLayout.svelte";
 
   const large = new MediaQuery("min-width: 960px");
   const medium = new MediaQuery("min-width: 600px");
@@ -118,13 +119,15 @@
   });
 </script>
 
-{#if large.current}
-  <DesktopLayout />
-{:else if medium.current}
-  <TabletLayout />
-{:else}
-  <MobileLayout />
-{/if}
+<LoadingLayout character="lunatic">
+  {#if large.current}
+    <DesktopLayout />
+  {:else if medium.current}
+    <TabletLayout />
+  {:else}
+    <MobileLayout />
+  {/if}
+</LoadingLayout>
 
 <div use:portal={"top-nav-links-container"}>
   <BuilderNavLinks />

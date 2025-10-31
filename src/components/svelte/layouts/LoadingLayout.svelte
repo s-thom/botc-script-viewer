@@ -1,0 +1,52 @@
+<script lang="ts">
+  import { onMount, type Snippet } from "svelte";
+  import CharacterIcon from "../common/CharacterIcon.svelte";
+  import type { OfficialCharacterId } from "../../../generated/types";
+
+  interface Props {
+    character: OfficialCharacterId;
+    children?: Snippet;
+  }
+
+  let { children, character }: Props = $props();
+
+  // It might seem strange to have a loading state that's immediately replaced with the content,
+  // but since we pre-render with Astro, the loading state ends up baked into the HTML and gets
+  // replaced only when the app itself loads.
+
+  let isMounted = $state(false);
+
+  onMount(() => {
+    isMounted = true;
+  });
+</script>
+
+{#if isMounted}
+  {@render children?.()}
+{:else}
+  <div class="container">
+    <CharacterIcon
+      character={{ id: character, team: "outsider", name: "", ability: "" }}
+      class="slow-spin loading-icon"
+    />
+    <p>Loading...</p>
+    <noscript>
+      <p>The script builder is interactive and requires Javascript to run.</p>
+    </noscript>
+  </div>
+{/if}
+
+<style>
+  .container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    :global(.loading-icon) {
+      width: 144px;
+      height: 144px;
+    }
+  }
+</style>
