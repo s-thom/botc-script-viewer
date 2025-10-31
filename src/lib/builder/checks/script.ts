@@ -128,32 +128,6 @@ const checks: Check[] = [
 
     return [];
   },
-  function bluffConsult(state) {
-    const allRegular = getAllRegularCharacters(state);
-    const consultCharacters = allRegular.reduce<ScriptCharacter[]>(
-      (acc, { character, meta }) => {
-        if (meta.actionType === "storyteller-consult") {
-          acc.push(character);
-        }
-
-        return acc;
-      },
-      [],
-    );
-
-    if (consultCharacters.length === 1) {
-      return {
-        id: "abilities/consult",
-        level: "warning",
-        description: `There is only one character that visibly consults the storyteller: ${consultCharacters.map((character) => character.name).join(", ")}`,
-        remarks: [
-          "Only having one ability that consults the storyteller makes it difficult for evil to bluff.",
-        ],
-      };
-    }
-
-    return [];
-  },
   function outsiderMod(state) {
     const allRegular = getAllRegularCharacters(state);
     const numOutsiderMod = allRegular.reduce(
