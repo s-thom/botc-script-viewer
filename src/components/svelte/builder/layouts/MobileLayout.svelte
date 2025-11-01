@@ -1,7 +1,7 @@
 <svelte:options runes />
 
 <script lang="ts">
-  import { globalState } from "../../../lib/builder/state.svelte";
+  import { globalState } from "../../../../lib/builder/state.svelte";
   import CharacterSelectForm from "../character-selection/CharacterSelectForm.svelte";
   import AboutChecks from "../checks/AboutChecks.svelte";
   import ChecksList from "../checks/ChecksList.svelte";

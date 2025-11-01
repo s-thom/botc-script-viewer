@@ -3,12 +3,12 @@
   import {
     parseOrFetchScript,
     validateScriptJson,
-  } from "../../../lib/builder/import";
+  } from "../../../../lib/builder/import";
   import {
     getScript,
     globalState,
     setScript,
-  } from "../../../lib/builder/state.svelte";
+  } from "../../../../lib/builder/state.svelte";
 
   let isShowingImport = $state(false);
   let isImporting = $state(false);

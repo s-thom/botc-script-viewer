@@ -2,15 +2,15 @@
   import type {
     CharacterTeam,
     ScriptCharacter,
-  } from "../../../generated/script-schema";
+  } from "../../../../generated/script-schema";
   import {
     CHARACTERS_BY_ID,
     getEnforcedCharacters,
     TEAM_NAMES,
-  } from "../../../lib/characters";
-  import { generatePrompt } from "../../../lib/builder/prompts";
-  import { globalState } from "../../../lib/builder/state.svelte";
-  import CharacterIcon from "../common/CharacterIcon.svelte";
+  } from "../../../../lib/characters";
+  import { generatePrompt } from "../../../../lib/builder/prompts";
+  import { globalState } from "../../../../lib/builder/state.svelte";
+  import CharacterIcon from "../../common/CharacterIcon.svelte";
   import TeamCharacterList from "./TeamCharacterList.svelte";
 
   const forcedCharactersByTeam = $derived.by(() => {

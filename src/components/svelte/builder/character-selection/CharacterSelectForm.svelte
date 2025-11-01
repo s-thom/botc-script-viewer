@@ -2,17 +2,20 @@
   import type {
     CharacterTeam,
     ScriptCharacter,
-  } from "../../../generated/script-schema";
-  import type { OfficialCharacterId } from "../../../generated/types";
-  import { CHARACTER_METADATA } from "../../../lib/builder/metadata/characters";
-  import { EDITIONS } from "../../../lib/builder/metadata/editions";
-  import { doSortScript, globalState } from "../../../lib/builder/state.svelte";
-  import { filterInPlace } from "../../../lib/builder/util/arrays";
+  } from "../../../../generated/script-schema";
+  import type { OfficialCharacterId } from "../../../../generated/types";
+  import { CHARACTER_METADATA } from "../../../../lib/builder/metadata/characters";
+  import { EDITIONS } from "../../../../lib/builder/metadata/editions";
+  import {
+    doSortScript,
+    globalState,
+  } from "../../../../lib/builder/state.svelte";
+  import { filterInPlace } from "../../../../lib/builder/util/arrays";
   import {
     CHARACTERS_BY_TEAM,
     getEnforcedCharacters,
     TEAM_NAMES,
-  } from "../../../lib/characters";
+  } from "../../../../lib/characters";
   import CharacterSelectList from "./CharacterSelectList.svelte";
 
   const TEAM_CHARACTERS: ScriptCharacter[] = Object.entries(TEAM_NAMES).map(

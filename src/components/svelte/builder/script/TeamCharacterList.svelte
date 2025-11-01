@@ -5,9 +5,9 @@
   import type {
     CharacterTeam,
     ScriptCharacter,
-  } from "../../../generated/script-schema";
-  import { globalState } from "../../../lib/builder/state.svelte";
-  import { filterInPlace } from "../../../lib/builder/util/arrays";
+  } from "../../../../generated/script-schema";
+  import { globalState } from "../../../../lib/builder/state.svelte";
+  import { filterInPlace } from "../../../../lib/builder/util/arrays";
   import CharacterItem from "./CharacterItem.svelte";
 
   interface Props {

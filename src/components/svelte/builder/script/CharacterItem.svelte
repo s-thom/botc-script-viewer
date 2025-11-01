@@ -1,9 +1,9 @@
 <script lang="ts">
   import { Gripper, Lock, Pinned, Trash } from "svelte-codicons";
-  import type { ScriptCharacter } from "../../../generated/script-schema";
-  import CharacterIcon from "../common/CharacterIcon.svelte";
-  import { globalState } from "../../../lib/builder/state.svelte";
-  import { normaliseCharacterId, TEAM_NAMES } from "../../../lib/characters";
+  import type { ScriptCharacter } from "../../../../generated/script-schema";
+  import CharacterIcon from "../../common/CharacterIcon.svelte";
+  import { globalState } from "../../../../lib/builder/state.svelte";
+  import { normaliseCharacterId, TEAM_NAMES } from "../../../../lib/characters";
 
   interface Props {
     character: ScriptCharacter;

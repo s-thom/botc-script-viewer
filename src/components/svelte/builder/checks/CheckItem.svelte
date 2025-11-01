@@ -9,11 +9,14 @@
     Warning,
     type SvgComponent,
   } from "svelte-codicons";
-  import type { ScriptCharacter } from "../../../generated/script-schema";
-  import { CHARACTERS_BY_ID } from "../../../lib/characters";
-  import type { CheckResult } from "../../../lib/builder/checks/types";
-  import { doSortScript, globalState } from "../../../lib/builder/state.svelte";
-  import CharacterIcon from "../common/CharacterIcon.svelte";
+  import type { ScriptCharacter } from "../../../../generated/script-schema";
+  import { CHARACTERS_BY_ID } from "../../../../lib/characters";
+  import type { CheckResult } from "../../../../lib/builder/checks/types";
+  import {
+    doSortScript,
+    globalState,
+  } from "../../../../lib/builder/state.svelte";
+  import CharacterIcon from "../../common/CharacterIcon.svelte";
 
   const LEVEL_ICONS: Record<CheckResult["level"], typeof SvgComponent> = {
     error: Error,

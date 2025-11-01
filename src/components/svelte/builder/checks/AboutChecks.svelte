@@ -8,7 +8,7 @@
     Wand,
     Warning,
   } from "svelte-codicons";
-  import { globalState } from "../../../lib/builder/state.svelte";
+  import { globalState } from "../../../../lib/builder/state.svelte";
 </script>
 
 <div class="top-links-list">

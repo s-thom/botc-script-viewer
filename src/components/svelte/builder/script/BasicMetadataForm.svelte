@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { globalState } from "../../../lib/builder/state.svelte";
+  import { globalState } from "../../../../lib/builder/state.svelte";
 </script>
 
 <form class="metadata-form">

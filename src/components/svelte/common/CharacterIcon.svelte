@@ -1,7 +1,7 @@
 <script module>
   import { type ClassValue } from "svelte/elements";
   import * as CHARACTER_ICONS from "../../../generated/character-icons";
-  import { type ScriptCharacter } from "../../../generated/script-schema";
+  import { type ScriptCharacter } from "..././../../generated/script-schema";
   import { ALLOWED_EXTERNAL_HOSTNAMES } from "../../../lib/images";
   import { once } from "../../../lib/builder/util/functions";
   import type { ImageMetadata } from "astro";

@@ -1,6 +1,6 @@
 <script lang="ts">
-  import type { ScriptCharacter } from "../../../generated/script-schema";
-  import CharacterIcon from "../common/CharacterIcon.svelte";
+  import type { ScriptCharacter } from "../../../../generated/script-schema";
+  import CharacterIcon from "../../common/CharacterIcon.svelte";
   import { nanoid } from "nanoid";
 
   interface Props {

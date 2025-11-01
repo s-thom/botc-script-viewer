@@ -1,6 +1,9 @@
 <script lang="ts">
-  import { checksState, globalState } from "../../../lib/builder/state.svelte";
-  import CharacterIcon from "../common/CharacterIcon.svelte";
+  import {
+    checksState,
+    globalState,
+  } from "../../../../lib/builder/state.svelte";
+  import CharacterIcon from "../../common/CharacterIcon.svelte";
   import CheckItem from "./CheckItem.svelte";
 
   const { errors, warnings, infos } = $derived.by(() => ({

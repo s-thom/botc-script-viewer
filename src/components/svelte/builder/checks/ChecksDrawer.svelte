@@ -9,7 +9,10 @@
     Warning,
   } from "svelte-codicons";
   import { slide } from "svelte/transition";
-  import { checksState, globalState } from "../../../lib/builder/state.svelte";
+  import {
+    checksState,
+    globalState,
+  } from "../../../../lib/builder/state.svelte";
   import AboutChecks from "./AboutChecks.svelte";
   import ChecksList from "./ChecksList.svelte";
 

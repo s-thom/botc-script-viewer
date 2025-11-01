@@ -1,8 +1,8 @@
 <script lang="ts">
   import { getAbortSignal } from "svelte";
-  import type { BloodOnTheClocktowerCustomScript } from "../../../generated/script-schema";
-  import { getScript, globalState } from "../../../lib/builder/state.svelte";
-  import { delay } from "../../../lib/builder/util/async";
+  import type { BloodOnTheClocktowerCustomScript } from "../../../../generated/script-schema";
+  import { getScript, globalState } from "../../../../lib/builder/state.svelte";
+  import { delay } from "../../../../lib/builder/util/async";
 
   let rawScript = $state<BloodOnTheClocktowerCustomScript>([]);
 

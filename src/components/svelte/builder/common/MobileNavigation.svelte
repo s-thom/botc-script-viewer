@@ -9,8 +9,11 @@
     Settings,
     type SvgComponent,
   } from "svelte-codicons";
-  import { checksState, globalState } from "../../../lib/builder/state.svelte";
-  import type { GlobalState } from "../../../lib/builder/state/types";
+  import {
+    checksState,
+    globalState,
+  } from "../../../../lib/builder/state.svelte";
+  import type { GlobalState } from "../../../../lib/builder/state/types";
 
   type ScreenName = GlobalState["ui"]["screen"];
 

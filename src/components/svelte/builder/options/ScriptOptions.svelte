@@ -1,7 +1,10 @@
 <script lang="ts">
   import { Trash } from "svelte-codicons";
-  import { doSortScript, globalState } from "../../../lib/builder/state.svelte";
-  import ExternalImage from "../common/ExternalImage.svelte";
+  import {
+    doSortScript,
+    globalState,
+  } from "../../../../lib/builder/state.svelte";
+  import ExternalImage from "../../common/ExternalImage.svelte";
 
   function addBootleggerRule() {
     globalState.meta.bootlegger ??= [];

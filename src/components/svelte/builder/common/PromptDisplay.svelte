@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Close } from "svelte-codicons";
-  import { globalState } from "../../../lib/builder/state.svelte";
+  import { globalState } from "../../../../lib/builder/state.svelte";
 </script>
 
 {#if globalState.ui.prompt}

@@ -3,23 +3,23 @@
 <script lang="ts">
   import { getAbortSignal, onMount } from "svelte";
   import { MediaQuery } from "svelte/reactivity";
-  import type { BloodOnTheClocktowerCustomScript } from "../../generated/script-schema";
-  import { runAllChecks } from "../../lib/builder/checks";
-  import { persistState } from "../../lib/builder/state";
+  import type { BloodOnTheClocktowerCustomScript } from "../../../generated/script-schema";
+  import { runAllChecks } from "../../../lib/builder/checks";
+  import { persistState } from "../../../lib/builder/state";
   import {
     checksState,
     globalState,
     setScript,
-  } from "../../lib/builder/state.svelte";
-  import { groupBy } from "../../lib/builder/util/arrays";
-  import { delay, scheduleTask } from "../../lib/builder/util/async";
-  import { rawScriptValidator } from "../../lib/parse";
+  } from "../../../lib/builder/state.svelte";
+  import { groupBy } from "../../../lib/builder/util/arrays";
+  import { delay, scheduleTask } from "../../../lib/builder/util/async";
+  import { rawScriptValidator } from "../../../lib/parse";
   import DesktopLayout from "./layouts/DesktopLayout.svelte";
   import MobileLayout from "./layouts/MobileLayout.svelte";
   import TabletLayout from "./layouts/TabletLayout.svelte";
-  import { createPortal, portal } from "../../lib/builder/portal";
+  import { createPortal, portal } from "../../../lib/builder/portal";
   import BuilderNavLinks from "./options/BuilderNavLinks.svelte";
-  import LoadingLayout from "./layouts/LoadingLayout.svelte";
+  import LoadingLayout from "../common/LoadingLayout.svelte";
 
   const large = new MediaQuery("min-width: 960px");
   const medium = new MediaQuery("min-width: 600px");

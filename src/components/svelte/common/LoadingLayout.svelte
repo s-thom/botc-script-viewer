@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount, type Snippet } from "svelte";
-  import CharacterIcon from "../common/CharacterIcon.svelte";
+  import CharacterIcon from "./CharacterIcon.svelte";
   import type { OfficialCharacterId } from "../../../generated/types";
 
   interface Props {
