@@ -18,15 +18,19 @@
 
   const { team, characters, pinned }: Props = $props();
 
-  let pinnedSet = $derived(
-    (pinned ?? []).reduce((set, item) => {
-      set.add(item.character.id);
-      return set;
-    }, new Set<string>()),
+  let pinnedLookup = $derived(
+    (pinned ?? []).reduce((map, item) => {
+      map.set(item.character.id, item.reasons);
+      return map;
+    }, new Map<string, string[]>()),
   );
-  let nonPinnedCharacters = $derived(
-    characters.filter((character) => !pinnedSet.has(character.id)),
-  );
+  let filteredPinned = $derived.by(() => {
+    const characterIds = new Set(characters.map((character) => character.id));
+
+    return (pinned ?? []).filter(
+      (item) => !characterIds.has(item.character.id),
+    );
+  });
 
   let invalidDrop = $state(false);
 
@@ -73,7 +77,7 @@
 </script>
 
 <ul class="list">
-  {#each nonPinnedCharacters as character, index (character.id)}
+  {#each characters as character, index (character.id)}
     <li
       class={[
         "list-item",
@@ -98,12 +102,15 @@
       <CharacterItem
         {character}
         showGripper={isDragDropEnabled}
+        allowDrag={isDragDropEnabled}
+        showPinned={!!pinnedLookup.has(character.id)}
+        remarks={pinnedLookup.get(character.id)}
         onDeleteClick={() => handleDelete(character)}
       />
     </li>
   {/each}
-  {#if pinned !== undefined && pinned.length > 0}
-    {#each pinned as { character, reasons } (character.id)}
+  {#if filteredPinned !== undefined && filteredPinned.length > 0}
+    {#each filteredPinned as { character, reasons } (character.id)}
       <li
         class="detail-item"
         in:fade={{ duration: 150 }}
@@ -113,8 +120,8 @@
           {character}
           showGripper={isDragDropEnabled}
           showPinned
-          onDeleteClick={() => {}}
           remarks={reasons}
+          onDeleteClick={() => {}}
         />
       </li>
     {/each}

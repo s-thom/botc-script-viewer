@@ -9,12 +9,19 @@
     character: ScriptCharacter;
     remarks?: string[];
     showGripper?: boolean;
+    allowDrag?: boolean;
     showPinned?: boolean;
     onDeleteClick?: () => void;
   }
 
-  const { character, remarks, showGripper, showPinned, onDeleteClick }: Props =
-    $props();
+  const {
+    character,
+    remarks,
+    showGripper,
+    allowDrag,
+    showPinned,
+    onDeleteClick,
+  }: Props = $props();
 
   const jinxedCharacters = $derived.by(() => {
     // State reads must occur before return. This does mean extra object allocation but oh well.
@@ -71,10 +78,10 @@
 <div class="character">
   {#if showGripper}
     <span class="action-button">
-      {#if showPinned}
-        <Pinned aria-label="Required" />
-      {:else}
+      {#if allowDrag}
         <Gripper aria-label={`Drag ${character.name}`} />
+      {:else}
+        <Pinned aria-label="Required" />
       {/if}
     </span>
   {/if}
