@@ -34,6 +34,9 @@
       <p>The script builder is interactive and requires Javascript to run.</p>
     </noscript>
   </div>
+  <div class="preload">
+    {@render children?.()}
+  </div>
 {/if}
 
 <style>
@@ -48,5 +51,9 @@
       width: 144px;
       height: 144px;
     }
+  }
+
+  .preload {
+    display: none;
   }
 </style>

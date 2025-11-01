@@ -36,7 +36,12 @@ if (Astro.request.method === "POST") {
     <PageView />
   </Fragment>
 
-  <div id="top-nav-links-container" slot="items-start"></div>
+  <div
+    id="top-nav-links-container"
+    class="top-nav-links-container"
+    slot="items-start"
+  >
+  </div>
 
   {
     scriptString && (
@@ -53,11 +58,7 @@ if (Astro.request.method === "POST") {
 </TopBarLayout>
 
 <style>
-  .nav-links {
-    display: flex;
-    flex-direction: row;
-    padding-inline-start: 0;
-    gap: 0.5rem;
-    list-style: none;
+  .top-nav-links-container {
+    display: contents;
   }
 </style>

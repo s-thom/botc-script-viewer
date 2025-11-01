@@ -15,8 +15,7 @@
     character: ScriptCharacter,
   ): ImageMetadata | null {
     return character.team in CHARACTER_ICONS
-      ? // @ts-expect-error
-        CHARACTER_ICONS[character.team]
+      ? CHARACTER_ICONS[character.team]
       : null;
   }
 
