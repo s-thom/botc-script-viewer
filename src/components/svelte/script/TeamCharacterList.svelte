@@ -13,10 +13,20 @@
   interface Props {
     team: CharacterTeam;
     characters: ScriptCharacter[];
-    forced?: { character: ScriptCharacter; reasons: string[] }[];
+    pinned?: { character: ScriptCharacter; reasons: string[] }[];
   }
 
-  const { team, characters, forced }: Props = $props();
+  const { team, characters, pinned }: Props = $props();
+
+  let pinnedSet = $derived(
+    (pinned ?? []).reduce((set, item) => {
+      set.add(item.character.id);
+      return set;
+    }, new Set<string>()),
+  );
+  let nonPinnedCharacters = $derived(
+    characters.filter((character) => !pinnedSet.has(character.id)),
+  );
 
   let invalidDrop = $state(false);
 
@@ -63,7 +73,7 @@
 </script>
 
 <ul class="list">
-  {#each characters as character, index (character.id)}
+  {#each nonPinnedCharacters as character, index (character.id)}
     <li
       class={[
         "list-item",
@@ -92,8 +102,8 @@
       />
     </li>
   {/each}
-  {#if forced !== undefined && forced.length > 0}
-    {#each forced as { character, reasons } (character.id)}
+  {#if pinned !== undefined && pinned.length > 0}
+    {#each pinned as { character, reasons } (character.id)}
       <li
         class="detail-item"
         in:fade={{ duration: 150 }}

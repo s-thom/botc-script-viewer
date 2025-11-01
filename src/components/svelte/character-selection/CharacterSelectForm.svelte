@@ -4,15 +4,15 @@
     ScriptCharacter,
   } from "../../../generated/script-schema";
   import type { OfficialCharacterId } from "../../../generated/types";
-  import {
-    CHARACTERS_BY_TEAM,
-    getEnforcedFabled,
-    TEAM_NAMES,
-  } from "../../../lib/builder/characters";
   import { CHARACTER_METADATA } from "../../../lib/builder/metadata/characters";
   import { EDITIONS } from "../../../lib/builder/metadata/editions";
   import { doSortScript, globalState } from "../../../lib/builder/state.svelte";
   import { filterInPlace } from "../../../lib/builder/util/arrays";
+  import {
+    CHARACTERS_BY_TEAM,
+    getEnforcedCharacters,
+    TEAM_NAMES,
+  } from "../../../lib/characters";
   import CharacterSelectList from "./CharacterSelectList.svelte";
 
   const TEAM_CHARACTERS: ScriptCharacter[] = Object.entries(TEAM_NAMES).map(
@@ -48,10 +48,10 @@
     const inScript = Object.values(globalState.characters).flatMap(
       (characters) => characters.map((character) => character.id),
     );
-    const forcedFabled = getEnforcedFabled(globalState);
+    const forcedCharacters = getEnforcedCharacters(globalState);
 
     const set = new Set(inScript);
-    for (const [forcedId] of forcedFabled) {
+    for (const [forcedId] of forcedCharacters) {
       set.add(forcedId);
     }
 

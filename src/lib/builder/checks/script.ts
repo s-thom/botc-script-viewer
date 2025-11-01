@@ -1,5 +1,5 @@
 import type { ScriptCharacter } from "../../../generated/script-schema";
-import { normaliseCharacterId } from "../characters";
+import { normaliseCharacterId } from "../../characters";
 import type { Check } from "./types";
 import {
   getAllRegularCharacters,

@@ -102,19 +102,19 @@ export function isScriptMetadata(
   return typeof item === "object" && item.id === "_meta" && !("team" in item);
 }
 
-export function getEnforcedFabled(
+export function getEnforcedCharacters(
   state: GlobalState,
 ): Map<string, Set<string>> {
-  const enforcedFabled = new Map<string, Set<string>>();
-  function addFabledReason(fabled: string, reason: string) {
-    if (!enforcedFabled.has(fabled)) {
-      enforcedFabled.set(fabled, new Set());
+  const enforcedCharacters = new Map<string, Set<string>>();
+  function addWithReason(id: string, reason: string) {
+    if (!enforcedCharacters.has(id)) {
+      enforcedCharacters.set(id, new Set());
     }
-    enforcedFabled.get(fabled)!.add(reason);
+    enforcedCharacters.get(id)!.add(reason);
   }
 
   if (state.meta.bootlegger && state.meta.bootlegger.length > 0) {
-    addFabledReason("bootlegger", "Script contains custom rules");
+    addWithReason("bootlegger", "Script contains custom rules");
   }
 
   const allCharactersMap = new Map<string, ScriptCharacter>();
@@ -126,19 +126,19 @@ export function getEnforcedFabled(
 
   for (const character of allCharactersMap.values()) {
     if (!CHARACTERS_BY_ID.has(character.id)) {
-      addFabledReason("bootlegger", "Script contains custom characters");
+      addWithReason("bootlegger", "Script contains custom characters");
     }
 
     if (character.jinxes) {
       for (const jinx of character.jinxes) {
         if (allCharactersMap.has(normaliseCharacterId(jinx.id))) {
-          addFabledReason("djinn", "Script contains jinxes");
+          addWithReason("djinn", "Script contains jinxes");
         }
       }
     }
   }
 
-  return enforcedFabled;
+  return enforcedCharacters;
 }
 
 // Sort order rules: https://bloodontheclocktower.com/news/sort-order-sao-update
@@ -246,8 +246,8 @@ function top3(): Comparator {
 function xaanFace(minions: ScriptCharacter[]): Comparator {
   const hats = ["baron", "witch"];
   const eyes = ["xaan"];
-  const noses = ["boomdandy", "summoner"];
-  const mouths = ["goblin"];
+  const noses = ["boomdandy", "summoner", "boffin"];
+  const mouths = ["goblin", "scarletwoman"];
 
   const hat = hats.find((id) => minions.find((minion) => minion.id === id));
   const eye = eyes.find((id) => minions.find((minion) => minion.id === id));

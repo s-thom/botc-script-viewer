@@ -93,7 +93,7 @@
     <h3>Bootlegger rules</h3>
 
     <p class="hint">
-      Adding bootlegger rules will automatically add the Bootlegger fabled into
+      Adding bootlegger rules will automatically add the Bootlegger loric into
       the script.
     </p>
 

@@ -1,5 +1,5 @@
 import type { ScriptCharacter } from "../../../generated/script-schema";
-import { CHARACTERS_BY_ID } from "../characters";
+import { CHARACTERS_BY_ID } from "../../characters";
 import type { Check, CheckResult } from "./types";
 import {
   getAllRegularCharacters,

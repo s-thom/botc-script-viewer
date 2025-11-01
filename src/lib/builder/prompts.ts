@@ -1,4 +1,4 @@
-import { CHARACTERS_BY_ID, CHARACTERS_BY_TEAM } from "./characters";
+import { CHARACTERS_BY_ID, CHARACTERS_BY_TEAM } from "../characters";
 import { arrayRandom } from "./util/arrays";
 
 const generators: (() => string)[] = [

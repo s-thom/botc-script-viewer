@@ -5,12 +5,12 @@ import type {
   ScriptMetadata,
 } from "../../generated/script-schema";
 import {
-  getEnforcedFabled,
+  getEnforcedCharacters,
   getFullScriptCharacter,
   getMinimalScriptCharacter,
   isScriptMetadata,
   sortCharacters,
-} from "./characters";
+} from "../characters";
 import type { CheckResult } from "./checks/types";
 import { getInitialState } from "./state";
 import type { GlobalState } from "./state/types";
@@ -58,14 +58,14 @@ export function setScript(script: BloodOnTheClocktowerCustomScript) {
 }
 
 export function getScript(): BloodOnTheClocktowerCustomScript {
-  const enforcedFabled = getEnforcedFabled(globalState).keys();
+  const enforcedCharacters = getEnforcedCharacters(globalState).keys();
 
   return [
     globalState.meta,
     ...Object.values(globalState.characters).flatMap((characters) =>
       characters.map((character) => getMinimalScriptCharacter(character)),
     ),
-    ...enforcedFabled,
+    ...enforcedCharacters,
   ];
 }
 
