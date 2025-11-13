@@ -16,7 +16,7 @@
     "@astrojs/cloudflare": "^12.6.10",
     "@astrojs/svelte": "^7.2.1",
     "@thisux/sveltednd": "^0.0.20",
-    "astro": "^5.15.3",
+    "astro": "^5.15.6",
     "clsx": "^2.1.1",
     "nanoid": "^5.1.6",
     "qrcode-svg": "^1.1.0",
