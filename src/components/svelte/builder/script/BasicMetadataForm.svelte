@@ -1,5 +1,16 @@
 <script lang="ts">
-  import { globalState } from "../../../../lib/builder/state.svelte";
+  import { globalState, setScript } from "../../../../lib/builder/state.svelte";
+
+  function onResetClick() {
+    setScript([]);
+  }
+
+  const numCharacters = $derived.by(() =>
+    Object.values(globalState.characters).reduce(
+      (sum, team) => sum + team.length,
+      0,
+    ),
+  );
 </script>
 
 <form class="metadata-form">
@@ -29,6 +40,17 @@
       bind:value={globalState.meta.author}
     />
   </p>
+
+  {#if numCharacters > 0}
+    <p class="line">
+      <button
+        type="button"
+        class="button"
+        onclick={onResetClick}
+        data-umami-event="script-reset">Reset</button
+      >
+    </p>
+  {/if}
 </form>
 
 <style>

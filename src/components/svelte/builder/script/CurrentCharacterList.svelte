@@ -3,13 +3,12 @@
     CharacterTeam,
     ScriptCharacter,
   } from "../../../../generated/script-schema";
+  import { globalState } from "../../../../lib/builder/state.svelte";
   import {
     CHARACTERS_BY_ID,
     getEnforcedCharacters,
     TEAM_NAMES,
   } from "../../../../lib/characters";
-  import { generatePrompt } from "../../../../lib/builder/prompts";
-  import { globalState } from "../../../../lib/builder/state.svelte";
   import CharacterIcon from "../../common/CharacterIcon.svelte";
   import TeamCharacterList from "./TeamCharacterList.svelte";
 
@@ -61,10 +60,6 @@
           characters.length + (pinned?.length ?? 0) > 0,
       ),
   );
-
-  function setPrompt() {
-    globalState.ui.prompt = generatePrompt();
-  }
 </script>
 
 {#each teams as { team, teamName, characters, pinned } (team)}
@@ -90,12 +85,6 @@
       onclick={() => (globalState.ui.screen = "select-characters")}
       data-umami-event="script-empty-select-characters"
       >Select characters</button
-    >
-    <button
-      type="button"
-      class="button"
-      onclick={setPrompt}
-      data-umami-event="prompt-new">Prompt me</button
     >
   </div>
 {/each}

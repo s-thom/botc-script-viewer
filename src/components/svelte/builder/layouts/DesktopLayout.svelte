@@ -179,7 +179,6 @@
       ><span class="visually-hidden">Change options panel size</span></button
     >
     <div class="resize-panel-content panel-padding scroll-container">
-      <ImportExportForm />
       <ScriptOptions />
       <AboutSection />
     </div>

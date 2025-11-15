@@ -477,6 +477,27 @@ a {
   }
 }
 
+@media (max-width: 599px) {
+  .tablet-only:not(.mobile-only),
+  .desktop-only:not(.mobile-only) {
+    display: none !important;
+  }
+}
+
+@media (min-width: 600px) and (max-width: 950px) {
+  .mobile-only:not(.tablet-only),
+  .desktop-only:not(.tablet-only) {
+    display: none !important;
+  }
+}
+
+@media (min-width: 960px) {
+  .mobile-only:not(.desktop-only),
+  .tablet-only:not(.desktop-only) {
+    display: none !important;
+  }
+}
+
 .slow-spin {
   animation: Spin 40s linear infinite;
 }

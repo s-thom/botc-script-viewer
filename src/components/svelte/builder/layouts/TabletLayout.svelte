@@ -30,7 +30,6 @@
       {:else}
         <TopSticky>
           <BasicMetadataForm />
-          <ImportExportForm />
           <PromptDisplay />
         </TopSticky>
         <CurrentCharacterList />

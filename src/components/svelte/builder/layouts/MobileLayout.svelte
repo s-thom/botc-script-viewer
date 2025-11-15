@@ -21,7 +21,6 @@
       {#if globalState.ui.screen === "script"}
         <TopSticky>
           <BasicMetadataForm />
-          <ImportExportForm />
           <PromptDisplay />
         </TopSticky>
         <CurrentCharacterList />
