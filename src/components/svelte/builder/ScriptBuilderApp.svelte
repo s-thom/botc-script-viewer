@@ -34,7 +34,6 @@
 </script>
 
 <LoadingLayout character="lunatic" {isLoaded}>
-  <StateListeners />
   {#if large.current}
     <DesktopLayout />
   {:else if medium.current}
@@ -47,6 +46,10 @@
 <div use:portal={"top-nav-links-container"}>
   <BuilderNavLinks />
 </div>
+
+{#if isLoaded}
+  <StateListeners />
+{/if}
 
 <span class="marker"></span>
 

@@ -17,13 +17,14 @@
 
   let isMounted = $state(false);
   let isLoaded = $derived(isLoadedProp ?? true);
+  let shouldRender = $derived(isMounted && isLoaded);
 
   onMount(() => {
     isMounted = true;
   });
 </script>
 
-{#if isMounted && isLoaded}
+{#if shouldRender}
   {@render children?.()}
 {:else}
   <div class="container">

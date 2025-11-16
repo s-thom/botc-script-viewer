@@ -1,9 +1,6 @@
 <script lang="ts">
   import { appState } from "../../../../lib/client/builder/state";
-  import type {
-    BuilderAppSettingsLatest,
-    BuilderScriptSettingsLatest,
-  } from "../../../../lib/client/builder/state/types";
+  import type { BuilderAppSettingsLatest } from "../../../../lib/client/builder/state/types";
   import CharacterSelectForm from "../character-selection/CharacterSelectForm.svelte";
   import ChecksDrawer from "../checks/ChecksDrawer.svelte";
   import AboutSection from "../common/AboutSection.svelte";
