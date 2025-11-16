@@ -6,7 +6,6 @@ import type {
   ScriptCharacter,
   ScriptMetadata,
 } from "../generated/script-schema";
-import type { GlobalState } from "./builder/state/types";
 
 export const CHARACTERS_BY_ID = data.roles.reduce<Map<string, ScriptCharacter>>(
   (map, character) => {
@@ -102,9 +101,10 @@ export function isScriptMetadata(
   return typeof item === "object" && item.id === "_meta" && !("team" in item);
 }
 
-export function getEnforcedCharacters(
-  state: GlobalState,
-): Map<string, Set<string>> {
+export function getEnforcedCharacters(state: {
+  meta: ScriptMetadata;
+  characters: Record<string, ScriptCharacter[]>;
+}): Map<string, Set<string>> {
   const enforcedCharacters = new Map<string, Set<string>>();
   function addWithReason(id: string, reason: string) {
     if (!enforcedCharacters.has(id)) {

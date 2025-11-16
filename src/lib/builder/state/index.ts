@@ -1,6 +1,10 @@
 import { nanoid } from "nanoid";
+import {
+  getBuilderState,
+  saveBuilderState,
+} from "../../client/storage/local-storage";
 import { getScriptFromState } from "../state-helper";
-import { getBuilderState, saveBuilderState, saveScript } from "../switcher";
+import { saveScript } from "../switcher";
 import { type GlobalState } from "./types";
 
 const DEFAULT_INITIAL_STATE: GlobalState = {
