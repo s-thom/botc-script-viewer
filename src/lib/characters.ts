@@ -245,7 +245,7 @@ function top3(): Comparator {
 
 function xaanFace(minions: ScriptCharacter[]): Comparator {
   const hats = ["baron", "witch"];
-  const eyes = ["xaan"];
+  const eyes = ["xaan", "spy"];
   const noses = ["boomdandy", "summoner", "boffin"];
   const mouths = ["goblin", "scarletwoman"];
 
