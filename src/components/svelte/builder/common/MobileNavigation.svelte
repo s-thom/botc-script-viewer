@@ -1,5 +1,6 @@
 <script lang="ts">
   import {
+    ArrowSwap,
     LightbulbEmpty,
     MapVertical,
     PersonAdd,
@@ -32,6 +33,7 @@
     checks: { title: "Checks", icon: Search },
     "checks:about": { title: "About checks", icon: LightbulbEmpty },
     "select-characters": { title: "Roles", icon: PersonAdd },
+    switcher: { title: "Switch", icon: ArrowSwap },
   };
 
   function setScreenHandler(screen: ScreenName) {

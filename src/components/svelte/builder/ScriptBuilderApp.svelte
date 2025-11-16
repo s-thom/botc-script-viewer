@@ -20,6 +20,7 @@
   import { createPortal, portal } from "../../../lib/builder/portal";
   import BuilderNavLinks from "./options/BuilderNavLinks.svelte";
   import LoadingLayout from "../common/LoadingLayout.svelte";
+  import { nanoid } from "nanoid";
 
   const large = new MediaQuery("min-width: 960px");
   const medium = new MediaQuery("min-width: 600px");
@@ -106,7 +107,7 @@
         return;
       }
 
-      setScript(script);
+      setScript(nanoid(), script);
     }
   });
 

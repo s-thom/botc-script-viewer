@@ -9,7 +9,7 @@
     getEnforcedCharacters,
     TEAM_NAMES,
   } from "../../../../lib/characters";
-  import CharacterIcon from "../../common/CharacterIcon.svelte";
+  import CentredInfoArea from "../common/CentredInfoArea.svelte";
   import TeamCharacterList from "./TeamCharacterList.svelte";
 
   const forcedCharactersByTeam = $derived.by(() => {
@@ -68,16 +68,7 @@
     <TeamCharacterList team={team as CharacterTeam} {characters} {pinned} />
   </div>
 {:else}
-  <div class="info-area">
-    <CharacterIcon
-      character={{
-        id: "magician",
-        name: "",
-        team: "townsfolk",
-        ability: "",
-      }}
-      class="info-area-icon slow-spin"
-    />
+  <CentredInfoArea character="magician">
     <p>Select some characters to get started.</p>
     <button
       type="button"
@@ -86,23 +77,11 @@
       data-umami-event="script-empty-select-characters"
       >Select characters</button
     >
-  </div>
+  </CentredInfoArea>
 {/each}
 
 <style>
   .team-list {
     margin-block: 1rem;
-  }
-
-  .info-area {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    align-items: center;
-    justify-content: center;
-
-    :global(.info-area-icon) {
-      width: 128px;
-    }
   }
 </style>

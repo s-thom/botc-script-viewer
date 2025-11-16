@@ -11,7 +11,8 @@ export type AppScreen =
   | "options"
   | "select-characters"
   | "checks"
-  | "checks:about";
+  | "checks:about"
+  | "switcher";
 
 type CharacterTeamBeforeLoric =
   | "townsfolk"
@@ -93,8 +94,37 @@ export interface GlobalStateV3 {
   };
 }
 
-export type AllPastStateTypes = GlobalStateV1 | GlobalStateV2 | GlobalStateV3;
+export interface GlobalStateV4 {
+  version: 4;
+  scriptId: string;
+  meta: ScriptMetadata;
+  characters: Record<CharacterTeam, ScriptCharacter[]>;
+  unknownCharacters: ScriptCharacter[];
+  options: {
+    useSortOrder: boolean;
+    useSortOrderFun: boolean;
+  };
+  ui: {
+    useChecks: boolean;
+    isChecksDrawerOpen: boolean;
+    ignoredChecks: string[];
+    panelSizes: {
+      script: number;
+      options: number;
+      checks: number;
+    };
+    screen: AppScreen;
+    prevScreen?: AppScreen;
+    prompt?: string;
+  };
+}
 
-export type GlobalState = GlobalStateV3;
+export type AllPastStateTypes =
+  | GlobalStateV1
+  | GlobalStateV2
+  | GlobalStateV3
+  | GlobalStateV4;
 
-export const CURRENT_STATE_VERSION: GlobalState["version"] = 3;
+export type GlobalState = GlobalStateV4;
+
+export const CURRENT_STATE_VERSION: GlobalState["version"] = 4;

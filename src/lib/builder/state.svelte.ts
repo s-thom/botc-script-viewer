@@ -5,19 +5,21 @@ import type {
   ScriptMetadata,
 } from "../../generated/script-schema";
 import {
-  getEnforcedCharacters,
   getFullScriptCharacter,
-  getMinimalScriptCharacter,
   isScriptMetadata,
   sortCharacters,
 } from "../characters";
 import type { CheckResult } from "./checks/types";
 import { getInitialState } from "./state";
+import { getScriptFromState } from "./state-helper";
 import type { GlobalState } from "./state/types";
 
 export const globalState = $state<GlobalState>(getInitialState());
 
-export function setScript(script: BloodOnTheClocktowerCustomScript) {
+export function setScript(
+  id: string,
+  script: BloodOnTheClocktowerCustomScript,
+) {
   let meta: ScriptMetadata | undefined;
   const characters: Record<CharacterTeam, ScriptCharacter[]> = {
     townsfolk: [],
@@ -50,6 +52,7 @@ export function setScript(script: BloodOnTheClocktowerCustomScript) {
     }
   }
 
+  globalState.scriptId = id;
   globalState.meta = meta ?? { id: "_meta", name: "" };
   globalState.characters = characters;
   globalState.unknownCharacters = unknownCharacters;
@@ -58,15 +61,7 @@ export function setScript(script: BloodOnTheClocktowerCustomScript) {
 }
 
 export function getScript(): BloodOnTheClocktowerCustomScript {
-  const enforcedCharacters = getEnforcedCharacters(globalState).keys();
-
-  return [
-    globalState.meta,
-    ...Object.values(globalState.characters).flatMap((characters) =>
-      characters.map((character) => getMinimalScriptCharacter(character)),
-    ),
-    ...enforcedCharacters,
-  ];
+  return getScriptFromState(globalState);
 }
 
 export interface ChecksState {

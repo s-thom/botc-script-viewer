@@ -1,0 +1,174 @@
+<script lang="ts">
+  import { nanoid } from "nanoid";
+  import { Trash } from "svelte-codicons";
+  import { type ScriptMetadata } from "../../../../generated/script-schema";
+  import { globalState, setScript } from "../../../../lib/builder/state.svelte";
+  import {
+    deleteScript,
+    listScripts,
+    type SavedScriptData,
+  } from "../../../../lib/builder/switcher";
+  import CentredInfoArea from "../common/CentredInfoArea.svelte";
+
+  interface Props {}
+
+  const {}: Props = $props();
+
+  const dateFormat = new Intl.DateTimeFormat(undefined, {
+    dateStyle: "medium",
+    timeStyle: "short",
+  });
+
+  let listPromise = $state(listScripts());
+  function refreshList() {
+    listPromise = listScripts();
+  }
+
+  function onNewScriptClick() {
+    const id = nanoid();
+    setScript(id, []);
+    globalState.ui.screen = "script";
+  }
+
+  async function onScriptClick(data: SavedScriptData) {
+    setScript(data.id, data.script);
+    globalState.ui.screen = "script";
+  }
+
+  async function onDeleteClick(id: string) {
+    await deleteScript(id);
+    refreshList();
+  }
+</script>
+
+{#await listPromise}
+  <CentredInfoArea character="librarian">
+    <p>Loading...</p>
+  </CentredInfoArea>
+{:then scriptList}
+  {#if scriptList.length > 0}
+    <div>
+      <button type="button" class="button" onclick={onNewScriptClick}
+        >Create new script</button
+      >
+    </div>
+    <ul class="script-list">
+      {#each scriptList as savedScript}
+        {@const meta = savedScript.script.find(
+          (item): item is ScriptMetadata =>
+            typeof item === "object" && item.id === "_meta",
+        )}
+        {@const scriptTitle = meta?.name || "Untitled script"}
+        <li class="script-list-item">
+          <button
+            type="button"
+            class="icon-button script-button"
+            onclick={() => onScriptClick(savedScript)}
+          >
+            <p>
+              <span class={["title", !meta?.name && "no-title"]}
+                >{scriptTitle}</span
+              >
+              {#if meta?.author}
+                <span>by {meta.author}</span>
+              {/if}
+            </p>
+            <p>
+              <span class="date"
+                >Last updated: {dateFormat.format(
+                  savedScript.updatedTimestamp,
+                )}</span
+              >
+            </p>
+          </button>
+
+          <button
+            type="button"
+            class="action-button icon-button delete-button"
+            onclick={() => onDeleteClick(savedScript.id)}
+            data-umami-event="script-character-remove"
+            ><Trash aria-label={`Remove ${scriptTitle}`} /></button
+          >
+        </li>
+      {/each}
+    </ul>
+  {:else}
+    <CentredInfoArea character="librarian">
+      <p>No scripts yet.</p>
+      <button type="button" class="button" onclick={onNewScriptClick}
+        >Create new script</button
+      >
+    </CentredInfoArea>
+  {/if}
+{:catch}
+  <CentredInfoArea character="goblin">
+    <p>Unable to get list of saved scripts.</p>
+  </CentredInfoArea>
+{/await}
+
+<style>
+  .script-list {
+    list-style-type: none;
+    padding-inline-start: 0;
+  }
+
+  .script-list-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px;
+    border-radius: var(--border-radius);
+    transition:
+      background-color 0.1s ease-in-out,
+      border 0.1s ease-in-out;
+    background-color: transparent;
+    border: 2px solid transparent;
+
+    &:hover {
+      background-color: var(--color-control-background);
+      border: 2px solid var(--color-control-border-active);
+    }
+
+    &:active {
+      background-color: var(--color-control-background);
+      border: 2px solid var(--color-control-border-active);
+    }
+
+    &:has(.delete-button:hover) {
+      background-color: var(--color-control-background-error);
+      border: 2px solid var(--color-control-border-error);
+    }
+  }
+
+  .script-button {
+    text-align: start;
+    flex-grow: 1;
+  }
+
+  .title {
+    font-size: 1.2rem;
+
+    &:not(.no-title) {
+      font-weight: 600;
+    }
+
+    &.no-title {
+      font-style: italic;
+    }
+  }
+
+  .date {
+    font-style: italic;
+  }
+
+  .action-button {
+    padding: 0;
+    width: 24px;
+    height: var(--icon-size);
+    flex-shrink: 0;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+</style>

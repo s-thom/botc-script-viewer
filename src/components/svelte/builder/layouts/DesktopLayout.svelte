@@ -6,10 +6,10 @@
   import AboutSection from "../common/AboutSection.svelte";
   import PromptDisplay from "../common/PromptDisplay.svelte";
   import TopSticky from "../common/TopSticky.svelte";
-  import ImportExportForm from "../options/ImportExportForm.svelte";
   import ScriptOptions from "../options/ScriptOptions.svelte";
   import BasicMetadataForm from "../script/BasicMetadataForm.svelte";
   import CurrentCharacterList from "../script/CurrentCharacterList.svelte";
+  import ScriptSwitcher from "../switcher/ScriptSwitcher.svelte";
 
   const PANEL_MINIMUM_SIZE = 250;
   const PANEL_MAXIMUM_SIZE = 650;
@@ -136,11 +136,15 @@
 <main class="container">
   <div class="resize-panel script-panel-container panel">
     <div class="resize-panel-content panel-padding scroll-container">
-      <TopSticky>
-        <BasicMetadataForm />
-        <PromptDisplay />
-      </TopSticky>
-      <CurrentCharacterList />
+      {#if globalState.ui.screen === "switcher"}
+        <ScriptSwitcher />
+      {:else}
+        <TopSticky>
+          <BasicMetadataForm />
+          <PromptDisplay />
+        </TopSticky>
+        <CurrentCharacterList />
+      {/if}
     </div>
     <!-- svelte-ignore a11y_no_interactive_element_to_noninteractive_role -->
     <button

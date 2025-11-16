@@ -1,7 +1,8 @@
 <script lang="ts">
   import { getAbortSignal } from "svelte";
   import type { BloodOnTheClocktowerCustomScript } from "../../../../generated/script-schema";
-  import { getScript, globalState } from "../../../../lib/builder/state.svelte";
+  import { getScriptFromState } from "../../../../lib/builder/state-helper";
+  import { globalState } from "../../../../lib/builder/state.svelte";
   import { delay } from "../../../../lib/builder/util/async";
 
   let rawScript = $state<BloodOnTheClocktowerCustomScript>([]);
@@ -13,12 +14,12 @@
     $state.snapshot(globalState);
 
     delay(100, signal).then(() => {
-      rawScript = getScript();
+      rawScript = getScriptFromState(globalState);
     });
   });
 
   function downloadScript() {
-    const script = getScript();
+    const script = getScriptFromState(globalState);
     const scriptFilename = `${(globalState.meta.name || "script").replace(/[\\/:*?"<>|]+/g, "_")}.json`;
 
     const blob = new Blob([JSON.stringify(script)], {

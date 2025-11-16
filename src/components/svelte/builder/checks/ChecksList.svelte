@@ -4,6 +4,7 @@
     globalState,
   } from "../../../../lib/builder/state.svelte";
   import CharacterIcon from "../../common/CharacterIcon.svelte";
+  import CentredInfoArea from "../common/CentredInfoArea.svelte";
   import CheckItem from "./CheckItem.svelte";
 
   const { errors, warnings, infos } = $derived.by(() => ({
@@ -43,44 +44,22 @@
   </p>
 
   {#if checksState.didError}
-    <div class="checks-list info-area">
-      <CharacterIcon
-        character={{ id: "goblin", name: "", team: "minion", ability: "" }}
-        class="info-area-icon slow-spin"
-      />
+    <CentredInfoArea character="goblin">
       <p>Something went wrong while running checks for this script.</p>
-    </div>
+    </CentredInfoArea>
   {:else if total === 0}
     {#if checksState.loading}
-      <div class="checks-list info-area">
-        <CharacterIcon
-          character={{
-            id: "nightwatchman",
-            name: "",
-            team: "townsfolk",
-            ability: "",
-          }}
-          class="info-area-icon slow-spin"
-        />
+      <CentredInfoArea character="nightwatchman">
         <p>Running checks...</p>
-      </div>
+      </CentredInfoArea>
     {:else}
-      <div class="checks-list info-area">
-        <CharacterIcon
-          character={{
-            id: "professor",
-            name: "",
-            team: "townsfolk",
-            ability: "",
-          }}
-          class="info-area-icon slow-spin"
-        />
+      <CentredInfoArea character="professor">
         <p>All checks passed!</p>
         <p>
           This does not necessarily mean your script is ready to play. There may
           still be interactions that have undesirable consequences.
         </p>
-      </div>
+      </CentredInfoArea>
     {/if}
   {:else}
     <ul class="checks-list">
@@ -108,18 +87,5 @@
     overflow-y: auto;
     list-style: none;
     padding-inline-start: 0;
-  }
-
-  .info-area {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    align-items: center;
-    justify-content: center;
-    margin: 0.5rem;
-
-    :global(.info-area-icon) {
-      width: 128px;
-    }
   }
 </style>

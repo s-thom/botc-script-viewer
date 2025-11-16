@@ -9,7 +9,6 @@
   import MobileNavigation from "../common/MobileNavigation.svelte";
   import PromptDisplay from "../common/PromptDisplay.svelte";
   import TopSticky from "../common/TopSticky.svelte";
-  import ImportExportForm from "../options/ImportExportForm.svelte";
   import ScriptOptions from "../options/ScriptOptions.svelte";
   import BasicMetadataForm from "../script/BasicMetadataForm.svelte";
   import CurrentCharacterList from "../script/CurrentCharacterList.svelte";

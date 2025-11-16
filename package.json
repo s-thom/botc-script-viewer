@@ -18,6 +18,7 @@
     "@thisux/sveltednd": "^0.0.20",
     "astro": "^5.15.8",
     "clsx": "^2.1.1",
+    "idb": "^8.0.3",
     "nanoid": "^5.1.6",
     "qrcode-svg": "^1.1.0",
     "svelte": "^5.43.6",

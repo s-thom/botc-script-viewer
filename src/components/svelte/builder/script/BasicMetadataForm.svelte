@@ -1,8 +1,16 @@
 <script lang="ts">
   import { globalState, setScript } from "../../../../lib/builder/state.svelte";
 
-  function onResetClick() {
-    setScript([]);
+  let onResetClick = $derived.by(() => {
+    const id = globalState.scriptId;
+
+    return () => {
+      setScript(id, []);
+    };
+  });
+
+  function onSwitchClick() {
+    globalState.ui.screen = "switcher";
   }
 
   const numCharacters = $derived.by(() =>
@@ -41,16 +49,22 @@
     />
   </p>
 
-  {#if numCharacters > 0}
-    <p class="line">
+  <p class="line">
+    <button
+      type="button"
+      class="button"
+      onclick={onSwitchClick}
+      data-umami-event="script-change">Switch script</button
+    >
+    {#if numCharacters > 0}
       <button
         type="button"
         class="button"
         onclick={onResetClick}
         data-umami-event="script-reset">Reset</button
       >
-    </p>
-  {/if}
+    {/if}
+  </p>
 </form>
 
 <style>

@@ -1,13 +1,11 @@
-import {
-  CURRENT_STATE_VERSION,
-  type AllPastStateTypes,
-  type GlobalState,
-} from "./types";
-
-const KEY = "botc-script-builder-state";
+import { nanoid } from "nanoid";
+import { getScriptFromState } from "../state-helper";
+import { getBuilderState, saveBuilderState, saveScript } from "../switcher";
+import { type GlobalState } from "./types";
 
 const DEFAULT_INITIAL_STATE: GlobalState = {
-  version: 3,
+  version: 4,
+  scriptId: nanoid(),
   meta: { id: "_meta", name: "" },
   characters: {
     townsfolk: [],
@@ -33,38 +31,28 @@ const DEFAULT_INITIAL_STATE: GlobalState = {
 };
 
 export function getInitialState(): GlobalState {
-  const stored =
-    typeof localStorage !== "undefined" ? localStorage.getItem(KEY) : null;
-
-  if (stored) {
-    try {
-      const state: AllPastStateTypes = JSON.parse(stored);
-      if (state.version === CURRENT_STATE_VERSION) {
-        return state;
-      } else {
-        const coerced = state as unknown as GlobalState;
-        coerced.version = 3;
-
-        switch (true) {
-          case state.version <= 1:
-            coerced.options.useSortOrderFun = true;
-          // eslint-disable-next-line no-fallthrough
-          case state.version <= 2:
-            coerced.characters.loric = [];
-            return coerced;
-        }
-        console.warn("Unknown state version, resetting to initial");
-      }
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (err) {
-      // Ignore
+  if (typeof localStorage !== "undefined") {
+    const state = getBuilderState();
+    if (state) {
+      return state;
     }
   }
 
   return DEFAULT_INITIAL_STATE;
 }
 
-export function persistState(state: GlobalState) {
-  localStorage.setItem(KEY, JSON.stringify(state));
-  history.replaceState({ hasStoredScript: "true" }, "", "/builder");
+export async function persistState(state: GlobalState) {
+  saveBuilderState(state);
+
+  const numCharacters = Object.values(state.characters).reduce(
+    (sum, team) => sum + team.length,
+    0,
+  );
+  const hasMeta = !!(state.meta.name || state.meta.author);
+
+  // Only store script to IndexedDB if it's likely to actually be useful
+  if (numCharacters > 0 || hasMeta) {
+    const script = getScriptFromState(state);
+    await saveScript(state.scriptId, script);
+  }
 }
