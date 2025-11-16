@@ -11,6 +11,10 @@
   import MobileLayout from "./layouts/MobileLayout.svelte";
   import TabletLayout from "./layouts/TabletLayout.svelte";
   import BuilderNavLinks from "./options/BuilderNavLinks.svelte";
+  import AboutChecks from "./checks/AboutChecks.svelte";
+  import ChecksDrawer from "./checks/ChecksDrawer.svelte";
+  import ImportForm from "./switcher/ImportForm.svelte";
+  import ScriptSwitcher from "./switcher/ScriptSwitcher.svelte";
 
   const large = new MediaQuery("min-width: 960px");
   const medium = new MediaQuery("min-width: 600px");
@@ -33,7 +37,14 @@
   });
 </script>
 
-<LoadingLayout character="lunatic" {isLoaded}>
+{#snippet preload()}
+  <AboutChecks />
+  <ChecksDrawer />
+  <ImportForm />
+  <ScriptSwitcher />
+{/snippet}
+
+<LoadingLayout character="lunatic" {isLoaded} {preload}>
   {#if large.current}
     <DesktopLayout />
   {:else if medium.current}
