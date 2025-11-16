@@ -154,7 +154,15 @@ export async function scriptFromFormData(
       return ok(rawScriptJson);
     }
 
-    return error("Cannot find script at this URL.");
+    let scriptJson: BloodOnTheClocktowerCustomScript;
+    try {
+      scriptJson = JSON.parse(script);
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (err) {
+      return error("Script must be JSON.");
+    }
+
+    return ok(scriptJson);
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (err) {
     return error("Error while loading script");
