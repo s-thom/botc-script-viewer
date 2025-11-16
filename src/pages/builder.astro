@@ -54,11 +54,17 @@ if (Astro.request.method === "POST") {
     )
   }
 
-  <ScriptBuilderApp client:load />
+  <div class="builder-wrapper">
+    <ScriptBuilderApp client:load />
+  </div>
 </TopBarLayout>
 
 <style>
   .top-nav-links-container {
+    display: contents;
+  }
+
+  .builder-wrapper {
     display: contents;
   }
 </style>
