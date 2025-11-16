@@ -1,7 +1,6 @@
 import { type DBSchema, type IDBPDatabase, openDB } from "idb";
 import type {
   BuilderAppSettingsV1,
-  BuilderScriptSettingsV1,
   SavedScriptData,
 } from "../builder/state/types";
 
@@ -18,7 +17,7 @@ interface ScriptBuilderDatabase extends DBSchema {
   };
   [BUILDER_SETTINGS_KEY]: {
     key: string;
-    value: BuilderAppSettingsV1 | BuilderScriptSettingsV1;
+    value: BuilderAppSettingsV1;
   };
 }
 

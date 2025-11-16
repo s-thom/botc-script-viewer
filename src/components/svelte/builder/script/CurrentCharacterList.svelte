@@ -3,20 +3,20 @@
     CharacterTeam,
     ScriptCharacter,
   } from "../../../../generated/script-schema";
-  import { globalState } from "../../../../lib/builder/state.svelte";
   import {
     CHARACTERS_BY_ID,
     getEnforcedCharacters,
     TEAM_NAMES,
   } from "../../../../lib/characters";
+  import { appState, scriptState } from "../../../../lib/client/builder/state";
   import CentredInfoArea from "../common/CentredInfoArea.svelte";
   import TeamCharacterList from "./TeamCharacterList.svelte";
 
   const forcedCharactersByTeam = $derived.by(() => {
-    const map = getEnforcedCharacters(globalState);
+    const map = getEnforcedCharacters(scriptState);
 
     // Remove fabled that are already in the script
-    for (const fabled of globalState.characters.fabled) {
+    for (const fabled of scriptState.characters.fabled) {
       map.delete(fabled.id);
     }
 
@@ -52,7 +52,7 @@
       .map(([team, teamName]) => ({
         team: team as CharacterTeam,
         teamName,
-        characters: globalState.characters[team as CharacterTeam],
+        characters: scriptState.characters[team as CharacterTeam],
         pinned: forcedCharactersByTeam[team as CharacterTeam],
       }))
       .filter(
@@ -73,7 +73,7 @@
     <button
       type="button"
       class="button mobile-only"
-      onclick={() => (globalState.ui.screen = "select-characters")}
+      onclick={() => (appState.screen.current = "select-characters")}
       data-umami-event="script-empty-select-characters"
       >Select characters</button
     >

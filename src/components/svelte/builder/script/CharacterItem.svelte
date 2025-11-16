@@ -2,8 +2,8 @@
   import { Gripper, Lock, Pinned, Trash } from "svelte-codicons";
   import type { ScriptCharacter } from "../../../../generated/script-schema";
   import CharacterIcon from "../../common/CharacterIcon.svelte";
-  import { globalState } from "../../../../lib/builder/state.svelte";
   import { normaliseCharacterId, TEAM_NAMES } from "../../../../lib/characters";
+  import { scriptState } from "../../../../lib/client/builder/state";
 
   interface Props {
     character: ScriptCharacter;
@@ -28,12 +28,12 @@
     // Eventually I'll take the time to learn how to write performant Svelte code.
     // The answer is probably "don't use global state, you dingus".
     const allCharacters = [
-      ...globalState.characters.townsfolk,
-      ...globalState.characters.outsider,
-      ...globalState.characters.minion,
-      ...globalState.characters.demon,
-      ...globalState.characters.traveller,
-      ...globalState.characters.fabled,
+      ...scriptState.characters.townsfolk,
+      ...scriptState.characters.outsider,
+      ...scriptState.characters.minion,
+      ...scriptState.characters.demon,
+      ...scriptState.characters.traveller,
+      ...scriptState.characters.fabled,
     ];
 
     if (!character.jinxes) {

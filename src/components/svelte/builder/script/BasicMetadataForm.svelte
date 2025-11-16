@@ -1,20 +1,24 @@
 <script lang="ts">
-  import { globalState, setScript } from "../../../../lib/builder/state.svelte";
+  import {
+    appState,
+    scriptState,
+    setScriptFromRaw,
+  } from "../../../../lib/client/builder/state";
 
   let onResetClick = $derived.by(() => {
-    const id = globalState.scriptId;
+    const id = appState.currentScriptId;
 
     return () => {
-      setScript(id, []);
+      setScriptFromRaw(id, []);
     };
   });
 
   function onSwitchClick() {
-    globalState.ui.screen = "switcher";
+    appState.screen.current = "switcher";
   }
 
   const numCharacters = $derived.by(() =>
-    Object.values(globalState.characters).reduce(
+    Object.values(scriptState.characters).reduce(
       (sum, team) => sum + team.length,
       0,
     ),
@@ -31,7 +35,7 @@
       aria-label="Title"
       placeholder="Script title"
       autocomplete="off"
-      bind:value={globalState.meta.name}
+      bind:value={scriptState.meta.name}
     />
   </h1>
   <p class="line">
@@ -45,7 +49,7 @@
       aria-label="Author"
       placeholder="Script author"
       autocomplete="off"
-      bind:value={globalState.meta.author}
+      bind:value={scriptState.meta.author}
     />
   </p>
 

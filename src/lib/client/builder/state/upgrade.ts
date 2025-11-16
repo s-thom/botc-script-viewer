@@ -7,19 +7,21 @@ import type {
 
 export function getDefaultAppSettings(): BuilderAppSettingsLatest {
   return {
-    type: "builder-app",
+    id: "builder-app",
     version: 1,
     currentScriptId: "default",
-    screen: "script",
-    prevScreen: undefined,
-    panels: {
+    screen: {
+      current: "script",
+      previous: undefined,
+    },
+    panelSizes: {
       script: 350,
       options: 350,
       checks: 300,
-      isChecksOpen: false,
     },
     checks: {
       enabled: true,
+      isChecksPanelOpen: false,
     },
     sorting: {
       enabled: true,
@@ -41,7 +43,7 @@ export function upgradeAppSettings(
 
 export function getDefaultScriptSettings(): BuilderScriptSettingsLatest {
   return {
-    type: "builder-script",
+    id: "builder-script",
     version: 1,
     meta: { id: "_meta", name: "" },
     characters: {

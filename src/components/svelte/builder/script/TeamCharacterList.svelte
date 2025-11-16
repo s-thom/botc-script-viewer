@@ -6,9 +6,9 @@
     CharacterTeam,
     ScriptCharacter,
   } from "../../../../generated/script-schema";
-  import { globalState } from "../../../../lib/builder/state.svelte";
   import { filterInPlace } from "../../../../lib/builder/util/arrays";
   import CharacterItem from "./CharacterItem.svelte";
+  import { appState } from "../../../../lib/client/builder/state";
 
   interface Props {
     team: CharacterTeam;
@@ -34,7 +34,7 @@
 
   let invalidDrop = $state(false);
 
-  let isDragDropEnabled = $derived(!globalState.options.useSortOrder);
+  let isDragDropEnabled = $derived(!appState.sorting.enabled);
 
   // Validation function that sets invalidDrop state
   function onDragOver(state: DragDropState<ScriptCharacter>) {

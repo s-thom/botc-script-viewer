@@ -1,8 +1,8 @@
 import type { ScriptCharacter } from "../../../generated/script-schema";
 import type { OfficialCharacterId } from "../../../generated/types";
+import type { BuilderScriptSettingsLatest } from "../../client/builder/state/types";
 import { CHARACTER_METADATA } from "../metadata/characters";
 import type { CharacterMetadata } from "../metadata/types";
-import type { GlobalState } from "../state/types";
 import type { Check } from "./types";
 
 interface CharacterCacheEntry {
@@ -11,15 +11,21 @@ interface CharacterCacheEntry {
 }
 
 const regularCharactersCache = new WeakMap<
-  GlobalState,
+  BuilderScriptSettingsLatest,
   CharacterCacheEntry[]
 >();
 
-const allCharactersCache = new WeakMap<GlobalState, CharacterCacheEntry[]>();
-const allCharacterIdsCache = new WeakMap<GlobalState, Set<string>>();
+const allCharactersCache = new WeakMap<
+  BuilderScriptSettingsLatest,
+  CharacterCacheEntry[]
+>();
+const allCharacterIdsCache = new WeakMap<
+  BuilderScriptSettingsLatest,
+  Set<string>
+>();
 
 function getCharacterMetadata(
-  state: GlobalState,
+  state: BuilderScriptSettingsLatest,
   id: string,
 ): CharacterMetadata {
   return id in CHARACTER_METADATA
@@ -30,7 +36,7 @@ function getCharacterMetadata(
       } satisfies CharacterMetadata);
 }
 
-export function getAllRegularCharacters(state: GlobalState) {
+export function getAllRegularCharacters(state: BuilderScriptSettingsLatest) {
   if (!regularCharactersCache.has(state)) {
     regularCharactersCache.set(
       state,
@@ -48,7 +54,7 @@ export function getAllRegularCharacters(state: GlobalState) {
   return regularCharactersCache.get(state)!;
 }
 
-export function getAllCharacters(state: GlobalState) {
+export function getAllCharacters(state: BuilderScriptSettingsLatest) {
   if (!allCharactersCache.has(state)) {
     allCharactersCache.set(
       state,
@@ -68,7 +74,10 @@ export function getAllCharacters(state: GlobalState) {
   return allCharactersCache.get(state)!;
 }
 
-export function hasCharacters(state: GlobalState, ...ids: string[]) {
+export function hasCharacters(
+  state: BuilderScriptSettingsLatest,
+  ...ids: string[]
+) {
   if (!allCharacterIdsCache.has(state)) {
     allCharacterIdsCache.set(
       state,
@@ -90,12 +99,12 @@ export function hasCharacters(state: GlobalState, ...ids: string[]) {
   return ids.every((id) => set.has(id));
 }
 
-export function getCharacter(state: GlobalState, id: string) {
+export function getCharacter(state: BuilderScriptSettingsLatest, id: string) {
   const allCharacters = getAllCharacters(state);
   return allCharacters.find((character) => character.character.id === id);
 }
 
-export function shouldEnableMostChecks(state: GlobalState) {
+export function shouldEnableMostChecks(state: BuilderScriptSettingsLatest) {
   const hasGood =
     state.characters.townsfolk.length > 0 ||
     state.characters.outsider.length > 0;
@@ -104,7 +113,7 @@ export function shouldEnableMostChecks(state: GlobalState) {
   return hasGood && hasEvil;
 }
 
-export function isLikelyTeensySize(state: GlobalState) {
+export function isLikelyTeensySize(state: BuilderScriptSettingsLatest) {
   const size = getAllRegularCharacters(state).length;
   return (
     size <= 13 &&
@@ -117,11 +126,11 @@ export function isLikelyTeensySize(state: GlobalState) {
 
 export function withCondition(
   checks: Check[],
-  predicate: (state: GlobalState) => boolean,
+  predicate: (state: BuilderScriptSettingsLatest) => boolean,
 ): Check[] {
   return checks.map(
     (check) =>
-      function (state: GlobalState) {
+      function (state: BuilderScriptSettingsLatest) {
         if (predicate(state)) {
           return check(state);
         }

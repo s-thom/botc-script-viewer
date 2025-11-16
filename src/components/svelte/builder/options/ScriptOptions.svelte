@@ -1,19 +1,20 @@
 <script lang="ts">
   import { Trash } from "svelte-codicons";
-  import {
-    doSortScript,
-    globalState,
-  } from "../../../../lib/builder/state.svelte";
   import ExternalImage from "../../common/ExternalImage.svelte";
+  import {
+    appState,
+    doSortScript,
+    scriptState,
+  } from "../../../../lib/client/builder/state";
 
   function addBootleggerRule() {
-    globalState.meta.bootlegger ??= [];
-    globalState.meta.bootlegger.push("");
+    scriptState.meta.bootlegger ??= [];
+    scriptState.meta.bootlegger.push("");
   }
 
   function deleteBootleggerRule(index: number) {
-    globalState.meta.bootlegger ??= [];
-    globalState.meta.bootlegger.splice(index, 1);
+    scriptState.meta.bootlegger ??= [];
+    scriptState.meta.bootlegger.splice(index, 1);
   }
 </script>
 
@@ -30,12 +31,12 @@
           name="script-logo"
           type="text"
           autocomplete="off"
-          bind:value={globalState.meta.logo}
+          bind:value={scriptState.meta.logo}
         />
       </label>
-      {#if globalState.meta.logo !== undefined && globalState.meta.logo !== ""}
+      {#if scriptState.meta.logo !== undefined && scriptState.meta.logo !== ""}
         <ExternalImage
-          src={globalState.meta.logo}
+          src={scriptState.meta.logo}
           alt="Logo"
           class="image-option-image"
         />
@@ -51,12 +52,12 @@
           name="script-background"
           type="text"
           autocomplete="off"
-          bind:value={globalState.meta.background}
+          bind:value={scriptState.meta.background}
         />
       </label>
-      {#if globalState.meta.background !== undefined && globalState.meta.background !== ""}
+      {#if scriptState.meta.background !== undefined && scriptState.meta.background !== ""}
         <ExternalImage
-          src={globalState.meta.background}
+          src={scriptState.meta.background}
           alt="Background"
           class="image-option-image"
         />
@@ -71,7 +72,7 @@
         name="script-almanac"
         type="text"
         autocomplete="off"
-        bind:value={globalState.meta.almanac}
+        bind:value={scriptState.meta.almanac}
       />
     </label>
 
@@ -83,7 +84,7 @@
           type="checkbox"
           autocomplete="off"
           value="hideTitle"
-          bind:checked={globalState.meta.hideTitle}
+          bind:checked={scriptState.meta.hideTitle}
         /> Hide title?</span
       >
       <p class="hint">
@@ -100,16 +101,16 @@
       the script.
     </p>
 
-    {#if globalState.meta.bootlegger !== undefined && globalState.meta.bootlegger.length > 0}
+    {#if scriptState.meta.bootlegger !== undefined && scriptState.meta.bootlegger.length > 0}
       <ul class="bootlegger-list">
-        {#each globalState.meta.bootlegger as rule, index}
+        {#each scriptState.meta.bootlegger as rule, index}
           <li class="bootlegger-rule">
             <input
               class="text-input"
               type="text"
               aria-label="Rule"
               autocomplete="off"
-              bind:value={globalState.meta.bootlegger[index]}
+              bind:value={scriptState.meta.bootlegger[index]}
             />
             <button
               type="button"
@@ -137,7 +138,7 @@
       class="option"
       for="app-sortOrder"
       data-umami-event="option-sort-order-toggle"
-      data-umami-event-enabled={!globalState.options.useSortOrder}
+      data-umami-event-enabled={!appState.sorting.enabled}
     >
       <span
         ><input
@@ -147,9 +148,9 @@
           autocomplete="off"
           value="sortOrder"
           bind:checked={
-            () => globalState.options.useSortOrder,
+            () => appState.sorting.enabled,
             (value) => {
-              globalState.options.useSortOrder = value;
+              appState.sorting.enabled = value;
               doSortScript();
             }
           }
@@ -167,7 +168,7 @@
       class="option indented"
       for="app-sortOrderFun"
       data-umami-event="option-sort-order-fun-toggle"
-      data-umami-event-enabled={!globalState.options.useSortOrder}
+      data-umami-event-enabled={!appState.sorting.enabled}
     >
       <span
         ><input
@@ -177,13 +178,13 @@
           autocomplete="off"
           value="sortOrderFun"
           bind:checked={
-            () => globalState.options.useSortOrderFun,
+            () => appState.sorting.fun,
             (value) => {
-              globalState.options.useSortOrderFun = value;
+              appState.sorting.fun = value;
               doSortScript();
             }
           }
-          disabled={!globalState.options.useSortOrder}
+          disabled={!appState.sorting.enabled}
         /> Extra sorting rules</span
       >
       <p class="hint">
@@ -195,7 +196,7 @@
       class="option"
       for="app-checks"
       data-umami-event="option-checks-toggle"
-      data-umami-event-enabled={!globalState.ui.useChecks}
+      data-umami-event-enabled={!appState.checks.enabled}
     >
       <span
         ><input
@@ -204,7 +205,7 @@
           type="checkbox"
           autocomplete="off"
           value="hideTitle"
-          bind:checked={globalState.ui.useChecks}
+          bind:checked={appState.checks.enabled}
         /> Enable checks</span
       >
       <p class="hint">

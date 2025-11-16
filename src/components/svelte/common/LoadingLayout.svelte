@@ -5,23 +5,25 @@
 
   interface Props {
     character: OfficialCharacterId;
+    isLoaded?: boolean;
     children?: Snippet;
   }
 
-  let { children, character }: Props = $props();
+  let { children, character, isLoaded: isLoadedProp }: Props = $props();
 
   // It might seem strange to have a loading state that's immediately replaced with the content,
   // but since we pre-render with Astro, the loading state ends up baked into the HTML and gets
   // replaced only when the app itself loads.
 
   let isMounted = $state(false);
+  let isLoaded = $derived(isLoadedProp ?? true);
 
   onMount(() => {
     isMounted = true;
   });
 </script>
 
-{#if isMounted}
+{#if isMounted && isLoaded}
   {@render children?.()}
 {:else}
   <div class="container">

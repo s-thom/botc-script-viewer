@@ -1,7 +1,7 @@
 <svelte:options runes />
 
 <script lang="ts">
-  import { globalState } from "../../../../lib/builder/state.svelte";
+  import { appState } from "../../../../lib/client/builder/state";
   import CharacterSelectForm from "../character-selection/CharacterSelectForm.svelte";
   import AboutChecks from "../checks/AboutChecks.svelte";
   import ChecksList from "../checks/ChecksList.svelte";
@@ -19,26 +19,26 @@
 <main class="container">
   <div class="scroll-container content">
     <div class="panel panel-padding">
-      {#if globalState.ui.screen === "script"}
+      {#if appState.screen.current === "script"}
         <TopSticky>
           <BasicMetadataForm />
           <PromptDisplay />
         </TopSticky>
         <CurrentCharacterList />
-      {:else if globalState.ui.screen === "select-characters"}
+      {:else if appState.screen.current === "select-characters"}
         <CharacterSelectForm />
-      {:else if globalState.ui.screen === "options"}
+      {:else if appState.screen.current === "options"}
         <ScriptOptions />
         <AboutSection />
-      {:else if globalState.ui.screen === "checks"}
+      {:else if appState.screen.current === "checks"}
         <div class="reverse-padding">
           <ChecksList />
         </div>
-      {:else if globalState.ui.screen === "checks:about"}
+      {:else if appState.screen.current === "checks:about"}
         <AboutChecks />
-      {:else if globalState.ui.screen === "switcher"}
+      {:else if appState.screen.current === "switcher"}
         <ScriptSwitcher />
-      {:else if globalState.ui.screen === "switcher:import"}
+      {:else if appState.screen.current === "switcher:import"}
         <ImportForm />
       {/if}
     </div>

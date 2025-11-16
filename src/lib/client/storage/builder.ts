@@ -1,11 +1,8 @@
 import {
   APP_SETTINGS_KEY,
-  SCRIPT_SETTINGS_KEY,
   type BuilderAppSettingsAll,
   type BuilderAppSettingsLatest,
-  type BuilderScriptSettingsAll,
   type BuilderScriptSettingsLatest,
-  type BuilderScriptSettingsV1,
   type SavedScriptData,
 } from "../builder/state/types";
 import {
@@ -39,47 +36,29 @@ export async function setAppSettings(
   settings: BuilderAppSettingsLatest,
 ): Promise<void> {
   await withDatabase(async (db) => {
-    await db.put(BUILDER_SETTINGS_KEY, settings, APP_SETTINGS_KEY);
+    await db.put(BUILDER_SETTINGS_KEY, settings);
   });
 }
 
-export async function getScriptSettings(): Promise<
-  BuilderScriptSettingsLatest | undefined
-> {
+export async function getScriptSettings(
+  id: string,
+): Promise<BuilderScriptSettingsLatest | undefined> {
   const stored = await withDatabase(async (db) => {
-    const result = await db.get(BUILDER_SETTINGS_KEY, SCRIPT_SETTINGS_KEY);
-    return result as BuilderScriptSettingsAll | undefined;
+    const result = await db.get(BUILDER_SCRIPTS_KEY, id);
+    return result as SavedScriptData | undefined;
   });
 
   if (!stored) {
     return undefined;
   }
 
-  const upgraded = upgradeScriptSettings(stored);
+  const upgraded = upgradeScriptSettings(stored.script);
   return upgraded;
 }
 
 export async function setScriptSettings(
-  settings: BuilderScriptSettingsLatest,
-): Promise<void> {
-  await withDatabase(async (db) => {
-    await db.put(BUILDER_SETTINGS_KEY, settings, SCRIPT_SETTINGS_KEY);
-  });
-}
-
-export async function listScripts(): Promise<SavedScriptData[]> {
-  return withDatabase(async (db) => {
-    const allEntries = await db.getAllFromIndex(
-      BUILDER_SCRIPTS_KEY,
-      BUILDER_SCRIPTS_UPDATED_INDEX_KEY,
-    );
-    return allEntries.reverse();
-  });
-}
-
-export async function saveScriptSettings(
   id: string,
-  script: BuilderScriptSettingsV1,
+  script: BuilderScriptSettingsLatest,
 ): Promise<void> {
   return withDatabase(async (db) => {
     const now = Date.now();
@@ -101,6 +80,16 @@ export async function saveScriptSettings(
 
     await tx.store.put(toUpdate);
     await tx.done;
+  });
+}
+
+export async function listScripts(): Promise<SavedScriptData[]> {
+  return withDatabase(async (db) => {
+    const allEntries = await db.getAllFromIndex(
+      BUILDER_SCRIPTS_KEY,
+      BUILDER_SCRIPTS_UPDATED_INDEX_KEY,
+    );
+    return allEntries.reverse();
   });
 }
 

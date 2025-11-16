@@ -1,4 +1,4 @@
-import type { GlobalState } from "../state/types";
+import type { BuilderScriptSettingsLatest } from "../../client/builder/state/types";
 
 interface BaseCheckAction {
   type: string;
@@ -19,4 +19,6 @@ export interface CheckResult {
   actions?: CheckAction[];
 }
 
-export type Check = (state: GlobalState) => CheckResult | CheckResult[];
+export type Check = (
+  state: BuilderScriptSettingsLatest,
+) => CheckResult | CheckResult[];

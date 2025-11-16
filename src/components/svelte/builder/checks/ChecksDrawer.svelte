@@ -9,19 +9,20 @@
     Warning,
   } from "svelte-codicons";
   import { slide } from "svelte/transition";
-  import {
-    checksState,
-    globalState,
-  } from "../../../../lib/builder/state.svelte";
   import AboutChecks from "./AboutChecks.svelte";
   import ChecksList from "./ChecksList.svelte";
+  import {
+    appState,
+    scriptState,
+    sessionState,
+  } from "../../../../lib/client/builder/state";
 
   const PANEL_MINIMUM_SIZE = 50;
   const PANEL_MINIMUM_SIZE_GRACE = 10;
   const PANEL_MAXIMUM_SIZE = 800;
 
   function onTabClick() {
-    globalState.ui.isChecksDrawerOpen = !globalState.ui.isChecksDrawerOpen;
+    appState.checks.isChecksPanelOpen = !appState.checks.isChecksPanelOpen;
   }
 
   function keyPressHandler(event: KeyboardEvent) {
@@ -36,28 +37,22 @@
 
     switch (event.key) {
       case "ArrowDown":
-        globalState.ui.panelSizes.checks = Math.max(
-          Math.min(
-            globalState.ui.panelSizes.checks - moveAmount,
-            PANEL_MAXIMUM_SIZE,
-          ),
+        appState.panelSizes.checks = Math.max(
+          Math.min(appState.panelSizes.checks - moveAmount, PANEL_MAXIMUM_SIZE),
           PANEL_MINIMUM_SIZE,
         );
         break;
       case "ArrowUp":
-        globalState.ui.panelSizes.checks = Math.max(
-          Math.min(
-            globalState.ui.panelSizes.checks + moveAmount,
-            PANEL_MAXIMUM_SIZE,
-          ),
+        appState.panelSizes.checks = Math.max(
+          Math.min(appState.panelSizes.checks + moveAmount, PANEL_MAXIMUM_SIZE),
           PANEL_MINIMUM_SIZE,
         );
         break;
       case "Home":
-        globalState.ui.panelSizes.checks = PANEL_MINIMUM_SIZE;
+        appState.panelSizes.checks = PANEL_MINIMUM_SIZE;
         break;
       case "End":
-        globalState.ui.panelSizes.checks = PANEL_MAXIMUM_SIZE;
+        appState.panelSizes.checks = PANEL_MAXIMUM_SIZE;
         break;
     }
   }
@@ -66,8 +61,8 @@
     const element = event.currentTarget as HTMLElement;
 
     const initialY = event.clientY;
-    let initialHeight = globalState.ui.panelSizes.checks;
-    if (!globalState.ui.isChecksDrawerOpen) {
+    let initialHeight = appState.panelSizes.checks;
+    if (!appState.checks.isChecksPanelOpen) {
       initialHeight -= PANEL_MINIMUM_SIZE;
     }
 
@@ -81,7 +76,7 @@
       const rawHeight = initialHeight + difference;
 
       // Open/close if too low
-      globalState.ui.isChecksDrawerOpen =
+      appState.checks.isChecksPanelOpen =
         rawHeight > PANEL_MINIMUM_SIZE - PANEL_MINIMUM_SIZE_GRACE;
 
       const newHeight = Math.max(
@@ -89,7 +84,7 @@
         PANEL_MINIMUM_SIZE,
       );
 
-      globalState.ui.panelSizes.checks = newHeight;
+      appState.panelSizes.checks = newHeight;
     }
     doc.addEventListener("pointermove", moveHandler);
 
@@ -103,14 +98,14 @@
   }
 
   const checksData = $derived.by(() => {
-    const filteredErrors = checksState.errors.filter(
-      (result) => !globalState.ui.ignoredChecks.includes(result.id),
+    const filteredErrors = sessionState.checks.errors.filter(
+      (result) => !scriptState.ignoredChecks.includes(result.id),
     );
-    const filteredWarnings = checksState.warnings.filter(
-      (result) => !globalState.ui.ignoredChecks.includes(result.id),
+    const filteredWarnings = sessionState.checks.warnings.filter(
+      (result) => !scriptState.ignoredChecks.includes(result.id),
     );
-    const filteredInfos = checksState.infos.filter(
-      (result) => !globalState.ui.ignoredChecks.includes(result.id),
+    const filteredInfos = sessionState.checks.infos.filter(
+      (result) => !scriptState.ignoredChecks.includes(result.id),
     );
 
     const allResults = [
@@ -143,14 +138,14 @@
 <div
   class={[
     "resize-panel checks-panel-container",
-    globalState.ui.isChecksDrawerOpen && "open",
+    appState.checks.isChecksPanelOpen && "open",
   ]}
 >
   <!-- svelte-ignore a11y_no_interactive_element_to_noninteractive_role -->
   <button
     class="panel-resize-handle"
     role="separator"
-    aria-valuenow={globalState.ui.panelSizes.checks}
+    aria-valuenow={appState.panelSizes.checks}
     aria-valuemin={PANEL_MINIMUM_SIZE}
     aria-valuemax={PANEL_MAXIMUM_SIZE}
     onkeydown={keyPressHandler}
@@ -163,7 +158,7 @@
     class="tab"
     onclick={onTabClick}
     data-umami-event="checks-tab-toggle"
-    data-umami-event-open={!globalState.ui.isChecksDrawerOpen}
+    data-umami-event-open={!appState.checks.isChecksPanelOpen}
   >
     {#if checksData.hasFixes}
       <SearchSparkle class="inline-icon" />
@@ -184,12 +179,12 @@
       <CheckAll class="inline-icon" aria-label="Success" /><span> &nbsp;0</span>
     {/if}
   </button>
-  {#if globalState.ui.isChecksDrawerOpen}
+  {#if appState.checks.isChecksPanelOpen}
     <div
       class="resize-panel-content scroll-container"
       transition:slide={{ axis: "y", duration: 100 }}
     >
-      {#if globalState.ui.screen === "checks:about"}
+      {#if appState.screen.current === "checks:about"}
         <div class="about-container">
           <AboutChecks />
         </div>

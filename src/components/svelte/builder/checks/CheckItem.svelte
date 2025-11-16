@@ -12,11 +12,11 @@
   import type { ScriptCharacter } from "../../../../generated/script-schema";
   import { CHARACTERS_BY_ID } from "../../../../lib/characters";
   import type { CheckResult } from "../../../../lib/builder/checks/types";
+  import CharacterIcon from "../../common/CharacterIcon.svelte";
   import {
     doSortScript,
-    globalState,
-  } from "../../../../lib/builder/state.svelte";
-  import CharacterIcon from "../../common/CharacterIcon.svelte";
+    scriptState,
+  } from "../../../../lib/client/builder/state";
 
   const LEVEL_ICONS: Record<CheckResult["level"], typeof SvgComponent> = {
     error: Error,
@@ -33,13 +33,13 @@
   const LevelIcon = LEVEL_ICONS[result.level];
 
   function addCharacter(character: ScriptCharacter) {
-    globalState.characters[character.team].push(character);
+    scriptState.characters[character.team].push(character);
 
     doSortScript();
   }
 
   function ignoreCheck() {
-    globalState.ui.ignoredChecks.push(result.id);
+    scriptState.ignoredChecks.push(result.id);
   }
 </script>
 

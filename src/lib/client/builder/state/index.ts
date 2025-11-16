@@ -5,21 +5,23 @@ import type {
   ScriptMetadata,
 } from "../../../../generated/script-schema";
 import {
+  getEnforcedCharacters,
   getFullScriptCharacter,
+  getMinimalScriptCharacter,
   isScriptMetadata,
   sortCharacters,
 } from "../../../characters";
 import { appState } from "./app.svelte";
 import { scriptState } from "./script.svelte";
 import { sessionState } from "./session.svelte";
-import { getScriptFromScriptSettings } from "./types";
+import { type BuilderScriptSettingsLatest } from "./types";
+import { getDefaultScriptSettings } from "./upgrade";
 
 export { appState, scriptState, sessionState };
 
-export function setScriptFromRaw(
-  id: string,
+export function getScriptSettingsFromRawScript(
   script: BloodOnTheClocktowerCustomScript,
-) {
+): BuilderScriptSettingsLatest {
   let meta: ScriptMetadata | undefined;
   const characters: Record<CharacterTeam, ScriptCharacter[]> = {
     townsfolk: [],
@@ -60,16 +62,44 @@ export function setScriptFromRaw(
     }
   }
 
+  const scriptSettings = getDefaultScriptSettings();
+  scriptSettings.meta = meta ?? { id: "_meta", name: "" };
+  scriptSettings.characters = characters;
+  scriptSettings.unknownCharacters = unknownCharacters;
+
+  return scriptSettings;
+}
+
+export function setScriptFromRaw(
+  id: string,
+  script: BloodOnTheClocktowerCustomScript,
+) {
+  const newScriptState = getScriptSettingsFromRawScript(script);
+  setScriptState(id, newScriptState);
+}
+
+export function setScriptState(id: string, state: BuilderScriptSettingsLatest) {
   appState.currentScriptId = id;
-  scriptState.meta = meta ?? { id: "_meta", name: "" };
-  scriptState.characters = characters;
-  scriptState.unknownCharacters = unknownCharacters;
+  for (const [key, value] of Object.entries(state)) {
+    // @ts-expect-error Since we can't assign to scriptState directly, we have to override all of its properties.
+    scriptState[key] = value;
+  }
 
   doSortScript();
 }
 
-export function getRawScript(): BloodOnTheClocktowerCustomScript {
-  return getScriptFromScriptSettings(scriptState);
+export function getScriptFromScriptSettings(
+  state: BuilderScriptSettingsLatest,
+): BloodOnTheClocktowerCustomScript {
+  const enforcedCharacters = getEnforcedCharacters(state).keys();
+
+  return [
+    state.meta,
+    ...Object.values(state.characters).flatMap((characters) =>
+      characters.map((character) => getMinimalScriptCharacter(character)),
+    ),
+    ...enforcedCharacters,
+  ];
 }
 
 export function doSortScript() {

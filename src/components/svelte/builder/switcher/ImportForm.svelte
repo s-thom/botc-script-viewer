@@ -1,8 +1,11 @@
 <script lang="ts">
   import { nanoid } from "nanoid";
   import type { BloodOnTheClocktowerCustomScript } from "../../../../generated/script-schema";
-  import { globalState, setScript } from "../../../../lib/builder/state.svelte";
   import { setupUploadForm } from "../../../../lib/forms";
+  import {
+    appState,
+    setScriptFromRaw,
+  } from "../../../../lib/client/builder/state";
 
   interface Props {}
 
@@ -28,8 +31,8 @@
 
     const script: BloodOnTheClocktowerCustomScript = await response.json();
     const id = nanoid();
-    setScript(id, script);
-    globalState.ui.screen = "script";
+    setScriptFromRaw(id, script);
+    appState.screen.current = "script";
   }
 
   let form: HTMLFormElement;
@@ -48,8 +51,8 @@
     class="back-link link-button"
     data-umami-event="switcher-import-back"
     onclick={() => {
-      globalState.ui.screen = globalState.ui.prevScreen ?? "checks";
-      globalState.ui.prevScreen = undefined;
+      appState.screen.current = appState.screen.previous ?? "checks";
+      appState.screen.previous = undefined;
     }}>Back</button
   >
 </div>

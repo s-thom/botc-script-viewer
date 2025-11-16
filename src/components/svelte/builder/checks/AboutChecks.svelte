@@ -8,7 +8,7 @@
     Wand,
     Warning,
   } from "svelte-codicons";
-  import { globalState } from "../../../../lib/builder/state.svelte";
+  import { appState } from "../../../../lib/client/builder/state";
 </script>
 
 <div class="top-links-list">
@@ -17,8 +17,8 @@
     class="back-link link-button"
     data-umami-event="checks-about-back"
     onclick={() => {
-      globalState.ui.screen = globalState.ui.prevScreen ?? "checks";
-      globalState.ui.prevScreen = undefined;
+      appState.screen.current = appState.screen.previous ?? "checks";
+      appState.screen.previous = undefined;
     }}>Back</button
   >
 </div>

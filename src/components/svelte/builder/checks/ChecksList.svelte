@@ -1,21 +1,21 @@
 <script lang="ts">
   import {
-    checksState,
-    globalState,
-  } from "../../../../lib/builder/state.svelte";
-  import CharacterIcon from "../../common/CharacterIcon.svelte";
+    appState,
+    scriptState,
+    sessionState,
+  } from "../../../../lib/client/builder/state";
   import CentredInfoArea from "../common/CentredInfoArea.svelte";
   import CheckItem from "./CheckItem.svelte";
 
   const { errors, warnings, infos } = $derived.by(() => ({
-    errors: checksState.errors.filter(
-      (result) => !globalState.ui.ignoredChecks.includes(result.id),
+    errors: sessionState.checks.errors.filter(
+      (result) => !scriptState.ignoredChecks.includes(result.id),
     ),
-    warnings: checksState.warnings.filter(
-      (result) => !globalState.ui.ignoredChecks.includes(result.id),
+    warnings: sessionState.checks.warnings.filter(
+      (result) => !scriptState.ignoredChecks.includes(result.id),
     ),
-    infos: checksState.infos.filter(
-      (result) => !globalState.ui.ignoredChecks.includes(result.id),
+    infos: sessionState.checks.infos.filter(
+      (result) => !scriptState.ignoredChecks.includes(result.id),
     ),
   }));
 
@@ -28,27 +28,27 @@
       type="button"
       class="link-button"
       onclick={() => {
-        globalState.ui.screen = "checks:about";
-        globalState.ui.prevScreen = "checks";
+        appState.screen.current = "checks:about";
+        appState.screen.previous = "checks";
       }}
       data-umami-event="checks-about">About checks</button
     >
-    {#if globalState.ui.ignoredChecks.length > 0}
+    {#if scriptState.ignoredChecks.length > 0}
       <button
         type="button"
         class="link-button"
-        onclick={() => (globalState.ui.ignoredChecks = [])}
+        onclick={() => (scriptState.ignoredChecks = [])}
         data-umami-event="checks-reenable">Re-enable all checks</button
       >
     {/if}
   </p>
 
-  {#if checksState.didError}
+  {#if sessionState.checks.didError}
     <CentredInfoArea character="goblin">
       <p>Something went wrong while running checks for this script.</p>
     </CentredInfoArea>
   {:else if total === 0}
-    {#if checksState.loading}
+    {#if sessionState.checks.loading}
       <CentredInfoArea character="nightwatchman">
         <p>Running checks...</p>
       </CentredInfoArea>

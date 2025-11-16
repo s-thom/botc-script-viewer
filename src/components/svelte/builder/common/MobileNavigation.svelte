@@ -11,12 +11,14 @@
     type SvgComponent,
   } from "svelte-codicons";
   import {
-    checksState,
-    globalState,
-  } from "../../../../lib/builder/state.svelte";
-  import type { GlobalState } from "../../../../lib/builder/state/types";
-
-  type ScreenName = GlobalState["ui"]["screen"];
+    appState,
+    scriptState,
+    sessionState,
+  } from "../../../../lib/client/builder/state";
+  import type {
+    AppScreen,
+    BuilderAppSettingsLatest,
+  } from "../../../../lib/client/builder/state/types";
 
   interface PageInfo {
     title: string;
@@ -24,10 +26,10 @@
   }
 
   interface Props {
-    pages: ScreenName[];
+    pages: AppScreen[];
   }
 
-  const PAGE_DATA: Record<ScreenName, PageInfo> = {
+  const PAGE_DATA: Record<AppScreen, PageInfo> = {
     script: { title: "Script", icon: MapVertical },
     options: { title: "Options", icon: Settings },
     checks: { title: "Checks", icon: Search },
@@ -37,10 +39,10 @@
     "switcher:import": { title: "Switch", icon: ArrowSwap },
   };
 
-  function setScreenHandler(screen: ScreenName) {
+  function setScreenHandler(screen: AppScreen) {
     return () => {
-      globalState.ui.screen = screen;
-      globalState.ui.prevScreen = undefined;
+      appState.screen.current = screen;
+      appState.screen.previous = undefined;
     };
   }
 
@@ -48,10 +50,10 @@
 
   const checksData = $derived.by(() => {
     const allResults = [
-      ...checksState.errors,
-      ...checksState.warnings,
-      ...checksState.infos,
-    ].filter((result) => !globalState.ui.ignoredChecks.includes(result.id));
+      ...sessionState.checks.errors,
+      ...sessionState.checks.warnings,
+      ...sessionState.checks.infos,
+    ].filter((result) => !scriptState.ignoredChecks.includes(result.id));
     const hasResults = allResults.length > 0;
 
     for (const result of allResults) {
@@ -67,14 +69,14 @@
 <nav>
   <ul class="nav-list">
     {#each pages as page}
-      {#if page !== "checks" || globalState.ui.useChecks}
+      {#if page !== "checks" || appState.checks.enabled}
         {@const IconComponent = PAGE_DATA[page].icon}
         <li class="nav-item">
           <button
             type="button"
             class={[
               "nav-button",
-              globalState.ui.screen.startsWith(page) && "current",
+              appState.screen.current.startsWith(page) && "current",
             ]}
             onclick={setScreenHandler(page)}
             data-umami-event="nav-button"

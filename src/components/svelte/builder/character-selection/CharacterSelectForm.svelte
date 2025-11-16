@@ -6,16 +6,16 @@
   import type { OfficialCharacterId } from "../../../../generated/types";
   import { CHARACTER_METADATA } from "../../../../lib/builder/metadata/characters";
   import { EDITIONS } from "../../../../lib/builder/metadata/editions";
-  import {
-    doSortScript,
-    globalState,
-  } from "../../../../lib/builder/state.svelte";
   import { filterInPlace } from "../../../../lib/builder/util/arrays";
   import {
     CHARACTERS_BY_TEAM,
     getEnforcedCharacters,
     TEAM_NAMES,
   } from "../../../../lib/characters";
+  import {
+    doSortScript,
+    scriptState,
+  } from "../../../../lib/client/builder/state";
   import CharacterSelectList from "./CharacterSelectList.svelte";
 
   const TEAM_CHARACTERS: ScriptCharacter[] = Object.entries(TEAM_NAMES).map(
@@ -48,10 +48,10 @@
   let editionFilter = $state(new Set<string>());
 
   const selectedSet = $derived.by<Set<string>>(() => {
-    const inScript = Object.values(globalState.characters).flatMap(
+    const inScript = Object.values(scriptState.characters).flatMap(
       (characters) => characters.map((character) => character.id),
     );
-    const forcedCharacters = getEnforcedCharacters(globalState);
+    const forcedCharacters = getEnforcedCharacters(scriptState);
 
     const set = new Set(inScript);
     for (const [forcedId] of forcedCharacters) {
@@ -63,11 +63,11 @@
 
   function onCharacterSelect(character: ScriptCharacter) {
     if (selectedSet.has(character.id)) {
-      for (const characters of Object.values(globalState.characters)) {
+      for (const characters of Object.values(scriptState.characters)) {
         filterInPlace(characters, (c) => c.id !== character.id);
       }
     } else {
-      globalState.characters[character.team].push(character);
+      scriptState.characters[character.team].push(character);
     }
 
     doSortScript();

@@ -1,4 +1,4 @@
-import type { GlobalState } from "../state/types";
+import type { BuilderScriptSettingsLatest } from "../../client/builder/state/types";
 import { scheduleTask } from "../util/async";
 import { ALWAYS_CHECKS } from "./always";
 import { CHARACTER_CHECKS } from "./characters";
@@ -12,11 +12,11 @@ const ALL_CHECKS: Check[] = [
 ];
 
 export async function runAllChecks(
-  state: GlobalState,
-  signal: AbortSignal
+  state: BuilderScriptSettingsLatest,
+  signal: AbortSignal,
 ): Promise<CheckResult[]> {
   const rawCheckResults = await Promise.all(
-    ALL_CHECKS.map((check) => scheduleTask(() => check(state), signal))
+    ALL_CHECKS.map((check) => scheduleTask(() => check(state), signal)),
   );
   return rawCheckResults.flat().filter((result) => result != null);
 }

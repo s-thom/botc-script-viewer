@@ -1,19 +1,19 @@
 <script lang="ts">
   import { Close } from "svelte-codicons";
-  import { globalState } from "../../../../lib/builder/state.svelte";
+  import { scriptState } from "../../../../lib/client/builder/state";
 </script>
 
-{#if globalState.ui.prompt}
+{#if scriptState.prompt}
   <div class="prompt-display">
     <span class="prompt"
       ><span>Prompt: </span>
-      <span class="prompt-prompt">{globalState.ui.prompt}</span></span
+      <span class="prompt-prompt">{scriptState.prompt}</span></span
     >
     <button
       type="button"
       class="icon-button"
       aria-label="Dismiss prompt"
-      onclick={() => (globalState.ui.prompt = undefined)}
+      onclick={() => (scriptState.prompt = undefined)}
       data-umami-event="prompt-dismiss"><Close /></button
     >
   </div>

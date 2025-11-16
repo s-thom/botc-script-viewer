@@ -1,6 +1,9 @@
 <script lang="ts">
-  import { globalState } from "../../../../lib/builder/state.svelte";
-  import type { GlobalState } from "../../../../lib/builder/state/types";
+  import { appState } from "../../../../lib/client/builder/state";
+  import type {
+    BuilderAppSettingsLatest,
+    BuilderScriptSettingsLatest,
+  } from "../../../../lib/client/builder/state/types";
   import CharacterSelectForm from "../character-selection/CharacterSelectForm.svelte";
   import ChecksDrawer from "../checks/ChecksDrawer.svelte";
   import AboutSection from "../common/AboutSection.svelte";
@@ -19,19 +22,21 @@
   $effect(() => {
     document.documentElement.style.setProperty(
       "--panel-script-width",
-      `${globalState.ui.panelSizes.script}px`,
+      `${appState.panelSizes.script}px`,
     );
     document.documentElement.style.setProperty(
       "--panel-options-width",
-      `${globalState.ui.panelSizes.options}px`,
+      `${appState.panelSizes.options}px`,
     );
     document.documentElement.style.setProperty(
       "--panel-checks-height",
-      `${globalState.ui.panelSizes.checks}px`,
+      `${appState.panelSizes.checks}px`,
     );
   });
 
-  function getKeyPressHandler(panel: keyof GlobalState["ui"]["panelSizes"]) {
+  function getKeyPressHandler(
+    panel: keyof BuilderAppSettingsLatest["panelSizes"],
+  ) {
     return (event: KeyboardEvent) => {
       const element = event.currentTarget as HTMLElement;
       const direction = window
@@ -55,34 +60,36 @@
 
       switch (event.key) {
         case "ArrowLeft":
-          globalState.ui.panelSizes[panel] = Math.max(
+          appState.panelSizes[panel] = Math.max(
             Math.min(
-              globalState.ui.panelSizes[panel] - moveAmount,
+              appState.panelSizes[panel] - moveAmount,
               PANEL_MAXIMUM_SIZE,
             ),
             PANEL_MINIMUM_SIZE,
           );
           break;
         case "ArrowRight":
-          globalState.ui.panelSizes[panel] = Math.max(
+          appState.panelSizes[panel] = Math.max(
             Math.min(
-              globalState.ui.panelSizes[panel] + moveAmount,
+              appState.panelSizes[panel] + moveAmount,
               PANEL_MAXIMUM_SIZE,
             ),
             PANEL_MINIMUM_SIZE,
           );
           break;
         case "Home":
-          globalState.ui.panelSizes[panel] = PANEL_MINIMUM_SIZE;
+          appState.panelSizes[panel] = PANEL_MINIMUM_SIZE;
           break;
         case "End":
-          globalState.ui.panelSizes[panel] = PANEL_MAXIMUM_SIZE;
+          appState.panelSizes[panel] = PANEL_MAXIMUM_SIZE;
           break;
       }
     };
   }
 
-  function getMouseDownHandler(panel: keyof GlobalState["ui"]["panelSizes"]) {
+  function getMouseDownHandler(
+    panel: keyof BuilderAppSettingsLatest["panelSizes"],
+  ) {
     return (event: PointerEvent) => {
       const element = event.currentTarget as HTMLElement;
       const direction = window
@@ -95,7 +102,7 @@
         (!isHandleOnEnd && direction === "rtl");
 
       const initialX = event.clientX;
-      const initialWidth = globalState.ui.panelSizes[panel];
+      const initialWidth = appState.panelSizes[panel];
 
       const doc = document.documentElement;
 
@@ -113,7 +120,7 @@
           PANEL_MINIMUM_SIZE,
         );
 
-        globalState.ui.panelSizes[panel] = newWidth;
+        appState.panelSizes[panel] = newWidth;
       }
       doc.addEventListener("pointermove", moveHandler);
 
@@ -137,7 +144,7 @@
 <main class="container">
   <div class="resize-panel script-panel-container panel">
     <div class="resize-panel-content panel-padding scroll-container">
-      {#if globalState.ui.screen === "switcher" || globalState.ui.screen === "switcher:import"}
+      {#if appState.screen.current === "switcher" || appState.screen.current === "switcher:import"}
         <ScriptSwitcher />
       {:else}
         <TopSticky>
@@ -151,7 +158,7 @@
     <button
       class="panel-resize-handle handle-end"
       role="separator"
-      aria-valuenow={globalState.ui.panelSizes.script}
+      aria-valuenow={appState.panelSizes.script}
       aria-valuemin={PANEL_MINIMUM_SIZE}
       aria-valuemax={PANEL_MAXIMUM_SIZE}
       onkeydown={scriptKeyHandler}
@@ -162,7 +169,7 @@
   </div>
 
   <div class="panel main-panel">
-    {#if globalState.ui.screen === "switcher" || globalState.ui.screen === "switcher:import"}
+    {#if appState.screen.current === "switcher" || appState.screen.current === "switcher:import"}
       <div class="panel-padding main-panel-content scroll-container">
         <ImportForm />
       </div>
@@ -170,7 +177,7 @@
       <div class="panel-padding main-panel-content scroll-container">
         <CharacterSelectForm />
       </div>
-      {#if globalState.ui.useChecks}
+      {#if appState.checks.enabled}
         <ChecksDrawer />
       {/if}
     {/if}
@@ -181,7 +188,7 @@
     <button
       class="panel-resize-handle handle-start"
       role="separator"
-      aria-valuenow={globalState.ui.panelSizes.options}
+      aria-valuenow={appState.panelSizes.options}
       aria-valuemin={PANEL_MINIMUM_SIZE}
       aria-valuemax={PANEL_MAXIMUM_SIZE}
       onkeydown={optionsKeyHandler}
@@ -190,7 +197,7 @@
       ><span class="visually-hidden">Change options panel size</span></button
     >
     <div class="resize-panel-content panel-padding scroll-container">
-      {#if globalState.ui.screen !== "switcher"}
+      {#if appState.screen.current !== "switcher"}
         <ScriptOptions />
       {/if}
       <AboutSection />

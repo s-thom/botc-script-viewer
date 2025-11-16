@@ -1,13 +1,16 @@
 <script lang="ts">
   import { nanoid } from "nanoid";
   import { Trash } from "svelte-codicons";
-  import { type ScriptMetadata } from "../../../../generated/script-schema";
-  import { globalState, setScript } from "../../../../lib/builder/state.svelte";
   import {
-    deleteScript,
+    appState,
+    setScriptFromRaw,
+    setScriptState,
+  } from "../../../../lib/client/builder/state";
+  import type { SavedScriptData } from "../../../../lib/client/builder/state/types";
+  import {
+    deleteScriptSettings,
     listScripts,
-    type SavedScriptData,
-  } from "../../../../lib/builder/switcher";
+  } from "../../../../lib/client/storage/builder";
   import CentredInfoArea from "../common/CentredInfoArea.svelte";
 
   interface Props {}
@@ -26,22 +29,22 @@
 
   function onNewScriptClick() {
     const id = nanoid();
-    setScript(id, []);
-    globalState.ui.screen = "script";
+    setScriptFromRaw(id, []);
+    appState.screen.current = "script";
   }
 
   async function onGoToImportClick() {
-    globalState.ui.screen = "switcher:import";
-    globalState.ui.prevScreen = "switcher";
+    appState.screen.current = "switcher:import";
+    appState.screen.previous = "switcher";
   }
 
   async function onScriptClick(data: SavedScriptData) {
-    setScript(data.id, data.script);
-    globalState.ui.screen = "script";
+    setScriptState(data.id, data.script);
+    appState.screen.current = "script";
   }
 
   async function onDeleteClick(id: string) {
-    await deleteScript(id);
+    await deleteScriptSettings(id);
     refreshList();
   }
 </script>
@@ -68,11 +71,7 @@
     </div>
     <ul class="script-list">
       {#each scriptList as savedScript}
-        {@const meta = savedScript.script.find(
-          (item): item is ScriptMetadata =>
-            typeof item === "object" && item.id === "_meta",
-        )}
-        {@const scriptTitle = meta?.name || "Untitled script"}
+        {@const scriptTitle = savedScript.script.meta.name || "Untitled script"}
         <li class="script-list-item">
           <button
             type="button"
@@ -81,12 +80,13 @@
             data-umami-event="switcher-script-go"
           >
             <p>
-              <span class={["title", !meta?.name && "no-title"]}
+              <span
+                class={["title", !savedScript.script.meta.name && "no-title"]}
                 >{scriptTitle}</span
               >
             </p>
-            {#if meta?.author}
-              <p>by {meta.author}</p>
+            {#if savedScript.script.meta.author}
+              <p>by {savedScript.script.meta.author}</p>
             {/if}
             <p>
               <span class="date"
