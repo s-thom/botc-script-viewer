@@ -12,6 +12,8 @@
   import ScriptOptions from "../options/ScriptOptions.svelte";
   import BasicMetadataForm from "../script/BasicMetadataForm.svelte";
   import CurrentCharacterList from "../script/CurrentCharacterList.svelte";
+  import ImportForm from "../switcher/ImportForm.svelte";
+  import ScriptSwitcher from "../switcher/ScriptSwitcher.svelte";
 </script>
 
 <main class="container">
@@ -34,6 +36,10 @@
         </div>
       {:else if globalState.ui.screen === "checks:about"}
         <AboutChecks />
+      {:else if globalState.ui.screen === "switcher"}
+        <ScriptSwitcher />
+      {:else if globalState.ui.screen === "switcher:import"}
+        <ImportForm />
       {/if}
     </div>
   </div>

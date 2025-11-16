@@ -1,23 +1,10 @@
 import type { APIRoute } from "astro";
-import { z } from "astro:schema";
 import type { BloodOnTheClocktowerCustomScript } from "../generated/script-schema";
 import { compressToBase64, stringToBytes } from "../lib/compression";
+import { scriptFromFormData } from "../lib/import.server";
 import { encodeScript } from "../lib/number-store";
-import { rawScriptValidator } from "../lib/parse";
-import { KeyedRateLimit } from "../lib/rate-limits";
 
 export const prerender = false;
-
-const formSchema = z.object({
-  script: z.string().optional(),
-  file: z
-    .any()
-    .refine((value) => typeof value === "object" && value instanceof File)
-    .optional(),
-});
-
-// Only allow 5 requests per second per hostname when requesting scripts.
-const FETCH_QUEUE = new KeyedRateLimit({ intervalMs: 1000, intervalCap: 5 });
 
 /** A quick heuristic for  */
 function shouldUseNumberStore(
@@ -42,7 +29,7 @@ function shouldUseNumberStore(
   }
 
   // An arbitrarily picked number.
-  if (numHomebrews > 5) {
+  if (numHomebrews > 7) {
     return false;
   }
 
@@ -56,26 +43,9 @@ export const POST: APIRoute = async ({
   url: requestUrl,
 }) => {
   async function handleRawScriptJson(
-    rawScriptJson: unknown,
+    rawScript: BloodOnTheClocktowerCustomScript,
   ): Promise<Response> {
-    let minifiedScript: string;
-    let rawScript: BloodOnTheClocktowerCustomScript;
-    try {
-      rawScript = rawScriptValidator.parse(rawScriptJson);
-      minifiedScript = JSON.stringify(rawScript);
-    } catch (err) {
-      if (err instanceof z.ZodError) {
-        console.error("Error parsing script", JSON.stringify(err.format()));
-      } else {
-        console.error("Error parsing script (unknown)");
-      }
-
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      rawScript = rawScriptJson as any;
-
-      // The script failed validation, but maybe it's OK. Send forth and see if the renderer will handle it.
-      minifiedScript = JSON.stringify(rawScriptJson);
-    }
+    const minifiedScript = JSON.stringify(rawScript);
 
     if (shouldUseNumberStore(rawScript, minifiedScript.length)) {
       try {
@@ -95,121 +65,17 @@ export const POST: APIRoute = async ({
     return redirect(`/json/${base64}`);
   }
 
-  try {
-    const rawFormData = await request.formData();
-    const formData = formSchema.parse(
-      Object.fromEntries(rawFormData.entries()),
-    );
+  const rawFormData = await request.formData();
+  const result = await scriptFromFormData(requestUrl.hostname, rawFormData);
 
-    if (!formData.file && !formData.script) {
-      return redirect(`/?error=${encodeURIComponent("Missing script.")}`);
-    }
-
-    if (formData.file && formData.file.size > 0) {
-      if (formData.file.type !== "application/json") {
-        return redirect(`/?error=${encodeURIComponent("File must be JSON.")}`);
-      }
-
-      const content = await formData.file.text();
-
-      let rawScriptJson: string;
-      try {
-        rawScriptJson = JSON.parse(content);
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      } catch (err) {
-        return redirect(`/?error=${encodeURIComponent("File must be JSON.")}`);
-      }
-
-      return handleRawScriptJson(rawScriptJson);
-    }
-
-    const script = formData.script!;
-
-    const url = URL.parse(script);
-    if (url !== null) {
-      // If it's the same hostname, then no need to do requests
-      if (url.hostname === requestUrl.hostname) {
-        const pathMatch = url.pathname.match(
-          /^\/([^/]+)\/([^/]+)(?:\/(json))?$/,
-        );
-        if (pathMatch) {
-          return redirect(`/${pathMatch[0]}/${pathMatch[1]}`);
-        }
-
-        return redirect(url.toString());
-      }
-
-      // Special handling for the scripts website
-      if (url.hostname === "botc-scripts.azurewebsites.net") {
-        // Replace normal HTML page with download link
-        const htmlPathMatch = url.pathname.match(/^\/script\/(\d+)\/([^/]+)$/);
-        if (htmlPathMatch) {
-          url.pathname = `/script/${htmlPathMatch[1]}/${htmlPathMatch[2]}/download`;
-        }
-      }
-
-      // Otherwise request URL and convert
-      const jsonRequestHeaders = new Headers();
-      jsonRequestHeaders.set("Accept", "application/json");
-      jsonRequestHeaders.set(
-        "User-Agent",
-        "Mozilla/5.0 (compatible; Script Viewer/1.0; +https://github.com/s-thom/botc-script-viewer)",
-      );
-
-      let response: Response;
-      try {
-        response = await FETCH_QUEUE.enqueue(url.hostname, () =>
-          fetch(url, { headers: jsonRequestHeaders }),
-        );
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      } catch (err) {
-        return redirect(
-          `/?error=${encodeURIComponent("Cannot find script at this URL.")}`,
-        );
-      }
-
-      if (!response.ok) {
-        return redirect(
-          `/?error=${encodeURIComponent("Cannot find script at this URL.")}`,
-        );
-      }
-
-      const responseType = response.headers.get("Content-Type");
-      if (!(responseType === "application/json" || responseType === null)) {
-        return redirect(`/?error=${encodeURIComponent("URL is not JSON.")}`);
-      }
-
-      let rawScriptJson: unknown;
-      try {
-        rawScriptJson = await response.json();
-
-        if (!Array.isArray(rawScriptJson)) {
-          return redirect(
-            `/?error=${encodeURIComponent("Cannot find script at this URL.")}`,
-          );
-        }
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      } catch (err) {
-        return redirect(
-          `/?error=${encodeURIComponent("Cannot find script at this URL.")}`,
-        );
-      }
-
-      return handleRawScriptJson(rawScriptJson);
-    }
-
-    // Script input is not a URL, try parse it as raw JSON.
-    let rawScriptJson: string;
+  if (result.ok) {
     try {
-      rawScriptJson = JSON.parse(script);
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      return handleRawScriptJson(result.script);
     } catch (err) {
-      return redirect(`/?error=${encodeURIComponent("Invalid script JSON.")}`);
+      console.error({ err });
+      return rewrite("/500");
     }
-
-    return handleRawScriptJson(rawScriptJson);
-  } catch (err) {
-    console.error({ err });
-    return rewrite("/500");
   }
+
+  return redirect(`/?error=${encodeURIComponent(result.message)}`);
 };

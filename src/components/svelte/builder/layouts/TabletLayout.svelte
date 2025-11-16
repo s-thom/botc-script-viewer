@@ -12,6 +12,8 @@
   import ScriptOptions from "../options/ScriptOptions.svelte";
   import BasicMetadataForm from "../script/BasicMetadataForm.svelte";
   import CurrentCharacterList from "../script/CurrentCharacterList.svelte";
+  import ImportForm from "../switcher/ImportForm.svelte";
+  import ScriptSwitcher from "../switcher/ScriptSwitcher.svelte";
 </script>
 
 <main class="container">
@@ -26,6 +28,8 @@
         </div>
       {:else if globalState.ui.screen === "checks:about"}
         <AboutChecks />
+      {:else if globalState.ui.screen === "switcher" || globalState.ui.screen === "switcher:import"}
+        <ScriptSwitcher />
       {:else}
         <TopSticky>
           <BasicMetadataForm />
@@ -37,7 +41,11 @@
     <MobileNavigation pages={["script", "checks", "options"]} />
   </div>
   <div class="panel panel-padding scroll-container">
-    <CharacterSelectForm />
+    {#if globalState.ui.screen === "switcher" || globalState.ui.screen === "switcher:import"}
+      <ImportForm />
+    {:else}
+      <CharacterSelectForm />
+    {/if}
   </div>
 </main>
 

@@ -9,6 +9,7 @@
   import ScriptOptions from "../options/ScriptOptions.svelte";
   import BasicMetadataForm from "../script/BasicMetadataForm.svelte";
   import CurrentCharacterList from "../script/CurrentCharacterList.svelte";
+  import ImportForm from "../switcher/ImportForm.svelte";
   import ScriptSwitcher from "../switcher/ScriptSwitcher.svelte";
 
   const PANEL_MINIMUM_SIZE = 250;
@@ -136,7 +137,7 @@
 <main class="container">
   <div class="resize-panel script-panel-container panel">
     <div class="resize-panel-content panel-padding scroll-container">
-      {#if globalState.ui.screen === "switcher"}
+      {#if globalState.ui.screen === "switcher" || globalState.ui.screen === "switcher:import"}
         <ScriptSwitcher />
       {:else}
         <TopSticky>
@@ -161,11 +162,17 @@
   </div>
 
   <div class="panel main-panel">
-    <div class="panel-padding main-panel-content scroll-container">
-      <CharacterSelectForm />
-    </div>
-    {#if globalState.ui.useChecks}
-      <ChecksDrawer />
+    {#if globalState.ui.screen === "switcher" || globalState.ui.screen === "switcher:import"}
+      <div class="panel-padding main-panel-content scroll-container">
+        <ImportForm />
+      </div>
+    {:else}
+      <div class="panel-padding main-panel-content scroll-container">
+        <CharacterSelectForm />
+      </div>
+      {#if globalState.ui.useChecks}
+        <ChecksDrawer />
+      {/if}
     {/if}
   </div>
 
@@ -183,7 +190,9 @@
       ><span class="visually-hidden">Change options panel size</span></button
     >
     <div class="resize-panel-content panel-padding scroll-container">
-      <ScriptOptions />
+      {#if globalState.ui.screen !== "switcher"}
+        <ScriptOptions />
+      {/if}
       <AboutSection />
     </div>
   </div>

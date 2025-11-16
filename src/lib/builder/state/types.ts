@@ -12,7 +12,8 @@ export type AppScreen =
   | "select-characters"
   | "checks"
   | "checks:about"
-  | "switcher";
+  | "switcher"
+  | "switcher:import";
 
 type CharacterTeamBeforeLoric =
   | "townsfolk"

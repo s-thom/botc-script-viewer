@@ -1,4 +1,3 @@
-import type { BloodOnTheClocktowerCustomScript } from "../../generated/script-schema";
 import { rawScriptValidator } from "../parse";
 
 export async function parseOrFetchScript(str: string): Promise<unknown> {
@@ -57,10 +56,4 @@ export async function parseOrFetchScript(str: string): Promise<unknown> {
   }
 
   return rawScriptJson;
-}
-
-export function validateScriptJson(
-  json: unknown,
-): BloodOnTheClocktowerCustomScript {
-  return rawScriptValidator.parse(json);
 }

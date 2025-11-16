@@ -30,6 +30,11 @@
     globalState.ui.screen = "script";
   }
 
+  async function onGoToImportClick() {
+    globalState.ui.screen = "switcher:import";
+    globalState.ui.prevScreen = "switcher";
+  }
+
   async function onScriptClick(data: SavedScriptData) {
     setScript(data.id, data.script);
     globalState.ui.screen = "script";
@@ -47,9 +52,18 @@
   </CentredInfoArea>
 {:then scriptList}
   {#if scriptList.length > 0}
-    <div>
-      <button type="button" class="button" onclick={onNewScriptClick}
-        >Create new script</button
+    <div class="action-list">
+      <button
+        type="button"
+        class="button"
+        onclick={onNewScriptClick}
+        data-umami-event="switcher-new">Create new script</button
+      >
+      <button
+        type="button"
+        class="button mobile-only"
+        data-umami-event="switcher-go-to-import"
+        onclick={onGoToImportClick}>Import JSON</button
       >
     </div>
     <ul class="script-list">
@@ -64,15 +78,16 @@
             type="button"
             class="icon-button script-button"
             onclick={() => onScriptClick(savedScript)}
+            data-umami-event="switcher-script-go"
           >
             <p>
               <span class={["title", !meta?.name && "no-title"]}
                 >{scriptTitle}</span
               >
-              {#if meta?.author}
-                <span>by {meta.author}</span>
-              {/if}
             </p>
+            {#if meta?.author}
+              <p>by {meta.author}</p>
+            {/if}
             <p>
               <span class="date"
                 >Last updated: {dateFormat.format(
@@ -86,7 +101,7 @@
             type="button"
             class="action-button icon-button delete-button"
             onclick={() => onDeleteClick(savedScript.id)}
-            data-umami-event="script-character-remove"
+            data-umami-event="script-script-remove"
             ><Trash aria-label={`Remove ${scriptTitle}`} /></button
           >
         </li>
@@ -107,6 +122,13 @@
 {/await}
 
 <style>
+  .action-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-block-end: 0.5rem;
+  }
+
   .script-list {
     list-style-type: none;
     padding-inline-start: 0;
@@ -164,6 +186,7 @@
   .action-button {
     padding: 0;
     width: 24px;
+    height: 24px;
     height: var(--icon-size);
     flex-shrink: 0;
     font-size: 1.5rem;

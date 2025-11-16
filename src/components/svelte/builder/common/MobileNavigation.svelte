@@ -34,6 +34,7 @@
     "checks:about": { title: "About checks", icon: LightbulbEmpty },
     "select-characters": { title: "Roles", icon: PersonAdd },
     switcher: { title: "Switch", icon: ArrowSwap },
+    "switcher:import": { title: "Switch", icon: ArrowSwap },
   };
 
   function setScreenHandler(screen: ScreenName) {

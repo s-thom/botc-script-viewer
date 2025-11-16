@@ -21,6 +21,8 @@ if (error instanceof Error) {
     description = error.title ?? description;
   }
 }
+
+Astro.response.status = 500;
 ---
 
 <CenteredLayout meta={{ title: "Error - BotC Script Viewer" }} heading={title}>
