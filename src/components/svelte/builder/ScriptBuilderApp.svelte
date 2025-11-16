@@ -15,6 +15,8 @@
   import ChecksDrawer from "./checks/ChecksDrawer.svelte";
   import ImportForm from "./switcher/ImportForm.svelte";
   import ScriptSwitcher from "./switcher/ScriptSwitcher.svelte";
+  import CheckItem from "./checks/CheckItem.svelte";
+  import ChecksList from "./checks/ChecksList.svelte";
 
   const large = new MediaQuery("min-width: 960px");
   const medium = new MediaQuery("min-width: 600px");
@@ -40,6 +42,16 @@
 {#snippet preload()}
   <AboutChecks />
   <ChecksDrawer />
+  <ChecksList />
+  <CheckItem
+    result={{
+      id: "test",
+      description: "ok",
+      level: "info",
+      actions: [{ type: "add-character", id: "lunatic" }],
+      remarks: [""],
+    }}
+  />
   <ImportForm />
   <ScriptSwitcher />
 {/snippet}
