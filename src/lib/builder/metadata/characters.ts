@@ -685,6 +685,7 @@ export const CHARACTER_METADATA: Record<
     edition: "carousel",
     actionType: "passive",
     causesDroison: true,
+    outsiderModification: true,
   },
   wizard: {
     edition: "carousel",
