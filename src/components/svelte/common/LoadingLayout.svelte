@@ -7,15 +7,9 @@
     character: OfficialCharacterId;
     isLoaded?: boolean;
     children?: Snippet;
-    preload?: Snippet;
   }
 
-  let {
-    children,
-    character,
-    isLoaded: isLoadedProp,
-    preload,
-  }: Props = $props();
+  let { children, character, isLoaded: isLoadedProp }: Props = $props();
 
   // It might seem strange to have a loading state that's immediately replaced with the content,
   // but since we pre-render with Astro, the loading state ends up baked into the HTML and gets
@@ -43,10 +37,6 @@
       <p>The script builder is interactive and requires Javascript to run.</p>
     </noscript>
   </div>
-  <div class="preload">
-    {@render children?.()}
-    {@render preload?.()}
-  </div>
 {/if}
 
 <style>
@@ -61,9 +51,5 @@
       width: 144px;
       height: 144px;
     }
-  }
-
-  .preload {
-    display: none;
   }
 </style>
