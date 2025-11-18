@@ -89,7 +89,7 @@ export async function scriptFromFormData(
           }
 
           if (scheme === "ns") {
-            const bytes = await decompressFromBase64(data, "deflate-raw");
+            const bytes = await decompressFromBase64(data, "deflate-raw", true);
             const rawScript = decodeScript(bytes);
 
             return ok(rawScript);

@@ -6,6 +6,8 @@
     getScriptFromScriptSettings,
     scriptState,
   } from "../../../../lib/client/builder/state";
+  import { compressToBase64, stringToBytes } from "../../../../lib/compression";
+  import { LinkExternal } from "svelte-codicons";
 
   let rawScript = $state<BloodOnTheClocktowerCustomScript>([]);
 
@@ -35,6 +37,16 @@
     document.body.removeChild(a);
     window.URL.revokeObjectURL(url);
   }
+
+  async function openInOfficialScriptEditor() {
+    const script = getScriptFromScriptSettings(scriptState);
+    const jsonString = JSON.stringify(script);
+    const bytes = stringToBytes(jsonString);
+    const b64 = await compressToBase64(bytes, "gzip", false);
+
+    const url = `https://script.bloodontheclocktower.com/?script=${encodeURIComponent(b64)}`;
+    window.open(url, "_blank");
+  }
 </script>
 
 <ul class="nav-links">
@@ -52,12 +64,22 @@
       <button type="submit" class="link-button">Preview & Print</button>
     </form>
   </li>
+  <li>
+    <button
+      type="button"
+      class="link-button"
+      onclick={openInOfficialScriptEditor}
+      data-umami-event="script-open-official-builder"
+      >Open in official script tool <LinkExternal class="inline-icon" /></button
+    >
+  </li>
 </ul>
 
 <style>
   .nav-links {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     padding-inline-start: 0;
     gap: 0.5rem;
     list-style: none;

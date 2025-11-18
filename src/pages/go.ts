@@ -51,7 +51,7 @@ export const POST: APIRoute = async ({
       try {
         const bytes = encodeScript(rawScript);
 
-        const base64 = await compressToBase64(bytes, "deflate-raw");
+        const base64 = await compressToBase64(bytes, "deflate-raw", true);
         return redirect(`/ns/${base64}`);
       } catch (err) {
         console.warn("Error while encoding script using Number Store", err);
@@ -61,7 +61,7 @@ export const POST: APIRoute = async ({
     // Fall back to gzip
     const bytes = stringToBytes(minifiedScript);
 
-    const base64 = await compressToBase64(bytes, "deflate-raw");
+    const base64 = await compressToBase64(bytes, "deflate-raw", true);
     return redirect(`/json/${base64}`);
   }
 

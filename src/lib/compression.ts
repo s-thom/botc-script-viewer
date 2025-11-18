@@ -1,29 +1,35 @@
-export function encodeUrlSafeBase64(str: string): string {
-  return btoa(str).replace(/([+/])/g, (_, char) => {
-    switch (char) {
-      case "+":
-        return "-";
-      case "/":
-        return "_";
-      default:
-        return char;
-    }
-  });
+export function encodeBase64(str: string, useSafeEncoding: boolean): string {
+  const b64 = btoa(str);
+
+  return useSafeEncoding
+    ? b64.replace(/([+/])/g, (_, char) => {
+        switch (char) {
+          case "+":
+            return "-";
+          case "/":
+            return "_";
+          default:
+            return char;
+        }
+      })
+    : b64;
 }
 
-export function decodeUrlSafeBase64(str: string): string {
-  return atob(
-    str.replace(/([-_])/g, (_, char) => {
-      switch (char) {
-        case "-":
-          return "+";
-        case "_":
-          return "/";
-        default:
-          return char;
-      }
-    }),
-  );
+export function decodeBase64(b64: string, useSafeEncoding: boolean): string {
+  const str = useSafeEncoding
+    ? b64.replace(/([-_])/g, (_, char) => {
+        switch (char) {
+          case "-":
+            return "+";
+          case "_":
+            return "/";
+          default:
+            return char;
+        }
+      })
+    : b64;
+
+  return atob(str);
 }
 
 export function stringToBytes(input: string): Uint8Array {
@@ -37,6 +43,7 @@ export function bytesToString(bytes: Uint8Array): string {
 export async function compressToBase64(
   inputBytes: Uint8Array,
   format: CompressionFormat,
+  useSafeEncoding: boolean,
 ): Promise<string> {
   const reader = new ReadableStream({
     start(controller) {
@@ -57,14 +64,15 @@ export async function compressToBase64(
     compressedChunks.flatMap((chunk) => Array.from(chunk)),
   );
 
-  return encodeUrlSafeBase64(String.fromCharCode(...compressedBytes));
+  return encodeBase64(String.fromCharCode(...compressedBytes), useSafeEncoding);
 }
 
 export async function decompressFromBase64(
   base64: string,
   format: CompressionFormat,
+  useSafeEncoding: boolean,
 ): Promise<Uint8Array> {
-  const binaryString = decodeUrlSafeBase64(base64);
+  const binaryString = decodeBase64(base64, useSafeEncoding);
   const bytes = new Uint8Array(binaryString.length);
   for (let i = 0; i < binaryString.length; i++) {
     bytes[i] = binaryString.charCodeAt(i);

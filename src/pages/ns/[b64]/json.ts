@@ -13,7 +13,7 @@ export const GET: APIRoute = async ({ params, rewrite }) => {
   }
 
   try {
-    const bytes = await decompressFromBase64(b64, "deflate-raw");
+    const bytes = await decompressFromBase64(b64, "deflate-raw", true);
     const rawScript = decodeScript(bytes);
     const rawScriptString = JSON.stringify(rawScript);
 
