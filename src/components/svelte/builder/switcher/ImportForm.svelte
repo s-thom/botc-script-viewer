@@ -6,10 +6,13 @@
     appState,
     setScriptFromRaw,
   } from "../../../../lib/client/builder/state";
+  import { scriptFromFormData } from "../../../../lib/import";
 
-  interface Props {}
-
-  const {}: Props = $props();
+  function setNewScript(script: BloodOnTheClocktowerCustomScript) {
+    const id = nanoid();
+    setScriptFromRaw(id, script);
+    appState.screen.current = "script";
+  }
 
   async function onFormSubmit(event: SubmitEvent) {
     event.preventDefault();
@@ -23,16 +26,31 @@
     const form = event.submitter.closest("form")!;
     const formData = new FormData(form);
 
-    const response = await fetch("/proxy", { method: "POST", body: formData });
-    if (!response.ok) {
-      console.error("Script request did not return a script");
+    const localResult = await scriptFromFormData(
+      formData,
+      window.location.hostname,
+      false,
+    );
+    if (localResult.ok) {
+      setNewScript(localResult.script);
       return;
     }
 
-    const script: BloodOnTheClocktowerCustomScript = await response.json();
-    const id = nanoid();
-    setScriptFromRaw(id, script);
-    appState.screen.current = "script";
+    // From the `if (!allowRemote)` statement in src/lib/import.ts
+    if (localResult.message === "Remote scripts not allowed") {
+      const response = await fetch("/proxy", {
+        method: "POST",
+        body: formData,
+      });
+      if (!response.ok) {
+        console.error("Script request did not return a script");
+        return;
+      }
+
+      const script: BloodOnTheClocktowerCustomScript = await response.json();
+      setNewScript(script);
+      return;
+    }
   }
 
   let form: HTMLFormElement;

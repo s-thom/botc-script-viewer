@@ -1,7 +1,7 @@
 import type { APIRoute } from "astro";
 import type { BloodOnTheClocktowerCustomScript } from "../generated/script-schema";
 import { compressToBase64, stringToBytes } from "../lib/compression";
-import { scriptFromFormData } from "../lib/import.server";
+import { scriptFromFormData } from "../lib/import";
 import { encodeScript } from "../lib/number-store";
 
 export const prerender = false;
@@ -66,7 +66,11 @@ export const POST: APIRoute = async ({
   }
 
   const rawFormData = await request.formData();
-  const result = await scriptFromFormData(requestUrl.hostname, rawFormData);
+  const result = await scriptFromFormData(
+    rawFormData,
+    requestUrl.hostname,
+    true,
+  );
 
   if (result.ok) {
     try {

@@ -1,12 +1,16 @@
 import type { APIRoute } from "astro";
 import { MAX_AGE_SECONDS } from "../lib/constants";
-import { scriptFromFormData } from "../lib/import.server";
+import { scriptFromFormData } from "../lib/import";
 
 export const prerender = false;
 
 export const POST: APIRoute = async ({ request, rewrite, url: requestUrl }) => {
   const rawFormData = await request.formData();
-  const result = await scriptFromFormData(requestUrl.hostname, rawFormData);
+  const result = await scriptFromFormData(
+    rawFormData,
+    requestUrl.hostname,
+    true,
+  );
 
   if (result.ok) {
     try {
