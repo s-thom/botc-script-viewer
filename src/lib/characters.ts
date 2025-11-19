@@ -141,6 +141,14 @@ export function getEnforcedCharacters(state: {
   return enforcedCharacters;
 }
 
+export function getAlmanacLink(character: ScriptCharacter): string | undefined {
+  if (CHARACTERS_BY_ID.has(character.id)) {
+    return `https://wiki.bloodontheclocktower.com/${encodeURIComponent(character.name)}`;
+  }
+
+  return undefined;
+}
+
 // Sort order rules: https://bloodontheclocktower.com/news/sort-order-sao-update
 // Note: `!` indicates no asterisk (to ensure "night*" comes after "night")
 const SORT_ORDER_PREFIXES = [

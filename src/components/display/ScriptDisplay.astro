@@ -71,13 +71,13 @@ const allExtraNightOrderCharacters = script.warnings.flatMap((warning) =>
     }
     <h2 class="category-title">Characters</h2>
     <h3 id="townsfolk" class="category-title">Townsfolk</h3>
-    <CharacterList characters={script.teams.townsfolk} />
+    <CharacterList characters={script.teams.townsfolk} showWikiLink />
     <h3 id="outsiders" class="category-title">Outsiders</h3>
-    <CharacterList characters={script.teams.outsider} />
+    <CharacterList characters={script.teams.outsider} showWikiLink />
     <h3 id="minions" class="category-title">Minions</h3>
-    <CharacterList characters={script.teams.minion} />
+    <CharacterList characters={script.teams.minion} showWikiLink />
     <h3 id="demons" class="category-title">Demons</h3>
-    <CharacterList characters={script.teams.demon} />
+    <CharacterList characters={script.teams.demon} showWikiLink />
   </div>
 
   {
@@ -90,7 +90,7 @@ const allExtraNightOrderCharacters = script.warnings.flatMap((warning) =>
             <h3 id="travellers" class="category-title">
               Travellers
             </h3>
-            <CharacterList characters={script.teams.traveller} />
+            <CharacterList characters={script.teams.traveller} showWikiLink />
           </>
         )}
         {script.teams.fabled.length > 0 && (
@@ -98,7 +98,7 @@ const allExtraNightOrderCharacters = script.warnings.flatMap((warning) =>
             <h3 id="fabled" class="category-title">
               Fabled
             </h3>
-            <CharacterList characters={script.teams.fabled} />
+            <CharacterList characters={script.teams.fabled} showWikiLink />
           </>
         )}
         {script.teams.loric.length > 0 && (
@@ -106,7 +106,7 @@ const allExtraNightOrderCharacters = script.warnings.flatMap((warning) =>
             <h3 id="loric" class="category-title">
               Loric
             </h3>
-            <CharacterList characters={script.teams.loric} />
+            <CharacterList characters={script.teams.loric} showWikiLink />
           </>
         )}
         {script.jinxes.length > 0 && (

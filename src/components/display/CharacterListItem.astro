@@ -1,4 +1,5 @@
 ---
+import References from "svelte-codicons/lib/References.svelte";
 import type { ScriptCharacter } from "../../generated/script-schema";
 import CharacterIcon from "./CharacterIcon.astro";
 import FormattedDescription from "./FormattedDescription.astro";
@@ -11,6 +12,7 @@ export interface Props {
   character1Link?: string;
   character2Link?: string;
   titleLink?: string;
+  wikiLink?: string;
 }
 
 const {
@@ -21,6 +23,7 @@ const {
   character1Link,
   character2Link,
   titleLink,
+  wikiLink,
 } = Astro.props;
 ---
 
@@ -67,15 +70,28 @@ const {
   <div class="character-info">
     {
       title && (
-        <h4 class="character-title">
-          {titleLink ? (
-            <a class="character-title-link" href={titleLink}>
-              {title}
+        <div class="character-title-area">
+          <h4 class="character-title">
+            {titleLink ? (
+              <a class="character-title-link" href={titleLink}>
+                {title}
+              </a>
+            ) : (
+              title
+            )}
+          </h4>
+          {wikiLink && (
+            <a
+              class="character-wiki-link"
+              href={wikiLink}
+              rel="external noreferrer"
+              target="_blank"
+            >
+              <References class="inline-icon" />
+              <span class="visually-hidden-always">Almanac</span>
             </a>
-          ) : (
-            title
           )}
-        </h4>
+        </div>
       )
     }
     {
@@ -95,6 +111,12 @@ const {
   .character {
     display: flex;
     align-items: flex-start;
+
+    &:not(:is(:hover, :focus-within)) {
+      .character-wiki-link {
+        opacity: 0;
+      }
+    }
   }
 
   :global(.character-icon-offset) {
@@ -107,6 +129,11 @@ const {
 
   .character-icon-link {
     display: contents;
+  }
+
+  .character-title-area {
+    display: flex;
+    gap: 0.5rem;
   }
 
   .character-title {

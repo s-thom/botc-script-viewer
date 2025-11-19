@@ -1,13 +1,15 @@
 ---
 import type { ScriptCharacter } from "../../generated/script-schema";
+import { getAlmanacLink } from "../../lib/characters";
 import CharacterListItem from "./CharacterListItem.astro";
 
 export interface Props {
   characters: ScriptCharacter[];
   class?: string;
+  showWikiLink?: boolean;
 }
 
-const { characters, class: className } = Astro.props;
+const { characters, class: className, showWikiLink } = Astro.props;
 ---
 
 <ul class:list={["character-list", className]}>
@@ -18,6 +20,7 @@ const { characters, class: className } = Astro.props;
           character={character}
           title={character.name}
           description={character.ability}
+          wikiLink={showWikiLink ? getAlmanacLink(character) : undefined}
         />
       </li>
     ))
