@@ -782,4 +782,8 @@ export const CHARACTER_METADATA: Record<
     edition: "recent-release",
     actionType: "fabled",
   },
+  zenomancer: {
+    edition: "recent-release",
+    actionType: "fabled",
+  },
 };

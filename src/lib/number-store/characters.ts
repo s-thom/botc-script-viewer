@@ -186,4 +186,5 @@ export const ORDERED_CHARACTER_LIST = [
   // Characters released after the Carousel, in release order
   "bigwig",
   "tor",
+  "zenomancer",
 ];
