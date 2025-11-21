@@ -4,6 +4,8 @@
   import { setupUploadForm } from "../../../../lib/forms";
   import {
     appState,
+    navigatePopScreen,
+    navigateSetScreen,
     setScriptFromRaw,
   } from "../../../../lib/client/builder/state";
   import { scriptFromFormData } from "../../../../lib/import";
@@ -11,7 +13,7 @@
   function setNewScript(script: BloodOnTheClocktowerCustomScript) {
     const id = nanoid();
     setScriptFromRaw(id, script);
-    appState.screen.current = "script";
+    navigateSetScreen("script");
   }
 
   async function onFormSubmit(event: SubmitEvent) {
@@ -68,10 +70,7 @@
     type="button"
     class="back-link link-button"
     data-umami-event="switcher-import-back"
-    onclick={() => {
-      appState.screen.current = appState.screen.previous ?? "checks";
-      appState.screen.previous = undefined;
-    }}>Back</button
+    onclick={() => navigatePopScreen()}>Back</button
   >
 </div>
 <h2>Import script</h2>

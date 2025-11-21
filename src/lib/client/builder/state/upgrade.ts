@@ -8,11 +8,10 @@ import type {
 export function getDefaultAppSettings(): BuilderAppSettingsLatest {
   return {
     id: "builder-app",
-    version: 1,
+    version: 2,
     currentScriptId: "default",
     screen: {
-      current: "script",
-      previous: undefined,
+      stack: [{ id: "script" }],
     },
     panelSizes: {
       script: 350,
@@ -34,8 +33,19 @@ export function upgradeAppSettings(
   settings: BuilderAppSettingsAll,
 ): BuilderAppSettingsLatest {
   switch (true) {
-    case settings.version <= 1:
-      break;
+    case settings.version === 1: {
+      const navStack: BuilderAppSettingsLatest["screen"]["stack"] = [];
+      if (settings.screen.previous) {
+        navStack.push({ id: settings.screen.previous });
+      }
+      navStack.push({ id: settings.screen.current });
+
+      return {
+        ...settings,
+        version: 2,
+        screen: { stack: navStack },
+      };
+    }
   }
 
   return settings;

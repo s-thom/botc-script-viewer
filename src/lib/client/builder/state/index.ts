@@ -5,6 +5,7 @@ import type {
   ScriptMetadata,
 } from "../../../../generated/script-schema";
 import {
+  CHARACTERS_BY_ID,
   getEnforcedCharacters,
   getFullScriptCharacter,
   getMinimalScriptCharacter,
@@ -14,7 +15,11 @@ import {
 import { appState } from "./app.svelte";
 import { scriptState } from "./script.svelte";
 import { sessionState } from "./session.svelte";
-import { type BuilderScriptSettingsLatest } from "./types";
+import {
+  type AppScreen,
+  type AppScreenData,
+  type BuilderScriptSettingsLatest,
+} from "./types";
 import { getDefaultScriptSettings } from "./upgrade";
 
 export { appState, scriptState, sessionState };
@@ -102,11 +107,48 @@ export function getScriptFromScriptSettings(
   ];
 }
 
+export function getCharactersFromScriptSettings(
+  state: BuilderScriptSettingsLatest,
+): ScriptCharacter[] {
+  const enforcedCharacters = getEnforcedCharacters(state)
+    .keys()
+    .map((id) => CHARACTERS_BY_ID.get(id)!);
+
+  return [
+    ...Object.values(state.characters).flatMap((characters) => characters),
+    ...enforcedCharacters,
+  ];
+}
+
 export function doSortScript() {
   if (appState.sorting.enabled) {
     scriptState.characters = sortCharacters(
       scriptState.characters,
       appState.sorting.fun,
     );
+  }
+}
+
+export function getCurrentScreen() {
+  return appState.screen.stack.at(-1) ?? { id: "script" };
+}
+
+export function navigateSetScreen(
+  id: AppScreen,
+  data: AppScreenData | undefined = undefined,
+  replaceStack = true,
+) {
+  const entry = { id, data };
+
+  if (replaceStack) {
+    appState.screen.stack = [entry];
+  } else {
+    appState.screen.stack.push(entry);
+  }
+}
+
+export function navigatePopScreen() {
+  if (appState.screen.stack.length > 1) {
+    appState.screen.stack.pop();
   }
 }

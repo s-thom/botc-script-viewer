@@ -12,7 +12,19 @@ export type AppScreen =
   | "checks"
   | "checks:about"
   | "switcher"
-  | "switcher:import";
+  | "switcher:import"
+  | "edit-character";
+
+export interface EditCharacterScreenData {
+  type: "edit-character";
+  id: string;
+}
+
+export type AppScreenData = EditCharacterScreenData;
+interface UntypedAppScreen {
+  id: AppScreen;
+  data?: AppScreenData;
+}
 
 export const APP_SETTINGS_KEY = "builder-app";
 export const CURRENT_APP_SETTINGS_VERSION = 1;
@@ -21,7 +33,10 @@ export interface BuilderAppSettingsV1 {
   id: "builder-app";
   version: 1;
   currentScriptId: string;
-  screen: { current: AppScreen; previous?: AppScreen };
+  screen: {
+    current: AppScreen;
+    previous?: AppScreen;
+  };
   panelSizes: {
     script: number;
     options: number;
@@ -37,8 +52,30 @@ export interface BuilderAppSettingsV1 {
   };
 }
 
-export type BuilderAppSettingsAll = BuilderAppSettingsV1;
-export type BuilderAppSettingsLatest = BuilderAppSettingsV1;
+export interface BuilderAppSettingsV2 {
+  id: "builder-app";
+  version: 2;
+  currentScriptId: string;
+  screen: {
+    stack: UntypedAppScreen[];
+  };
+  panelSizes: {
+    script: number;
+    options: number;
+    checks: number;
+  };
+  checks: {
+    enabled: boolean;
+    isChecksPanelOpen: boolean;
+  };
+  sorting: {
+    enabled: boolean;
+    fun: boolean;
+  };
+}
+
+export type BuilderAppSettingsAll = BuilderAppSettingsV1 | BuilderAppSettingsV2;
+export type BuilderAppSettingsLatest = BuilderAppSettingsV2;
 
 export const CURRENT_SCRIPT_SETTINGS_VERSION = 1;
 

@@ -8,7 +8,10 @@
     getEnforcedCharacters,
     TEAM_NAMES,
   } from "../../../../lib/characters";
-  import { appState, scriptState } from "../../../../lib/client/builder/state";
+  import {
+    navigateSetScreen,
+    scriptState,
+  } from "../../../../lib/client/builder/state";
   import CentredInfoArea from "../common/CentredInfoArea.svelte";
   import TeamCharacterList from "./TeamCharacterList.svelte";
 
@@ -73,7 +76,7 @@
     <button
       type="button"
       class="button mobile-only"
-      onclick={() => (appState.screen.current = "select-characters")}
+      onclick={() => navigateSetScreen("select-characters")}
       data-umami-event="script-empty-select-characters"
       >Select characters</button
     >

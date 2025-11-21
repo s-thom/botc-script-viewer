@@ -3,6 +3,7 @@
   import { Trash } from "svelte-codicons";
   import {
     appState,
+    navigateSetScreen,
     setScriptFromRaw,
     setScriptState,
   } from "../../../../lib/client/builder/state";
@@ -30,17 +31,16 @@
   function onNewScriptClick() {
     const id = nanoid();
     setScriptFromRaw(id, []);
-    appState.screen.current = "script";
+    navigateSetScreen("script");
   }
 
   async function onGoToImportClick() {
-    appState.screen.current = "switcher:import";
-    appState.screen.previous = "switcher";
+    navigateSetScreen("switcher", undefined, false);
   }
 
   async function onScriptClick(data: SavedScriptData) {
     setScriptState(data.id, data.script);
-    appState.screen.current = "script";
+    navigateSetScreen("script");
   }
 
   async function onDeleteClick(id: string) {

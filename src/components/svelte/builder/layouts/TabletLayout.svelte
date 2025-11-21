@@ -1,7 +1,8 @@
 <svelte:options runes />
 
 <script lang="ts">
-  import { appState } from "../../../../lib/client/builder/state";
+  import { getCurrentScreen } from "../../../../lib/client/builder/state";
+  import CharacterSpotlight from "../character-edit/CharacterSpotlight.svelte";
   import CharacterSelectForm from "../character-selection/CharacterSelectForm.svelte";
   import AboutChecks from "../checks/AboutChecks.svelte";
   import ChecksList from "../checks/ChecksList.svelte";
@@ -14,21 +15,23 @@
   import CurrentCharacterList from "../script/CurrentCharacterList.svelte";
   import ImportForm from "../switcher/ImportForm.svelte";
   import ScriptSwitcher from "../switcher/ScriptSwitcher.svelte";
+
+  let currentScreen = $derived.by(() => getCurrentScreen());
 </script>
 
 <main class="container">
   <div class="panel detail-panel">
     <div class="panel-padding scroll-container detail-panel-content">
-      {#if appState.screen.current === "options"}
+      {#if currentScreen.id === "options"}
         <ScriptOptions />
         <AboutSection />
-      {:else if appState.screen.current === "checks"}
+      {:else if currentScreen.id === "checks"}
         <div class="reverse-padding">
           <ChecksList />
         </div>
-      {:else if appState.screen.current === "checks:about"}
+      {:else if currentScreen.id === "checks:about"}
         <AboutChecks />
-      {:else if appState.screen.current === "switcher" || appState.screen.current === "switcher:import"}
+      {:else if currentScreen.id === "switcher" || currentScreen.id === "switcher:import"}
         <ScriptSwitcher />
       {:else}
         <TopSticky>
@@ -41,7 +44,9 @@
     <MobileNavigation pages={["script", "checks", "options"]} />
   </div>
   <div class="panel panel-padding scroll-container">
-    {#if appState.screen.current === "switcher" || appState.screen.current === "switcher:import"}
+    {#if currentScreen.id === "edit-character"}
+      <CharacterSpotlight />
+    {:else if currentScreen.id === "switcher" || currentScreen.id === "switcher:import"}
       <ImportForm />
     {:else}
       <CharacterSelectForm />

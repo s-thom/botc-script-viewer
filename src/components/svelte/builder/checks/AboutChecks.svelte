@@ -8,7 +8,7 @@
     Wand,
     Warning,
   } from "svelte-codicons";
-  import { appState } from "../../../../lib/client/builder/state";
+  import { navigatePopScreen } from "../../../../lib/client/builder/state";
 </script>
 
 <div class="top-links-list">
@@ -16,10 +16,7 @@
     type="button"
     class="back-link link-button"
     data-umami-event="checks-about-back"
-    onclick={() => {
-      appState.screen.current = appState.screen.previous ?? "checks";
-      appState.screen.previous = undefined;
-    }}>Back</button
+    onclick={() => navigatePopScreen()}>Back</button
   >
 </div>
 <div class="flow">

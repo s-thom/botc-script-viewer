@@ -19,21 +19,24 @@ export interface EditionMetadata {
   icon: string;
 }
 
+export const ACTION_TYPE_NAMES = {
+  passive: "None",
+  "start-knowing": "Start knowing",
+  "first-night": "First night",
+  "each-night-all": "Each night",
+  "each-night-star": "Each night (except the first)",
+  "on-death": "On death",
+  "once-per-game": "Once per game",
+  "public-claim": "Claim publicly",
+  "storyteller-consult": "Ask the storyteller",
+  traveller: "Traveller",
+  fabled: "Non-player",
+  unknown: "Unknown",
+};
+
 export interface CharacterMetadata {
   edition: CharacterEdition;
-  actionType:
-    | "passive"
-    | "start-knowing"
-    | "first-night"
-    | "each-night-all"
-    | "each-night-star"
-    | "on-death"
-    | "once-per-game"
-    | "public-claim"
-    | "storyteller-consult"
-    | "traveller"
-    | "fabled"
-    | "unknown";
+  actionType: keyof typeof ACTION_TYPE_NAMES;
   causesDroison?: boolean;
   causesMadness?: "character" | "evil";
   causesExtraEvil?: boolean;

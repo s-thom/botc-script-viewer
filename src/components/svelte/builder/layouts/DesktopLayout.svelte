@@ -1,6 +1,10 @@
 <script lang="ts">
-  import { appState } from "../../../../lib/client/builder/state";
+  import {
+    appState,
+    getCurrentScreen,
+  } from "../../../../lib/client/builder/state";
   import type { BuilderAppSettingsLatest } from "../../../../lib/client/builder/state/types";
+  import CharacterSpotlight from "../character-edit/CharacterSpotlight.svelte";
   import CharacterSelectForm from "../character-selection/CharacterSelectForm.svelte";
   import ChecksDrawer from "../checks/ChecksDrawer.svelte";
   import AboutSection from "../common/AboutSection.svelte";
@@ -136,12 +140,14 @@
 
   const scriptMouseHandler = getMouseDownHandler("script");
   const optionsMouseHandler = getMouseDownHandler("options");
+
+  let currentScreen = $derived.by(() => getCurrentScreen());
 </script>
 
 <main class="container">
   <div class="resize-panel script-panel-container panel">
     <div class="resize-panel-content panel-padding scroll-container">
-      {#if appState.screen.current === "switcher" || appState.screen.current === "switcher:import"}
+      {#if currentScreen.id === "switcher" || currentScreen.id === "switcher:import"}
         <ScriptSwitcher />
       {:else}
         <TopSticky>
@@ -166,7 +172,11 @@
   </div>
 
   <div class="panel main-panel">
-    {#if appState.screen.current === "switcher" || appState.screen.current === "switcher:import"}
+    {#if currentScreen.id === "edit-character"}
+      <div class="panel-padding main-panel-content scroll-container">
+        <CharacterSpotlight />
+      </div>
+    {:else if currentScreen.id === "switcher" || currentScreen.id === "switcher:import"}
       <div class="panel-padding main-panel-content scroll-container">
         <ImportForm />
       </div>
@@ -194,7 +204,7 @@
       ><span class="visually-hidden">Change options panel size</span></button
     >
     <div class="resize-panel-content panel-padding scroll-container">
-      {#if appState.screen.current !== "switcher"}
+      {#if currentScreen.id !== "switcher"}
         <ScriptOptions />
       {/if}
       <AboutSection />

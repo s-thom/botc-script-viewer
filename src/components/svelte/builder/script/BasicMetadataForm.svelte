@@ -1,6 +1,7 @@
 <script lang="ts">
   import {
     appState,
+    navigateSetScreen,
     scriptState,
     setScriptFromRaw,
   } from "../../../../lib/client/builder/state";
@@ -12,10 +13,6 @@
       setScriptFromRaw(id, []);
     };
   });
-
-  function onSwitchClick() {
-    appState.screen.current = "switcher";
-  }
 
   const numCharacters = $derived.by(() =>
     Object.values(scriptState.characters).reduce(
@@ -57,7 +54,7 @@
     <button
       type="button"
       class="button"
-      onclick={onSwitchClick}
+      onclick={() => navigateSetScreen("switcher")}
       data-umami-event="script-change">Switch script</button
     >
     {#if numCharacters > 0}

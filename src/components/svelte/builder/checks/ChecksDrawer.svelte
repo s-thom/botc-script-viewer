@@ -13,6 +13,7 @@
   import ChecksList from "./ChecksList.svelte";
   import {
     appState,
+    getCurrentScreen,
     scriptState,
     sessionState,
   } from "../../../../lib/client/builder/state";
@@ -133,6 +134,8 @@
         filteredErrors.length + filteredWarnings.length + filteredInfos.length,
     };
   });
+
+  let currentScreen = $derived.by(() => getCurrentScreen());
 </script>
 
 <div
@@ -184,7 +187,7 @@
       class="resize-panel-content scroll-container"
       transition:slide={{ axis: "y", duration: 100 }}
     >
-      {#if appState.screen.current === "checks:about"}
+      {#if currentScreen.id === "checks:about"}
         <div class="about-container">
           <AboutChecks />
         </div>

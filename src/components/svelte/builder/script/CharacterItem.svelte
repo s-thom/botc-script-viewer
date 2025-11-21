@@ -1,9 +1,25 @@
 <script lang="ts">
-  import { Gripper, Lock, Pinned, Trash } from "svelte-codicons";
+  import {
+    Close,
+    Edit,
+    Gripper,
+    Info,
+    Lock,
+    Pinned,
+    Trash,
+  } from "svelte-codicons";
   import type { ScriptCharacter } from "../../../../generated/script-schema";
+  import {
+    CHARACTERS_BY_ID,
+    normaliseCharacterId,
+    TEAM_NAMES,
+  } from "../../../../lib/characters";
+  import {
+    getCurrentScreen,
+    navigateSetScreen,
+    scriptState,
+  } from "../../../../lib/client/builder/state";
   import CharacterIcon from "../../common/CharacterIcon.svelte";
-  import { normaliseCharacterId, TEAM_NAMES } from "../../../../lib/characters";
-  import { scriptState } from "../../../../lib/client/builder/state";
 
   interface Props {
     character: ScriptCharacter;
@@ -23,7 +39,7 @@
     onDeleteClick,
   }: Props = $props();
 
-  const jinxedCharacters = $derived.by(() => {
+  let jinxedCharacters = $derived.by(() => {
     // State reads must occur before return. This does mean extra object allocation but oh well.
     // Eventually I'll take the time to learn how to write performant Svelte code.
     // The answer is probably "don't use global state, you dingus".
@@ -66,9 +82,23 @@
     return jinxedCharacters;
   });
 
-  const hasDetail = $derived(
+  let hasDetail = $derived(
     (remarks && remarks.length > 0) || jinxedCharacters.length > 0,
   );
+
+  let isCustom = $derived(!CHARACTERS_BY_ID.has(character.id));
+  let isEditing = $derived.by(() => {
+    let currentScreen = getCurrentScreen();
+    if (
+      currentScreen.id === "edit-character" &&
+      currentScreen.data &&
+      currentScreen.data.type === "edit-character"
+    ) {
+      return currentScreen.data.id === character.id;
+    }
+
+    return false;
+  });
 </script>
 
 {#snippet name()}
@@ -109,6 +139,27 @@
   {:else}
     {@render name()}
   {/if}
+  <button
+    type="button"
+    class="action-button icon-button no-drag"
+    onclick={() =>
+      isEditing
+        ? navigateSetScreen("script")
+        : navigateSetScreen(
+            "edit-character",
+            { type: "edit-character", id: character.id },
+            false,
+          )}
+    data-umami-event="script-character-edit"
+  >
+    {#if isEditing}
+      <Close aria-label={`Finish editing ${character.name}`} />
+    {:else if isCustom}
+      <Edit aria-label={`Edit ${character.name}`} />
+    {:else}
+      <Info aria-label={`View ${character.name}`} />
+    {/if}
+  </button>
   {#if onDeleteClick}
     {#if showPinned}
       <span class="action-button icon-button"

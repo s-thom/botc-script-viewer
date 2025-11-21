@@ -1,7 +1,8 @@
 <svelte:options runes />
 
 <script lang="ts">
-  import { appState } from "../../../../lib/client/builder/state";
+  import { getCurrentScreen } from "../../../../lib/client/builder/state";
+  import CharacterSpotlight from "../character-edit/CharacterSpotlight.svelte";
   import CharacterSelectForm from "../character-selection/CharacterSelectForm.svelte";
   import AboutChecks from "../checks/AboutChecks.svelte";
   import ChecksList from "../checks/ChecksList.svelte";
@@ -14,32 +15,36 @@
   import CurrentCharacterList from "../script/CurrentCharacterList.svelte";
   import ImportForm from "../switcher/ImportForm.svelte";
   import ScriptSwitcher from "../switcher/ScriptSwitcher.svelte";
+
+  let currentScreen = $derived.by(() => getCurrentScreen());
 </script>
 
 <main class="container">
   <div class="scroll-container content">
     <div class="panel panel-padding">
-      {#if appState.screen.current === "script"}
+      {#if currentScreen.id === "script"}
         <TopSticky>
           <BasicMetadataForm />
           <PromptDisplay />
         </TopSticky>
         <CurrentCharacterList />
-      {:else if appState.screen.current === "select-characters"}
+      {:else if currentScreen.id === "select-characters"}
         <CharacterSelectForm />
-      {:else if appState.screen.current === "options"}
+      {:else if currentScreen.id === "options"}
         <ScriptOptions />
         <AboutSection />
-      {:else if appState.screen.current === "checks"}
+      {:else if currentScreen.id === "checks"}
         <div class="reverse-padding">
           <ChecksList />
         </div>
-      {:else if appState.screen.current === "checks:about"}
+      {:else if currentScreen.id === "checks:about"}
         <AboutChecks />
-      {:else if appState.screen.current === "switcher"}
+      {:else if currentScreen.id === "switcher"}
         <ScriptSwitcher />
-      {:else if appState.screen.current === "switcher:import"}
+      {:else if currentScreen.id === "switcher:import"}
         <ImportForm />
+      {:else if currentScreen.id === "edit-character"}
+        <CharacterSpotlight />
       {/if}
     </div>
   </div>

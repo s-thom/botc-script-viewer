@@ -1,6 +1,7 @@
 <script lang="ts">
   import {
     ArrowSwap,
+    Edit,
     LightbulbEmpty,
     MapVertical,
     PersonAdd,
@@ -12,12 +13,14 @@
   } from "svelte-codicons";
   import {
     appState,
+    getCurrentScreen,
+    navigateSetScreen,
     scriptState,
     sessionState,
   } from "../../../../lib/client/builder/state";
   import type {
     AppScreen,
-    BuilderAppSettingsLatest,
+    AppScreenData,
   } from "../../../../lib/client/builder/state/types";
 
   interface PageInfo {
@@ -37,14 +40,8 @@
     "select-characters": { title: "Roles", icon: PersonAdd },
     switcher: { title: "Switch", icon: ArrowSwap },
     "switcher:import": { title: "Switch", icon: ArrowSwap },
+    "edit-character": { title: "Edit role", icon: Edit },
   };
-
-  function setScreenHandler(screen: AppScreen) {
-    return () => {
-      appState.screen.current = screen;
-      appState.screen.previous = undefined;
-    };
-  }
 
   const { pages }: Props = $props();
 
@@ -64,6 +61,8 @@
 
     return { hasResults, hasFixes: false };
   });
+
+  let currentScreen = $derived.by(() => getCurrentScreen());
 </script>
 
 <nav>
@@ -76,9 +75,9 @@
             type="button"
             class={[
               "nav-button",
-              appState.screen.current.startsWith(page) && "current",
+              currentScreen.id.startsWith(page) && "current",
             ]}
-            onclick={setScreenHandler(page)}
+            onclick={() => navigateSetScreen(page)}
             data-umami-event="nav-button"
             data-umami-event-screen={page}
           >

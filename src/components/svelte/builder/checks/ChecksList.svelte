@@ -1,6 +1,7 @@
 <script lang="ts">
   import {
     appState,
+    navigateSetScreen,
     scriptState,
     sessionState,
   } from "../../../../lib/client/builder/state";
@@ -27,10 +28,7 @@
     <button
       type="button"
       class="link-button"
-      onclick={() => {
-        appState.screen.current = "checks:about";
-        appState.screen.previous = "checks";
-      }}
+      onclick={() => navigateSetScreen("checks:about", undefined, false)}
       data-umami-event="checks-about">About checks</button
     >
     {#if scriptState.ignoredChecks.length > 0}
