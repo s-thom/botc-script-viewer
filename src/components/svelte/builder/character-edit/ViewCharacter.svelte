@@ -108,6 +108,32 @@
   </ul>
 {/if}
 
+{#if character.id === "djinn"}
+  {@const allJinxes = allCharacters.flatMap((c) =>
+    (c.jinxes ?? [])
+      .filter((jinx) => allCharactersById.has(jinx.id))
+      .map((jinx) => ({
+        character1: c,
+        character2: allCharactersById.get(jinx.id)!,
+        reason: jinx.reason,
+      })),
+  )}
+  <h3>All Jinxes</h3>
+  <ul class="jinx-list">
+    {#each allJinxes as jinx (`${jinx.character1.id}+${jinx.character2.id}`)}
+      <li>
+        <h4 class="jinx-header">
+          <CharacterIcon character={jinx.character1} class="jinx-icon" />
+          <span class="character-name">{jinx.character1.name}</span> +
+          <CharacterIcon character={jinx.character2} class="jinx-icon" />
+          <span class="character-name">{jinx.character2.name}</span>
+        </h4>
+        <p>{jinx.reason}</p>
+      </li>
+    {/each}
+  </ul>
+{/if}
+
 {#if metadata}
   {@const edition = EDITIONS[metadata.edition]}
   <h3>Metadata</h3>
