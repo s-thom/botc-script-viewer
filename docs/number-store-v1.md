@@ -253,6 +253,7 @@ Note: Any Loric characters that were originally classified as Fabled are in the 
 | Storm Catcher    | stormcatcher   | `0xad` |
 | Big Wig          | bigwig         | `0xae` |
 | Tor              | tor            | `0xaf` |
+| Zenomancer       | zenomancer     | `0xb0` |
 
 </details>
 
