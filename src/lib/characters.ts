@@ -149,6 +149,39 @@ export function getAlmanacLink(character: ScriptCharacter): string | undefined {
   return undefined;
 }
 
+export interface RichDescriptionPart {
+  type: "regular" | "bold" | "square" | "colon";
+  content: string;
+}
+
+export function parseRichDescription(
+  description: string,
+): RichDescriptionPart[] {
+  const parts: RichDescriptionPart[] = [];
+  const regex = /(\*[^*]+\*|:reminder:|:|\[[^\]]+\]|[^*:[\]]+|\*)/g;
+  let match: RegExpExecArray | null;
+
+  while ((match = regex.exec(description)) !== null) {
+    const matchedText = match[0];
+
+    if (
+      matchedText !== "*" &&
+      matchedText.startsWith("*") &&
+      matchedText.endsWith("*")
+    ) {
+      parts.push({ type: "bold", content: matchedText.slice(1, -1) });
+    } else if (matchedText === ":reminder:") {
+      parts.push({ type: "colon", content: matchedText.slice(1, -1) });
+    } else if (matchedText.startsWith("[") && matchedText.endsWith("]")) {
+      parts.push({ type: "square", content: matchedText.slice(1, -1) });
+    } else {
+      parts.push({ type: "regular", content: matchedText });
+    }
+  }
+
+  return parts;
+}
+
 // Sort order rules: https://bloodontheclocktower.com/news/sort-order-sao-update
 // Note: `!` indicates no asterisk (to ensure "night*" comes after "night")
 const SORT_ORDER_PREFIXES = [
@@ -327,6 +360,10 @@ export function sortCharacters(
     numberComparator((character) => character.ability.length),
     numberComparator((character) => character.name.length),
     stringComparator((character) => character.name),
+    // If the names are identical, prefer official characters, followed by sorting by ID.
+    // If the IDs are the same, then the application probably just crashes anyway because Svelte doesn't like that.
+    booleanComparator((character) => CHARACTERS_BY_ID.has(character.id)),
+    stringComparator((character) => character.id),
   );
 
   return Object.fromEntries(
