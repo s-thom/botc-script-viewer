@@ -39,24 +39,7 @@
   });
 </script>
 
-{#snippet preload()}
-  <AboutChecks />
-  <ChecksDrawer />
-  <ChecksList />
-  <CheckItem
-    result={{
-      id: "test",
-      description: "ok",
-      level: "info",
-      actions: [{ type: "add-character", id: "lunatic" }],
-      remarks: [""],
-    }}
-  />
-  <ImportForm />
-  <ScriptSwitcher />
-{/snippet}
-
-<LoadingLayout character="lunatic" {isLoaded} {preload}>
+<LoadingLayout character="lunatic" {isLoaded}>
   {#if large.current}
     <DesktopLayout />
   {:else if medium.current}

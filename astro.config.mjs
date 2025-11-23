@@ -15,4 +15,5 @@ export default defineConfig({
   },
   scopedStyleStrategy: "class",
   adapter: cloudflare({ imageService: "compile" }),
+  vite: { build: { cssCodeSplit: false } },
 });
