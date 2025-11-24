@@ -360,6 +360,7 @@ export const CHARACTER_METADATA: Record<
     edition: "snv",
     actionType: "each-night-star",
     causesExtraEvil: true,
+    outsiderModification: true,
   },
   vigormortis: {
     edition: "snv",
