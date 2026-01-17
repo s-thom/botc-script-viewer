@@ -787,4 +787,12 @@ export const CHARACTER_METADATA: Record<
     edition: "recent-release",
     actionType: "fabled",
   },
+  hindu: {
+    edition: "recent-release",
+    actionType: "fabled",
+  },
+  pope: {
+    edition: "recent-release",
+    actionType: "fabled",
+  },
 };

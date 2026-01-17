@@ -187,4 +187,6 @@ export const ORDERED_CHARACTER_LIST = [
   "bigwig",
   "tor",
   "zenomancer",
+  "hindu",
+  "pope",
 ];

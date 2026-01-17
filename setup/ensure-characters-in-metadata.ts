@@ -15,6 +15,7 @@ for (const character of data.roles) {
 
 if (missingSet.size > 0) {
   console.error("Some characters do not have metadata");
+  console.error("src/lib/builder/metadata/characters.ts");
   console.error(
     Array.from(missingSet)
       .map((character) => `${character.name} (${character.id})`)
