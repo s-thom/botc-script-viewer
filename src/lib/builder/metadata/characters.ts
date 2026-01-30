@@ -795,4 +795,8 @@ export const CHARACTER_METADATA: Record<
     edition: "recent-release",
     actionType: "fabled",
   },
+  cacklejack: {
+    edition: "recent-release",
+    actionType: "traveller",
+  },
 };
