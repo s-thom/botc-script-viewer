@@ -80,20 +80,8 @@ function getNightOrderArrays(
       }
 
       if (!charactersById.has(id)) {
-        // If the night order refers to a traveller not on the script, add it.
-        if (CHARACTERS_BY_ID.has(id)) {
-          const candidateCharacter = CHARACTERS_BY_ID.get(id)!;
-          if (candidateCharacter.team === "traveller") {
-            charactersById.set(id, candidateCharacter);
-            missingCharacters.push(candidateCharacter);
-          } else {
-            invalidCharacterIds.add(id);
-            continue;
-          }
-        } else {
-          invalidCharacterIds.add(id);
-          continue;
-        }
+        invalidCharacterIds.add(id);
+        continue;
       }
 
       const character = charactersById.get(id)!;
@@ -152,20 +140,8 @@ function getNightOrderArrays(
       }
 
       if (!charactersById.has(id)) {
-        // If the night order refers to a traveller not on the script, add it.
-        if (CHARACTERS_BY_ID.has(id)) {
-          const candidateCharacter = CHARACTERS_BY_ID.get(id)!;
-          if (candidateCharacter.team === "traveller") {
-            charactersById.set(id, candidateCharacter);
-            missingCharacters.push(candidateCharacter);
-          } else {
-            invalidCharacterIds.add(id);
-            continue;
-          }
-        } else {
-          invalidCharacterIds.add(id);
-          continue;
-        }
+        invalidCharacterIds.add(id);
+        continue;
       }
 
       const character = charactersById.get(id)!;
