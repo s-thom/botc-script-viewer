@@ -16,6 +16,11 @@ const { rawScript } = Astro.props;
 const rawScriptString = JSON.stringify(rawScript);
 const script = normaliseScript(rawScript);
 
+
+const qrPath = fixDoubleSlashPaths(
+  new URL(`${Astro.url.pathname}/qr.svg`, Astro.url),
+);
+
 const downloadPath = fixDoubleSlashPaths(
   new URL(`${Astro.url.pathname}/json`, Astro.url),
 );
@@ -48,6 +53,7 @@ const downloadFilename = `${(script.name || "script").replace(/[\\/:*?"<>|]+/g, 
         <button type="submit" class="link-button">Edit</button>
       </form>
     </li>
+    <li><a href={qrPath}>QR Code</a></li>
   </ul>
 
   <ScriptDisplay script={script} />
