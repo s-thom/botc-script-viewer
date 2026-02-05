@@ -1,5 +1,6 @@
+import { Buffer } from "node:buffer";
 import { createWriteStream } from "node:fs";
-import { copyFile, mkdir, stat } from "node:fs/promises";
+import { copyFile, mkdir, stat, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { Readable } from "node:stream";
 import { finished } from "node:stream/promises";
@@ -24,7 +25,7 @@ if (!scriptMatch) {
   throw new Error("Script tag not found in HTML");
 }
 
-console.log("Fetching script");
+console.log("Fetching script", `https://botc.app${scriptMatch[1]}`);
 const scriptRequest = await fetch(`https://botc.app${scriptMatch[1]}`);
 if (!scriptRequest.ok) {
   throw new Error(`HTTP error! status: ${pageRequest.status}`);
@@ -32,67 +33,112 @@ if (!scriptRequest.ok) {
 
 const scriptContent = await scriptRequest.text();
 
-const iconMatches = Array.from(
-  scriptContent.matchAll(
-    /"(\/assets\/([^"]+(?:_[eg])?)-[A-Za-z0-9_-]{8}.webp)"/gm,
-  ),
-);
+const assetNamesToIds = new Map<string, string>();
+for (const match of Array.from(
+  scriptContent.matchAll(/"\/src\/assets\/icons\/([^"]+).webp":([\w$]+)\b/g),
+)) {
+  const [, assetName, id] = match;
 
-const originalFilenamesById: Record<string, string> = {};
-for (const match of iconMatches) {
-  if (!originalFilenamesById[match[2]]) {
-    originalFilenamesById[match[2]] = match[1];
+  if (assetNamesToIds.has(assetName)) {
+    if (assetNamesToIds.get(assetName) !== id) {
+      console.warn(
+        `Original ${assetName} exists multiple times with different identifiers`,
+      );
+    }
+
+    continue;
   }
+
+  assetNamesToIds.set(assetName, id);
 }
 
-const iconsToFetch: Record<string, string> = {};
+const assetIdsToUrls = new Map<string, string>();
+for (const match of Array.from(
+  scriptContent.matchAll(
+    /\b([\w$]+)\b="(\/assets\/[^"]+-[A-Za-z0-9_-]{8}\.webp|data:image\/webp;base64,[^"]+)"/g,
+  ),
+)) {
+  const [, id, url] = match;
+
+  if (assetIdsToUrls.has(id)) {
+    if (assetIdsToUrls.get(id) !== url) {
+      console.warn(
+        `Actual ${id} exists multiple times with different identifiers`,
+      );
+    }
+
+    continue;
+  }
+
+  assetIdsToUrls.set(id, url);
+}
+
+const toFetchMap = new Map<string, string>();
 for (const role of data.roles) {
   if (role.edition === "special") {
+    toFetchMap.set(role.id, role.id);
     continue;
   }
 
   switch (role.team) {
     case "traveller":
-      iconsToFetch[role.id] = role.id;
+      toFetchMap.set(role.id, role.id);
       break;
     case "townsfolk":
     case "outsider":
-      iconsToFetch[role.id] = `${role.id}_g`;
+      toFetchMap.set(role.id, `${role.id}_g`);
       break;
     case "minion":
     case "demon":
-      iconsToFetch[role.id] = `${role.id}_e`;
+      toFetchMap.set(role.id, `${role.id}_e`);
       break;
     case "fabled":
     case "loric":
-      iconsToFetch[role.id] = role.id;
+      toFetchMap.set(role.id, role.id);
       break;
     default:
   }
 }
 
-originalFilenamesById.minioninfo = originalFilenamesById["minion-info"];
-originalFilenamesById.demoninfo = originalFilenamesById["demon-info"];
-iconsToFetch.townsfolk = "townsfolk_g";
-iconsToFetch.outsider = "outsider_g";
-iconsToFetch.minion = "minion_e";
-iconsToFetch.demon = "demon_e";
-iconsToFetch.traveller = "traveller";
-iconsToFetch.fabled = "fabled";
-iconsToFetch.loric = "loric";
-iconsToFetch.demoninfo = "demoninfo";
-iconsToFetch.minioninfo = "minioninfo";
+toFetchMap.set("townsfolk", "townsfolk_g");
+toFetchMap.set("outsider", "outsider_g");
+toFetchMap.set("minion", "minion_e");
+toFetchMap.set("demon", "demon_e");
+toFetchMap.set("traveller", "traveller");
+toFetchMap.set("fabled", "fabled");
+toFetchMap.set("loric", "loric");
+
+toFetchMap.set("minioninfo", "minion-info");
+toFetchMap.set("demoninfo", "demon-info");
+toFetchMap.set("dusk", "dusk");
+toFetchMap.set("dawn", "dawn");
 
 await mkdir(CACHE_DIR, { recursive: true });
 await mkdir(DESTINATION_DIR, { recursive: true });
 
-async function saveIconToCache(url: string, filename: string) {
+async function downloadAndSaveIcon(url: string, filename: string) {
   console.log(`Downloading ${filename}...`);
 
   const res = await fetch(url);
   const destination = join(CACHE_DIR, filename);
   const fileStream = createWriteStream(destination, { flags: "w" });
   await finished(Readable.fromWeb(res.body as ReadableStream).pipe(fileStream));
+
+  console.log(`Saved ${filename}`);
+}
+
+async function downloadAndSaveDataUrl(url: string, filename: string) {
+  console.log(`Writing ${filename}...`);
+
+  const match = url.match(/^data:image\/webp;base64,([^"]+)$/);
+  if (!match) {
+    throw new Error(`URL for ${filename} was not a data URL`);
+  }
+  const [, base64] = match;
+  const buffer = Buffer.from(base64, "base64");
+
+  const destination = join(CACHE_DIR, filename);
+  await writeFile(destination, buffer);
 
   console.log(`Saved ${filename}`);
 }
@@ -104,7 +150,7 @@ const requestQueue = new PQueue({
   interval: 1000,
   intervalCap: 6,
 });
-async function processIcon(characterId: string, originalFileName: string) {
+async function processIcon(characterId: string, assetName: string) {
   const filename = `${characterId}.webp`;
 
   importLines.push(
@@ -123,16 +169,26 @@ async function processIcon(characterId: string, originalFileName: string) {
       await stat(cacheFilePath);
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err2) {
-      // Not in destination dir, check cache dir
+      // Not in cache dir, create
 
-      const urlPath = originalFilenamesById[originalFileName];
-      if (urlPath === undefined) {
-        console.warn(`No icon known for ${originalFileName}`);
+      const assetId = assetNamesToIds.get(assetName);
+      if (!assetId) {
+        console.warn(`No asset ID known for ${assetName}`);
         return;
       }
 
-      const url = `https://botc.app${urlPath}`;
-      await requestQueue.add(() => saveIconToCache(url, filename));
+      const urlPath = assetIdsToUrls.get(assetId);
+      if (!urlPath) {
+        console.warn(`No asset URL known for ${assetName} (${assetId})`);
+        return;
+      }
+
+      if (urlPath.startsWith("data:")) {
+        await downloadAndSaveDataUrl(urlPath, filename);
+      } else {
+        const url = `https://botc.app${urlPath}`;
+        await requestQueue.add(() => downloadAndSaveIcon(url, filename));
+      }
     }
 
     // Should be saved now, copy to destination dir
@@ -141,7 +197,7 @@ async function processIcon(characterId: string, originalFileName: string) {
 }
 
 const queue = new PQueue({ concurrency: 5 });
-Object.entries(iconsToFetch)
+Array.from(toFetchMap.entries())
   .sort((a, b) => a[0].localeCompare(b[0]))
   .forEach(([id, originalFileName]) =>
     queue.add(() => processIcon(id, originalFileName)),
