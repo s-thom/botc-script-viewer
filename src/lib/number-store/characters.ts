@@ -190,3 +190,9 @@ export const ORDERED_CHARACTER_LIST = [
   "hindu",
   "pope",
 ];
+
+ORDERED_CHARACTER_LIST.length = 255;
+ORDERED_CHARACTER_LIST[251] = "minioninfo";
+ORDERED_CHARACTER_LIST[252] = "demoninfo";
+ORDERED_CHARACTER_LIST[253] = "dusk";
+ORDERED_CHARACTER_LIST[254] = "dawn";

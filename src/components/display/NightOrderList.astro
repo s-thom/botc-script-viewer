@@ -24,9 +24,17 @@ const { info, class: className } = Astro.props;
           />
         ) : (
           <CharacterListItem
-            character={null}
+            character={{
+              edition: "special",
+              team: "fabled",
+              id: rule.id,
+              name: rule.name,
+              ability: rule.reminderText ?? "",
+            }}
             title={rule.name}
             description={rule.reminderText}
+            iconSize={32}
+            iconClass="night-order-icon-special"
           />
         )}
       </li>
@@ -55,5 +63,10 @@ const { info, class: className } = Astro.props;
 
   .night-order-link {
     text-decoration: none;
+  }
+
+  :global(.character-icon.night-order-icon-special) {
+    margin-inline: 8px;
+    translate: -4px 0px;
   }
 </style>

@@ -23,13 +23,36 @@ const OTHER_NIGHT_LOOKUP = data.nightOrder.otherNight.reduce<
 function getSpecialNightInfo(id: string): SpecialNightInfo | null {
   switch (id) {
     case "dusk":
-      return { type: "special", id, name: "Dusk" };
+      return {
+        type: "special",
+        id,
+        name: "Dusk",
+        reminderText:
+          "Check that all eyes are closed. Some Travellers, Fabled, & Loric act.",
+      };
     case "dawn":
-      return { type: "special", id, name: "Dawn" };
+      return {
+        type: "special",
+        id,
+        name: "Dawn",
+        reminderText: "Wait a few seconds. Call for eyes open.",
+      };
     case "minioninfo":
-      return { type: "special", id, name: "Minion Info" };
+      return {
+        type: "special",
+        id,
+        name: "Minion Info",
+        reminderText:
+          "If there are 7 or more players, wake all Minions: Show the *THIS IS THE DEMON* token. Point to the demon.",
+      };
     case "demoninfo":
-      return { type: "special", id, name: "Demon Info" };
+      return {
+        type: "special",
+        id,
+        name: "Demon Info",
+        reminderText:
+          "If there are 7 or more players, wake the Demon: Show the *THESE ARE YOUR MINIONS* token. Point to all Minions. Show the *THESE CHARACTERS ARE NOT IN PLAY* token. Show 3 not-in-play good character tokens.",
+      };
     default:
       return null;
   }
@@ -43,6 +66,9 @@ function getNightOrderArrays(
   let otherNight: NormalisedScript["otherNight"];
   const missingCharacters: ScriptCharacter[] = [];
   const invalidCharacterIds = new Set<string>();
+
+  const hasSpecialId = (arr: NormalisedScript["firstNight"], id: string) =>
+    arr.some((item) => item.type === "special" && item.id === id);
 
   if (meta.firstNight) {
     firstNight = [];
@@ -93,6 +119,29 @@ function getNightOrderArrays(
       }));
   }
 
+  if (!hasSpecialId(firstNight, "dusk")) {
+    firstNight.unshift(getSpecialNightInfo("dusk")!);
+  }
+  if (!hasSpecialId(firstNight, "minioninfo")) {
+    const duskIndex = firstNight.findIndex(
+      (item) => item.type === "special" && item.id === "dusk",
+    );
+    firstNight.splice(duskIndex + 1, 0, getSpecialNightInfo("minioninfo")!);
+  }
+  if (!hasSpecialId(firstNight, "demoninfo")) {
+    const minionInfoIndex = firstNight.findIndex(
+      (item) => item.type === "special" && item.id === "minioninfo",
+    );
+    firstNight.splice(
+      minionInfoIndex + 1,
+      0,
+      getSpecialNightInfo("demoninfo")!,
+    );
+  }
+  if (!hasSpecialId(firstNight, "dawn")) {
+    firstNight.push(getSpecialNightInfo("dawn")!);
+  }
+
   if (meta.otherNight) {
     otherNight = [];
     for (const id of meta.otherNight) {
@@ -140,6 +189,14 @@ function getNightOrderArrays(
         character: item.character,
         reminderText: item.character.otherNightReminder,
       }));
+  }
+
+  // Ensure other night has the required special markers
+  if (!hasSpecialId(otherNight, "dusk")) {
+    otherNight.unshift(getSpecialNightInfo("dusk")!);
+  }
+  if (!hasSpecialId(otherNight, "dawn")) {
+    otherNight.push(getSpecialNightInfo("dawn")!);
   }
 
   return {

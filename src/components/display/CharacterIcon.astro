@@ -74,21 +74,10 @@ function getCharacterIcon(character: ScriptCharacter): string | ImageMetadata {
   }
 
   // Role has no image defined, use local image if official character.
-  if (CHARACTERS_BY_ID.get(character.id) !== undefined) {
-    if (character.team === "traveller") {
-      return (
-        (CHARACTER_ICONS as Partial<Record<string, ImageMetadata>>)[
-          character.id
-        ] ?? getFallbackIcon(character.team)
-      );
-    }
-    if (character.team === "fabled") {
-      return (
-        (CHARACTER_ICONS as Partial<Record<string, ImageMetadata>>)[
-          character.id
-        ] ?? getFallbackIcon(character.team)
-      );
-    }
+  if (
+    character.edition === "special" ||
+    CHARACTERS_BY_ID.get(character.id) !== undefined
+  ) {
     return (
       (CHARACTER_ICONS as Partial<Record<string, ImageMetadata>>)[
         character.id
@@ -170,3 +159,9 @@ const fallback: FallbackProps = {
       );
     });
 </script>
+
+<style>
+  .character-icon {
+    aspect-ratio: 1/1;
+  }
+</style>

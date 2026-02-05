@@ -3,7 +3,13 @@ import type { ScriptCharacter } from "../src/generated/script-schema";
 import { ORDERED_CHARACTER_LIST } from "../src/lib/number-store/characters.ts";
 
 const nsCharacterSet = new Set(ORDERED_CHARACTER_LIST);
-const knownExceptions = new Set(["dusk", "dawn", "minioninfo", "demoninfo"]);
+const knownExceptions = new Set([
+  "dusk",
+  "dawn",
+  "minioninfo",
+  "demoninfo",
+  undefined,
+]);
 
 const missingSet = new Set<ScriptCharacter>();
 

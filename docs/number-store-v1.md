@@ -47,7 +47,7 @@ The remaining 253 possible type values are either assigned to characters directl
 
 ## Standard Characters
 
-Standard characters are not encoded using the Type-Length-Value scheme, and are instead direct mappings from character type to a number. The numbering starts at `0x1` to leave space for the script metadata at `0x0`.
+Standard characters are not encoded using the Type-Length-Value scheme, and are instead direct mappings from character type to a number. The numbering starts at `0x1` to leave space for the script metadata at `0x0`, and ends at `0xFE` to leave space for arbitrary JSON at `0xFF`.
 
 The exact mapping of characters is as follows:
 
@@ -68,6 +68,7 @@ The exact mapping of characters is as follows:
   - Travellers in alphabetical order.
   - Fabled in alphabetical order.
 - Any future released characters, in order of release.
+- Special night order items are at the end of the range.
 
 Note: Any Loric characters that were originally classified as Fabled are in the place they would have been at the time.
 
@@ -254,6 +255,15 @@ Note: Any Loric characters that were originally classified as Fabled are in the 
 | Big Wig          | bigwig         | `0xae` |
 | Tor              | tor            | `0xaf` |
 | Zenomancer       | zenomancer     | `0xb0` |
+
+Special
+
+| Character name | Id         | Value  |
+| -------------- | ---------- | ------ |
+| Minion Info    | minioninfo | `0xfb` |
+| Demon Info     | demoninfo  | `0xfc` |
+| Dusk           | dusk       | `0xfd` |
+| Dawn           | dawn       | `0xfe` |
 
 </details>
 

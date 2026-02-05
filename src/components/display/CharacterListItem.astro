@@ -13,6 +13,8 @@ export interface Props {
   character2Link?: string;
   titleLink?: string;
   wikiLink?: string;
+  iconSize?: number;
+  iconClass?: string;
 }
 
 const {
@@ -24,6 +26,8 @@ const {
   character2Link,
   titleLink,
   wikiLink,
+  iconSize = 48,
+  iconClass,
 } = Astro.props;
 ---
 
@@ -34,15 +38,15 @@ const {
         <a class="character-icon-link" href={character1Link}>
           <CharacterIcon
             character={character}
-            size={48}
-            class="character-icon-offset"
+            size={iconSize}
+            class:list={["character-icon-offset", iconClass]}
           />
         </a>
       ) : (
         <CharacterIcon
           character={character}
-          size={48}
-          class="character-icon-offset"
+          size={iconSize}
+          class:list={["character-icon-offset", iconClass]}
         />
       )
     ) : (
@@ -55,15 +59,15 @@ const {
         <a class="character-icon-link" href={character2Link}>
           <CharacterIcon
             character={character2}
-            size={48}
-            class="character-icon-offset"
+            size={iconSize}
+            class:list={["character-icon-offset", iconClass]}
           />
         </a>
       ) : (
         <CharacterIcon
           character={character2}
-          size={48}
-          class="character-icon-offset"
+          size={iconSize}
+          class:list={["character-icon-offset", iconClass]}
         />
       ))
   }
