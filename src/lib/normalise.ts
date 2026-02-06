@@ -67,8 +67,26 @@ function getNightOrderArrays(
   const missingCharacters: ScriptCharacter[] = [];
   const invalidCharacterIds = new Set<string>();
 
-  const hasSpecialId = (arr: NormalisedScript["firstNight"], id: string) =>
-    arr.some((item) => item.type === "special" && item.id === id);
+  function hasSpecialId(arr: NormalisedScript["firstNight"], id: string) {
+    return arr.some((item) => item.type === "special" && item.id === id);
+  }
+
+  function insertSpecialAtPosition(
+    arr: NormalisedScript["firstNight"],
+    specialId: string,
+    lookup: Map<string, number>,
+    getCharacterOrder: (character: ScriptCharacter) => number | undefined,
+  ) {
+    const specialOrder = lookup.get(specialId) ?? 0;
+    const insertIndex = arr.findIndex((item) => {
+      if (item.type === "special") return false;
+      const charOrder =
+        getCharacterOrder(item.character) ?? lookup.get(item.character.id) ?? 0;
+      return charOrder > specialOrder;
+    });
+    const position = insertIndex === -1 ? arr.length : insertIndex;
+    arr.splice(position, 0, getSpecialNightInfo(specialId)!);
+  }
 
   if (meta.firstNight) {
     firstNight = [];
@@ -111,19 +129,19 @@ function getNightOrderArrays(
     firstNight.unshift(getSpecialNightInfo("dusk")!);
   }
   if (!hasSpecialId(firstNight, "minioninfo")) {
-    const duskIndex = firstNight.findIndex(
-      (item) => item.type === "special" && item.id === "dusk",
+    insertSpecialAtPosition(
+      firstNight,
+      "minioninfo",
+      FIRST_NIGHT_LOOKUP,
+      (character) => character.firstNight,
     );
-    firstNight.splice(duskIndex + 1, 0, getSpecialNightInfo("minioninfo")!);
   }
   if (!hasSpecialId(firstNight, "demoninfo")) {
-    const minionInfoIndex = firstNight.findIndex(
-      (item) => item.type === "special" && item.id === "minioninfo",
-    );
-    firstNight.splice(
-      minionInfoIndex + 1,
-      0,
-      getSpecialNightInfo("demoninfo")!,
+    insertSpecialAtPosition(
+      firstNight,
+      "demoninfo",
+      FIRST_NIGHT_LOOKUP,
+      (character) => character.firstNight,
     );
   }
   if (!hasSpecialId(firstNight, "dawn")) {
