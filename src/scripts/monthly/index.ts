@@ -88,5 +88,5 @@ const ALL_MONTHLY_SCRIPTS: (LocalScriptDefinition & { date: Date })[] = [
 ];
 
 export const MONTHLY_SCRIPTS = ALL_MONTHLY_SCRIPTS.filter(
-  (script) => script.date.getDate() <= Date.now(),
+  (script) => script.date.getTime() <= Date.now(),
 );
