@@ -19,7 +19,7 @@ if (!pageRequest.ok) {
 
 const pageContent = await pageRequest.text();
 const scriptMatch = pageContent.match(
-  /src="(\/assets\/index-[A-Za-z0-9-]{8}.js)"/,
+  /src="(\/assets\/index-[A-Za-z0-9_-]{8}.js)"/,
 );
 if (!scriptMatch) {
   throw new Error("Script tag not found in HTML");
@@ -35,7 +35,9 @@ const scriptContent = await scriptRequest.text();
 
 const assetNamesToIds = new Map<string, string>();
 for (const match of Array.from(
-  scriptContent.matchAll(/"\/src\/assets\/icons\/([^"]+).webp":([\w$]+)\b/g),
+  scriptContent.matchAll(
+    /"\/src\/assets\/icons\/[^/]+\/([^"/]+).webp":([\w$]+)\b/g,
+  ),
 )) {
   const [, assetName, id] = match;
 

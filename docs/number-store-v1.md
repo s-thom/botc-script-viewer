@@ -255,6 +255,9 @@ Note: Any Loric characters that were originally classified as Fabled are in the 
 | Big Wig          | bigwig         | `0xae` |
 | Tor              | tor            | `0xaf` |
 | Zenomancer       | zenomancer     | `0xb0` |
+| Hindu            | hindu          | `0xb1` |
+| Pope             | pope           | `0xb2` |
+| Ventriloquist    | ventriloquist  | `0xb3` |
 
 Special
 

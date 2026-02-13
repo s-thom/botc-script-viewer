@@ -799,4 +799,8 @@ export const CHARACTER_METADATA: Record<
     edition: "recent-release",
     actionType: "traveller",
   },
+  ventriloquist: {
+    edition: "recent-release",
+    actionType: "fabled",
+  },
 };

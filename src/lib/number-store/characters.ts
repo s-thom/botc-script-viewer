@@ -189,6 +189,7 @@ export const ORDERED_CHARACTER_LIST = [
   "zenomancer",
   "hindu",
   "pope",
+  "ventriloquist",
 ];
 
 ORDERED_CHARACTER_LIST.length = 255;
