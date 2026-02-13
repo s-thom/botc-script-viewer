@@ -1,0 +1,40 @@
+[
+  {
+    "id": "_meta",
+    "name": "The Minotaur's Labyrinth",
+    "author": "Urban Minotaur",
+    "bootlegger": [
+      "There are two storytellers. One cannot lie, and one cannot tell the truth. Players are not told which is which.",
+      "Whenever a good player would receive information due to their ability, they must choose which storyteller to consult.",
+      "Evil players receive their information as normal.",
+      "Both storytellers must always tell the truth about mechanical or rules questions.",
+      "The mathematician's ability also includes players who receive false information due to the Bootlegger."
+    ]
+  },
+  { "id": "investigator" },
+  { "id": "clockmaker" },
+  { "id": "mathematician" },
+  { "id": "fortuneteller" },
+  { "id": "towncrier" },
+  { "id": "monk" },
+  { "id": "savant" },
+  { "id": "seamstress" },
+  { "id": "professor" },
+  { "id": "slayer" },
+  { "id": "fisherman" },
+  { "id": "cannibal" },
+  { "id": "ravenkeeper" },
+  { "id": "recluse" },
+  { "id": "klutz" },
+  { "id": "mutant" },
+  { "id": "politician" },
+  { "id": "godfather" },
+  { "id": "witch" },
+  { "id": "cerenovus" },
+  { "id": "scarletwoman" },
+  { "id": "imp" },
+  { "id": "shabaloth" },
+  { "id": "po" },
+  { "id": "fanggu" },
+  { "id": "bootlegger" }
+]

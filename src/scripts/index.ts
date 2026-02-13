@@ -1,12 +1,13 @@
 import type { LocalScriptCollection } from "../types/botc";
 import { BASE_3 } from "./base3";
 import { CAROUSEL_COLLECTION } from "./carousel-collection";
+import { MONTHLY_SCRIPTS } from "./monthly";
 import { RANDOM_SCRIPTS } from "./random";
 import { STREAMER_STACK } from "./streamer-stack";
 import { WORLD_CUP_25 } from "./wc25";
 
 export const LOCAL_SCRIPT_COLLECTIONS: Record<
-  "base3" | "carousel" | "wc25" | "s2" | "v",
+  "base3" | "carousel" | "wc25" | "s2" | "v" | "month",
   LocalScriptCollection
 > = {
   base3: {
@@ -38,5 +39,10 @@ export const LOCAL_SCRIPT_COLLECTIONS: Record<
       "Scripts that I've collected on my travels. This is not in any way a “best of” list.",
     scripts: RANDOM_SCRIPTS,
     showOnHome: false,
+  },
+  month: {
+    title: "Script of the month",
+    description: "The featured scripts of the month in the official app. ",
+    scripts: MONTHLY_SCRIPTS,
   },
 };
