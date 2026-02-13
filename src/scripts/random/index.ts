@@ -27,4 +27,17 @@ export const RANDOM_SCRIPTS: LocalScriptDefinition[] = [
     character: "zombuul",
     getScript: () => import("./moonUp.json").then((m) => m.default),
   },
+  {
+    id: "GaslightGatekeepGiggle",
+    title: "Gaslight, Gatekeep, Giggle",
+    character: "marionette",
+    getScript: () =>
+      import("./GaslightGatekeepGiggle.json").then((m) => m.default),
+  },
+  {
+    id: "Regalia",
+    title: "Regalia",
+    character: "king",
+    getScript: () => import("./Regalia.json").then((m) => m.default),
+  },
 ];
