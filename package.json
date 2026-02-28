@@ -16,25 +16,25 @@
     "@astrojs/cloudflare": "^12.6.12",
     "@astrojs/svelte": "^7.2.5",
     "@thisux/sveltednd": "^0.0.20",
-    "astro": "^5.17.1",
+    "astro": "^5.18.0",
     "clsx": "^2.1.1",
     "idb": "^8.0.3",
     "nanoid": "^5.1.6",
     "qrcode-svg": "^1.1.0",
-    "svelte": "^5.49.2",
+    "svelte": "^5.53.6",
     "svelte-codicons": "^0.20.0"
   },
   "devDependencies": {
     "@eslint/compat": "^2.0.2",
     "@eslint/css": "^0.14.1",
-    "@eslint/js": "^9.39.2",
+    "@eslint/js": "^10.0.1",
     "@eslint/markdown": "^7.5.1",
-    "@types/node": "^24.10.1",
+    "@types/node": "^24.11.0",
     "@types/qrcode-svg": "^1.1.5",
     "@types/umami": "^2.10.1",
-    "eslint": "^9.39.2",
+    "eslint": "^10.0.2",
     "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-astro": "^1.5.0",
+    "eslint-plugin-astro": "^1.6.0",
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-prettier": "^5.5.5",
     "globals": "^17.3.0",
@@ -44,7 +44,7 @@
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-organize-imports": "^4.3.0",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.54.0",
-    "wrangler": "^4.63.0"
+    "typescript-eslint": "^8.56.1",
+    "wrangler": "^4.69.0"
   }
 }
