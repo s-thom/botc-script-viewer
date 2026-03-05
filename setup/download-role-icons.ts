@@ -36,7 +36,7 @@ const scriptContent = await scriptRequest.text();
 const assetNamesToIds = new Map<string, string>();
 for (const match of Array.from(
   scriptContent.matchAll(
-    /"\/src\/assets\/icons\/[^/]+\/([^"/]+).webp":([\w$]+)\b/g,
+    /"\/src\/assets\/icons\/(?:[^/]+\/)?([^"/]+).webp":([\w$]+)\b/g,
   ),
 )) {
   const [, assetName, id] = match;
@@ -57,7 +57,7 @@ for (const match of Array.from(
 const assetIdsToUrls = new Map<string, string>();
 for (const match of Array.from(
   scriptContent.matchAll(
-    /\b([\w$]+)\b="(\/assets\/[^"]+-[A-Za-z0-9_-]{8}\.webp|data:image\/webp;base64,[^"]+)"/g,
+    /((?:\b|\$)[\w]+)(?:\b|\$)="(\/assets\/[^"]+-[A-Za-z0-9_-]{8}\.webp|data:image\/webp;base64,[^"]+)"/g,
   ),
 )) {
   const [, id, url] = match;
