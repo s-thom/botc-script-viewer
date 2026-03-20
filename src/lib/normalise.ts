@@ -1,4 +1,4 @@
-import data from "../data/data.json";
+import data from "../data/data.json" with { type: "json" };
 import type {
   BloodOnTheClocktowerCustomScript,
   ScriptCharacter,
