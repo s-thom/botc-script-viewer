@@ -30,7 +30,7 @@
 
   const { result }: Props = $props();
 
-  const LevelIcon = LEVEL_ICONS[result.level];
+  const LevelIcon = $derived(LEVEL_ICONS[result.level]);
 
   function addCharacter(character: ScriptCharacter) {
     scriptState.characters[character.team].push(character);

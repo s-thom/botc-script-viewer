@@ -12,12 +12,13 @@
 
   const { character, children }: Props = $props();
 
-  const actualCharacter: ScriptCharacter | undefined =
+  const actualCharacter: ScriptCharacter | undefined = $derived(
     character === undefined
       ? undefined
       : typeof character === "object"
         ? character
-        : CHARACTERS_BY_ID.get(character);
+        : CHARACTERS_BY_ID.get(character),
+  );
 </script>
 
 <div class="info-area">

@@ -71,8 +71,8 @@
 <script lang="ts">
   const { character, class: className }: CharacterIconProps = $props();
 
-  const fallback = getTeamFallbackIcon(character);
-  const src = getCharacterIconUrl(character);
+  const fallback = $derived(getTeamFallbackIcon(character));
+  const src = $derived(getCharacterIconUrl(character));
 </script>
 
 <div class={["icon-container", className]}>

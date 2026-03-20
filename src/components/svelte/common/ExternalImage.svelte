@@ -25,7 +25,7 @@
 <script lang="ts">
   const { src: srcProp, alt, class: className }: ExternalImageProps = $props();
 
-  const src = validateImageUrl(srcProp);
+  const src = $derived(validateImageUrl(srcProp));
 </script>
 
 <div class={["image-container", className]}>
