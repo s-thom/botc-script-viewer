@@ -803,4 +803,12 @@ export const CHARACTER_METADATA: Record<
     edition: "recent-release",
     actionType: "fabled",
   },
+  godofug: {
+    edition: "recent-release",
+    actionType: "fabled",
+  },
+  knaves: {
+    edition: "recent-release",
+    actionType: "fabled",
+  },
 };
