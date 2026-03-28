@@ -3,6 +3,7 @@ import ScriptDisplay from "../components/display/ScriptDisplay.astro";
 import SkipList from "../components/display/SkipList.astro";
 import PageView from "../components/misc/PageView.astro";
 import type { BloodOnTheClocktowerCustomScript } from "../generated/script-schema";
+import { compressToBase64, stringToBytes } from "../lib/compression";
 import { normaliseScript } from "../lib/normalise";
 import { fixDoubleSlashPaths } from "../lib/url";
 import TopBarLayout from "./TopBarLayout.astro";
@@ -16,7 +17,6 @@ const { rawScript } = Astro.props;
 const rawScriptString = JSON.stringify(rawScript);
 const script = normaliseScript(rawScript);
 
-
 const qrPath = fixDoubleSlashPaths(
   new URL(`${Astro.url.pathname}/qr.svg`, Astro.url),
 );
@@ -25,6 +25,10 @@ const downloadPath = fixDoubleSlashPaths(
   new URL(`${Astro.url.pathname}/json`, Astro.url),
 );
 const downloadFilename = `${(script.name || "script").replace(/[\\/:*?"<>|]+/g, "_")}.json`;
+
+const rawScriptBytes = stringToBytes(rawScriptString);
+const rawScriptB64 = await compressToBase64(rawScriptBytes, "gzip", false);
+const scriptBuilderUrl = `https://script.bloodontheclocktower.com/?script=${encodeURIComponent(rawScriptB64)}`;
 ---
 
 <TopBarLayout
@@ -48,10 +52,12 @@ const downloadFilename = `${(script.name || "script").replace(/[\\/:*?"<>|]+/g, 
       <button type="button" class="link-button" id="print">Print</button>
     </li>
     <li>
-      <form action="/builder" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="script" value={rawScriptString} />
-        <button type="submit" class="link-button">Edit</button>
-      </form>
+      <a
+        href={scriptBuilderUrl}
+        rel="external"
+        data-umami-event="script-open-official-builder"
+        >Edit in official script tool</a
+      >
     </li>
     <li><a href={qrPath}>QR code</a></li>
   </ul>
@@ -71,6 +77,7 @@ const downloadFilename = `${(script.name || "script").replace(/[\\/:*?"<>|]+/g, 
   .nav-links {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     padding-inline-start: 0;
     gap: 0.5rem;
     list-style: none;

@@ -1,11 +1,13 @@
 ---
 export const prerender = false;
 
+import Footer from "../components/misc/Footer.astro";
 import PageView from "../components/misc/PageView.astro";
-import ScriptBuilderApp from "../components/svelte/builder/ScriptBuilderApp.svelte";
-import TopBarLayout from "../layouts/TopBarLayout.astro";
+import SavedScriptList from "../components/svelte/builder/SavedScriptList.svelte";
+import CenteredLayout from "../layouts/CenteredLayout.astro";
+import { compressToBase64, stringToBytes } from "../lib/compression";
 
-let scriptString: string | undefined;
+let scriptBuilderUrl: string | undefined;
 if (Astro.request.method === "POST") {
   try {
     const data = await Astro.request.formData();
@@ -22,7 +24,9 @@ if (Astro.request.method === "POST") {
     // Ensure it actually parses to JSON
     JSON.parse(value);
 
-    scriptString = value;
+    const rawScriptBytes = stringToBytes(value);
+    const rawScriptB64 = await compressToBase64(rawScriptBytes, "gzip", false);
+    scriptBuilderUrl = `https://script.bloodontheclocktower.com/?script=${encodeURIComponent(rawScriptB64)}`;
   } catch (error) {
     if (error instanceof Error) {
       console.error(error.message);
@@ -31,40 +35,46 @@ if (Astro.request.method === "POST") {
 }
 ---
 
-<TopBarLayout meta={{}} heading="Script Builder">
+<CenteredLayout meta={{}} heading="Blood on the Clocktower Script Viewer">
   <Fragment slot="head">
     <PageView />
   </Fragment>
 
-  <div
-    id="top-nav-links-container"
-    class="top-nav-links-container"
-    slot="items-start"
-  >
-  </div>
-
   {
-    scriptString && (
-      <script
-        id="post-data"
-        is:inline
-        type="application/json"
-        set:html={scriptString}
-      />
+    scriptBuilderUrl ? (
+      <a
+        href={scriptBuilderUrl}
+        rel="external"
+        class="button"
+        data-umami-event="script-open-official-builder"
+      >
+        Edit in official script tool
+      </a>
+    ) : (
+      <a
+        href="https://script.bloodontheclocktower.com/"
+        rel="external"
+        class="button"
+        data-umami-event="script-open-official-builder"
+      >
+        Open official script tool
+      </a>
     )
   }
 
-  <div class="builder-wrapper">
-    <ScriptBuilderApp client:load />
-  </div>
-</TopBarLayout>
+  <p>
+    Hi, this page used to have a script builder on it. I was working on this
+    before the announcement of the new official script builder, and released it
+    at around the same time. It was still missing a couple of features, and the
+    new script builder does everything this one set out to.
+  </p>
+  <p>
+    If you had any scripts saved using this builder, you should see a list of
+    links below for the scripts you had saved. Clicking them will open that
+    script in the official script builder.
+  </p>
+  <SavedScriptList client:idle />
+  <Footer />
+</CenteredLayout>
 
-<style>
-  .top-nav-links-container {
-    display: contents;
-  }
-
-  .builder-wrapper {
-    display: contents;
-  }
-</style>
+<style></style>
