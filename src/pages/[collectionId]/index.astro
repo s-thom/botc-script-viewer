@@ -27,13 +27,25 @@ const collection = LOCAL_SCRIPT_COLLECTIONS[collectionId];
     title: `Collection: ${collection.title} - BotC Script Viewer`,
     description: collection.description,
   }}
-  heading={`Collection: ${collection.title}`}
 >
   <Fragment slot="head">
     <PageView />
   </Fragment>
 
-  <p>{collection.description}</p>
-  <ScriptList collectionId={collectionId} scripts={collection.scripts} />
+  <div class="content">
+    <h2>{`Collection: ${collection.title}`}</h2>
+    <p>{collection.description}</p>
+    <ScriptList collectionId={collectionId} scripts={collection.scripts} />
+  </div>
   <Footer />
 </CenteredLayout>
+
+<style>
+  .content {
+    width: 100%;
+
+    & > :global(*):not(:first-child) {
+      margin-block-start: 2em;
+    }
+  }
+</style>

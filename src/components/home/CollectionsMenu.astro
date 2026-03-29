@@ -4,98 +4,29 @@ import ScriptList from "./ScriptList.astro";
 ---
 
 <div class="box">
-  <p>Select from an existing collection.</p>
+  <h2>Select from an existing collection.</h2>
 
-  <div class="menu-box">
-    {
-      Object.entries(LOCAL_SCRIPT_COLLECTIONS)
-        .filter(([, collection]) => collection.showOnHome !== false)
-        .map(([collectionId, collection]) => (
-          <details class="menu" name="script-collection">
-            <summary class="menu-trigger">{collection.title}</summary>
-            <div class="menu-popover">
-              <ScriptList
-                collectionId={collectionId}
-                scripts={collection.scripts}
-                loading="lazy"
-              />
-            </div>
-          </details>
-        ))
-    }
-  </div>
+  {
+    Object.entries(LOCAL_SCRIPT_COLLECTIONS)
+      .filter(([, collection]) => collection.showOnHome !== false)
+      .map(([collectionId, collection]) => (
+        <section>
+          <h3>{collection.title}</h3>
+          <ScriptList
+            collectionId={collectionId}
+            scripts={collection.scripts}
+            loading="lazy"
+          />
+        </section>
+      ))
+  }
 </div>
-
-<script>
-  const POPOVER_PADDING_PX = 20;
-
-  const listeners: (() => void)[] = [];
-  window.addEventListener("resize", () => {
-    listeners.forEach((listener) => listener());
-  });
-
-  const allDetails = document.querySelectorAll<HTMLDetailsElement>(
-    'details.menu[name="script-collection"]',
-  );
-
-  window.addEventListener("click", (event) => {
-    const closest = (event.target as Element).closest(
-      'details.menu[name="script-collection"]',
-    );
-    if (!closest) {
-      for (const details of allDetails) {
-        details.removeAttribute("open");
-      }
-    }
-  });
-
-  allDetails.forEach((details) => {
-    const popover = details.querySelector<HTMLDivElement>("div.menu-popover")!;
-
-    function reposition() {
-      const detailsRect = details.getBoundingClientRect();
-      const popoverRect = popover.getBoundingClientRect();
-
-      const halfDetails = detailsRect.width / 2;
-      const halfPopover = popoverRect.width / 2;
-      let left = halfDetails - halfPopover;
-
-      const maxWidth = window.innerWidth - 2 * POPOVER_PADDING_PX;
-      const screenLeft = left + detailsRect.left;
-      const screenRight = screenLeft + popoverRect.width;
-
-      if (screenRight > window.innerWidth - POPOVER_PADDING_PX) {
-        // Too far to the right, move back.
-        const adjustment =
-          screenRight - (window.innerWidth - POPOVER_PADDING_PX);
-        left -= adjustment;
-      }
-      if (screenLeft < POPOVER_PADDING_PX) {
-        // Too far to the left, move forward.
-        // If there  was an adjustment to the right, this overrides it but that's
-        // fine because the max width should fix that.
-        const adjustment = POPOVER_PADDING_PX - screenLeft;
-        left += adjustment;
-      }
-
-      popover.style.maxWidth = `${maxWidth}px`;
-      popover.style.left = `${left}px`;
-    }
-
-    reposition();
-    // If a max-width change is needed then the position is still wrong after the first time.
-    // The simplest fix is to just run the adjustment again.
-    // Is it hacky? Yes. Does it work? Also yes.
-    reposition();
-    listeners.push(reposition);
-  });
-</script>
 
 <style>
   .box {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 2rem;
     width: 100%;
   }
 

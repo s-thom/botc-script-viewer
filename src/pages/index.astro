@@ -7,27 +7,40 @@ import CenteredLayout from "../layouts/CenteredLayout.astro";
 import UploadForm from "../components/home/UploadForm.astro";
 ---
 
-<CenteredLayout meta={{}} heading="Blood on the Clocktower Script Viewer">
+<CenteredLayout meta={{}}>
   <Fragment slot="head">
     <PageView />
   </Fragment>
 
-  <p>
-    View scripts for <a
-      href="https://bloodontheclocktower.com/"
-      target="_blank"
-      rel="external noreferrer">Blood on the Clocktower</a
-    > in your browser.
-  </p>
-  <div class="grid">
-    <ScriptForm />
-    <UploadForm />
+  <div class="content">
+    <p>
+      View scripts for <a
+        href="https://bloodontheclocktower.com/"
+        target="_blank"
+        rel="external noreferrer">Blood on the Clocktower</a
+      > in your browser.
+    </p>
+
+    <div class="grid">
+      <ScriptForm />
+      <UploadForm />
+    </div>
+
     <CollectionsMenu />
   </div>
+
   <Footer />
 </CenteredLayout>
 
 <style>
+  .content {
+    width: 100%;
+
+    & > :global(*):not(:first-child) {
+      margin-block-start: 2em;
+    }
+  }
+
   .grid {
     display: grid;
     grid-template-columns: 1fr;

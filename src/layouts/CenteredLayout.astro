@@ -5,27 +5,99 @@ import MinimalLayout from "./MinimalLayout.astro";
 
 export interface Props {
   meta: PageMeta;
-  heading: string;
 }
 
-const { meta, heading } = Astro.props;
+const { meta } = Astro.props;
 ---
 
 <MinimalLayout meta={meta}>
   <slot slot="head" name="head" />
 
-  <ThemeToggle />
+  <header class="header">
+    <div class="paper-border">
+      <div class="pattern">
+        <div class="header-content container">
+          <a href="/">
+            <h1 class="heading">Blood on the Clocktower Script Viewer</h1>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div data-theme="dark">
+      <ThemeToggle />
+    </div>
+  </header>
 
   <div class="container">
-    <h1 class="heading">{heading}</h1>
     <slot />
   </div>
 </MinimalLayout>
 
 <style>
+  .header {
+    color: var(--color-header-text);
+    --color-text: var(--color-header-text);
+    filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.5));
+  }
+
+  .paper-border {
+    background: var(--color-header-paper);
+    padding-bottom: 12px;
+  }
+
+  .pattern {
+    background: url("../assets/headerbg.webp") var(--color-header-background);
+  }
+
+  .paper-border,
+  .pattern {
+    clip-path: polygon(
+      0 0,
+      0 100%,
+      24% calc(100% - 10px),
+      45% calc(100% - 3px),
+      80% calc(100% - 12px),
+      100% calc(100% - 9px),
+      100% 0
+    );
+
+    @media (min-width: 500px) {
+      clip-path: polygon(
+        0 0,
+        0 100%,
+        17% calc(100% - 10px),
+        38% calc(100% - 3px),
+        50% calc(100% - 12px),
+        71% calc(100% - 5px),
+        87% calc(100% - 9px),
+        100% calc(100% - 6px),
+        100% 0
+      );
+    }
+
+    @media (min-width: 900px) {
+      clip-path: polygon(
+        0 0,
+        0 100%,
+        10% calc(100% - 10px),
+        20% calc(100% - 3px),
+        30% calc(100% - 12px),
+        40% calc(100% - 14px),
+        50% calc(100% - 8px),
+        60% calc(100% - 11px),
+        70% calc(100% - 7px),
+        80% calc(100% - 4px),
+        90% calc(100% - 9px),
+        100% calc(100% - 6px),
+        100% 0
+      );
+    }
+  }
+
   .container {
     margin: 0 auto;
-    max-width: 40rem;
+    max-width: 60rem;
     padding: 2rem;
     display: flex;
     flex-direction: column;
@@ -36,5 +108,6 @@ const { meta, heading } = Astro.props;
   .heading {
     text-align: center;
     margin: 2rem;
+    font-weight: 600;
   }
 </style>

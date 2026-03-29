@@ -25,10 +25,12 @@ if (error instanceof Error) {
 Astro.response.status = 500;
 ---
 
-<CenteredLayout meta={{ title: "Error - BotC Script Viewer" }} heading={title}>
+<CenteredLayout meta={{ title: "Error - BotC Script Viewer" }}>
   <Fragment slot="head">
     <meta name="robots" content="noindex" />
   </Fragment>
+
+  <h1>{title}</h1>
 
   <Image
     src={goblin}

@@ -19,7 +19,7 @@ const { collectionId, scripts, loading } = Astro.props;
         <a href={`/${collectionId}/${script.id}`} class="script-link">
           <CharacterIcon
             class="script-icon"
-            size={32}
+            size={48}
             character={CHARACTERS_BY_ID.get(script.character)!}
             loading={loading}
           />
@@ -32,8 +32,10 @@ const { collectionId, scripts, loading } = Astro.props;
 
 <style>
   .script-list {
-    display: flex;
-    flex-direction: column;
+    width: 100%;
+    display: grid;
+    gap: 0.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
     list-style: none;
     padding-inline-start: 0;
   }

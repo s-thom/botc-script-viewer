@@ -85,7 +85,8 @@ textarea:not([rows]) {
 
 /* #endregion */
 
-:root {
+:root,
+[data-theme] {
   --token-size: 64px;
   --font-body: "Sorts Mill Goudy", Georgia, "Times New Roman", serif;
   --font-title:
@@ -95,94 +96,67 @@ textarea:not([rows]) {
   --border-radius: 0.5rem;
   --panel-resize-handle-size: 3px;
 
-  color-scheme: light;
+  color-scheme: light dark;
 
   --color-background: #e6e3da;
+  --color-background: light-dark(#e6e3da, #1a1918);
   --color-text: #282828;
+  --color-text: light-dark(#282828, #e1e1e1);
   --color-control-background: #dcd3bf;
+  --color-control-background: light-dark(#dcd3bf, #363431);
   --color-control-background-active: var(--color-background);
   --color-control-background-error: #e6cdcc;
+  --color-control-background-error: light-dark(#e6cdcc, #372625);
   --color-control-border-hover: #d8cdb4;
+  --color-control-border-hover: light-dark(#d8cdb4, #302f2c);
   --color-control-border-active: #d0c3ab;
+  --color-control-border-active: light-dark(#d0c3ab, #393733);
   --color-control-border-error: #e4a6a7;
+  --color-control-border-error: light-dark(#e4a6a7, #3b2a27);
+
+  --color-header-background: #1d4124;
+  --color-header-text: #fdedc9;
+  --color-header-paper: #ffffff;
+  --color-header-paper: light-dark(#fffdf4, #25241f);
 
   --color-alignment: var(--color-text);
   --color-alignment-good: #0144a7;
+  --color-alignment-good: light-dark(#0144a7, #244b85);
   --color-alignment-evil: #940014;
+  --color-alignment-evil: light-dark(#940014, #7c302f);
   --color-alignment-traveller: #5c2b9a;
+  --color-alignment-traveller: light-dark(#5c2b9a, #5a3a7a);
   --color-alignment-fabled: #d49303;
+  --color-alignment-fabled: light-dark(#d49303, #957138);
   --color-alignment-loric: #80b349;
+  --color-alignment-loric: light-dark(#80b349, #66834b);
 
   --color-level-background: var(--color-text);
   --color-level-border: var(--color-text);
 
   --color-level-background-error: #e8dad8;
+  --color-level-background-error: light-dark(#e8dad8, #332828);
   --color-level-border-error: #c03938;
+  --color-level-border-error: light-dark(#c03938, #8b4540);
   --color-level-background-warning: #e8e2cd;
+  --color-level-background-warning: light-dark(#e8e2cd, #312c1c);
   --color-level-border-warning: #a88c27;
+  --color-level-border-warning: light-dark(#a88c27, #705a02);
   --color-level-background-info: #d6dfe8;
+  --color-level-background-info: light-dark(#d6dfe8, #272e35);
   --color-level-border-info: #579ad4;
+  --color-level-border-info: light-dark(#579ad4, #286190);
 
   --color-reminder: var(--color-control-background);
   --color-reminder-border: var(--color-text);
+}
 
-  @media (prefers-color-scheme: dark) {
-    &:not([data-theme="light"]) {
-      color-scheme: dark;
+[data-theme="light"] {
+  color-scheme: light;
+}
 
-      --color-background: #1a1918;
-      --color-text: #e1e1e1;
-      --color-control-background: #2c2b28;
-      --color-control-background-active: var(--color-background);
-      --color-control-background-error: #372625;
-      --color-control-border-hover: #302f2c;
-      --color-control-border-active: #393733;
-      --color-control-border-error: #3b2a27;
-
-      --color-alignment-good: #244b85;
-      --color-alignment-evil: #7c302f;
-      --color-alignment-traveller: #5a3a7a;
-      --color-alignment-fabled: #957138;
-      --color-alignment-loric: #66834b;
-
-      --color-level-background-error: #332828;
-      --color-level-border-error: #8b4540;
-      --color-level-background-warning: #312c1c;
-      --color-level-border-warning: #705a02;
-      --color-level-background-info: #272e35;
-      --color-level-border-info: #286190;
-
-      --color-reminder-border: var(--color-control-border-active);
-    }
-  }
-
-  &[data-theme="dark"] {
-    color-scheme: dark;
-
-    --color-background: #1a1918;
-    --color-text: #e1e1e1;
-    --color-control-background: #2c2b28;
-    --color-control-background-active: var(--color-background);
-    --color-control-background-error: #372625;
-    --color-control-border-hover: #302f2c;
-    --color-control-border-active: #393733;
-    --color-control-border-error: #3b2a27;
-
-    --color-alignment-good: #244b85;
-    --color-alignment-evil: #7c302f;
-    --color-alignment-traveller: #5a3a7a;
-    --color-alignment-fabled: #957138;
-    --color-alignment-loric: #66834b;
-
-    --color-level-background-error: #332828;
-    --color-level-border-error: #8b4540;
-    --color-level-background-warning: #312c1c;
-    --color-level-border-warning: #705a02;
-    --color-level-background-info: #272e35;
-    --color-level-border-info: #286190;
-
-    --color-reminder-border: var(--color-control-border-active);
-  }
+[data-theme="dark"] {
+  color-scheme: dark;
 }
 
 @media print {
@@ -243,8 +217,22 @@ textarea:not([rows]) {
 
 body {
   margin: 0;
-  background-color: var(--color-background);
+  background: url("../assets/paper.webp") var(--color-background);
+  background-blend-mode: multiply;
   color: var(--color-text);
+}
+
+@media print {
+  body {
+    background: unset;
+  }
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-variant-numeric: lining-nums;
 }
 
 a {

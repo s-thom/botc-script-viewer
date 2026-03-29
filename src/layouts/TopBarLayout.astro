@@ -1,14 +1,13 @@
 ---
-import TopBar from "../components/misc/TopBar.astro";
+import ThemeToggle from "../components/misc/ThemeToggle.astro";
 import type { PageMeta } from "../types/site";
 import MinimalLayout from "./MinimalLayout.astro";
 
 export interface Props {
   meta: PageMeta;
-  heading: string;
 }
 
-const { meta, heading } = Astro.props;
+const { meta } = Astro.props;
 ---
 
 <MinimalLayout meta={meta}>
@@ -16,9 +15,31 @@ const { meta, heading } = Astro.props;
 
   <slot name="top" />
 
-  <TopBar title={heading}>
-    <slot name="items-start" slot="items-start" />
-  </TopBar>
+  <header class="header screen-only">
+    <div class="paper-border">
+      <div class="pattern">
+        <div class="header-content">
+          <a href="/">
+            <h1 class="heading">BotC Script Viewer</h1>
+          </a>
+
+          <div class="space"></div>
+
+          {
+            Astro.slots.has("items-start") && (
+              <div class="items items-start">
+                <slot name="items-start" />
+              </div>
+            )
+          }
+        </div>
+      </div>
+    </div>
+
+    <div data-theme="dark">
+      <ThemeToggle />
+    </div>
+  </header>
 
   <div class="container">
     <slot />
@@ -26,6 +47,79 @@ const { meta, heading } = Astro.props;
 </MinimalLayout>
 
 <style>
+  .header {
+    color: var(--color-header-text);
+    --color-text: var(--color-header-text);
+    filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.5));
+  }
+
+  .paper-border {
+    background: var(--color-header-paper);
+    padding-bottom: 12px;
+  }
+
+  .pattern {
+    background: url("../assets/headerbg.webp") var(--color-header-background);
+  }
+
+  .paper-border,
+  .pattern {
+    clip-path: polygon(
+      0 0,
+      0 100%,
+      24% calc(100% - 10px),
+      45% calc(100% - 3px),
+      80% calc(100% - 12px),
+      100% calc(100% - 9px),
+      100% 0
+    );
+
+    @media (min-width: 500px) {
+      clip-path: polygon(
+        0 0,
+        0 100%,
+        17% calc(100% - 10px),
+        38% calc(100% - 3px),
+        50% calc(100% - 12px),
+        71% calc(100% - 5px),
+        87% calc(100% - 9px),
+        100% calc(100% - 6px),
+        100% 0
+      );
+    }
+
+    @media (min-width: 900px) {
+      clip-path: polygon(
+        0 0,
+        0 100%,
+        10% calc(100% - 10px),
+        20% calc(100% - 3px),
+        30% calc(100% - 12px),
+        40% calc(100% - 14px),
+        50% calc(100% - 8px),
+        60% calc(100% - 11px),
+        70% calc(100% - 7px),
+        80% calc(100% - 4px),
+        90% calc(100% - 9px),
+        100% calc(100% - 6px),
+        100% 0
+      );
+    }
+  }
+
+  .header-content {
+    position: relative;
+    display: flex;
+    align-items: center;
+    border-block-end: 2px solid var(--color-control-border-active);
+    padding-inline-start: 8px;
+    padding-inline-end: 32px;
+    padding-block-start: 8px;
+    padding-block-end: 16px;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
   :global(body):has(.container) {
     min-height: 100vh;
     min-height: 100dvh;

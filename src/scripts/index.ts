@@ -41,7 +41,7 @@ export const LOCAL_SCRIPT_COLLECTIONS: Record<
     showOnHome: false,
   },
   month: {
-    title: "Script of the month",
+    title: "Script of the Month",
     description: "The featured scripts of the month in the official app. ",
     scripts: MONTHLY_SCRIPTS,
   },
