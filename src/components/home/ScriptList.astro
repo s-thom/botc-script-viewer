@@ -48,13 +48,14 @@ const { collectionId, scripts, loading } = Astro.props;
     border-radius: 8px;
     border: 2px solid transparent;
 
-    &:hover {
+    &:hover,
+    &:focus-within {
       border-color: var(--color-control-border-hover);
-      background-color: var(--color-control-background);
+      background-color: var(--color-control-background-hover);
     }
 
-    &:active,
-    &:focus-within {
+    &:active {
+      background-color: var(--color-control-background-active);
       border-color: var(--color-control-border-active);
     }
   }

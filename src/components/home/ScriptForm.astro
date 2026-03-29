@@ -27,8 +27,8 @@
   }
 
   .textarea {
-    background-color: var(--color-background);
-    border: 2px solid var(--color-control-border-active);
+    background-color: var(--color-control-background);
+    border: 2px solid var(--color-control-border);
     color: var(--color-text);
     padding: 0.5rem;
     border-radius: 15px;
@@ -39,11 +39,14 @@
       filter: grayscale();
     }
 
-    &:hover {
+    &:hover,
+    &:focus-within {
+      background-color: var(--color-control-background-hover);
       border-color: var(--color-control-border-hover);
     }
 
     &:active {
+      background-color: var(--color-control-background-active);
       border-color: var(--color-control-border-active);
     }
   }

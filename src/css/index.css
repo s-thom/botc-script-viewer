@@ -42,6 +42,7 @@ h3,
 h4 {
   text-wrap: balance;
   font-weight: 400;
+  font-variant-numeric: lining-nums;
 }
 
 h1 {
@@ -102,15 +103,23 @@ textarea:not([rows]) {
   --color-background: light-dark(#e6e3da, #1a1918);
   --color-text: #282828;
   --color-text: light-dark(#282828, #e1e1e1);
-  --color-control-background: #dcd3bf;
-  --color-control-background: light-dark(#dcd3bf, #363431);
-  --color-control-background-active: var(--color-background);
-  --color-control-background-error: #e6cdcc;
-  --color-control-background-error: light-dark(#e6cdcc, #372625);
+
+  --color-control-background: #f0eee9;
+  --color-control-background: light-dark(#f0eee9, #1e1d1b);
+  --color-control-background-hover: #ece9e1;
+  --color-control-background-hover: light-dark(#ece9e1, #252422);
+  --color-control-background-active: #e5dfd1;
+  --color-control-background-active: light-dark(#e5dfd1, #272625);
+
+  --color-control-border: #d0c3ab;
+  --color-control-border: light-dark(#d0c3ab, #393733);
   --color-control-border-hover: #d8cdb4;
   --color-control-border-hover: light-dark(#d8cdb4, #302f2c);
   --color-control-border-active: #d0c3ab;
   --color-control-border-active: light-dark(#d0c3ab, #393733);
+
+  --color-control-background-error: #e6cdcc;
+  --color-control-background-error: light-dark(#e6cdcc, #372625);
   --color-control-border-error: #e4a6a7;
   --color-control-border-error: light-dark(#e4a6a7, #3b2a27);
 
@@ -228,13 +237,6 @@ body {
   }
 }
 
-h1,
-h2,
-h3,
-h4 {
-  font-variant-numeric: lining-nums;
-}
-
 a {
   color: inherit;
 
@@ -276,7 +278,7 @@ a {
 
 .button {
   background-color: var(--color-control-background);
-  border: 2px solid var(--color-control-border-active);
+  border: 2px solid var(--color-control-border);
   color: var(--color-text);
   padding: 0.5rem;
   border-radius: 100vw;
@@ -286,40 +288,13 @@ a {
   }
 
   &:hover {
-    background-color: var(--color-control-background-active);
+    background-color: var(--color-control-background-hover);
     border-color: var(--color-control-border-hover);
   }
 
   &:active {
     background-color: var(--color-control-background-active);
     border-color: var(--color-control-border-active);
-  }
-}
-
-.button-group {
-  & > .button {
-    background-color: var(--color-control-background-active);
-
-    &:where(&:has(input:checked), &:hover) {
-      background-color: var(--color-control-background);
-    }
-
-    &:not(:first-child) {
-      border-start-start-radius: 0;
-      border-end-start-radius: 0;
-
-      &:is(:hover + &) {
-        border-inline-start-width: 0;
-      }
-    }
-    &:not(:last-child) {
-      border-start-end-radius: 0;
-      border-end-end-radius: 0;
-
-      &:not(:hover) {
-        border-inline-end-width: 0;
-      }
-    }
   }
 }
 

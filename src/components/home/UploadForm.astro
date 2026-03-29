@@ -62,23 +62,25 @@
     justify-content: center;
     text-align: center;
     height: 160px;
-    border: 2px dashed var(--color-control-border-active);
     padding: 16px;
     border-radius: 15px;
     background-color: var(--color-control-background);
+    background-color: var(--color-control-background);
+    border: 2px dashed var(--color-control-border);
 
     &:disabled {
       filter: grayscale();
     }
 
-    &:hover {
+    &:hover,
+    &:focus-within {
+      background-color: var(--color-control-background-hover);
       border-color: var(--color-control-border-hover);
-      background-color: var(--color-background);
     }
 
     &:active {
+      background-color: var(--color-control-background-active);
       border-color: var(--color-control-border-active);
-      background-color: var(--color-background);
     }
 
     &.dragover {
