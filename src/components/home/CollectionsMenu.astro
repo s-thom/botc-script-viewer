@@ -4,11 +4,33 @@ import ScriptList from "./ScriptList.astro";
 ---
 
 <div class="box">
-  <h2>Select from an existing collection.</h2>
+  <h2>Official scripts</h2>
 
   {
     Object.entries(LOCAL_SCRIPT_COLLECTIONS)
-      .filter(([, collection]) => collection.showOnHome !== false)
+      .filter(
+        ([, collection]) =>
+          collection.isOfficial && collection.showOnHome !== false,
+      )
+      .map(([collectionId, collection]) => (
+        <section>
+          <h3>{collection.title}</h3>
+          <ScriptList
+            collectionId={collectionId}
+            scripts={collection.scripts}
+            loading="lazy"
+          />
+        </section>
+      ))
+  }
+
+  <h2>Unofficial collections</h2>
+  {
+    Object.entries(LOCAL_SCRIPT_COLLECTIONS)
+      .filter(
+        ([, collection]) =>
+          !collection.isOfficial && collection.showOnHome !== false,
+      )
       .map(([collectionId, collection]) => (
         <section>
           <h3>{collection.title}</h3>

@@ -79,6 +79,23 @@ textarea:not([rows]) {
   min-height: 10em;
 }
 
+.flow > * + *,
+.flow > * + astro-island > * {
+  margin-block-start: var(--flow-space, 1em);
+}
+
+:is(h1, h2, h3, blockquote) {
+  --flow-space: 1.5em;
+}
+
+:is(h1, h2, h3) + * {
+  --flow-space: 0.8em;
+}
+
+:is(li) + * {
+  --flow-space: 0.5em;
+}
+
 :target {
   scroll-margin-block: 5ex;
   animation: TempOutline 5s linear;

@@ -14,6 +14,7 @@ export const LOCAL_SCRIPT_COLLECTIONS: Record<
     title: "Base 3",
     description: "Official scripts provided by The Pandemonium Institute.",
     scripts: BASE_3,
+    isOfficial: true,
   },
   carousel: {
     title: "Carousel Collection",
