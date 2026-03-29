@@ -13,7 +13,7 @@ A script is a set of characters that have been put together to play. As there ar
 
 You can find more scripts on the [unofficial BotC Scripts website](https://www.botcscripts.com/). In you want to try making your own, you can use the [official script tool](https://script.bloodontheclocktower.com/).
 
-## What is a JSON?
+## What is JSON?
 
 JSON is a way of storing data for computers to read later. When downloaded, they usually have the `.json` file extension. The official Blood on the Clocktower app can read specially formatted JSON files that contain information about a script. JSON is a text-based format, so you can open them up in something like Notepad or TextEdit. When you open it, it might look like:
 
