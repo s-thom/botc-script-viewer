@@ -106,9 +106,8 @@ textarea:not([rows]) {
 :root,
 [data-theme] {
   --token-size: 64px;
-  --font-body: "Sorts Mill Goudy", Georgia, "Times New Roman", serif;
-  --font-title:
-    Dumbledor, "Sorts Mill Goudy", Georgia, "Times New Roman", serif;
+  --font-body: var(--font-sorts-mill-goudy), serif;
+  --font-title: var(--font-dumbledor), var(--font-sorts-mill-goudy), serif;
   font-family: var(--font-body);
 
   --border-radius: 0.5rem;
@@ -196,36 +195,6 @@ textarea:not([rows]) {
   }
 }
 
-@font-face {
-  font-family: "Dumbledor";
-  font-style: normal;
-  font-weight: 400;
-  src: url("/fonts/Dumbledor-Regular.woff2");
-  font-display: swap;
-}
-@font-face {
-  font-family: "Dumbledor";
-  font-style: italic;
-  font-weight: 400;
-  src: url("/fonts/Dumbledor-Italic.woff2");
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Sorts Mill Goudy";
-  font-style: normal;
-  font-weight: 400;
-  src: url("/fonts/SortsMillGoudy-Regular.woff2");
-  font-display: swap;
-}
-@font-face {
-  font-family: "Sorts Mill Goudy";
-  font-style: italic;
-  font-weight: 400;
-  src: url("/fonts/SortsMillGoudy-Italic.woff2");
-  font-display: swap;
-}
-
 .visually-hidden-always,
 .visually-hidden:not(:focus):not(:active) {
   clip: rect(0 0 0 0);
@@ -243,7 +212,7 @@ textarea:not([rows]) {
 
 body {
   margin: 0;
-  background: url("../assets/paper.webp") var(--color-background);
+  background: url("../assets/paper2.webp") var(--color-background);
   background-blend-mode: multiply;
   color: var(--color-text);
 }
