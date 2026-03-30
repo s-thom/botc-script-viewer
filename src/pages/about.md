@@ -15,7 +15,7 @@ You can find more scripts on the [unofficial BotC Scripts website](https://www.b
 
 ## What is JSON?
 
-JSON is a way of storing data for computers to read later. When downloaded, they usually have the `.json` file extension. The official Blood on the Clocktower app can read specially formatted JSON files that contain information about a script. JSON is a text-based format, so you can open them up in something like Notepad or TextEdit. When you open it, it might look like:
+JSON is a way of storing data for computers to read later. When downloaded, the file will usually have the `.json` file extension. The official Blood on the Clocktower app can read specially formatted JSON files that contain information about a script, and most other tools around Clocktower have all adopted this format. JSON files are text-based, so you can open them up in something like Notepad or TextEdit to see what's inside. When you open it, it might look like:
 
 ```jsonc
 [
