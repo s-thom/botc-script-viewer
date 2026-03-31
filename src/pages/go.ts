@@ -36,15 +36,6 @@ function shouldUseNumberStore(
   return true;
 }
 
-export const OPTIONS: APIRoute = async () => {
-  const headers = new Headers();
-  headers.append("Allow", "POST");
-  headers.append("Access-Control-Allow-Origin", "*");
-  headers.append("Access-Control-Allow-Methods", "POST");
-  headers.append("Access-Control-Allow-Headers", "*");
-  return new Response("", { status: 204 });
-};
-
 export const POST: APIRoute = async ({
   request,
   rewrite,
