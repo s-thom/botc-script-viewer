@@ -11,9 +11,10 @@ import TopBarLayout from "./TopBarLayout.astro";
 export interface Props {
   rawScript: BloodOnTheClocktowerCustomScript;
   overrideJsonPathSegment?: string;
+  noIndex?: boolean;
 }
 
-const { rawScript, overrideJsonPathSegment } = Astro.props;
+const { rawScript, overrideJsonPathSegment, noIndex } = Astro.props;
 
 const script = normaliseScript(rawScript);
 
@@ -36,6 +37,7 @@ const scriptBuilderUrl = `https://script.bloodontheclocktower.com/?script=${enco
 <TopBarLayout
   meta={{
     title: script.name ? `${script.name} - BotC Script Viewer` : undefined,
+    noIndex,
   }}
 >
   <Fragment slot="head">

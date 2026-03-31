@@ -1,6 +1,7 @@
 export interface PageMeta {
   title?: string;
   description?: string;
+  noIndex?: boolean;
 }
 
 export interface AppErrorOptions {

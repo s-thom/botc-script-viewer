@@ -8,7 +8,7 @@ export interface Props {
 }
 
 const { meta } = Astro.props;
-const { title = "BotC Script Viewer", description } = meta;
+const { title = "BotC Script Viewer", description, noIndex } = meta;
 ---
 
 <!doctype html>
@@ -20,6 +20,8 @@ const { title = "BotC Script Viewer", description } = meta;
 
     <Font cssVariable="--font-dumbledor" />
     <Font cssVariable="--font-sorts-mill-goudy" preload />
+
+    {noIndex && <meta name="robots" content="noindex" />}
 
     <meta property="og:type" content="website" />
     <meta
