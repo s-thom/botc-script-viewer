@@ -32,4 +32,7 @@ if (!scriptDefinition) {
 const rawScript = await scriptDefinition.getScript();
 ---
 
-<ScriptViewerLayout rawScript={rawScript} />
+<ScriptViewerLayout
+  rawScript={rawScript}
+  overrideJsonPathSegment={`${scriptDefinition.id}.json`}
+/>

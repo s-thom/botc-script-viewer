@@ -10,22 +10,24 @@ import TopBarLayout from "./TopBarLayout.astro";
 
 export interface Props {
   rawScript: BloodOnTheClocktowerCustomScript;
+  overrideJsonPathSegment?: string;
 }
 
-const { rawScript } = Astro.props;
+const { rawScript, overrideJsonPathSegment } = Astro.props;
 
-const rawScriptString = JSON.stringify(rawScript);
 const script = normaliseScript(rawScript);
 
 const qrPath = fixDoubleSlashPaths(
   new URL(`${Astro.url.pathname}/qr.svg`, Astro.url),
 );
 
+const jsonPath = overrideJsonPathSegment ?? "json";
 const downloadPath = fixDoubleSlashPaths(
-  new URL(`${Astro.url.pathname}/json`, Astro.url),
+  new URL(`${Astro.url.pathname}/${jsonPath}`, Astro.url),
 );
 const downloadFilename = `${(script.name || "script").replace(/[\\/:*?"<>|]+/g, "_")}.json`;
 
+const rawScriptString = JSON.stringify(rawScript);
 const rawScriptBytes = stringToBytes(rawScriptString);
 const rawScriptB64 = await compressToBase64(rawScriptBytes, "gzip", false);
 const scriptBuilderUrl = `https://script.bloodontheclocktower.com/?script=${encodeURIComponent(rawScriptB64)}`;
@@ -58,8 +60,7 @@ const scriptBuilderUrl = `https://script.bloodontheclocktower.com/?script=${enco
         >Edit
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          height="16"
+          viewBox="0 0 16 16"
           fill="currentColor"
           class="inline-icon"
           ><path

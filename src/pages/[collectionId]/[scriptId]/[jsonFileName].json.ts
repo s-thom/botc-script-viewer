@@ -9,6 +9,7 @@ export function getStaticPaths() {
         params: {
           collectionId: collectionId as keyof typeof LOCAL_SCRIPT_COLLECTIONS,
           scriptId: script.id,
+          jsonFileName: script.id,
         },
       })),
   );
