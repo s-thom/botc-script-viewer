@@ -2,6 +2,7 @@
 import cloudflare from "@astrojs/cloudflare";
 import svelte from "@astrojs/svelte";
 import { defineConfig, fontProviders } from "astro/config";
+import { ENABLED_LOCALES } from "./src/lib/i18n/config";
 import { ALLOWED_EXTERNAL_HOSTNAMES } from "./src/lib/images";
 
 const isProd = process.env.ENVIRONMENT === "production";
@@ -9,12 +10,17 @@ const isProd = process.env.ENVIRONMENT === "production";
 // https://astro.build/config
 export default defineConfig({
   site: isProd ? `https://botc-script-viewer.sthom.kiwi` : undefined,
+  adapter: cloudflare({ imageService: "compile" }),
   integrations: [svelte({ compilerOptions: { dev: !isProd } })],
   image: {
     domains: ALLOWED_EXTERNAL_HOSTNAMES,
   },
+  i18n: {
+    defaultLocale:
+      ENABLED_LOCALES.find((locale) => locale.isDefault)?.slug ?? "en",
+    locales: ENABLED_LOCALES.map((locale) => locale.slug),
+  },
   scopedStyleStrategy: "class",
-  adapter: cloudflare({ imageService: "compile" }),
   vite: { build: { cssCodeSplit: false } },
   fonts: [
     {
