@@ -1,3 +1,7 @@
+// Limit decompression to 512kB. A script _shouldn't_ be larger than that.
+// Fall of Rome, a full homebrew, is 18kB.
+const DECOMPRESS_BYTE_LIMIT = 512 * 1024;
+
 export function encodeBase64(str: string, useSafeEncoding: boolean): string {
   const b64 = btoa(str);
 
@@ -87,10 +91,22 @@ export async function decompressFromBase64(
     .pipeThrough(new DecompressionStream(format))
     .getReader();
 
+  let currentSize: number = 0;
   const chunks: Uint8Array[] = [];
   while (true) {
     const { value, done } = await reader.read();
     if (done) break;
+
+    currentSize += value.byteLength;
+    if (currentSize > DECOMPRESS_BYTE_LIMIT) {
+      await reader.cancel(
+        "Too big. A script is not expected to be this large.",
+      );
+      throw new Error(
+        "Decompressing stream cancelled as the result is larger than expected.",
+      );
+    }
+
     chunks.push(value);
   }
   const decompressedBytes = Uint8Array.from(
