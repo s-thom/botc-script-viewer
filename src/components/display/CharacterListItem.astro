@@ -89,16 +89,9 @@ const {
               href={wikiLink}
               rel="external noreferrer"
               target="_blank"
+              aria-label={`View ${title} in the wiki`}
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 25"
-                fill="currentColor"
-                class="inline-icon"
-              >
-                <path d="M1.5 8.82v-3c0-1.24 1-2.25 2.25-2.25h4.19L6.22 1.85A.75.75 0 1 1 7.28.79l3 3c.3.29.3.76 0 1.06l-3 3a.75.75 0 1 1-1.06-1.06l1.72-1.72H3.75a.75.75 0 0 0-.75.75v3a.75.75 0 1 1-1.5 0m14.25 2.25h4.5a.75.75 0 0 0 0-1.5h-4.5a.75.75 0 0 0 0 1.5m0-6h4.5a.75.75 0 0 0 0-1.5h-4.5a.75.75 0 0 0 0 1.5M22.5.57h-9c-.83 0-1.5.67-1.5 1.5v7.5q.83.02 1.5.41V2.07h9v10.5H15v1.5h7.5c.83 0 1.5-.68 1.5-1.5V2.07c0-.83-.67-1.5-1.5-1.5m-6.75 7.5h4.5a.75.75 0 0 0 0-1.5h-4.5a.75.75 0 0 0 0 1.5m-10.5 7.5h4.5a.75.75 0 0 0 0-1.5h-4.5a.75.75 0 0 0 0 1.5m0 3h4.5a.75.75 0 0 0 0-1.5h-4.5a.75.75 0 0 0 0 1.5m0 3h4.5a.75.75 0 0 0 0-1.5h-4.5a.75.75 0 0 0 0 1.5m8.25-9v10.5c0 .82-.67 1.5-1.5 1.5H3a1.5 1.5 0 0 1-1.5-1.5v-10.5c0-.83.67-1.5 1.5-1.5h9c.83 0 1.5.67 1.5 1.5m-1.5 0H3v10.5h9z" />
-              </svg>
-              <span class="visually-hidden-always">Almanac</span>
+              [wiki]
             </a>
           )}
         </div>
@@ -144,6 +137,7 @@ const {
   .character-title-area {
     display: flex;
     gap: 0.5rem;
+    justify-content: space-between;
   }
 
   .character-title {
@@ -156,5 +150,10 @@ const {
 
   .character-description {
     line-height: 1.3rem;
+  }
+
+  .character-wiki-link {
+    align-self: start;
+    font-size: 0.8em;
   }
 </style>
