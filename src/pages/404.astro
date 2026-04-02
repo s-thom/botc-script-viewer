@@ -2,9 +2,12 @@
 import { Image } from "astro:assets";
 import { witch } from "../generated/character-icons";
 import CenteredLayout from "../layouts/CenteredLayout.astro";
+import { createTranslator } from "../lib/i18n";
+
+const t = createTranslator({ locale: Astro.currentLocale ?? "en" });
 ---
 
-<CenteredLayout meta={{ title: "Not found - BotC Script Viewer" }}>
+<CenteredLayout t={t} meta={{ title: "Not found - BotC Script Viewer" }}>
   <h1>Page not found</h1>
 
   <Image

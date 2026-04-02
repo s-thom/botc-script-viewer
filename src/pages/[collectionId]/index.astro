@@ -3,6 +3,7 @@ import ScriptList from "../../components/home/ScriptList.astro";
 import Footer from "../../components/misc/Footer.astro";
 import PageView from "../../components/misc/PageView.astro";
 import CenteredLayout from "../../layouts/CenteredLayout.astro";
+import { createTranslator } from "../../lib/i18n";
 import { LOCAL_SCRIPT_COLLECTIONS } from "../../scripts";
 
 export function getStaticPaths() {
@@ -20,11 +21,17 @@ if (!(collectionId in LOCAL_SCRIPT_COLLECTIONS)) {
 }
 
 const collection = LOCAL_SCRIPT_COLLECTIONS[collectionId];
+
+const t = createTranslator({ locale: Astro.currentLocale ?? "en" });
 ---
 
 <CenteredLayout
+  t={t}
   meta={{
-    title: `Collection: ${collection.title} - BotC Script Viewer`,
+    title: t.string("viewer.head.title", {
+      title: t.string("viewer.collection.title", { title: collection.title }),
+      nameShort: t.string("viewer.common.nameShort"),
+    }),
     description: collection.description,
   }}
 >
@@ -33,11 +40,13 @@ const collection = LOCAL_SCRIPT_COLLECTIONS[collectionId];
   </Fragment>
 
   <div class="content">
-    <h2>{`Collection: ${collection.title}`}</h2>
+    <h2>
+      {t.string("viewer.collection.title", { title: collection.title })}
+    </h2>
     <p>{collection.description}</p>
     <ScriptList collectionId={collectionId} scripts={collection.scripts} />
   </div>
-  <Footer />
+  <Footer t={t} />
 </CenteredLayout>
 
 <style>

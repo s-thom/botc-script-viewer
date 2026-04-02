@@ -1,16 +1,18 @@
 ---
 import ThemeToggle from "../components/misc/ThemeToggle.astro";
+import type { Translator } from "../lib/i18n/types";
 import type { PageMeta } from "../types/site";
 import MinimalLayout from "./MinimalLayout.astro";
 
 export interface Props {
+  t: Translator;
   meta: PageMeta;
 }
 
-const { meta } = Astro.props;
+const { t, meta } = Astro.props;
 ---
 
-<MinimalLayout meta={meta}>
+<MinimalLayout t={t} meta={meta}>
   <slot slot="head" name="head" />
 
   <slot name="top" />

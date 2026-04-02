@@ -1,30 +1,33 @@
 ---
+import type { Translator } from "../../lib/i18n/types";
+import FormattedMessage from "./FormattedMessage.astro";
+
 export interface Props {
+  t: Translator;
   isScreenOnly?: boolean;
 }
 
-const { isScreenOnly } = Astro.props;
+const { t, isScreenOnly } = Astro.props;
 ---
 
 <footer class:list={["footer", isScreenOnly && "screen-only"]}>
   <p>
-    This website is not affiliated with The Pandemonium Institute. Character
-    icons and descriptions are the property of Steven Medway and The Pandemonium
-    Institute.
+    <FormattedMessage segments={t("viewer.footer.notAffiliated")} />
+    <FormattedMessage segments={t("viewer.footer.descriptionsNotice")} />
   </p>
   <p>
-    Website made by{" "}
-    <a
-      href="https://sthom.kiwi"
-      target="_blank"
-      rel="external noreferrer"
-      data-umami-event="sthom-link">Stuart Thomson</a
-    >. <a
-      href="https://github.com/s-thom/botc-script-viewer"
-      target="_blank"
-      rel="external noreferrer"
-      data-umami-event="github-link">Source code</a
-    >.
+    <FormattedMessage
+      segments={t("viewer.footer.madeBy", {
+        externalLink: "https://sthom.kiwi",
+        externalLinkEvent: "sthom-link",
+      })}
+    />
+    <FormattedMessage
+      segments={t("viewer.footer.sourceCode", {
+        externalLink: "https://github.com/s-thom/botc-script-viewer",
+        externalLinkEvent: "github-link",
+      })}
+    />
   </p>
 </footer>
 

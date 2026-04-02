@@ -1,7 +1,25 @@
 {
-  "nameShort": "BotC Script Viewer",
-  "nameLongFirst": "Blood on the Clocktower",
-  "nameLongLast": "Script Viewer",
+  "common": {
+    "nameShort": "BotC Script Viewer",
+    "nameLong": "Blood on the Clocktower Script Viewer",
+    "nameLongFirst": "Blood on the Clocktower",
+    "nameLongLast": "Script Viewer"
+  },
+  "head": {
+    "title": "{title} - {nameShort}"
+  },
+  "footer": {
+    "notAffiliated": "This website is not affiliated with The Pandemonium Institute.",
+    "descriptionsNotice": "Character icons and descriptions are the property of Steven Medway and The Pandemonium Institute.",
+    "madeBy": "Website made by {externalLink}Stuart Thomson{/externalLink}.",
+    "sourceCode": "{externalLink}Source code{/externalLink}."
+  },
+  "script": {
+    "untitledScript": "Untitled Script"
+  },
+  "collection": {
+    "title": "Collection: {title}"
+  },
   "skipList": {
     "skipTo": "Skip to:"
   },

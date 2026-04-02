@@ -3,6 +3,7 @@ import { Image } from "astro:assets";
 import { goblin } from "../generated/character-icons";
 import CenteredLayout from "../layouts/CenteredLayout.astro";
 import { AppError } from "../types/site";
+import { createTranslator } from "../lib/i18n";
 
 interface Props {
   error: unknown;
@@ -23,9 +24,11 @@ if (error instanceof Error) {
 }
 
 Astro.response.status = 500;
+
+const t = createTranslator({ locale: Astro.currentLocale ?? "en" });
 ---
 
-<CenteredLayout meta={{ title: "Error - BotC Script Viewer" }}>
+<CenteredLayout t={t} meta={{ title: "Error - BotC Script Viewer" }}>
   <Fragment slot="head">
     <meta name="robots" content="noindex" />
   </Fragment>

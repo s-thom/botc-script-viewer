@@ -35,11 +35,18 @@ const rawScriptString = JSON.stringify(rawScript);
 const rawScriptBytes = stringToBytes(rawScriptString);
 const rawScriptB64 = await compressToBase64(rawScriptBytes, "gzip", false);
 const scriptBuilderUrl = `https://script.bloodontheclocktower.com/?script=${encodeURIComponent(rawScriptB64)}`;
+
+const scriptNameWithFallback =
+  script.name || t.string("viewer.script.untitledScript");
 ---
 
 <TopBarLayout
+  t={t}
   meta={{
-    title: script.name ? `${script.name} - BotC Script Viewer` : undefined,
+    title: t.string("viewer.head.title", {
+      title: scriptNameWithFallback,
+      nameShort: t.string("viewer.common.nameShort"),
+    }),
     noIndex,
   }}
 >
@@ -80,11 +87,12 @@ const scriptBuilderUrl = `https://script.bloodontheclocktower.com/?script=${enco
     </li>
     <li>
       <a href={qrPath}
-        ><FormattedMessage segments={t("viewer.navigation.qrCode")} /></a>
+        ><FormattedMessage segments={t("viewer.navigation.qrCode")} /></a
+      >
     </li>
   </ul>
 
-  <ScriptDisplay script={script} />
+  <ScriptDisplay t={t} script={script} />
 </TopBarLayout>
 
 <script>

@@ -1,5 +1,5 @@
 export interface PageMeta {
-  title?: string;
+  title: string;
   description?: string;
   noIndex?: boolean;
 }

@@ -19,8 +19,31 @@ const { segments, character } = Astro.props;
           <FormattedDescription content={segment.value} character={character} />
         );
       case "tag": {
-        console.warn(`Unknown tag type: ${segment.name}`);
-        return segment.children.map((child) => mapSingleSegment(child));
+        switch (segment.name) {
+          case "externalLink": {
+            let href = segment.params["externalLink"] as string;
+            if (!href) {
+              console.warn(
+                `Missing externalLink parameter for {externalLink} tag`,
+              );
+              href = "/";
+            }
+
+            return (
+              <a
+                href={href}
+                target="_blank"
+                rel="external noreferrer"
+                data-umami-event={segment.params["externalLink"]}
+              >
+                {segment.children.map((child) => mapSingleSegment(child))}
+              </a>
+            );
+          }
+          default:
+            console.warn(`Unknown tag type: ${segment.name}`);
+            return segment.children.map((child) => mapSingleSegment(child));
+        }
       }
       default:
         console.warn(

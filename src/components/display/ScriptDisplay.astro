@@ -1,4 +1,5 @@
 ---
+import type { Translator } from "../../lib/i18n/types";
 import { fixDoubleSlashPaths } from "../../lib/url";
 import type { NormalisedScript } from "../../types/botc";
 import Footer from "../misc/Footer.astro";
@@ -10,9 +11,10 @@ import NightOrderList from "./NightOrderList.astro";
 import ReminderDefinition from "./reminder/ReminderDefinition.astro";
 
 export interface Props {
+  t: Translator;
   script: NormalisedScript;
 }
-const { script } = Astro.props;
+const { t, script } = Astro.props;
 
 const selfPath = Astro.url.toString();
 const qrPath = fixDoubleSlashPaths(
@@ -158,7 +160,7 @@ const allExtraNightOrderCharacters = script.warnings.flatMap((warning) =>
     <p class="qr-text">{selfPath}</p>
   </div>
 
-  <Footer isScreenOnly />
+  <Footer t={t} isScreenOnly />
 </div>
 
 <script>

@@ -22,8 +22,20 @@ export function resolveVariables(
         type: "tag",
         name: seg.name,
         children: resolveVariables(seg.children, params),
+        params,
       };
     }
     return seg;
   });
+}
+
+export function formatToPlainText(segments: MessageSegment[]): string {
+  return segments
+    .map((segment): string => {
+      if (segment.type === "tag") {
+        return formatToPlainText(segment.children);
+      }
+      return segment.value;
+    })
+    .join("");
 }

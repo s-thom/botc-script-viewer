@@ -1,14 +1,16 @@
 ---
 import { Font } from "astro:assets";
 import "../css/index.css";
+import type { Translator } from "../lib/i18n/types";
 import type { PageMeta } from "../types/site";
 
 export interface Props {
+  t: Translator;
   meta: PageMeta;
 }
 
-const { meta } = Astro.props;
-const { title = "BotC Script Viewer", description, noIndex } = meta;
+const { t, meta } = Astro.props;
+const { title, description, noIndex } = meta;
 ---
 
 <!doctype html>
@@ -26,7 +28,7 @@ const { title = "BotC Script Viewer", description, noIndex } = meta;
     <meta property="og:type" content="website" />
     <meta
       property="og:site_name"
-      content="Blood on the Clocktower Script Viewer"
+      content={t.string("viewer.common.nameLong")}
     />
     <title>{title}</title>
     <meta property="og:title" content={title} />

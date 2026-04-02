@@ -1,7 +1,9 @@
-export type Translator = (
+export type Translator = ((
   key: string,
   params?: TranslateParams,
-) => MessageSegment[];
+) => MessageSegment[]) & {
+  string: (key: string, params?: TranslateParams) => string;
+};
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface StringDict extends Record<string, string | StringDict> {}
@@ -34,6 +36,7 @@ export interface TagMessageSegment {
   type: "tag";
   name: string;
   children: MessageSegment[];
+  params: TranslateParams;
 }
 
 export interface UnresolvedTagMessageSegment {

@@ -1,22 +1,26 @@
 ---
 import type { MarkdownLayoutProps } from "astro";
-import TopBarLayout from "./TopBarLayout.astro";
 import Footer from "../components/misc/Footer.astro";
+import { createTranslator } from "../lib/i18n";
+import TopBarLayout from "./TopBarLayout.astro";
 
 type Props = MarkdownLayoutProps<{
   title: string;
 }>;
 
 const { frontmatter } = Astro.props;
+
+// TODO: Not hardcode these pages to English
+const t = createTranslator({ locale: "en" });
 ---
 
-<TopBarLayout meta={{ title: `${frontmatter.title}` }}>
+<TopBarLayout t={t} meta={{ title: `${frontmatter.title}` }}>
   <div class="md flow">
     <h1>{frontmatter.title}</h1>
 
     <slot />
 
-    <Footer />
+    <Footer t={t} />
   </div>
 </TopBarLayout>
 

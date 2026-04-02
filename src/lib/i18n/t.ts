@@ -1,5 +1,5 @@
 import { LOCALE_MAP } from "./config.ts";
-import { resolveVariables } from "./format.ts";
+import { formatToPlainText, resolveVariables } from "./format.ts";
 import { parseMessage } from "./parse.ts";
 import { isPluralMessage, selectPluralForm } from "./plural.ts";
 import { resolveKey } from "./resolve.ts";
@@ -12,7 +12,7 @@ export function createTranslator({ locale }: { locale: string }): Translator {
 
   const knownLocale = locale as keyof typeof LOCALE_MAP;
 
-  return function t(
+  const resolver = function t(
     key: string,
     params: TranslateParams = {},
   ): MessageSegment[] {
@@ -42,4 +42,11 @@ export function createTranslator({ locale }: { locale: string }): Translator {
 
     return resolveVariables(parseMessage(selected), fullParams);
   };
+
+  const t = Object.assign(resolver, {
+    string: (key: string, params: TranslateParams = {}) =>
+      formatToPlainText(resolver(key, params)),
+  });
+
+  return t;
 }

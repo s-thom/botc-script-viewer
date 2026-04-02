@@ -5,9 +5,12 @@ import PageView from "../components/misc/PageView.astro";
 import Footer from "../components/misc/Footer.astro";
 import CenteredLayout from "../layouts/CenteredLayout.astro";
 import UploadForm from "../components/home/UploadForm.astro";
+import { createTranslator } from "../lib/i18n";
+
+const t = createTranslator({ locale: Astro.currentLocale ?? "en" });
 ---
 
-<CenteredLayout meta={{}}>
+<CenteredLayout t={t} meta={{ title: t.string("viewer.common.nameLong") }}>
   <Fragment slot="head">
     <PageView />
   </Fragment>
@@ -29,7 +32,7 @@ import UploadForm from "../components/home/UploadForm.astro";
     <CollectionsMenu />
   </div>
 
-  <Footer />
+  <Footer t={t} />
 </CenteredLayout>
 
 <style>

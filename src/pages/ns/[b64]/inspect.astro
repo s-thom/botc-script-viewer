@@ -10,6 +10,7 @@ import {
   stringToBytes,
 } from "../../../lib/compression";
 import { MAX_AGE_SECONDS } from "../../../lib/constants";
+import { createTranslator } from "../../../lib/i18n";
 import { decodeScript } from "../../../lib/number-store";
 import { explainDecodeScript } from "../../../lib/number-store/explain";
 
@@ -60,9 +61,20 @@ Astro.response.headers.set(
   "Cache-Control",
   `public, max-age=${MAX_AGE_SECONDS}`,
 );
+
+const t = createTranslator({ locale: Astro.currentLocale ?? "en" });
 ---
 
-<TopBarLayout meta={{ title: "Inspect - BotC Script Viewer", noIndex: true }}>
+<TopBarLayout
+  t={t}
+  meta={{
+    title: t.string("viewer.head.title", {
+      title: "Inspect",
+      nameShort: t.string("viewer.common.nameShort"),
+    }),
+    noIndex: true,
+  }}
+>
   <Fragment slot="head">
     <meta name="robots" content="noindex" />
     <PageView />
