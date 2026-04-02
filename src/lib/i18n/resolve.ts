@@ -2,7 +2,7 @@ import { LOCALE_MAP, type LocaleIds } from "./config.ts";
 import { LANGUAGE_DATA } from "./languages.ts";
 import type { Namespace } from "./types.ts";
 
-const NAMESPACES = new Set<Namespace>(["app", "game", "script"]);
+const NAMESPACES = new Set<Namespace>(["app", "game", "script", "viewer"]);
 
 function walkPath(
   obj: Record<string, unknown>,

@@ -33,9 +33,26 @@ describe("createTranslator — plain strings", () => {
     ]);
   });
 
+  it("returns plural form with count=Infinity", () => {
+    assert.deepEqual(t("script.keyword.player", { count: Infinity }), [
+      { type: "text", value: "Players" },
+    ]);
+  });
+
+  it("returns plural form with count=Infinity", () => {
+    assert.deepEqual(t("script.keyword.player", { count: Infinity }), [
+      { type: "text", value: "Players" },
+    ]);
+  });
+
   it("substitutes a named variable", () => {
-    const segments = t("script.analysis.maximum-character-recommendation", { number: 25 });
-    assert.equal(textOf(segments), "The recommended maximum number of characters is 25.");
+    const segments = t("script.analysis.maximum-character-recommendation", {
+      number: 25,
+    });
+    assert.equal(
+      textOf(segments),
+      "The recommended maximum number of characters is 25.",
+    );
   });
 
   it("returns the key as a text segment for a missing translation", () => {

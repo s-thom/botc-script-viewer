@@ -1,5 +1,6 @@
 ---
 import ScriptViewerLayout from "../../../layouts/ScriptViewerLayout.astro";
+import { createTranslator } from "../../../lib/i18n";
 import { LOCAL_SCRIPT_COLLECTIONS } from "../../../scripts";
 
 export function getStaticPaths() {
@@ -30,9 +31,12 @@ if (!scriptDefinition) {
 }
 
 const rawScript = await scriptDefinition.getScript();
+
+const t = createTranslator({ locale: Astro.currentLocale ?? "en" });
 ---
 
 <ScriptViewerLayout
+  t={t}
   rawScript={rawScript}
   overrideJsonPathSegment={`${scriptDefinition.id}.json`}
 />

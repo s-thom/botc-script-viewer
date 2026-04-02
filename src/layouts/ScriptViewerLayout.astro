@@ -1,20 +1,23 @@
 ---
 import ScriptDisplay from "../components/display/ScriptDisplay.astro";
 import SkipList from "../components/display/SkipList.astro";
+import FormattedMessage from "../components/misc/FormattedMessage.astro";
 import PageView from "../components/misc/PageView.astro";
 import type { BloodOnTheClocktowerCustomScript } from "../generated/script-schema";
 import { compressToBase64, stringToBytes } from "../lib/compression";
+import type { Translator } from "../lib/i18n/types";
 import { normaliseScript } from "../lib/normalise";
 import { fixDoubleSlashPaths } from "../lib/url";
 import TopBarLayout from "./TopBarLayout.astro";
 
 export interface Props {
+  t: Translator;
   rawScript: BloodOnTheClocktowerCustomScript;
   overrideJsonPathSegment?: string;
   noIndex?: boolean;
 }
 
-const { rawScript, overrideJsonPathSegment, noIndex } = Astro.props;
+const { t, rawScript, overrideJsonPathSegment, noIndex } = Astro.props;
 
 const script = normaliseScript(rawScript);
 
@@ -44,14 +47,18 @@ const scriptBuilderUrl = `https://script.bloodontheclocktower.com/?script=${enco
     <PageView />
   </Fragment>
 
-  <SkipList script={script} slot="top" />
+  <SkipList t={t} script={script} slot="top" />
 
   <ul class="nav-links" slot="items-start">
     <li>
-      <a href={downloadPath} download={downloadFilename}>Download JSON</a>
+      <a href={downloadPath} download={downloadFilename}
+        ><FormattedMessage segments={t("viewer.navigation.downloadJson")} /></a
+      >
     </li>
     <li>
-      <button type="button" class="link-button" id="print">Print</button>
+      <button type="button" class="link-button" id="print"
+        ><FormattedMessage segments={t("viewer.navigation.print")} /></button
+      >
     </li>
     <li>
       <a
@@ -59,7 +66,7 @@ const scriptBuilderUrl = `https://script.bloodontheclocktower.com/?script=${enco
         rel="external noreferrer"
         target="_blank"
         data-umami-event="script-open-official-builder"
-        >Edit
+        ><FormattedMessage segments={t("viewer.navigation.edit")} />
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 16 16"
@@ -71,7 +78,10 @@ const scriptBuilderUrl = `https://script.bloodontheclocktower.com/?script=${enco
         ></a
       >
     </li>
-    <li><a href={qrPath}>QR code</a></li>
+    <li>
+      <a href={qrPath}
+        ><FormattedMessage segments={t("viewer.navigation.qrCode")} /></a>
+    </li>
   </ul>
 
   <ScriptDisplay script={script} />

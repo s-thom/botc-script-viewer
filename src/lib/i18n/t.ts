@@ -1,20 +1,22 @@
-import type { LocaleIds } from "./config.ts";
+import { LOCALE_MAP } from "./config.ts";
 import { resolveVariables } from "./format.ts";
 import { parseMessage } from "./parse.ts";
 import { isPluralMessage, selectPluralForm } from "./plural.ts";
 import { resolveKey } from "./resolve.ts";
 import type { MessageSegment, TranslateParams, Translator } from "./types.ts";
 
-export function createTranslator({
-  locale,
-}: {
-  locale: LocaleIds;
-}): Translator {
+export function createTranslator({ locale }: { locale: string }): Translator {
+  if (!(locale in LOCALE_MAP)) {
+    throw new Error(`Unknown locale ${locale}`);
+  }
+
+  const knownLocale = locale as keyof typeof LOCALE_MAP;
+
   return function t(
     key: string,
     params: TranslateParams = {},
   ): MessageSegment[] {
-    const raw = resolveKey(locale, key);
+    const raw = resolveKey(knownLocale, key);
 
     if (raw === undefined) {
       if (import.meta.env?.DEV) {

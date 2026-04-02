@@ -1,22 +1,18 @@
 ---
 import type { ScriptCharacter } from "../../generated/script-schema";
-import type { MessageSegment, TranslateParams } from "../../lib/i18n";
-import { resolveVariables } from "../../lib/i18n/format";
+import type { MessageSegment } from "../../lib/i18n";
 import FormattedDescription from "../display/FormattedDescription.astro";
 
 export interface Props {
   segments: MessageSegment[];
-  params: TranslateParams;
   character?: ScriptCharacter;
 }
 
-const { segments, params, character } = Astro.props;
-
-const resolved = resolveVariables(segments, params);
+const { segments, character } = Astro.props;
 ---
 
 {
-  resolved.map((segment) => {
+  segments.map(function mapSingleSegment(segment): unknown {
     switch (segment.type) {
       case "text":
         return (
@@ -24,13 +20,7 @@ const resolved = resolveVariables(segments, params);
         );
       case "tag": {
         console.warn(`Unknown tag type: ${segment.name}`);
-        return (
-          <Astro.self
-            segments={segment.children}
-            params={params}
-            character={character}
-          />
-        );
+        return segment.children.map((child) => mapSingleSegment(child));
       }
       default:
         console.warn(

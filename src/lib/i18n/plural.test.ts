@@ -24,6 +24,10 @@ describe("selectPluralForm — 2 forms", () => {
   it("returns second form for count=5", () => {
     assert.equal(selectPluralForm("Player|Players", 5, "en"), "Players");
   });
+
+  it("returns second form for count=Infinity", () => {
+    assert.equal(selectPluralForm("Player|Players", Infinity, "en"), "Players");
+  });
 });
 
 describe("selectPluralForm — 3+ forms (CLDR)", () => {

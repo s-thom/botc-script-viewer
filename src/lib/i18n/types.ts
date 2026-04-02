@@ -3,13 +3,17 @@ export type Translator = (
   params?: TranslateParams,
 ) => MessageSegment[];
 
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+interface StringDict extends Record<string, string | StringDict> {}
+
 export interface LocaleData {
-  app: Record<string, unknown>;
-  game: Record<string, unknown>;
-  script: Record<string, unknown>;
+  app: StringDict;
+  game: StringDict;
+  script: StringDict;
+  viewer: StringDict;
 }
 
-export type Namespace = "app" | "game" | "script";
+export type Namespace = "app" | "game" | "script" | "viewer";
 
 export interface TranslateParams {
   count?: number;

@@ -1,0 +1,14 @@
+{
+  "nameShort": "BotC Script Viewer",
+  "nameLongFirst": "Blood on the Clocktower",
+  "nameLongLast": "Script Viewer",
+  "skipList": {
+    "skipTo": "Skip to:"
+  },
+  "navigation": {
+    "downloadJson": "Download JSON",
+    "print": "Print",
+    "edit": "Edit",
+    "qrCode": "QR Code"
+  }
+}
