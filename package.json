@@ -10,7 +10,8 @@
     "full-build": "npm run setup && npm run build",
     "preview": "astro preview",
     "lint": "eslint .",
-    "astro": "astro"
+    "astro": "astro",
+    "test": "node --test"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^13.1.3",

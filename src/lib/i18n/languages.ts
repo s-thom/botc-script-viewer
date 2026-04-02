@@ -1,17 +1,18 @@
-import enApp from "../../generated/i18n/en/app.json";
-import enGame from "../../generated/i18n/en/game.json";
-import enScript from "../../generated/i18n/en/script.json";
-import { ENABLED_LOCALES, LOCALE_MAP, type LocaleIds } from "./config";
+import enApp from "../../generated/i18n/en/app.json" with { type: "json" };
+import enGame from "../../generated/i18n/en/game.json" with { type: "json" };
+import enScript from "../../generated/i18n/en/script.json" with { type: "json" };
+import { ENABLED_LOCALES, LOCALE_MAP, type LocaleIds } from "./config.ts";
+import type { LocaleData } from "./types.ts";
 
 // NOTE: If the size of these JSON files combined starts being an issue for Cloudflare Workers' size limits,
 // these JSON files are probably rather compressible, so they could be streamed during execution.
 // If it ends up being memory limits then lazy loading is probably the way to go, but I'll need to figure that out.
 
-export const LANGUAGE_DATA: Record<LocaleIds, unknown> = {
+export const LANGUAGE_DATA: Record<LocaleIds, LocaleData> = {
   en: {
     app: enApp,
-    enGame: enGame,
-    enScript: enScript,
+    game: enGame,
+    script: enScript,
   },
 };
 
