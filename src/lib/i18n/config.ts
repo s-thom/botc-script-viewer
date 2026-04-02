@@ -1,12 +1,12 @@
+export type LocaleIds = "en";
+
 export interface LocaleInfo {
   name: string;
+  slug: LocaleIds;
   botcId: string;
-  slug: string;
-  fallbacks: string[];
+  fallbacks: LocaleIds[];
   isDefault?: boolean;
 }
-
-export type LocaleIds = "en";
 
 export const LOCALE_MAP: Record<LocaleIds, LocaleInfo> = {
   en: {
