@@ -1,8 +1,8 @@
-import type { MessageSegment } from "./types";
+import type { UnresolvedMessageSegment } from "./types";
 
 const TOKEN_RE = /\{(\/?)([\w]+)\}/g;
 
-export function parseMessage(msg: string): MessageSegment[] {
+export function parseMessage(msg: string): UnresolvedMessageSegment[] {
   // Pre-scan to find which names have a closing tag — those are tag-opens
   const hasClose = new Set<string>();
   for (const match of msg.matchAll(TOKEN_RE)) {
@@ -42,8 +42,8 @@ export function parseMessage(msg: string): MessageSegment[] {
 
   let pos = 0;
 
-  function parseUntilClose(closeName?: string): MessageSegment[] {
-    const segments: MessageSegment[] = [];
+  function parseUntilClose(closeName?: string): UnresolvedMessageSegment[] {
+    const segments: UnresolvedMessageSegment[] = [];
 
     while (pos < tokens.length) {
       const token = tokens[pos];

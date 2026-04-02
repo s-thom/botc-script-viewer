@@ -1,19 +1,19 @@
 import type { LocaleIds } from "./config.ts";
-import { formatMessage, resolveVariables } from "./format.ts";
+import { resolveVariables } from "./format.ts";
 import { parseMessage } from "./parse.ts";
 import { isPluralMessage, selectPluralForm } from "./plural.ts";
 import { resolveKey } from "./resolve.ts";
-import type { MessageSegment, TranslateParams } from "./types.ts";
+import type { MessageSegment, TranslateParams, Translator } from "./types.ts";
 
-function hasTagSegments(segments: MessageSegment[]): boolean {
-  return segments.some((seg) => seg.type === "tag");
-}
-
-export function createTranslator({ locale }: { locale: LocaleIds }) {
+export function createTranslator({
+  locale,
+}: {
+  locale: LocaleIds;
+}): Translator {
   return function t(
     key: string,
     params: TranslateParams = {},
-  ): string | MessageSegment[] {
+  ): MessageSegment[] {
     const raw = resolveKey(locale, key);
 
     if (raw === undefined) {
@@ -22,7 +22,7 @@ export function createTranslator({ locale }: { locale: LocaleIds }) {
           `[i18n] Missing translation key: "${key}" for locale "${locale}"`,
         );
       }
-      return key;
+      return [{ type: "text", value: key }];
     }
 
     const { count } = params;
@@ -38,12 +38,6 @@ export function createTranslator({ locale }: { locale: LocaleIds }) {
       ...params,
     };
 
-    const segments = parseMessage(selected);
-
-    if (hasTagSegments(segments)) {
-      return resolveVariables(segments, fullParams);
-    }
-
-    return formatMessage(segments, fullParams);
+    return resolveVariables(parseMessage(selected), fullParams);
   };
 }

@@ -1,3 +1,8 @@
+export type Translator = (
+  key: string,
+  params?: TranslateParams,
+) => MessageSegment[];
+
 export interface LocaleData {
   app: Record<string, unknown>;
   game: Record<string, unknown>;
@@ -11,7 +16,31 @@ export interface TranslateParams {
   [key: string]: unknown;
 }
 
-export type MessageSegment =
-  | { type: "text"; value: string }
-  | { type: "variable"; name: string }
-  | { type: "tag"; name: string; children: MessageSegment[] };
+export interface TextMessageSegment {
+  type: "text";
+  value: string;
+}
+
+export interface VariableMessageSegment {
+  type: "variable";
+  name: string;
+}
+
+export interface TagMessageSegment {
+  type: "tag";
+  name: string;
+  children: MessageSegment[];
+}
+
+export interface UnresolvedTagMessageSegment {
+  type: "tag";
+  name: string;
+  children: UnresolvedMessageSegment[];
+}
+
+export type UnresolvedMessageSegment =
+  | TextMessageSegment
+  | VariableMessageSegment
+  | UnresolvedTagMessageSegment;
+
+export type MessageSegment = TextMessageSegment | TagMessageSegment;
