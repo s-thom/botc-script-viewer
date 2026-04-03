@@ -1,12 +1,30 @@
 ---
 import { Image } from "astro:assets";
 import themeSwitch from "../../assets/theme-switch.webp";
+import type { Translator } from "../../lib/i18n/types";
+import FormattedMessage from "./FormattedMessage.astro";
+
+export interface Props {
+  t: Translator;
+}
+
+const { t } = Astro.props;
 ---
 
-<button id="theme-toggle" class="theme-toggle screen-only"
-  ><span class="visually-hidden"
-    >Theme: <span class="dark-mode-value">default</span></span
-  >
+<button
+  id="theme-toggle"
+  class="theme-toggle screen-only"
+  data-label-default={t.string("viewer.theme.default")}
+  data-label-light={t.string("viewer.theme.light")}
+  data-label-dark={t.string("viewer.theme.dark")}
+  ><span class="visually-hidden">
+    <FormattedMessage
+      segments={t("viewer.theme.theme", {
+        theme: t.string("viewer.theme.default"),
+        spanClass: "dark-mode-value",
+      })}
+    />
+  </span>
   <Image
     src={themeSwitch}
     alt=""
@@ -27,18 +45,24 @@ import themeSwitch from "../../assets/theme-switch.webp";
   type Theme = "default" | "light" | "dark";
   let state: Theme = (localStorage.getItem("sv-theme") as Theme) ?? "default";
 
-  const button = document.querySelector("button#theme-toggle")!;
+  const button = document.querySelector<HTMLButtonElement>(
+    "button#theme-toggle",
+  )!;
   const labelText = button.querySelector<HTMLSpanElement>(
     "span.dark-mode-value",
   )!;
 
+  const labelDefault = button.dataset.labelDefault!;
+  const labelLight = button.dataset.labelLight!;
+  const labelDark = button.dataset.labelDark!;
+
   function setTheme(theme: Theme) {
     if (theme === "default") {
-      labelText.textContent = "default";
+      labelText.textContent = labelDefault;
       delete document.documentElement.dataset.theme;
       localStorage.removeItem("sv-theme");
     } else {
-      labelText.textContent = theme;
+      labelText.textContent = theme === "light" ? labelLight : labelDark;
       document.documentElement.dataset.theme = theme;
       localStorage.setItem("sv-theme", theme);
     }

@@ -28,5 +28,11 @@
     "print": "Print",
     "edit": "Edit",
     "qrCode": "QR Code"
+  },
+  "theme": {
+    "theme": "Theme: {span}{theme}{/span}",
+    "default": "System",
+    "light": "Light",
+    "dark": "Dark"
   }
 }

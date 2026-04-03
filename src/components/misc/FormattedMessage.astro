@@ -40,6 +40,12 @@ const { segments, character } = Astro.props;
               </a>
             );
           }
+          case "span":
+            return (
+              <span class:list={[segment.params["spanClass"]]}>
+                {segment.children.map((child) => mapSingleSegment(child))}
+              </span>
+            );
           default:
             console.warn(`Unknown tag type: ${segment.name}`);
             return segment.children.map((child) => mapSingleSegment(child));
