@@ -1,12 +1,10 @@
-import type { CheckResult } from "../../../builder/checks/types";
-
 export interface SessionState {
   checks: {
     loading: boolean;
     didError: boolean;
-    errors: CheckResult[];
-    warnings: CheckResult[];
-    infos: CheckResult[];
+    errors: never[];
+    warnings: never[];
+    infos: never[];
   };
 }
 

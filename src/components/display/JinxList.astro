@@ -1,13 +1,15 @@
 ---
+import type { Translator } from "../../lib/i18n/types";
 import type { JinxInfo } from "../../types/botc";
 import CharacterListItem from "./CharacterListItem.astro";
 
 export interface Props {
+  t: Translator;
   jinxes: JinxInfo[];
   class?: string;
 }
 
-const { jinxes, class: className } = Astro.props;
+const { t, jinxes, class: className } = Astro.props;
 ---
 
 <ul class:list={["jinx-list", className]}>
@@ -18,6 +20,7 @@ const { jinxes, class: className } = Astro.props;
         class="jinx-list-item"
       >
         <CharacterListItem
+          t={t}
           character={jinx.character1}
           character1Link={`#${jinx.character1.id}`}
           character2={jinx.character2}

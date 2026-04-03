@@ -1,13 +1,15 @@
 ---
 import { CHARACTERS_BY_ID } from "../../lib/characters";
+import type { Translator } from "../../lib/i18n/types";
 import CharacterListItem from "./CharacterListItem.astro";
 
 export interface Props {
+  t: Translator;
   rules: string[];
   class?: string;
 }
 
-const { rules, class: className } = Astro.props;
+const { t, rules, class: className } = Astro.props;
 ---
 
 <ul class:list={["bootlegger-list", className]} id="bootlegger">
@@ -16,6 +18,7 @@ const { rules, class: className } = Astro.props;
       rules.map((rule) => (
         <li class="bootlegger-list-item">
           <CharacterListItem
+            t={t}
             character={CHARACTERS_BY_ID.get("bootlegger")!}
             description={rule}
           />

@@ -4,8 +4,13 @@ import type {
   ScriptCharacter,
   ScriptMetadata,
 } from "../generated/script-schema";
-import type { NormalisedScript, SpecialNightInfo } from "../types/botc";
-import { CHARACTERS_BY_ID } from "./characters";
+import type {
+  NormalisedScript,
+  NormalisedScriptCharacter,
+  SpecialNightInfo,
+} from "../types/botc";
+import { CHARACTERS_BY_ID, getTranslatedScriptCharacter } from "./characters";
+import type { Translator } from "./i18n/types";
 
 const FIRST_NIGHT_LOOKUP = data.nightOrder.firstNight.reduce<
   Map<string, number>
@@ -59,12 +64,12 @@ function getSpecialNightInfo(id: string): SpecialNightInfo | null {
 }
 
 function getNightOrderArrays(
-  charactersById: Map<string, ScriptCharacter>,
+  charactersById: Map<string, NormalisedScriptCharacter>,
   meta: ScriptMetadata,
 ) {
   let firstNight: NormalisedScript["firstNight"];
   let otherNight: NormalisedScript["otherNight"];
-  const missingCharacters: ScriptCharacter[] = [];
+  const missingCharacters: NormalisedScriptCharacter[] = [];
   const invalidCharacterIds = new Set<string>();
 
   function hasSpecialId(arr: NormalisedScript["firstNight"], id: string) {
@@ -75,7 +80,9 @@ function getNightOrderArrays(
     arr: NormalisedScript["firstNight"],
     specialId: string,
     lookup: Map<string, number>,
-    getCharacterOrder: (character: ScriptCharacter) => number | undefined,
+    getCharacterOrder: (
+      character: NormalisedScriptCharacter,
+    ) => number | undefined,
   ) {
     const specialOrder = lookup.get(specialId) ?? 0;
     const insertIndex = arr.findIndex((item) => {
@@ -207,6 +214,7 @@ function normaliseCharacterId(id: string): string {
 
 export function normaliseScript(
   script: BloodOnTheClocktowerCustomScript,
+  t: Translator,
 ): NormalisedScript {
   let meta: ScriptMetadata | undefined;
   const newScript: NormalisedScript = {
@@ -228,10 +236,18 @@ export function normaliseScript(
     warnings: [],
   };
 
-  function addCharacter(character: ScriptCharacter) {
-    newScript.characters.push(character);
-    newScript.charactersById.set(character.id, character);
-    newScript.teams[character.team].push(character);
+  function addCharacter(character: NormalisedScriptCharacter) {
+    const translated = getTranslatedScriptCharacter(t, character);
+
+    console.log(
+      character.id,
+      character.firstNightReminder,
+      translated.firstNightReminder,
+    );
+
+    newScript.characters.push(translated);
+    newScript.charactersById.set(translated.id, translated);
+    newScript.teams[translated.team].push(translated);
   }
 
   // Collect characters
@@ -255,29 +271,30 @@ export function normaliseScript(
       continue;
     }
 
-    if (Object.keys(item).length === 1) {
-      const normalisedId = normaliseCharacterId(item.id);
-
-      const character = CHARACTERS_BY_ID.get(normalisedId);
-      if (character === undefined) {
-        throw new Error(
-          `Unknown official character (deprecated) ${normalisedId}${item.id !== normalisedId ? `(mapped from ${item})` : ""}`,
-        );
-      }
-
+    const normalisedId = normaliseCharacterId(item.id);
+    const character = CHARACTERS_BY_ID.get(normalisedId);
+    if (character) {
       addCharacter(character);
       continue;
     }
 
-    addCharacter(item as ScriptCharacter);
+    if (Object.keys(item).length === 1) {
+      throw new Error(
+        `Unknown official character (deprecated) ${normalisedId}${item.id !== normalisedId ? `(mapped from ${item})` : ""}`,
+      );
+    }
 
-    // Custom character check
-    const normalisedId = normaliseCharacterId(item.id);
-    if (!CHARACTERS_BY_ID.has(normalisedId)) {
-      // Ensure bootlegger is in play if there are custom characters
-      if (!newScript.charactersById.has("bootlegger")) {
-        addCharacter(CHARACTERS_BY_ID.get("bootlegger")!);
-      }
+    const newCharacter: NormalisedScriptCharacter = {
+      ...(item as ScriptCharacter),
+      normalisedId,
+      isHomebrew: true,
+    };
+
+    addCharacter(newCharacter);
+
+    // Ensure bootlegger is in play if there are custom characters
+    if (!newScript.charactersById.has("bootlegger")) {
+      addCharacter(CHARACTERS_BY_ID.get("bootlegger")!);
     }
   }
 

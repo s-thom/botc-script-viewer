@@ -2,7 +2,11 @@ export type Translator = ((
   key: string,
   params?: TranslateParams,
 ) => MessageSegment[]) & {
+  locale: string;
+  resolve: (key: string, ignoreMissing?: boolean) => string | undefined;
   string: (key: string, params?: TranslateParams) => string;
+  raw: (raw: string, params?: TranslateParams) => MessageSegment[];
+  rawString: (raw: string, params?: TranslateParams) => string;
 };
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
@@ -19,6 +23,9 @@ export type Namespace = "app" | "game" | "script" | "viewer";
 
 export interface TranslateParams {
   count?: number;
+  /** Whether *CARD TEXT*, [Setup ability], or :reminder: should be replaced in messages */
+  formatReplacements?: boolean;
+  fallback?: string;
   [key: string]: unknown;
 }
 

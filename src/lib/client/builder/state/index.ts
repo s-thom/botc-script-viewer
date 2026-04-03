@@ -9,7 +9,6 @@ import {
   getFullScriptCharacter,
   getMinimalScriptCharacter,
   isScriptMetadata,
-  sortCharacters,
 } from "../../../characters";
 import { appState } from "./app.svelte";
 import { scriptState } from "./script.svelte";
@@ -70,24 +69,6 @@ export function getScriptSettingsFromRawScript(
   return scriptSettings;
 }
 
-export function setScriptFromRaw(
-  id: string,
-  script: BloodOnTheClocktowerCustomScript,
-) {
-  const newScriptState = getScriptSettingsFromRawScript(script);
-  setScriptState(id, newScriptState);
-}
-
-export function setScriptState(id: string, state: BuilderScriptSettingsLatest) {
-  appState.currentScriptId = id;
-  for (const [key, value] of Object.entries(state)) {
-    // @ts-expect-error Since we can't assign to scriptState directly, we have to override all of its properties.
-    scriptState[key] = value;
-  }
-
-  doSortScript();
-}
-
 export function getScriptFromScriptSettings(
   state: BuilderScriptSettingsLatest,
 ): BloodOnTheClocktowerCustomScript {
@@ -100,13 +81,4 @@ export function getScriptFromScriptSettings(
     ),
     ...enforcedCharacters,
   ];
-}
-
-export function doSortScript() {
-  if (appState.sorting.enabled) {
-    scriptState.characters = sortCharacters(
-      scriptState.characters,
-      appState.sorting.fun,
-    );
-  }
 }

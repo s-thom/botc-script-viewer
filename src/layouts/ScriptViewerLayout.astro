@@ -19,7 +19,7 @@ export interface Props {
 
 const { t, rawScript, overrideJsonPathSegment, noIndex } = Astro.props;
 
-const script = normaliseScript(rawScript);
+const script = normaliseScript(rawScript, t);
 
 const qrPath = fixDoubleSlashPaths(
   new URL(`${Astro.url.pathname}/qr.svg`, Astro.url),

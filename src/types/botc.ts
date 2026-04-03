@@ -4,11 +4,16 @@ import type {
   ScriptCharacter,
 } from "../generated/script-schema";
 
+export interface NormalisedScriptCharacter extends ScriptCharacter {
+  normalisedId: string;
+  isHomebrew: boolean;
+}
+
 export type NightInfo = CharacterNightInfo | SpecialNightInfo;
 
 export interface CharacterNightInfo {
   type: "character";
-  character: ScriptCharacter;
+  character: NormalisedScriptCharacter;
   reminderText?: string;
 }
 export interface SpecialNightInfo {
@@ -19,8 +24,8 @@ export interface SpecialNightInfo {
 }
 
 export interface JinxInfo {
-  character1: ScriptCharacter;
-  character2: ScriptCharacter;
+  character1: NormalisedScriptCharacter;
+  character2: NormalisedScriptCharacter;
   reason: string;
 }
 
@@ -41,9 +46,9 @@ export interface NormalisedScript {
   bootlegger?: string[];
   firstNight: NightInfo[];
   otherNight: NightInfo[];
-  characters: ScriptCharacter[];
-  charactersById: Map<string, ScriptCharacter>;
-  teams: Record<CharacterTeam, ScriptCharacter[]>;
+  characters: NormalisedScriptCharacter[];
+  charactersById: Map<string, NormalisedScriptCharacter>;
+  teams: Record<CharacterTeam, NormalisedScriptCharacter[]>;
   jinxes: JinxInfo[];
   warnings: ScriptWarnings[];
 }

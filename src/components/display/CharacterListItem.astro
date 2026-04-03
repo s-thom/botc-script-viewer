@@ -1,11 +1,13 @@
 ---
-import type { ScriptCharacter } from "../../generated/script-schema";
+import type { Translator } from "../../lib/i18n/types";
+import type { NormalisedScriptCharacter } from "../../types/botc";
+import FormattedMessage from "../misc/FormattedMessage.astro";
 import CharacterIcon from "./CharacterIcon.astro";
-import FormattedDescription from "./FormattedDescription.astro";
 
 export interface Props {
-  character: ScriptCharacter | null;
-  character2?: ScriptCharacter;
+  t: Translator;
+  character: NormalisedScriptCharacter | null;
+  character2?: NormalisedScriptCharacter;
   title?: string;
   description?: string;
   character1Link?: string;
@@ -17,6 +19,7 @@ export interface Props {
 }
 
 const {
+  t,
   character,
   character2,
   title,
@@ -77,10 +80,10 @@ const {
           <h4 class="character-title">
             {titleLink ? (
               <a class="character-title-link" href={titleLink}>
-                {title}
+                <FormattedMessage segments={t.raw(title)} />
               </a>
             ) : (
-              title
+              <FormattedMessage segments={t.raw(title)} />
             )}
           </h4>
           {wikiLink && (
@@ -89,9 +92,9 @@ const {
               href={wikiLink}
               rel="external noreferrer"
               target="_blank"
-              aria-label={`View ${title} in the wiki`}
+              aria-label={t.string("viewer.script.wikiLabel", { title })}
             >
-              [wiki]
+              <FormattedMessage segments={t("viewer.script.wikiLink")} />
             </a>
           )}
         </div>
@@ -100,8 +103,8 @@ const {
     {
       description && (
         <p class="character-description">
-          <FormattedDescription
-            content={description}
+          <FormattedMessage
+            segments={t.raw(description, { formatReplacements: true })}
             character={character ?? undefined}
           />
         </p>

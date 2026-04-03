@@ -9,6 +9,7 @@ Custom translation library for vue-i18n/intlify locale files.
 import { createTranslator } from "../lib/i18n";
 const t = createTranslator({ locale: Astro.currentLocale ?? "en" });
 ---
+
 <h1>{t("script.keyword.player", { count: 1 })}</h1>
 ```
 
@@ -19,7 +20,7 @@ const t = createTranslator({ locale: Astro.currentLocale ?? "en" });
 Pipe-delimited: `"Player|Players"`. Pass `count` and it selects the right form.
 
 ```ts
-t("script.keyword.player", { count: 5 }) // → "Players"
+t("script.keyword.player", { count: 5 }); // → "Players"
 ```
 
 Two forms use `count === 1` for singular. Three or more use `Intl.PluralRules`.
@@ -29,7 +30,7 @@ Two forms use `count === 1` for singular. Three or more use `Intl.PluralRules`.
 `{name}` and `{0}` are substituted from params. Missing variables are preserved as-is (`{name}`) for debugging.
 
 ```ts
-t("script.analysis.maximum-character-recommendation", { number: 25 })
+t("script.analysis.maximum-character-recommendation", { number: 25 });
 // → "The recommended maximum number of characters is 25."
 ```
 
@@ -44,10 +45,11 @@ Always use `<FormattedMessage>` to render. Unknown tags fall back to rendering t
 import FormattedMessage from "../components/misc/FormattedMessage.astro";
 const segments = t("script.tour.welcome-01");
 ---
+
 <FormattedMessage {segments} params={{}} />
 ```
 
-`FormattedMessage` accepts an optional `character` prop forwarded to `FormattedDescription` for each text node.
+`FormattedMessage` accepts an optional `character` prop forwarded to certain tags.
 
 ## Missing keys
 

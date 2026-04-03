@@ -1,13 +1,15 @@
 ---
+import type { Translator } from "../../lib/i18n/types";
 import type { NightInfo } from "../../types/botc";
 import CharacterListItem from "./CharacterListItem.astro";
 
 export interface Props {
+  t: Translator;
   info: NightInfo[];
   class?: string;
 }
 
-const { info, class: className } = Astro.props;
+const { t, info, class: className } = Astro.props;
 ---
 
 <ul class:list={["night-order-list", className]}>
@@ -16,6 +18,7 @@ const { info, class: className } = Astro.props;
       <li class={"night-order-list-item"}>
         {rule.type === "character" ? (
           <CharacterListItem
+            t={t}
             character={rule.character}
             character1Link={`#${rule.character.id}`}
             title={rule.character.name}
@@ -24,12 +27,15 @@ const { info, class: className } = Astro.props;
           />
         ) : (
           <CharacterListItem
+            t={t}
             character={{
               edition: "special",
               team: "fabled",
               id: rule.id,
               name: rule.name,
               ability: rule.reminderText ?? "",
+              normalisedId: rule.id,
+              isHomebrew: false,
             }}
             title={rule.name}
             description={rule.reminderText}

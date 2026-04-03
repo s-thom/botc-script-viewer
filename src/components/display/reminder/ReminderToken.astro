@@ -1,9 +1,9 @@
 ---
-import type { ScriptCharacter } from "../../../generated/script-schema";
+import type { NormalisedScriptCharacter } from "../../../types/botc";
 import CharacterIcon from "../CharacterIcon.astro";
 
 export interface Props {
-  character?: ScriptCharacter;
+  character?: NormalisedScriptCharacter;
 }
 
 const { character } = Astro.props;

@@ -1,4 +1,3 @@
-import { CHARACTERS_BY_ID } from "../characters";
 import { bytesToString } from "../compression";
 import { ORDERED_CHARACTER_LIST } from "./characters";
 import { sliceTLV } from "./util";
@@ -149,7 +148,7 @@ function explainDecodeNightOrder(bytes: Uint8Array): ExplainNode[] {
             nodes.push({
               type: "value",
               bytes: bytes.subarray(pointer, pointer + 1),
-              value: CHARACTERS_BY_ID.get(id)?.name ?? id,
+              value: id,
               valueType: "enum",
             });
           } else {
@@ -346,7 +345,7 @@ export function explainDecodeScript(bytes: Uint8Array): ExplainNode[] {
             nodes.push({
               type: "value",
               bytes: bytes.subarray(pointer, pointer + 1),
-              value: CHARACTERS_BY_ID.get(id)?.name ?? id,
+              value: id,
               valueType: "enum",
             });
           } else {

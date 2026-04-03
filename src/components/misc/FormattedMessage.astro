@@ -1,11 +1,11 @@
 ---
-import type { ScriptCharacter } from "../../generated/script-schema";
 import type { MessageSegment } from "../../lib/i18n";
-import FormattedDescription from "../display/FormattedDescription.astro";
+import type { NormalisedScriptCharacter } from "../../types/botc";
+import ReminderToken from "../display/reminder/ReminderToken.astro";
 
 export interface Props {
   segments: MessageSegment[];
-  character?: ScriptCharacter;
+  character?: NormalisedScriptCharacter;
 }
 
 const { segments, character } = Astro.props;
@@ -15,9 +15,7 @@ const { segments, character } = Astro.props;
   segments.map(function mapSingleSegment(segment): unknown {
     switch (segment.type) {
       case "text":
-        return (
-          <FormattedDescription content={segment.value} character={character} />
-        );
+        return <Fragment>{segment.value}</Fragment>;
       case "tag": {
         switch (segment.name) {
           case "externalLink": {
@@ -46,6 +44,14 @@ const { segments, character } = Astro.props;
                 {segment.children.map((child) => mapSingleSegment(child))}
               </span>
             );
+          case "bold":
+            return (
+              <strong>
+                {segment.children.map((child) => mapSingleSegment(child))}
+              </strong>
+            );
+          case "reminder":
+            return <ReminderToken character={character ?? undefined} />;
           default:
             console.warn(`Unknown tag type: ${segment.name}`);
             return segment.children.map((child) => mapSingleSegment(child));

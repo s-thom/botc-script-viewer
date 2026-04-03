@@ -1,15 +1,17 @@
 ---
-import type { ScriptCharacter } from "../../generated/script-schema";
 import { getAlmanacLink } from "../../lib/characters";
+import type { Translator } from "../../lib/i18n/types";
+import type { NormalisedScriptCharacter } from "../../types/botc";
 import CharacterListItem from "./CharacterListItem.astro";
 
 export interface Props {
-  characters: ScriptCharacter[];
+  t: Translator;
+  characters: NormalisedScriptCharacter[];
   class?: string;
   showWikiLink?: boolean;
 }
 
-const { characters, class: className, showWikiLink } = Astro.props;
+const { t, characters, class: className, showWikiLink } = Astro.props;
 ---
 
 <ul class:list={["character-list", className]}>
@@ -17,6 +19,7 @@ const { characters, class: className, showWikiLink } = Astro.props;
     characters.map((character) => (
       <li class={"character-list-item"} id={character.id}>
         <CharacterListItem
+          t={t}
           character={character}
           title={character.name}
           description={character.ability}

@@ -68,18 +68,18 @@ const allExtraNightOrderCharacters = script.warnings.flatMap((warning) =>
     </div>
     {
       script.bootlegger && script.bootlegger.length > 0 && (
-        <BootleggerList rules={script.bootlegger} />
+        <BootleggerList t={t} rules={script.bootlegger} />
       )
     }
     <h2 class="category-title">Characters</h2>
     <h3 id="townsfolk" class="category-title">Townsfolk</h3>
-    <CharacterList characters={script.teams.townsfolk} showWikiLink />
+    <CharacterList t={t} characters={script.teams.townsfolk} showWikiLink />
     <h3 id="outsiders" class="category-title">Outsiders</h3>
-    <CharacterList characters={script.teams.outsider} showWikiLink />
+    <CharacterList t={t} characters={script.teams.outsider} showWikiLink />
     <h3 id="minions" class="category-title">Minions</h3>
-    <CharacterList characters={script.teams.minion} showWikiLink />
+    <CharacterList t={t} characters={script.teams.minion} showWikiLink />
     <h3 id="demons" class="category-title">Demons</h3>
-    <CharacterList characters={script.teams.demon} showWikiLink />
+    <CharacterList t={t} characters={script.teams.demon} showWikiLink />
   </div>
 
   {
@@ -92,7 +92,11 @@ const allExtraNightOrderCharacters = script.warnings.flatMap((warning) =>
             <h3 id="travellers" class="category-title">
               Travellers
             </h3>
-            <CharacterList characters={script.teams.traveller} showWikiLink />
+            <CharacterList
+              t={t}
+              characters={script.teams.traveller}
+              showWikiLink
+            />
           </>
         )}
         {script.teams.fabled.length > 0 && (
@@ -100,7 +104,11 @@ const allExtraNightOrderCharacters = script.warnings.flatMap((warning) =>
             <h3 id="fabled" class="category-title">
               Fabled
             </h3>
-            <CharacterList characters={script.teams.fabled} showWikiLink />
+            <CharacterList
+              t={t}
+              characters={script.teams.fabled}
+              showWikiLink
+            />
           </>
         )}
         {script.teams.loric.length > 0 && (
@@ -108,7 +116,7 @@ const allExtraNightOrderCharacters = script.warnings.flatMap((warning) =>
             <h3 id="loric" class="category-title">
               Loric
             </h3>
-            <CharacterList characters={script.teams.loric} showWikiLink />
+            <CharacterList t={t} characters={script.teams.loric} showWikiLink />
           </>
         )}
         {script.jinxes.length > 0 && (
@@ -116,7 +124,7 @@ const allExtraNightOrderCharacters = script.warnings.flatMap((warning) =>
             <h3 id="jinxes" class="category-title">
               Jinxes
             </h3>
-            <JinxList jinxes={script.jinxes} />
+            <JinxList t={t} jinxes={script.jinxes} />
           </>
         )}
       </div>
@@ -140,11 +148,11 @@ const allExtraNightOrderCharacters = script.warnings.flatMap((warning) =>
     <div class="two-column">
       <div>
         <h3 id="first-night" class="category-title">First Night</h3>
-        <NightOrderList info={script.firstNight} />
+        <NightOrderList t={t} info={script.firstNight} />
       </div>
       <div>
         <h3 id="other-night" class="category-title">Other Nights</h3>
-        <NightOrderList info={script.otherNight} />
+        <NightOrderList t={t} info={script.otherNight} />
       </div>
     </div>
   </div>

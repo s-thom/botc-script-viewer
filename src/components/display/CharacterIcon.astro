@@ -1,14 +1,13 @@
 ---
 import type { GetImageResult, ImageMetadata } from "astro";
+import { getImage, Image } from "astro:assets";
 import * as CHARACTER_ICONS from "../../generated/character-icons";
-import type { ScriptCharacter } from "../../generated/script-schema";
 import { CHARACTERS_BY_ID } from "../../lib/characters";
 import { ALLOWED_EXTERNAL_HOSTNAMES } from "../../lib/images";
-import { Image } from "astro:assets";
-import { getImage } from "astro:assets";
+import type { NormalisedScriptCharacter } from "../../types/botc";
 
 export interface Props {
-  character: ScriptCharacter;
+  character: NormalisedScriptCharacter;
   size: number;
   loading?: "eager" | "lazy";
   class?: string;
@@ -18,7 +17,9 @@ type FallbackProps = Pick<GetImageResult, "src" | "srcSet" | "attributes">;
 
 const { character, size, class: className, loading = "eager" } = Astro.props;
 
-function getFallbackIcon(team: ScriptCharacter["team"]): ImageMetadata {
+function getFallbackIcon(
+  team: NormalisedScriptCharacter["team"],
+): ImageMetadata {
   switch (team) {
     case "townsfolk":
       return CHARACTER_ICONS.townsfolk;
@@ -38,7 +39,7 @@ function getFallbackIcon(team: ScriptCharacter["team"]): ImageMetadata {
 }
 
 function ensureImageHostname(
-  character: ScriptCharacter,
+  character: NormalisedScriptCharacter,
   imageUrl: string,
 ): string | ImageMetadata {
   try {
@@ -53,7 +54,9 @@ function ensureImageHostname(
   return getFallbackIcon(character.team);
 }
 
-function getCharacterIcon(character: ScriptCharacter): string | ImageMetadata {
+function getCharacterIcon(
+  character: NormalisedScriptCharacter,
+): string | ImageMetadata {
   // Check for images defined in script
   if (typeof character.image === "string") {
     return ensureImageHostname(character, character.image);

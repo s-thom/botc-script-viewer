@@ -15,7 +15,9 @@
     "sourceCode": "{externalLink}Source code{/externalLink}."
   },
   "script": {
-    "untitledScript": "Untitled Script"
+    "untitledScript": "Untitled Script",
+    "wikiLink": "[wiki]",
+    "wikiLabel": "View {title} on wiki"
   },
   "collection": {
     "title": "Collection: {title}"
