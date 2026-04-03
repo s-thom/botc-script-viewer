@@ -50,6 +50,12 @@ const { segments, character } = Astro.props;
                 {segment.children.map((child) => mapSingleSegment(child))}
               </strong>
             );
+          case "small":
+            return (
+              <span class="small">
+                {segment.children.map((child) => mapSingleSegment(child))}
+              </span>
+            );
           case "reminder":
             return <ReminderToken character={character ?? undefined} />;
           default:
@@ -65,4 +71,8 @@ const { segments, character } = Astro.props;
   })
 }
 
-<style></style>
+<style>
+  .small {
+    font-size: 0.7em;
+  }
+</style>

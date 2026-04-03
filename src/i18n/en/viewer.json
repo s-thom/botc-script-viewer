@@ -15,9 +15,12 @@
     "sourceCode": "{externalLink}Source code{/externalLink}."
   },
   "script": {
+    "title": "{title}",
+    "titleWithAuthor": "{title} {small}\u2002by {author}{/small}",
     "untitledScript": "Untitled Script",
     "wikiLink": "[wiki]",
-    "wikiLabel": "View {title} on wiki"
+    "wikiLabel": "View {title} on wiki",
+    "reminder": "Reminder"
   },
   "collection": {
     "title": "Collection: {title}"

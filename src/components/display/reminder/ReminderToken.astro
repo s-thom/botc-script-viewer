@@ -14,7 +14,7 @@ const { character } = Astro.props;
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
     class="reminder-background"
-    aria-label="Reminder: "
+    aria-label="Reminder"
   >
     <use x="12" y="12" href="#reminder"></use>
   </svg>{
@@ -22,6 +22,7 @@ const { character } = Astro.props;
       <CharacterIcon
         character={character}
         size={24}
+        includeAlt={false}
         class="reminder-character-icon"
       />
     )

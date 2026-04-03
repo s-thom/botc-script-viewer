@@ -239,12 +239,6 @@ export function normaliseScript(
   function addCharacter(character: NormalisedScriptCharacter) {
     const translated = getTranslatedScriptCharacter(t, character);
 
-    console.log(
-      character.id,
-      character.firstNightReminder,
-      translated.firstNightReminder,
-    );
-
     newScript.characters.push(translated);
     newScript.charactersById.set(translated.id, translated);
     newScript.teams[translated.team].push(translated);

@@ -9,13 +9,20 @@ import type { NormalisedScriptCharacter } from "../../types/botc";
 export interface Props {
   character: NormalisedScriptCharacter;
   size: number;
+  includeAlt?: boolean;
   loading?: "eager" | "lazy";
   class?: string;
 }
 
 type FallbackProps = Pick<GetImageResult, "src" | "srcSet" | "attributes">;
 
-const { character, size, class: className, loading = "eager" } = Astro.props;
+const {
+  character,
+  size,
+  includeAlt = true,
+  class: className,
+  loading = "eager",
+} = Astro.props;
 
 function getFallbackIcon(
   team: NormalisedScriptCharacter["team"],
@@ -114,7 +121,7 @@ const fallback: FallbackProps = {
   typeof icon === "string" ? (
     <Image
       src={icon}
-      alt={character.name}
+      alt={includeAlt ? character.name : ""}
       class:list={["character-icon", className]}
       width={size}
       height={size}
@@ -125,7 +132,7 @@ const fallback: FallbackProps = {
   ) : (
     <Image
       src={icon}
-      alt={character.name}
+      alt={includeAlt ? character.name : ""}
       class:list={["character-icon", className]}
       width={size}
       height={size}

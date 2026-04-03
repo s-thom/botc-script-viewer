@@ -3,6 +3,7 @@ import type { Translator } from "../../lib/i18n/types";
 import { fixDoubleSlashPaths } from "../../lib/url";
 import type { NormalisedScript } from "../../types/botc";
 import Footer from "../misc/Footer.astro";
+import FormattedMessage from "../misc/FormattedMessage.astro";
 import BootleggerList from "./BootleggerList.astro";
 import CharacterIcon from "./CharacterIcon.astro";
 import CharacterList from "./CharacterList.astro";
@@ -33,18 +34,20 @@ const allExtraNightOrderCharacters = script.warnings.flatMap((warning) =>
   <div class="page">
     <div class="title-area">
       <h1 id="script" class="title">
-        <span>{script.name || "Custom Script"}</span>
-        {
-          script.author && (
-            <>
-              <span class="title-reduced">&ensp;by </span>
-              <span class="title-reduced">{script.author}</span>
-            </>
-          )
-        }
+        <FormattedMessage
+          segments={t(
+            script.author
+              ? "viewer.script.titleWithAuthor"
+              : "viewer.script.title",
+            {
+              title: script.name ?? t.string("viewer.script.untitledScript"),
+              author: script.author,
+            },
+          )}
+        />
       </h1>
       {
-        script.teams.fabled.length > 0 && (
+        script.teams.fabled.length + script.teams.loric.length > 0 && (
           <ul class="fabled-list">
             {script.teams.fabled.map((character) => (
               <li class="fabled-list-item">
