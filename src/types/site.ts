@@ -2,6 +2,7 @@ export interface PageMeta {
   title: string;
   description?: string;
   noIndex?: boolean;
+  hasLocaleAlternates?: boolean;
 }
 
 export interface AppErrorOptions {
