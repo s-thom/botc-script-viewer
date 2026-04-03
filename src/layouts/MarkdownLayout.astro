@@ -14,7 +14,10 @@ const { frontmatter } = Astro.props;
 const t = createTranslator({ locale: "en" });
 ---
 
-<TopBarLayout t={t} meta={{ title: `${frontmatter.title}` }}>
+<TopBarLayout
+  t={t}
+  meta={{ title: t.string("viewer.head.title", { title: frontmatter.title }) }}
+>
   <div class="md flow">
     <h1>{frontmatter.title}</h1>
 

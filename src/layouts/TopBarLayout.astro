@@ -1,4 +1,5 @@
 ---
+import FormattedMessage from "../components/misc/FormattedMessage.astro";
 import ThemeToggle from "../components/misc/ThemeToggle.astro";
 import type { Translator } from "../lib/i18n/types";
 import type { PageMeta } from "../types/site";
@@ -22,7 +23,9 @@ const { t, meta } = Astro.props;
       <div class="pattern">
         <div class="header-content">
           <a href="/">
-            <h1 class="heading">BotC Script Viewer</h1>
+            <h1 class="heading">
+              <FormattedMessage segments={t("viewer.common.nameShort")} />
+            </h1>
           </a>
 
           <div class="space"></div>
