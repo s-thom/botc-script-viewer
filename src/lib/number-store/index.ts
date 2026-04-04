@@ -14,13 +14,23 @@ import { sliceTLV } from "./util";
 // Something short enough that in a lot of cases it won't need resizing much.
 const INITIAL_BUFFER_SIZE = 128;
 // 4KiB
-const MAX_BUFFER_SIZE = 4096;
+const MAX_BUFFER_SIZE = 512 * 1024;
 
 function ensureBufferSize(bytes: Uint8Array, length: number) {
   if (length >= bytes.byteLength) {
     // Resize the buffer to the next power of 2.
     const pow2 = Math.pow(2, Math.ceil(Math.log(length + 1) / Math.log(2)));
-    (bytes.buffer as ArrayBuffer).resize(pow2);
+
+    try {
+      (bytes.buffer as ArrayBuffer).resize(pow2);
+    } catch (err) {
+      throw new AppError(`Error resizing buffer to ${pow2}`, {
+        cause: err,
+        status: 500,
+        titleKey: "viewer.errors.encoding",
+        descriptionKey: "viewer.errors.encodingDescription",
+      });
+    }
   }
 }
 

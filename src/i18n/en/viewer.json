@@ -57,6 +57,8 @@
     "unknownLocaleDescription": "This website does not support the {locale} locale.",
     "decoding": "Decoding error",
     "decodingDescription": "There was an error decoding the script from the URL.",
+    "encoding": "Encoding error",
+    "encodingDescription": "There was an error encoding the script to put in the URL.",
     "invalidJson": "Invalid JSON",
     "invalidJsonDescription": "The script was not valid JSON.",
     "requestFailed": "Unable to request script",
