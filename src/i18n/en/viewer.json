@@ -61,6 +61,8 @@
     "encodingDescription": "There was an error encoding the script to put in the URL.",
     "invalidJson": "Invalid JSON",
     "invalidJsonDescription": "The script was not valid JSON.",
+    "invalidScript": "Error in script",
+    "invalidScriptDescription": "The script has an issue preventing this website from working.",
     "requestFailed": "Unable to request script",
     "requestFailedDescription": "The request to {url} failed. If this keeps occurring, try downloading the script JSON yourself and uploading it."
   }

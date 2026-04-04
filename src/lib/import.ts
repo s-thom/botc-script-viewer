@@ -1,5 +1,9 @@
 import z from "zod";
-import type { BloodOnTheClocktowerCustomScript } from "../generated/script-schema";
+import type {
+  BloodOnTheClocktowerCustomScript,
+  OfficialCharacterDeprecated,
+  ScriptCharacter,
+} from "../generated/script-schema";
 import { LOCAL_SCRIPT_COLLECTIONS } from "../scripts";
 import { AppError } from "../types/site";
 import { decompressFromBase64 } from "./compression";
@@ -109,15 +113,44 @@ function parseScriptJsonFromString(
   }
 
   const result = rawScriptValidator.safeParse(json);
-  if (result.success) {
-    return result.data;
+  if (!result.success) {
+    throw new AppError("Script is not valid JSON", {
+      status: 400,
+      titleKey: "viewer.errors.invalidScript",
+      descriptionKey: "viewer.errors.invalidScriptDescription",
+    });
   }
 
-  throw new AppError("Script is not valid JSON", {
-    status: 400,
-    titleKey: "viewer.errors.invalidJson",
-    descriptionKey: "viewer.errors.invalidJsonDescription",
-  });
+  const script = result.data;
+
+  // If a homebrew character definition is incorrect, then it'll likely parse
+  // to the legacy { id: string } format anyway.
+  // This check is to ensure that all legacy objects in the parsed output don't
+  // have an ability text defined in the original (which is a likely indicator).
+
+  for (const item of script) {
+    if (
+      typeof item === "object" &&
+      "id" in item &&
+      item.id !== "_meta" &&
+      !("ability" in item)
+    ) {
+      const original = (json as BloodOnTheClocktowerCustomScript).find(
+        (originalItem) =>
+          typeof originalItem === "object" && originalItem.id === item.id,
+      ) as ScriptCharacter | OfficialCharacterDeprecated;
+
+      if ("ability" in original) {
+        throw new AppError(`Homebrew character ${item.id} parsed incorrectly`, {
+          status: 500,
+          titleKey: "viewer.errors.invalidScript",
+          descriptionKey: "viewer.errors.invalidScriptDescription",
+        });
+      }
+    }
+  }
+
+  return script;
 }
 
 async function fetchScriptFromUrl(

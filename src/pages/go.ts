@@ -51,9 +51,16 @@ export const POST: APIRoute = async ({
   const minifiedScript = JSON.stringify(rawScript);
 
   if (shouldUseNumberStore(rawScript, minifiedScript.length)) {
-    const bytes = encodeScript(rawScript);
-    const base64 = await compressToBase64(bytes, "deflate-raw", true);
-    return redirect(`/ns/${base64}`);
+    try {
+      const bytes = encodeScript(rawScript);
+      const base64 = await compressToBase64(bytes, "deflate-raw", true);
+      return redirect(`/ns/${base64}`);
+    } catch (err) {
+      console.warn(
+        "Error trying to encode script in NS, falling back to JSON",
+        err,
+      );
+    }
   }
 
   // Fall back to just encoding the JSON
