@@ -1,3 +1,5 @@
+import type { TranslateParams } from "../lib/i18n";
+
 export interface PageMeta {
   title: string;
   description?: string;
@@ -6,24 +8,24 @@ export interface PageMeta {
 }
 
 export interface AppErrorOptions {
-  title?: string;
-  description?: string;
+  status: number;
+  titleKey: string;
+  descriptionKey: string;
+  descriptionParams?: TranslateParams;
 }
 
 export class AppError extends Error {
-  private readonly options: AppErrorOptions;
+  public readonly status: number;
+  public readonly titleKey: string;
+  public readonly descriptionKey: string;
+  public readonly descriptionParams?: TranslateParams;
 
   constructor(message: string, options: AppErrorOptions) {
     super(message);
 
-    this.options = options;
-  }
-
-  get title() {
-    return this.options.title;
-  }
-
-  get description() {
-    return this.options.description;
+    this.status = options.status;
+    this.titleKey = options.titleKey;
+    this.descriptionKey = options.descriptionKey;
+    this.descriptionParams = options.descriptionParams;
   }
 }

@@ -1,9 +1,10 @@
 ---
 import { Image } from "astro:assets";
-import { goblin } from "../generated/character-icons";
+import { goblin, witch } from "../generated/character-icons";
 import CenteredLayout from "../layouts/CenteredLayout.astro";
 import { AppError } from "../types/site";
-import { createTranslator } from "../lib/i18n";
+import { createTranslator, type TranslateParams } from "../lib/i18n";
+import LocalisedMessage from "../components/i18n/LocalisedMessage.astro";
 
 interface Props {
   error: unknown;
@@ -11,37 +12,52 @@ interface Props {
 
 const { error } = Astro.props;
 
-let title = "Website error";
-let description = "There must be a goblin in the code.";
+let status = 500;
+let titleKey = "viewer.errors.genericError";
+let descriptionKey = "viewer.errors.genericErrorDescription";
+let descriptionParams: TranslateParams | undefined;
 
 if (error instanceof Error) {
   console.error(error);
 
   if (error instanceof AppError) {
-    title = error.title ?? title;
-    description = error.title ?? description;
+    titleKey = error.titleKey ?? titleKey;
+    descriptionKey = error.descriptionKey ?? descriptionKey;
+    descriptionParams = error.descriptionParams;
   }
 }
 
-Astro.response.status = 500;
+Astro.response.status = status;
 
 const t = createTranslator({ locale: Astro.currentLocale ?? "en" });
 ---
 
-<CenteredLayout t={t} meta={{ title: "Error - BotC Script Viewer" }}>
+<CenteredLayout
+  t={t}
+  meta={{
+    title: t.string("viewer.head.title", {
+      title: t.string(titleKey),
+      nameShort: t.string("viewer.common.nameShort"),
+    }),
+  }}
+>
   <Fragment slot="head">
     <meta name="robots" content="noindex" />
   </Fragment>
 
-  <h1>{title}</h1>
+  <h1><LocalisedMessage t={t} key={titleKey} /></h1>
 
   <Image
-    src={goblin}
+    src={status === 404 ? witch : goblin}
     class="slow-spin"
-    alt="Goblin"
+    alt=""
     width={144}
     densities={[1, 2, 3]}
   />
-  <p>{description}</p>
-  <p><a href="/">Back to home</a></p>
+  <p>
+    <LocalisedMessage t={t} key={descriptionKey} params={descriptionParams} />
+  </p>
+  <p>
+    <a href="/"><LocalisedMessage t={t} key="viewer.errors.backToHome" /></a>
+  </p>
 </CenteredLayout>

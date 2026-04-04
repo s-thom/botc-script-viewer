@@ -3,19 +3,35 @@ import { Image } from "astro:assets";
 import { witch } from "../generated/character-icons";
 import CenteredLayout from "../layouts/CenteredLayout.astro";
 import { createTranslator } from "../lib/i18n";
+import LocalisedMessage from "../components/i18n/LocalisedMessage.astro";
 
 const t = createTranslator({ locale: Astro.currentLocale ?? "en" });
 ---
 
-<CenteredLayout t={t} meta={{ title: "Not found - BotC Script Viewer" }}>
-  <h1>Page not found</h1>
+<CenteredLayout
+  t={t}
+  meta={{
+    title: t.string("viewer.head.title", {
+      title: t.string("viewer.errors.notFound"),
+      nameShort: t.string("viewer.common.nameShort"),
+    }),
+  }}
+>
+  <h1><LocalisedMessage t={t} key="viewer.errors.notFoundHeading" /></h1>
 
   <Image
     src={witch}
     class="slow-spin"
-    alt="Witch"
+    alt=""
     width={144}
     densities={[1, 2, 3]}
+    loading="eager"
   />
-  <p>Check for curses, or go <a href="/">back to home</a>.</p>
+  <p>
+    <LocalisedMessage
+      t={t}
+      key="viewer.errors.notFoundDescription"
+      params={{ link: "/" }}
+    />
+  </p>
 </CenteredLayout>

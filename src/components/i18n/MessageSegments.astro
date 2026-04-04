@@ -18,6 +18,19 @@ const { segments, character } = Astro.props;
         return <Fragment>{segment.value}</Fragment>;
       case "tag": {
         switch (segment.name) {
+          case "link": {
+            let href = segment.params["link"] as string;
+            if (!href) {
+              console.warn(`Missing link parameter for {link} tag`);
+              href = "/";
+            }
+
+            return (
+              <a href={href} data-umami-event={segment.params["link"]}>
+                {segment.children.map((child) => mapSingleSegment(child))}
+              </a>
+            );
+          }
           case "externalLink": {
             let href = segment.params["externalLink"] as string;
             if (!href) {

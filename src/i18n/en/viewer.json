@@ -41,5 +41,13 @@
     "default": "System",
     "light": "Light",
     "dark": "Dark"
+  },
+  "errors": {
+    "notFound": "Not found",
+    "notFoundHeading": "Page not found",
+    "notFoundDescription": "Check for curses, or go {link}back to home{/link}.",
+    "backToHome": "Back to home",
+    "genericError": "Website error",
+    "genericErrorDescription": "There must be a goblin in the code"
   }
 }
