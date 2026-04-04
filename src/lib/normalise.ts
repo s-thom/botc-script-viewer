@@ -9,6 +9,7 @@ import type {
   NormalisedScriptCharacter,
   SpecialNightInfo,
 } from "../types/botc";
+import { AppError } from "../types/site";
 import { CHARACTERS_BY_ID, getTranslatedScriptCharacter } from "./characters";
 import type { Translator } from "./i18n/types";
 
@@ -251,9 +252,12 @@ export function normaliseScript(
 
       const character = CHARACTERS_BY_ID.get(normalisedId);
       if (character === undefined) {
-        throw new Error(
-          `Unknown character literal: ${normalisedId}${item !== normalisedId ? `(mapped from ${item})` : ""}`,
-        );
+        throw new AppError(`Unknown character ${normalisedId}`, {
+          status: 400,
+          titleKey: "viewer.errors.unknownCharacter",
+          descriptionKey: "viewer.errors.unknownCharacterDescription",
+          descriptionParams: { id: item },
+        });
       }
 
       addCharacter(character);
@@ -273,9 +277,12 @@ export function normaliseScript(
     }
 
     if (Object.keys(item).length === 1) {
-      throw new Error(
-        `Unknown official character (deprecated) ${normalisedId}${item.id !== normalisedId ? `(mapped from ${item})` : ""}`,
-      );
+      throw new AppError(`Unknown character ${normalisedId}`, {
+        status: 400,
+        titleKey: "viewer.errors.unknownCharacter",
+        descriptionKey: "viewer.errors.unknownCharacterDescription",
+        descriptionParams: { id: item.id },
+      });
     }
 
     const newCharacter: NormalisedScriptCharacter = {

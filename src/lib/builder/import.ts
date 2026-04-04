@@ -1,10 +1,11 @@
+import { AppError } from "../../types/site";
 import { rawScriptValidator } from "../parse";
 
 export async function parseOrFetchScript(str: string): Promise<unknown> {
   const url = URL.parse(str);
   if (url !== null) {
     // Special handling for the scripts website
-    if (url.hostname === "botc-scripts.azurewebsites.net") {
+    if (url.hostname === "www.botcscripts.com") {
       // Replace normal HTML page with download link
       const htmlPathMatch = url.pathname.match(/^\/script\/(\d+)\/([^/]+)$/);
       if (htmlPathMatch) {
@@ -23,24 +24,42 @@ export async function parseOrFetchScript(str: string): Promise<unknown> {
     const response = await fetch(url, { headers: jsonRequestHeaders });
 
     if (!response.ok) {
-      throw new Error("Unable to request script");
+      throw new AppError("Unable to request script", {
+        status: 400,
+        titleKey: "viewer.errors.requestFailed",
+        descriptionKey: "viewer.errors.requestFailedDescription",
+        descriptionParams: { url: str },
+      });
     }
 
     const responseType = response.headers.get("Content-Type");
     if (!(responseType === "application/json" || responseType === null)) {
-      throw new Error("Script was not JSON");
+      throw new AppError("Script is not valid JSON", {
+        status: 400,
+        titleKey: "viewer.errors.invalidJson",
+        descriptionKey: "viewer.errors.invalidJsonDescription",
+      });
     }
 
     let rawScriptJson: unknown;
     try {
       rawScriptJson = await response.json();
-
-      if (!Array.isArray(rawScriptJson)) {
-        throw new Error("Script is not valid JSON");
-      }
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {
-      throw new Error("Unable to request script");
+      throw new AppError("Unable to request script", {
+        cause: err,
+        status: 400,
+        titleKey: "viewer.errors.requestFailed",
+        descriptionKey: "viewer.errors.requestFailedDescription",
+        descriptionParams: { url: str },
+      });
+    }
+
+    if (!Array.isArray(rawScriptJson)) {
+      throw new AppError("Script is not valid JSON", {
+        status: 400,
+        titleKey: "viewer.errors.invalidJson",
+        descriptionKey: "viewer.errors.invalidJsonDescription",
+      });
     }
 
     return rawScriptValidator.parse(rawScriptJson);
@@ -50,9 +69,13 @@ export async function parseOrFetchScript(str: string): Promise<unknown> {
   let rawScriptJson: unknown;
   try {
     rawScriptJson = JSON.parse(str);
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (err) {
-    throw new Error("Script is not valid JSON");
+    throw new AppError("Script is not valid JSON", {
+      cause: err,
+      status: 400,
+      titleKey: "viewer.errors.invalidJson",
+      descriptionKey: "viewer.errors.invalidJsonDescription",
+    });
   }
 
   return rawScriptJson;

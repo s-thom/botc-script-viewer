@@ -1,3 +1,4 @@
+import { AppError } from "../../types/site.ts";
 import { LOCALE_MAP } from "./config.ts";
 import { formatToPlainText, resolveVariables } from "./format.ts";
 import { parseMessage } from "./parse.ts";
@@ -7,7 +8,12 @@ import type { MessageSegment, TranslateParams, Translator } from "./types.ts";
 
 export function createTranslator({ locale }: { locale: string }): Translator {
   if (!(locale in LOCALE_MAP)) {
-    throw new Error(`Unknown locale ${locale}`);
+    throw new AppError(`Unknown locale ${locale}`, {
+      status: 400,
+      titleKey: "viewer.errors.unknownLocale",
+      descriptionKey: "viewer.errors.unknownLocaleDescription",
+      descriptionParams: { locale },
+    });
   }
 
   const knownLocale = locale as keyof typeof LOCALE_MAP;

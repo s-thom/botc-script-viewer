@@ -1,3 +1,5 @@
+import { AppError } from "../../types/site";
+
 function decodeLengthField(bytes: Uint8Array, pointer: number): number {
   return (bytes[pointer] << 8) + bytes[pointer + 1];
 }
@@ -9,7 +11,14 @@ export function sliceTLV(
   const length = decodeLengthField(bytes, pointer + 1);
   const nextPointer = pointer + 3 + length;
   if (nextPointer > bytes.length) {
-    throw new Error("TLV value length too long for byte array");
+    throw new AppError(
+      `TLV value length (${length}) too long for byte array (${bytes.length})`,
+      {
+        status: 400,
+        titleKey: "viewer.errors.decoding",
+        descriptionKey: "viewer.errors.decodingDescription",
+      },
+    );
   }
 
   const slice = bytes.subarray(pointer + 3, nextPointer);

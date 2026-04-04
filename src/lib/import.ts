@@ -1,14 +1,11 @@
 import z from "zod";
 import type { BloodOnTheClocktowerCustomScript } from "../generated/script-schema";
 import { LOCAL_SCRIPT_COLLECTIONS } from "../scripts";
+import { AppError } from "../types/site";
 import { decompressFromBase64 } from "./compression";
 import { decodeScript } from "./number-store";
 import { rawScriptValidator } from "./parse";
 import { KeyedRateLimit } from "./rate-limits";
-
-type FormResult =
-  | { ok: true; script: BloodOnTheClocktowerCustomScript }
-  | { ok: false; message: string };
 
 const formSchema = z.object({
   script: z.string().optional(),
@@ -43,16 +40,29 @@ interface ErrorData {
   message: string;
 }
 
-type AllDataType = RawScriptData | UrlData | FileData | ErrorData;
+type AllDataType = RawScriptData | UrlData | FileData;
 
 function parseImportFormData(formData: FormData): AllDataType {
-  const { script, file } = formSchema.parse(
+  const schemaResult = formSchema.safeParse(
     Object.fromEntries(formData.entries()),
   );
+  if (!schemaResult.success) {
+    throw new AppError("Invalid form data", {
+      cause: schemaResult.error,
+      status: 400,
+      titleKey: "viewer.errors.invalidJson",
+      descriptionKey: "viewer.errors.invalidJsonDescription",
+    });
+  }
 
+  const { script, file } = schemaResult.data;
   if (file && file.size > 0) {
     if (file.type !== "application/json") {
-      throw new Error("File must be JSON.");
+      throw new AppError("Uploaded file is not JSON", {
+        status: 400,
+        titleKey: "viewer.errors.invalidJson",
+        descriptionKey: "viewer.errors.invalidJsonDescription",
+      });
     }
 
     return {
@@ -76,21 +86,38 @@ function parseImportFormData(formData: FormData): AllDataType {
     };
   }
 
-  return {
-    type: "error",
-    message: "No script data provided",
-  };
+  throw new AppError("No script content given", {
+    status: 400,
+    titleKey: "viewer.errors.invalidJson",
+    descriptionKey: "viewer.errors.invalidJsonDescription",
+  });
 }
 
-function parseScriptJson(str: string): BloodOnTheClocktowerCustomScript {
-  const json = JSON.parse(str);
+function parseScriptJsonFromString(
+  str: string,
+): BloodOnTheClocktowerCustomScript {
+  let json: unknown;
+  try {
+    json = JSON.parse(str);
+  } catch (err) {
+    throw new AppError("Script is not valid JSON", {
+      cause: err,
+      status: 400,
+      titleKey: "viewer.errors.invalidJson",
+      descriptionKey: "viewer.errors.invalidJsonDescription",
+    });
+  }
 
   const result = rawScriptValidator.safeParse(json);
   if (result.success) {
     return result.data;
   }
 
-  throw new Error("JSON is not a valid script.");
+  throw new AppError("Script is not valid JSON", {
+    status: 400,
+    titleKey: "viewer.errors.invalidJson",
+    descriptionKey: "viewer.errors.invalidJsonDescription",
+  });
 }
 
 async function fetchScriptFromUrl(
@@ -199,7 +226,7 @@ export async function scriptFromFormData(
   formData: FormData,
   serverHostname: string,
   allowRemote: boolean,
-): Promise<FormResult> {
+): Promise<BloodOnTheClocktowerCustomScript> {
   const formContents = parseImportFormData(formData);
 
   let scriptString: string;
@@ -215,7 +242,11 @@ export async function scriptFromFormData(
           allowRemote,
         );
         if (result.type === "error") {
-          return { ok: false, message: result.message };
+          throw new AppError(result.message, {
+            status: 400,
+            titleKey: "viewer.errors.requestFailed",
+            descriptionKey: "viewer.errors.requestFailedDescription",
+          });
         }
         scriptString = result.script;
       }
@@ -226,15 +257,8 @@ export async function scriptFromFormData(
         scriptString = content;
       }
       break;
-    case "error":
-      return { ok: false, message: formContents.message };
   }
 
-  try {
-    const script = parseScriptJson(scriptString);
-    return { ok: true, script };
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  } catch (err) {
-    return { ok: false, message: "Error while loading script" };
-  }
+  const script = parseScriptJsonFromString(scriptString);
+  return script;
 }

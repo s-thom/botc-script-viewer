@@ -1,3 +1,5 @@
+import { AppError } from "../types/site";
+
 // Limit decompression to 512kB. A script _shouldn't_ be larger than that.
 // Fall of Rome, a full homebrew, is 18kB.
 const DECOMPRESS_BYTE_LIMIT = 512 * 1024;
@@ -102,8 +104,13 @@ export async function decompressFromBase64(
       await reader.cancel(
         "Too big. A script is not expected to be this large.",
       );
-      throw new Error(
-        "Decompressing stream cancelled as the result is larger than expected.",
+      throw new AppError(
+        `Decompressed streal larger than ${DECOMPRESS_BYTE_LIMIT} bytes`,
+        {
+          status: 400,
+          titleKey: "viewer.errors.largePayload",
+          descriptionKey: "viewer.errors.largePayloadDescription",
+        },
       );
     }
 

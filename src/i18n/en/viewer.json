@@ -48,6 +48,18 @@
     "notFoundDescription": "Check for curses, or go {link}back to home{/link}.",
     "backToHome": "Back to home",
     "genericError": "Website error",
-    "genericErrorDescription": "There must be a goblin in the code"
+    "genericErrorDescription": "There must be a goblin in the code",
+    "largePayload": "URL too large",
+    "largePayloadDescription": "The URL contains more data than is reasonable for a script. If the script contains encoded character icons, then these should be uploaded to an external service.",
+    "unknownCharacter": "Unknown character",
+    "unknownCharacterDescription": "The character \"{id}\" is not currently known by this website.",
+    "unknownLocale": "Unknown locale",
+    "unknownLocaleDescription": "This website does not support the {locale} locale.",
+    "decoding": "Decoding error",
+    "decodingDescription": "There was an error decoding the script from the URL.",
+    "invalidJson": "Invalid JSON",
+    "invalidJsonDescription": "The script was not valid JSON.",
+    "requestFailed": "Unable to request script",
+    "requestFailedDescription": "The request to {url} failed. If this keeps occurring, try downloading the script JSON yourself and uploading it."
   }
 }

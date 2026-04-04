@@ -38,48 +38,26 @@ function shouldUseNumberStore(
 
 export const POST: APIRoute = async ({
   request,
-  rewrite,
   redirect,
   url: requestUrl,
 }) => {
-  async function handleRawScriptJson(
-    rawScript: BloodOnTheClocktowerCustomScript,
-  ): Promise<Response> {
-    const minifiedScript = JSON.stringify(rawScript);
-
-    if (shouldUseNumberStore(rawScript, minifiedScript.length)) {
-      try {
-        const bytes = encodeScript(rawScript);
-
-        const base64 = await compressToBase64(bytes, "deflate-raw", true);
-        return redirect(`/ns/${base64}`);
-      } catch (err) {
-        console.warn("Error while encoding script using Number Store", err);
-      }
-    }
-
-    // Fall back to gzip
-    const bytes = stringToBytes(minifiedScript);
-
-    const base64 = await compressToBase64(bytes, "deflate-raw", true);
-    return redirect(`/json/${base64}`);
-  }
-
   const rawFormData = await request.formData();
-  const result = await scriptFromFormData(
+  const rawScript = await scriptFromFormData(
     rawFormData,
     requestUrl.hostname,
     true,
   );
 
-  if (result.ok) {
-    try {
-      return handleRawScriptJson(result.script);
-    } catch (err) {
-      console.error({ err });
-      return rewrite("/500");
-    }
+  const minifiedScript = JSON.stringify(rawScript);
+
+  if (shouldUseNumberStore(rawScript, minifiedScript.length)) {
+    const bytes = encodeScript(rawScript);
+    const base64 = await compressToBase64(bytes, "deflate-raw", true);
+    return redirect(`/ns/${base64}`);
   }
 
-  return redirect(`/?error=${encodeURIComponent(result.message)}`);
+  // Fall back to just encoding the JSON
+  const bytes = stringToBytes(minifiedScript);
+  const base64 = await compressToBase64(bytes, "deflate-raw", true);
+  return redirect(`/json/${base64}`);
 };

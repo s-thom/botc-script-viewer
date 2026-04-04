@@ -8,6 +8,7 @@ export interface PageMeta {
 }
 
 export interface AppErrorOptions {
+  cause?: unknown;
   status: number;
   titleKey: string;
   descriptionKey: string;
@@ -21,7 +22,7 @@ export class AppError extends Error {
   public readonly descriptionParams?: TranslateParams;
 
   constructor(message: string, options: AppErrorOptions) {
-    super(message);
+    super(message, { cause: options.cause });
 
     this.status = options.status;
     this.titleKey = options.titleKey;

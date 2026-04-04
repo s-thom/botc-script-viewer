@@ -3,6 +3,7 @@ import type {
   ScriptCharacter,
   ScriptMetadata,
 } from "../../generated/script-schema";
+import { AppError } from "../../types/site";
 import { bytesToString, stringToBytes } from "../compression";
 import { ORDERED_CHARACTER_LIST } from "./characters";
 import { sliceTLV } from "./util";
@@ -136,7 +137,12 @@ export function encodeScript(
     if (typeof item === "string") {
       const index = ORDERED_CHARACTER_LIST.indexOf(item);
       if (index === -1) {
-        throw new Error(`Unknown character ${item}`);
+        throw new AppError(`Unknown character ${item}`, {
+          status: 400,
+          titleKey: "viewer.errors.unknownCharacter",
+          descriptionKey: "viewer.errors.unknownCharacterDescription",
+          descriptionParams: { id: item },
+        });
       }
 
       pointer = appendValue(bytes, pointer, index + 1);
@@ -226,12 +232,11 @@ function decodeScriptMetadata(bytes: Uint8Array): ScriptMetadata {
         meta.author = bytesToString(slice);
         break;
       case 2:
-        if (length !== 1) {
-          throw new Error(
-            `Invalid length for Hide Title field. Expected 1, Got ${length}`,
-          );
+        if (length === 0) {
+          meta.hideTitle = true;
+        } else {
+          meta.hideTitle = slice[0] !== 0;
         }
-        meta.hideTitle = slice[0] !== 0;
         break;
       case 3:
         meta.logo = bytesToString(slice);
@@ -269,7 +274,16 @@ function decodeScriptMetadata(bytes: Uint8Array): ScriptMetadata {
 
 function decodeJson(bytes: Uint8Array): ScriptCharacter | ScriptCharacter[] {
   const str = bytesToString(bytes);
-  return JSON.parse(str);
+  try {
+    return JSON.parse(str);
+  } catch (err) {
+    throw new AppError("Script is not valid JSON", {
+      cause: err,
+      status: 400,
+      titleKey: "viewer.errors.invalidJson",
+      descriptionKey: "viewer.errors.invalidJsonDescription",
+    });
+  }
 }
 
 export function decodeScript(
