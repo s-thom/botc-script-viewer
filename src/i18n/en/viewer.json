@@ -20,7 +20,9 @@
     "untitledScript": "Untitled Script",
     "wikiLink": "[wiki]",
     "wikiLabel": "View {title} on wiki",
-    "reminder": "Reminder"
+    "reminder": "Reminder",
+    "nightOrder": "Night Order",
+    "nightOrderWarning": "The following characters are referenced in the night order, but are not listed on the script: {characters}"
   },
   "collection": {
     "title": "Collection: {title}"
