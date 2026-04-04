@@ -212,9 +212,15 @@ textarea:not([rows]) {
 
 body {
   margin: 0;
-  background: url("../assets/paper2.webp") var(--color-background);
-  background-blend-mode: multiply;
+  background: var(--color-background);
   color: var(--color-text);
+}
+
+@supports (background-blend-mode: multiply) {
+  body {
+    background: url("../assets/paper2.webp") var(--color-background);
+    background-blend-mode: multiply;
+  }
 }
 
 @media print {
