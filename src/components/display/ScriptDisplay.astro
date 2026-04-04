@@ -2,8 +2,8 @@
 import type { Translator } from "../../lib/i18n/types";
 import { fixDoubleSlashPaths } from "../../lib/url";
 import type { NormalisedScript } from "../../types/botc";
+import LocalisedMessage from "../i18n/LocalisedMessage.astro";
 import Footer from "../misc/Footer.astro";
-import FormattedMessage from "../misc/FormattedMessage.astro";
 import BootleggerList from "./BootleggerList.astro";
 import CharacterIcon from "./CharacterIcon.astro";
 import CharacterList from "./CharacterList.astro";
@@ -34,16 +34,15 @@ const allExtraNightOrderCharacters = script.warnings.flatMap((warning) =>
   <div class="page">
     <div class="title-area">
       <h1 id="script" class="title">
-        <FormattedMessage
-          segments={t(
-            script.author
-              ? "viewer.script.titleWithAuthor"
-              : "viewer.script.title",
-            {
-              title: script.name ?? t.string("viewer.script.untitledScript"),
-              author: script.author,
-            },
-          )}
+        <LocalisedMessage
+          t={t}
+          key={script.author
+            ? "viewer.script.titleWithAuthor"
+            : "viewer.script.title"}
+          params={{
+            title: script.name ?? t.string("viewer.script.untitledScript"),
+            author: script.author,
+          }}
         />
       </h1>
       {

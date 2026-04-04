@@ -57,7 +57,7 @@ const { segments, character } = Astro.props;
               </span>
             );
           case "reminder":
-            return <ReminderToken character={character ?? undefined} />;
+            return <ReminderToken character={character} />;
           default:
             console.warn(`Unknown tag type: ${segment.name}`);
             return segment.children.map((child) => mapSingleSegment(child));

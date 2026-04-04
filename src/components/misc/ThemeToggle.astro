@@ -2,7 +2,7 @@
 import { Image } from "astro:assets";
 import themeSwitch from "../../assets/theme-switch.webp";
 import type { Translator } from "../../lib/i18n/types";
-import FormattedMessage from "./FormattedMessage.astro";
+import LocalisedMessage from "../i18n/LocalisedMessage.astro";
 
 export interface Props {
   t: Translator;
@@ -18,11 +18,13 @@ const { t } = Astro.props;
   data-label-light={t.string("viewer.theme.light")}
   data-label-dark={t.string("viewer.theme.dark")}
   ><span class="visually-hidden">
-    <FormattedMessage
-      segments={t("viewer.theme.theme", {
+    <LocalisedMessage
+      t={t}
+      key="viewer.theme.theme"
+      params={{
         theme: t.string("viewer.theme.default"),
         spanClass: "dark-mode-value",
-      })}
+      }}
     />
   </span>
   <Image

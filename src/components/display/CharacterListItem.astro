@@ -1,7 +1,8 @@
 ---
 import type { Translator } from "../../lib/i18n/types";
 import type { NormalisedScriptCharacter } from "../../types/botc";
-import FormattedMessage from "../misc/FormattedMessage.astro";
+import LocalisedMessage from "../i18n/LocalisedMessage.astro";
+import MessageSegments from "../i18n/MessageSegments.astro";
 import CharacterIcon from "./CharacterIcon.astro";
 
 export interface Props {
@@ -80,10 +81,10 @@ const {
           <h4 class="character-title">
             {titleLink ? (
               <a class="character-title-link" href={titleLink}>
-                <FormattedMessage segments={t.raw(title)} />
+                <MessageSegments segments={t.raw(title)} />
               </a>
             ) : (
-              <FormattedMessage segments={t.raw(title)} />
+              <MessageSegments segments={t.raw(title)} />
             )}
           </h4>
           {wikiLink && (
@@ -94,7 +95,7 @@ const {
               target="_blank"
               aria-label={t.string("viewer.script.wikiLabel", { title })}
             >
-              <FormattedMessage segments={t("viewer.script.wikiLink")} />
+              <LocalisedMessage t={t} key="viewer.script.wikiLink" />
             </a>
           )}
         </div>
@@ -103,7 +104,7 @@ const {
     {
       description && (
         <p class="character-description">
-          <FormattedMessage
+          <MessageSegments
             segments={t.raw(description, { formatReplacements: true })}
             character={character ?? undefined}
           />

@@ -2,7 +2,17 @@
 
 Custom translation library for vue-i18n/intlify locale files.
 
-## Basic usage
+## Basic Astro usage
+
+```astro
+---
+import LocalisedMessage from "../components/i18n/LocalisedMessage.astro";
+---
+
+<LocalisedMessage t={t} key="script.keyword.player" params={{ count: 1 }} />
+```
+
+## Basic script usage
 
 ```astro
 ---
@@ -13,7 +23,7 @@ const t = createTranslator({ locale: Astro.currentLocale ?? "en" });
 <h1>{t("script.keyword.player", { count: 1 })}</h1>
 ```
 
-`t(key, params?)` always returns `MessageSegment[]`. Use `<FormattedMessage>` to render it.
+`t(key, params?)` always returns `MessageSegment[]`. Use `<MessageSegments segments={segments}>` to render it.
 
 ## Plurals
 
@@ -36,17 +46,17 @@ t("script.analysis.maximum-character-recommendation", { number: 25 });
 
 `{n}` and `{count}` are automatically populated from the `count` param.
 
-## Rendering
+## Rendering from segments
 
-Always use `<FormattedMessage>` to render. Unknown tags fall back to rendering their inner content.
+Use `<MessageSegments>` to render segments directly. Unknown tags fall back to rendering their inner content.
 
 ```astro
 ---
-import FormattedMessage from "../components/misc/FormattedMessage.astro";
+import MessageSegments from "../components/i18n/MessageSegments.astro";
 const segments = t("script.tour.welcome-01");
 ---
 
-<FormattedMessage {segments} params={{}} />
+<MessageSegments segments={segments} params={{}} />
 ```
 
 `FormattedMessage` accepts an optional `character` prop forwarded to certain tags.

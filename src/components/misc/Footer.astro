@@ -1,6 +1,6 @@
 ---
 import type { Translator } from "../../lib/i18n/types";
-import FormattedMessage from "./FormattedMessage.astro";
+import LocalisedMessage from "../i18n/LocalisedMessage.astro";
 
 export interface Props {
   t: Translator;
@@ -12,21 +12,25 @@ const { t, isScreenOnly } = Astro.props;
 
 <footer class:list={["footer", isScreenOnly && "screen-only"]}>
   <p>
-    <FormattedMessage segments={t("viewer.footer.notAffiliated")} />
-    <FormattedMessage segments={t("viewer.footer.descriptionsNotice")} />
+    <LocalisedMessage t={t} key="viewer.footer.notAffiliated" />
+    <LocalisedMessage t={t} key="viewer.footer.descriptionsNotice" />
   </p>
   <p>
-    <FormattedMessage
-      segments={t("viewer.footer.madeBy", {
+    <LocalisedMessage
+      t={t}
+      key="viewer.footer.madeBy"
+      params={{
         externalLink: "https://sthom.kiwi",
         externalLinkEvent: "sthom-link",
-      })}
+      }}
     />
-    <FormattedMessage
-      segments={t("viewer.footer.sourceCode", {
+    <LocalisedMessage
+      t={t}
+      key="viewer.footer.sourceCode"
+      params={{
         externalLink: "https://github.com/s-thom/botc-script-viewer",
         externalLinkEvent: "github-link",
-      })}
+      }}
     />
   </p>
 </footer>

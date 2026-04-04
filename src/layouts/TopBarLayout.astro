@@ -1,5 +1,5 @@
 ---
-import FormattedMessage from "../components/misc/FormattedMessage.astro";
+import LocalisedMessage from "../components/i18n/LocalisedMessage.astro";
 import ThemeToggle from "../components/misc/ThemeToggle.astro";
 import type { Translator } from "../lib/i18n/types";
 import type { PageMeta } from "../types/site";
@@ -24,7 +24,7 @@ const { t, meta } = Astro.props;
         <div class="header-content">
           <a href="/">
             <h1 class="heading">
-              <FormattedMessage segments={t("viewer.common.nameShort")} />
+              <LocalisedMessage t={t} key="viewer.common.nameShort" />
             </h1>
           </a>
 

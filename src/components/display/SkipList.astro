@@ -1,7 +1,7 @@
 ---
 import type { Translator } from "../../lib/i18n/types";
 import type { NormalisedScript } from "../../types/botc";
-import FormattedMessage from "../misc/FormattedMessage.astro";
+import LocalisedMessage from "../i18n/LocalisedMessage.astro";
 
 export interface Props {
   t: Translator;
@@ -12,19 +12,21 @@ const { t, script } = Astro.props;
 ---
 
 <nav class="skip-list-nav">
-  <span><FormattedMessage segments={t("viewer.skipList.skipTo")} /></span>
+  <span><LocalisedMessage t={t} key="viewer.skipList.skipTo" /></span>
   <ul class="skip-list">
     <li class="skip-list-item">
       <a href="#script">
-        <FormattedMessage segments={t("app.pages.lobby.script")} />
+        <LocalisedMessage t={t} key="app.pages.lobby.script" />
       </a>
     </li>
     {
       script.teams.townsfolk.length > 0 && (
         <li class="skip-list-item">
           <a href="#townsfolk">
-            <FormattedMessage
-              segments={t("app.grimoire.townsfolk", { count: Infinity })}
+            <LocalisedMessage
+              t={t}
+              key="app.grimoire.townsfolk"
+              params={{ count: Infinity }}
             />
           </a>
         </li>
@@ -34,8 +36,10 @@ const { t, script } = Astro.props;
       script.teams.outsider.length > 0 && (
         <li class="skip-list-item">
           <a href="#outsiders">
-            <FormattedMessage
-              segments={t("app.grimoire.outsider", { count: Infinity })}
+            <LocalisedMessage
+              t={t}
+              key="app.grimoire.outsider"
+              params={{ count: Infinity }}
             />
           </a>
         </li>
@@ -45,8 +49,10 @@ const { t, script } = Astro.props;
       script.teams.minion.length > 0 && (
         <li class="skip-list-item">
           <a href="#minions">
-            <FormattedMessage
-              segments={t("app.grimoire.minion", { count: Infinity })}
+            <LocalisedMessage
+              t={t}
+              key="app.grimoire.minion"
+              params={{ count: Infinity }}
             />
           </a>
         </li>
@@ -56,8 +62,10 @@ const { t, script } = Astro.props;
       script.teams.demon.length > 0 && (
         <li class="skip-list-item">
           <a href="#demons">
-            <FormattedMessage
-              segments={t("app.grimoire.demon", { count: Infinity })}
+            <LocalisedMessage
+              t={t}
+              key="app.grimoire.demon"
+              params={{ count: Infinity }}
             />
           </a>
         </li>
@@ -67,8 +75,10 @@ const { t, script } = Astro.props;
       script.teams.traveller.length > 0 && (
         <li class="skip-list-item">
           <a href="#travellers">
-            <FormattedMessage
-              segments={t("app.grimoire.traveller", { count: Infinity })}
+            <LocalisedMessage
+              t={t}
+              key="app.grimoire.traveller"
+              params={{ count: Infinity }}
             />
           </a>
         </li>
@@ -78,8 +88,10 @@ const { t, script } = Astro.props;
       script.teams.fabled.length > 0 && (
         <li class="skip-list-item">
           <a href="#fabled">
-            <FormattedMessage
-              segments={t("app.grimoire.fabled", { count: Infinity })}
+            <LocalisedMessage
+              t={t}
+              key="app.grimoire.fabled"
+              params={{ count: Infinity }}
             />
           </a>
         </li>
@@ -89,8 +101,10 @@ const { t, script } = Astro.props;
       script.teams.loric.length > 0 && (
         <li class="skip-list-item">
           <a href="#loric">
-            <FormattedMessage
-              segments={t("app.grimoire.loric", { count: Infinity })}
+            <LocalisedMessage
+              t={t}
+              key="app.grimoire.loric"
+              params={{ count: Infinity }}
             />
           </a>
         </li>
@@ -100,15 +114,17 @@ const { t, script } = Astro.props;
       script.jinxes.length > 0 && (
         <li class="skip-list-item">
           <a href="#jinxes">
-            <FormattedMessage segments={t("app.tabs.character.jinxes")} />
+            <LocalisedMessage t={t} key="app.tabs.character.jinxes" />
           </a>
         </li>
       )
     }
     <li class="skip-list-item">
       <a href="#night-order">
-        <FormattedMessage
-          segments={t("app.modals.settings.shortcuts.toggleNightOrder")}
+        <LocalisedMessage
+          t={t}
+          key="app.modals.settings.shortcuts.toggleNightOrder"
+          params={{ count: Infinity }}
         />
       </a>
     </li>

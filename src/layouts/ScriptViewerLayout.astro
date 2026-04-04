@@ -1,7 +1,7 @@
 ---
 import ScriptDisplay from "../components/display/ScriptDisplay.astro";
 import SkipList from "../components/display/SkipList.astro";
-import FormattedMessage from "../components/misc/FormattedMessage.astro";
+import LocalisedMessage from "../components/i18n/LocalisedMessage.astro";
 import PageView from "../components/misc/PageView.astro";
 import type { BloodOnTheClocktowerCustomScript } from "../generated/script-schema";
 import { compressToBase64, stringToBytes } from "../lib/compression";
@@ -60,12 +60,12 @@ const scriptNameWithFallback =
   <ul class="nav-links" slot="items-start">
     <li>
       <a href={downloadPath} download={downloadFilename}
-        ><FormattedMessage segments={t("viewer.navigation.downloadJson")} /></a
+        ><LocalisedMessage t={t} key="viewer.navigation.downloadJson" /></a
       >
     </li>
     <li>
       <button type="button" class="link-button" id="print"
-        ><FormattedMessage segments={t("viewer.navigation.print")} /></button
+        ><LocalisedMessage t={t} key="viewer.navigation.print" /></button
       >
     </li>
     <li>
@@ -74,7 +74,7 @@ const scriptNameWithFallback =
         rel="external noreferrer"
         target="_blank"
         data-umami-event="script-open-official-builder"
-        ><FormattedMessage segments={t("viewer.navigation.edit")} />
+        ><LocalisedMessage t={t} key="viewer.navigation.edit" />
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 16 16"
@@ -88,7 +88,7 @@ const scriptNameWithFallback =
     </li>
     <li>
       <a href={qrPath}
-        ><FormattedMessage segments={t("viewer.navigation.qrCode")} /></a
+        ><LocalisedMessage t={t} key="viewer.navigation.qrCode" /></a
       >
     </li>
   </ul>
