@@ -36,9 +36,9 @@ const t = createTranslator({ locale: Astro.currentLocale ?? "en" });
   t={t}
   meta={{
     title: t.string("viewer.head.title", {
-      title: t.string(titleKey),
-      nameShort: t.string("viewer.common.nameShort"),
-    }),
+      title: t.string(titleKey).value,
+      nameShort: t.string("viewer.common.nameShort").value,
+    }).value,
   }}
 >
   <Fragment slot="head">

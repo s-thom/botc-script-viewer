@@ -13,7 +13,11 @@ export interface Props {
 
 const { t, key, params, character } = Astro.props;
 
-const segments = t(key, params);
+const { value, fallbackLocale } = t(key, params);
 ---
 
-<MessageSegments segments={segments} character={character} />
+<MessageSegments
+  segments={value}
+  overrideLocale={fallbackLocale}
+  character={character}
+/>

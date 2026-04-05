@@ -20,17 +20,30 @@ import { createTranslator } from "../lib/i18n";
 const t = createTranslator({ locale: Astro.currentLocale ?? "en" });
 ---
 
-<h1>{t("script.keyword.player", { count: 1 })}</h1>
+<h1>{t("script.keyword.player", { count: 1 }).value}</h1>
 ```
 
-`t(key, params?)` always returns `MessageSegment[]`. Use `<MessageSegments segments={segments}>` to render it.
+`t(key, params?)` returns `TranslateResult<MessageSegment[]>` — a `{ value, fallbackLocale? }` wrapper. Use `<MessageSegments>` to render the segments.
+
+## Translator methods
+
+| Method | Returns | Notes |
+|---|---|---|
+| `t(key, params?)` | `TranslateResult<MessageSegment[]>` | Main entry point |
+| `t.string(key, params?)` | `TranslateResult<string>` | Plain text, tags stripped |
+| `t.resolve(key, ignoreMissing?)` | `TranslateResult<string \| undefined>` | Raw string lookup, no processing |
+| `t.raw(raw, params?)` | `MessageSegment[]` | Parse an arbitrary string directly |
+| `t.rawString(raw, params?)` | `string` | Parse and flatten to plain text |
+| `t.locale` | `string` | The locale this translator was created for |
+
+`fallbackLocale` is set when the key was found in a fallback locale rather than the primary one.
 
 ## Plurals
 
 Pipe-delimited: `"Player|Players"`. Pass `count` and it selects the right form.
 
 ```ts
-t("script.keyword.player", { count: 5 }); // → "Players"
+t("script.keyword.player", { count: 5 }).value // → [{ type: "text", value: "Players" }]
 ```
 
 Two forms use `count === 1` for singular. Three or more use `Intl.PluralRules`.
@@ -39,28 +52,30 @@ Two forms use `count === 1` for singular. Three or more use `Intl.PluralRules`.
 
 `{name}` and `{0}` are substituted from params. Missing variables are preserved as-is (`{name}`) for debugging.
 
-```ts
-t("script.analysis.maximum-character-recommendation", { number: 25 });
-// → "The recommended maximum number of characters is 25."
-```
-
 `{n}` and `{count}` are automatically populated from the `count` param.
 
 ## Rendering from segments
 
-Use `<MessageSegments>` to render segments directly. Unknown tags fall back to rendering their inner content.
+Use `<MessageSegments>` to render segments. Unknown tags fall back to their inner content.
 
 ```astro
 ---
 import MessageSegments from "../components/i18n/MessageSegments.astro";
-const segments = t("script.tour.welcome-01");
+const { value: segments } = t("script.tour.welcome-01");
 ---
 
-<MessageSegments segments={segments} params={{}} />
+<MessageSegments {segments} params={{}} />
 ```
-
-`FormattedMessage` accepts an optional `character` prop forwarded to certain tags.
 
 ## Missing keys
 
-Returns the key string as-is. Logs a `console.warn` in dev.
+Returns the key as a single text segment. Logs a `console.warn` in dev.
+
+## `TranslateParams` options
+
+| Param | Type | Notes |
+|---|---|---|
+| `count` | `number` | Selects plural form; also populates `{n}` and `{count}` |
+| `fallback` | `string` | Raw string to use if key is missing |
+| `formatReplacements` | `boolean` | Converts `:reminder:`, `[Setup text]`, and `*emphasis*` to tag segments |
+| `...rest` | `unknown` | Variable substitutions |

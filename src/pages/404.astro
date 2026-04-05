@@ -12,9 +12,9 @@ const t = createTranslator({ locale: Astro.currentLocale ?? "en" });
   t={t}
   meta={{
     title: t.string("viewer.head.title", {
-      title: t.string("viewer.errors.notFound"),
-      nameShort: t.string("viewer.common.nameShort"),
-    }),
+      title: t.string("viewer.errors.notFound").value,
+      nameShort: t.string("viewer.common.nameShort").value,
+    }).value,
   }}
 >
   <h1><LocalisedMessage t={t} key="viewer.errors.notFoundHeading" /></h1>

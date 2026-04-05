@@ -4,7 +4,12 @@ import { formatToPlainText, resolveVariables } from "./format.ts";
 import { parseMessage } from "./parse.ts";
 import { isPluralMessage, selectPluralForm } from "./plural.ts";
 import { resolveKey } from "./resolve.ts";
-import type { MessageSegment, TranslateParams, Translator } from "./types.ts";
+import type {
+  MessageSegment,
+  TranslateParams,
+  TranslateResult,
+  Translator,
+} from "./types.ts";
 
 export function createTranslator({ locale }: { locale: string }): Translator {
   if (!(locale in LOCALE_MAP)) {
@@ -40,58 +45,63 @@ export function createTranslator({ locale }: { locale: string }): Translator {
   const resolver = (
     key: string,
     ignoreMissing?: boolean,
-  ): string | undefined => {
-    const value = resolveKey(knownLocale, key);
+  ): TranslateResult<string | undefined> => {
+    const result = resolveKey(knownLocale, key);
 
-    if (value === undefined) {
-      if (ignoreMissing) {
-        return undefined;
-      }
-
-      if (import.meta.env?.DEV) {
+    if (result.value === undefined) {
+      if (!ignoreMissing && import.meta.env?.DEV) {
         console.warn(
           `[i18n] Missing translation key: "${key}" for locale "${locale}"`,
         );
       }
-
-      return undefined;
     }
 
-    return value;
+    return result;
   };
 
-  const full = function t(
+  const combined = function t(
     key: string,
     params: TranslateParams = {},
-  ): MessageSegment[] {
-    let value = resolver(key);
+  ): TranslateResult<MessageSegment[]> {
+    const result = resolver(key);
+    let value = result.value;
+    const fallbackLocale = result.fallbackLocale;
 
     if (value === undefined) {
       if (params.fallback) {
         value = params.fallback;
       } else {
-        return [{ type: "text", value: key }];
+        return { value: [{ type: "text", value: key }], fallbackLocale };
       }
     }
 
-    const { count } = params;
-
     const fullParams: TranslateParams = {
-      n: count,
-      count,
+      n: params.count,
       ...params,
     };
-    return segmenter(value, fullParams);
+    const segments = segmenter(value, fullParams);
+    return { value: segments, fallbackLocale };
   };
 
-  const t = Object.assign(full, {
+  const t = Object.assign(combined, {
     locale,
     resolve: resolver,
-    string: (key: string, params: TranslateParams = {}) =>
-      formatToPlainText(full(key, params)),
+    string: (
+      key: string,
+      params: TranslateParams = {},
+    ): TranslateResult<string> => {
+      const result = combined(key, params);
+      const str = formatToPlainText(result.value);
+
+      return { value: str, fallbackLocale: result.fallbackLocale };
+    },
     raw: segmenter,
-    rawString: (raw: string, params: TranslateParams = {}) =>
-      formatToPlainText(segmenter(raw, params)),
+    rawString: (raw: string, params: TranslateParams = {}): string => {
+      const segments = segmenter(raw, params);
+      const str = formatToPlainText(segments);
+
+      return str;
+    },
   });
 
   return t;

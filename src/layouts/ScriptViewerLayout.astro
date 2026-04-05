@@ -37,7 +37,7 @@ const rawScriptB64 = await compressToBase64(rawScriptBytes, "gzip", false);
 const scriptBuilderUrl = `https://script.bloodontheclocktower.com/?script=${encodeURIComponent(rawScriptB64)}`;
 
 const scriptNameWithFallback =
-  script.name || t.string("viewer.script.untitledScript");
+  script.name || t.string("viewer.script.untitledScript").value;
 ---
 
 <TopBarLayout
@@ -45,8 +45,8 @@ const scriptNameWithFallback =
   meta={{
     title: t.string("viewer.head.title", {
       title: scriptNameWithFallback,
-      nameShort: t.string("viewer.common.nameShort"),
-    }),
+      nameShort: t.string("viewer.common.nameShort").value,
+    }).value,
     noIndex,
     hasLocaleAlternates: true,
   }}

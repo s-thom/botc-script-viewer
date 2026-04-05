@@ -1,10 +1,17 @@
+import type { LocaleIds } from "./config";
+
+export type TranslateResult<T> = { value: T; fallbackLocale?: LocaleIds };
+
 export type Translator = ((
   key: string,
   params?: TranslateParams,
-) => MessageSegment[]) & {
+) => TranslateResult<MessageSegment[]>) & {
   locale: string;
-  resolve: (key: string, ignoreMissing?: boolean) => string | undefined;
-  string: (key: string, params?: TranslateParams) => string;
+  resolve: (
+    key: string,
+    ignoreMissing?: boolean,
+  ) => TranslateResult<string | undefined>;
+  string: (key: string, params?: TranslateParams) => TranslateResult<string>;
   raw: (raw: string, params?: TranslateParams) => MessageSegment[];
   rawString: (raw: string, params?: TranslateParams) => string;
 };
@@ -18,8 +25,6 @@ export interface LocaleData {
   script: StringDict;
   viewer: StringDict;
 }
-
-export type Namespace = "app" | "game" | "script" | "viewer";
 
 export interface TranslateParams {
   count?: number;

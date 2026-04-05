@@ -43,8 +43,8 @@ const t = createTranslator({ locale: Astro.currentLocale ?? "en" });
   meta={{
     title: t.string("viewer.head.title", {
       title: "Builder",
-      nameShort: t.string("viewer.common.nameShort"),
-    }),
+      nameShort: t.string("viewer.common.nameShort").value,
+    }).value,
     noIndex: true,
   }}
 >

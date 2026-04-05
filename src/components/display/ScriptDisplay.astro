@@ -40,7 +40,8 @@ const allExtraNightOrderCharacters = script.warnings.flatMap((warning) =>
             ? "viewer.script.titleWithAuthor"
             : "viewer.script.title"}
           params={{
-            title: script.name ?? t.string("viewer.script.untitledScript"),
+            title:
+              script.name ?? t.string("viewer.script.untitledScript").value,
             author: script.author,
           }}
         />
@@ -220,7 +221,7 @@ const allExtraNightOrderCharacters = script.warnings.flatMap((warning) =>
       id="qr-code"
       class="qr"
       src={qrPath}
-      alt={t.string("viewer.navigation.qrCode")}
+      alt={t.string("viewer.navigation.qrCode").value}
       loading="lazy"
     />
     <p class="qr-text">{selfPath}</p>

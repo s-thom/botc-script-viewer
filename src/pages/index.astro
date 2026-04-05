@@ -10,7 +10,10 @@ import { createTranslator } from "../lib/i18n";
 const t = createTranslator({ locale: Astro.currentLocale ?? "en" });
 ---
 
-<CenteredLayout t={t} meta={{ title: t.string("viewer.common.nameLong") }}>
+<CenteredLayout
+  t={t}
+  meta={{ title: t.string("viewer.common.nameLong").value }}
+>
   <Fragment slot="head">
     <PageView />
   </Fragment>

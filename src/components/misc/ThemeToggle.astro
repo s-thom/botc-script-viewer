@@ -14,15 +14,15 @@ const { t } = Astro.props;
 <button
   id="theme-toggle"
   class="theme-toggle screen-only"
-  data-label-default={t.string("viewer.theme.default")}
-  data-label-light={t.string("viewer.theme.light")}
-  data-label-dark={t.string("viewer.theme.dark")}
+  data-label-default={t.string("viewer.theme.default").value}
+  data-label-light={t.string("viewer.theme.light").value}
+  data-label-dark={t.string("viewer.theme.dark").value}
   ><span class="visually-hidden">
     <LocalisedMessage
       t={t}
       key="viewer.theme.theme"
       params={{
-        theme: t.string("viewer.theme.default"),
+        theme: t.string("viewer.theme.default").value,
         spanClass: "dark-mode-value",
       }}
     />

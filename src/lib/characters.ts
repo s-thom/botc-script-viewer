@@ -34,30 +34,30 @@ export function getTranslatedScriptCharacter(
     team: character.team,
     name: character.isHomebrew
       ? character.name
-      : (t.resolve(`game.roles.${character.normalisedId}.name`) ??
+      : (t.resolve(`game.roles.${character.normalisedId}.name`).value ??
         character.name),
     ability: character.isHomebrew
       ? character.ability
-      : (t.resolve(`game.roles.${character.normalisedId}.ability`) ??
+      : (t.resolve(`game.roles.${character.normalisedId}.ability`).value ??
         character.ability),
     flavor: character.isHomebrew
       ? character.flavor
       : character.flavor
-        ? (t.resolve(`game.roles.${character.normalisedId}.flavor`) ??
+        ? (t.resolve(`game.roles.${character.normalisedId}.flavor`).value ??
           character.flavor)
         : undefined,
     firstNight: character.firstNight,
     firstNightReminder: character.isHomebrew
       ? character.firstNightReminder
       : character.firstNightReminder
-        ? (t.resolve(`game.roles.${character.normalisedId}.first`) ??
+        ? (t.resolve(`game.roles.${character.normalisedId}.first`).value ??
           character.firstNightReminder)
         : undefined,
     otherNight: character.otherNight,
     otherNightReminder: character.isHomebrew
       ? character.otherNightReminder
       : character.otherNightReminder
-        ? (t.resolve(`game.roles.${character.normalisedId}.other`) ??
+        ? (t.resolve(`game.roles.${character.normalisedId}.other`).value ??
           character.otherNightReminder)
         : undefined,
     image: character.image,
@@ -69,14 +69,14 @@ export function getTranslatedScriptCharacter(
         ? reminder
         : (t.resolve(
             `game.reminders.${reminder.toLowerCase().replace(/[^0-9a-z]/g, "")}`,
-          ) ?? reminder),
+          ).value ?? reminder),
     ),
     remindersGlobal: character.remindersGlobal?.map((reminder) =>
       character.isHomebrew
         ? reminder
         : (t.resolve(
             `game.reminders.${reminder.toLowerCase().replace(/[^0-9a-z]/g, "")}`,
-          ) ?? reminder),
+          ).value ?? reminder),
     ),
     jinxes: character.jinxes?.map((jinx) =>
       character.isHomebrew
@@ -84,8 +84,8 @@ export function getTranslatedScriptCharacter(
         : {
             id: jinx.id,
             reason:
-              t.resolve(`game.jinxes.${character.id}-${jinx.id}`, true) ??
-              t.resolve(`game.jinxes.${jinx.id}-${character.id}`) ??
+              t.resolve(`game.jinxes.${character.id}-${jinx.id}`, true).value ??
+              t.resolve(`game.jinxes.${jinx.id}-${character.id}`).value ??
               jinx.reason,
           },
     ),
