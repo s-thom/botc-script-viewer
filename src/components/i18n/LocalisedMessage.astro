@@ -4,7 +4,7 @@ import type { Translator } from "../../lib/i18n/types";
 import type { NormalisedScriptCharacter } from "../../types/botc";
 import MessageSegments from "./MessageSegments.astro";
 
-export interface Props {
+interface Props {
   t: Translator;
   key: string;
   params?: TranslateParams;

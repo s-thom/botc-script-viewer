@@ -3,7 +3,7 @@ import { LOCALE_MAP, type LocaleIds, type LocaleInfo } from "../../lib/i18n";
 import type { Translator } from "../../lib/i18n/types";
 import LocalisedMessage from "../i18n/LocalisedMessage.astro";
 
-export interface Props {
+interface Props {
   t: Translator;
   isScreenOnly?: boolean;
 }

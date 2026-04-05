@@ -5,7 +5,7 @@ import LocalisedMessage from "../i18n/LocalisedMessage.astro";
 import MessageSegments from "../i18n/MessageSegments.astro";
 import CharacterIcon from "./CharacterIcon.astro";
 
-export interface Props {
+interface Props {
   t: Translator;
   character: NormalisedScriptCharacter | null;
   character2?: NormalisedScriptCharacter;

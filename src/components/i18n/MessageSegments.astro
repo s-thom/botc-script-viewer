@@ -3,7 +3,7 @@ import type { MessageSegment } from "../../lib/i18n";
 import type { NormalisedScriptCharacter } from "../../types/botc";
 import ReminderToken from "../display/reminder/ReminderToken.astro";
 
-export interface Props {
+interface Props {
   segments: MessageSegment[];
   overrideLocale?: string;
   character?: NormalisedScriptCharacter;

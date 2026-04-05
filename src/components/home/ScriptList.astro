@@ -3,7 +3,7 @@ import { CHARACTERS_BY_ID } from "../../lib/characters";
 import type { LocalScriptDefinition } from "../../types/botc";
 import CharacterIcon from "../display/CharacterIcon.astro";
 
-export interface Props {
+interface Props {
   collectionId: string;
   scripts: LocalScriptDefinition[];
   loading?: "eager" | "lazy";

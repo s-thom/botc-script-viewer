@@ -10,7 +10,7 @@ import { normaliseScript } from "../lib/normalise";
 import { fixDoubleSlashPaths } from "../lib/url";
 import TopBarLayout from "./TopBarLayout.astro";
 
-export interface Props {
+interface Props {
   t: Translator;
   rawScript: BloodOnTheClocktowerCustomScript;
   overrideJsonPathSegment?: string;

@@ -7,7 +7,7 @@ export interface PageMeta {
   hasLocaleAlternates?: boolean;
 }
 
-export interface AppErrorOptions {
+interface AppErrorOptions {
   cause?: unknown;
   status: number;
   titleKey: string;

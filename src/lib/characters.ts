@@ -1,6 +1,5 @@
 import data from "../data/data.json" with { type: "json" };
 import type {
-  OfficialCharacterDeprecated,
   OfficialCharacterID,
   ScriptCharacter,
   ScriptMetadata,
@@ -19,7 +18,7 @@ export const CHARACTERS_BY_ID = data.roles.reduce<
   return map;
 }, new Map());
 
-export function normaliseCharacterId(id: string): string {
+function normaliseCharacterId(id: string): string {
   return id.toLowerCase().replace(/_/g, "");
 }
 
@@ -94,33 +93,6 @@ export function getTranslatedScriptCharacter(
   return translatedCharacter;
 }
 
-export function getFullScriptCharacter(
-  character:
-    | ScriptCharacter
-    | OfficialCharacterID
-    | OfficialCharacterDeprecated,
-): ScriptCharacter {
-  if (typeof character === "object" && "team" in character) {
-    return character;
-  }
-
-  const characterId = typeof character === "string" ? character : character.id;
-  const officialCharacter = CHARACTERS_BY_ID.get(
-    normaliseCharacterId(characterId),
-  );
-
-  if (officialCharacter) {
-    return officialCharacter;
-  }
-
-  return {
-    id: characterId,
-    name: characterId,
-    team: "<unknown>" as never,
-    ability: `<unknown official character ${characterId}>`,
-  };
-}
-
 export function getMinimalScriptCharacter(
   character: ScriptCharacter,
 ): ScriptCharacter | OfficialCharacterID {
@@ -130,16 +102,6 @@ export function getMinimalScriptCharacter(
   }
 
   return character;
-}
-
-export function isScriptMetadata(
-  item:
-    | ScriptCharacter
-    | OfficialCharacterID
-    | ScriptMetadata
-    | OfficialCharacterDeprecated,
-): item is ScriptMetadata {
-  return typeof item === "object" && item.id === "_meta" && !("team" in item);
 }
 
 export function getEnforcedCharacters(state: {

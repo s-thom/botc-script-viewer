@@ -4,7 +4,7 @@ import type { Translator } from "../../lib/i18n/types";
 import type { NormalisedScriptCharacter } from "../../types/botc";
 import CharacterListItem from "./CharacterListItem.astro";
 
-export interface Props {
+interface Props {
   t: Translator;
   characters: NormalisedScriptCharacter[];
   class?: string;
