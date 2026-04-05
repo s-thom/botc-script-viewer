@@ -1,4 +1,5 @@
 ---
+import { LOCALE_MAP, type LocaleIds, type LocaleInfo } from "../../lib/i18n";
 import type { Translator } from "../../lib/i18n/types";
 import LocalisedMessage from "../i18n/LocalisedMessage.astro";
 
@@ -8,6 +9,8 @@ export interface Props {
 }
 
 const { t, isScreenOnly } = Astro.props;
+
+const localeInfo: LocaleInfo | undefined = LOCALE_MAP[t.locale as LocaleIds];
 ---
 
 <footer class:list={["footer", isScreenOnly && "screen-only"]}>
@@ -20,10 +23,24 @@ const { t, isScreenOnly } = Astro.props;
       t={t}
       key="viewer.footer.madeBy"
       params={{
+        author: "Stuart Thomson",
         externalLink: "https://sthom.kiwi",
         externalLinkEvent: "sthom-link",
       }}
     />
+    {
+      localeInfo && localeInfo.translators.length > 0 && (
+        <LocalisedMessage
+          t={t}
+          key="viewer.footer.translatedBy"
+          params={{
+            authors: new Intl.ListFormat(t.locale).format(
+              localeInfo.translators,
+            ),
+          }}
+        />
+      )
+    }
     <LocalisedMessage
       t={t}
       key="viewer.footer.sourceCode"
@@ -33,6 +50,23 @@ const { t, isScreenOnly } = Astro.props;
       }}
     />
   </p>
+  {
+    localeInfo && localeInfo.hasMachineTranslations && (
+      <p>
+        {localeInfo.hasMachineTranslations && (
+          <LocalisedMessage
+            t={t}
+            key="viewer.footer.translatedByMachine"
+            params={{
+              externalLink:
+                "https://github.com/s-thom/botc-script-viewer/issues",
+              externalLinkEvent: "translate-github-issues-link",
+            }}
+          />
+        )}
+      </p>
+    )
+  }
 </footer>
 
 <style>

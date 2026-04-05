@@ -5,6 +5,8 @@ export interface LocaleInfo {
   slug: LocaleIds;
   botcId: string;
   fallbacks: LocaleIds[];
+  translators: string[];
+  hasMachineTranslations: boolean;
   isDefault?: boolean;
 }
 
@@ -14,6 +16,8 @@ export const LOCALE_MAP: Record<LocaleIds, LocaleInfo> = {
     slug: "en",
     botcId: "en",
     fallbacks: [],
+    translators: [],
+    hasMachineTranslations: false,
     isDefault: true,
   },
 };

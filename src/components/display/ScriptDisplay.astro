@@ -189,7 +189,11 @@ const allExtraNightOrderCharacters = script.warnings.flatMap((warning) =>
           <LocalisedMessage
             t={t}
             key="viewer.script.nightOrderWarning"
-            params={{ characters: allExtraNightOrderCharacters.join(", ") }}
+            params={{
+              characters: new Intl.ListFormat(t.locale).format(
+                allExtraNightOrderCharacters,
+              ),
+            }}
           />
         </div>
       )
