@@ -1,6 +1,6 @@
 ---
 import ScriptViewerLayout from "../../../layouts/ScriptViewerLayout.astro";
-import { createTranslator } from "../../../lib/i18n";
+import { createTranslator, type LocaleIds } from "../../../lib/i18n";
 import { LOCAL_SCRIPT_COLLECTIONS } from "../../../scripts";
 
 export function getStaticPaths() {
@@ -30,9 +30,10 @@ if (!scriptDefinition) {
   return Astro.rewrite("/404");
 }
 
-const rawScript = await scriptDefinition.getScript();
+const locale = (Astro.currentLocale ?? "en") as LocaleIds;
+const rawScript = await scriptDefinition.getScript[locale]();
 
-const t = createTranslator({ locale: Astro.currentLocale ?? "en" });
+const t = createTranslator({ locale });
 ---
 
 <ScriptViewerLayout

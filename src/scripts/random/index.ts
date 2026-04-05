@@ -5,39 +5,44 @@ export const RANDOM_SCRIPTS: LocalScriptDefinition[] = [
     id: "nfm",
     title: "Nobody FUCKING MOVE!",
     character: "ojo",
-    getScript: () => import("./NobodyFUCKINGMOVE.json").then((m) => m.default),
+    getScript: {
+      en: () => import("./NobodyFUCKINGMOVE.json").then((m) => m.default),
+    },
   },
   {
     id: "tb+1",
     title: "Trouble Brewing Plus 1",
     character: "imp",
-    getScript: () =>
-      import("./TroubleBrewingPlus1.json").then((m) => m.default),
+    getScript: {
+      en: () => import("./TroubleBrewingPlus1.json").then((m) => m.default),
+    },
   },
   {
     id: "muppets",
     title: "Muppets on a Clocktower",
     character: "bootlegger",
-    getScript: () =>
-      import("./Muppets_on_a_Clocktower.json").then((m) => m.default),
+    getScript: {
+      en: () => import("./Muppets_on_a_Clocktower.json").then((m) => m.default),
+    },
   },
   {
     id: "moonup",
     title: "moon Up",
     character: "zombuul",
-    getScript: () => import("./moonUp.json").then((m) => m.default),
+    getScript: { en: () => import("./moonUp.json").then((m) => m.default) },
   },
   {
     id: "GaslightGatekeepGiggle",
     title: "Gaslight, Gatekeep, Giggle",
     character: "marionette",
-    getScript: () =>
-      import("./GaslightGatekeepGiggle.json").then((m) => m.default),
+    getScript: {
+      en: () => import("./GaslightGatekeepGiggle.json").then((m) => m.default),
+    },
   },
   {
     id: "Regalia",
     title: "Regalia",
     character: "king",
-    getScript: () => import("./Regalia.json").then((m) => m.default),
+    getScript: { en: () => import("./Regalia.json").then((m) => m.default) },
   },
 ];

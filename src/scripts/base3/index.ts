@@ -5,21 +5,33 @@ export const BASE_3: LocalScriptDefinition[] = [
     id: "tb",
     title: "Trouble Brewing",
     character: "imp",
-    getScript: () =>
-      import("../../generated/edition-scripts/tb.json").then((m) => m.default),
+    getScript: {
+      en: () =>
+        import("../../generated/edition-scripts/en/tb.json").then(
+          (m) => m.default,
+        ),
+    },
   },
   {
     id: "snv",
     title: "Sects and Violets",
     character: "pithag",
-    getScript: () =>
-      import("../../generated/edition-scripts/snv.json").then((m) => m.default),
+    getScript: {
+      en: () =>
+        import("../../generated/edition-scripts/en/snv.json").then(
+          (m) => m.default,
+        ),
+    },
   },
   {
     id: "bmr",
     title: "Bad Moon Rising",
     character: "godfather",
-    getScript: () =>
-      import("../../generated/edition-scripts/bmr.json").then((m) => m.default),
+    getScript: {
+      en: () =>
+        import("../../generated/edition-scripts/en/bmr.json").then(
+          (m) => m.default,
+        ),
+    },
   },
 ];

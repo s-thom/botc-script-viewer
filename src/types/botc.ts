@@ -3,6 +3,7 @@ import type {
   CharacterTeam,
   ScriptCharacter,
 } from "../generated/script-schema";
+import type { LocaleIds } from "../lib/i18n";
 
 export interface NormalisedScriptCharacter extends ScriptCharacter {
   normalisedId: string;
@@ -65,5 +66,5 @@ export interface LocalScriptDefinition {
   id: string;
   title: string;
   character: string;
-  getScript: () => Promise<BloodOnTheClocktowerCustomScript>;
+  getScript: Record<LocaleIds, () => Promise<BloodOnTheClocktowerCustomScript>>;
 }

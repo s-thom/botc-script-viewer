@@ -7,6 +7,7 @@ import type {
 import { LOCAL_SCRIPT_COLLECTIONS } from "../scripts";
 import { AppError } from "../types/site";
 import { decompressFromBase64 } from "./compression";
+import type { LocaleIds } from "./i18n";
 import { decodeScript } from "./number-store";
 import { rawScriptValidator } from "./parse";
 import { KeyedRateLimit } from "./rate-limits";
@@ -155,6 +156,7 @@ function parseScriptJsonFromString(
 
 async function fetchScriptFromUrl(
   url: URL,
+  locale: LocaleIds,
   serverHostname: string,
   allowRemote: boolean,
 ): Promise<RawScriptData | ErrorData> {
@@ -169,7 +171,7 @@ async function fetchScriptFromUrl(
           scheme as keyof typeof LOCAL_SCRIPT_COLLECTIONS
         ].scripts.find((entry) => entry.id === data);
         if (definition) {
-          const script = await definition.getScript();
+          const script = await definition.getScript[locale]();
           return {
             type: "script",
             script: JSON.stringify(script),
@@ -257,6 +259,7 @@ async function fetchScriptFromUrl(
 
 export async function scriptFromFormData(
   formData: FormData,
+  locale: LocaleIds,
   serverHostname: string,
   allowRemote: boolean,
 ): Promise<BloodOnTheClocktowerCustomScript> {
@@ -271,6 +274,7 @@ export async function scriptFromFormData(
       {
         const result = await fetchScriptFromUrl(
           formContents.url,
+          locale,
           serverHostname,
           allowRemote,
         );

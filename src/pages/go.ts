@@ -1,6 +1,7 @@
 import type { APIRoute } from "astro";
 import type { BloodOnTheClocktowerCustomScript } from "../generated/script-schema";
 import { compressToBase64, stringToBytes } from "../lib/compression";
+import type { LocaleIds } from "../lib/i18n";
 import { scriptFromFormData } from "../lib/import";
 import { encodeScript } from "../lib/number-store";
 
@@ -40,10 +41,12 @@ export const POST: APIRoute = async ({
   request,
   redirect,
   url: requestUrl,
+  currentLocale,
 }) => {
   const rawFormData = await request.formData();
   const rawScript = await scriptFromFormData(
     rawFormData,
+    (currentLocale as LocaleIds | undefined) ?? "en",
     requestUrl.hostname,
     true,
   );

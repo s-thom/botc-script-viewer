@@ -1,5 +1,6 @@
 import type { APIRoute } from "astro";
 import { MAX_AGE_SECONDS } from "../../../lib/constants";
+import type { LocaleIds } from "../../../lib/i18n";
 import { LOCAL_SCRIPT_COLLECTIONS } from "../../../scripts";
 
 export function getStaticPaths() {
@@ -15,7 +16,7 @@ export function getStaticPaths() {
   );
 }
 
-export const GET: APIRoute = async ({ params, rewrite }) => {
+export const GET: APIRoute = async ({ params, rewrite, currentLocale }) => {
   const { collectionId, scriptId } = params;
 
   if (!collectionId || !scriptId) {
@@ -38,7 +39,9 @@ export const GET: APIRoute = async ({ params, rewrite }) => {
     return rewrite("/404");
   }
 
-  const rawScript = await scriptDefinition.getScript();
+  const locale = (currentLocale ?? "en") as LocaleIds;
+
+  const rawScript = await scriptDefinition.getScript[locale]();
 
   const headers = new Headers();
   headers.set("Content-Type", "application/json");
