@@ -55,8 +55,6 @@ export interface NormalisedScript {
 }
 
 export interface LocalScriptCollection {
-  title: string;
-  description: string;
   scripts: LocalScriptDefinition[];
   isOfficial?: boolean;
   showOnHome?: boolean;

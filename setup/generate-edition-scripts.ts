@@ -20,7 +20,9 @@ for (const locale of ENABLED_LOCALES) {
       {
         id: "_meta",
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        name: (localeData as any).game.editions[edition.id].name,
+        name:
+          (localeData as any)?.game?.editions?.[edition.id]?.name ??
+          (LANGUAGE_DATA["en"] as any).game.editions[edition.id].name,
         author: "The Pandemonium Institute",
         firstNight: edition.firstNight,
         otherNight: edition.otherNight,

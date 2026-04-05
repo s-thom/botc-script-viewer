@@ -1,4 +1,4 @@
-export type LocaleIds = "en";
+export type LocaleIds = "en" | "fr";
 
 export interface LocaleInfo {
   name: string;
@@ -19,6 +19,14 @@ export const LOCALE_MAP: Record<LocaleIds, LocaleInfo> = {
     translators: [],
     hasMachineTranslations: false,
     isDefault: true,
+  },
+  fr: {
+    name: "French",
+    slug: "fr",
+    botcId: "fr",
+    fallbacks: ["en"],
+    translators: [],
+    hasMachineTranslations: false,
   },
 };
 

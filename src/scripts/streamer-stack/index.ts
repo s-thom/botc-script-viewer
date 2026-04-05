@@ -7,6 +7,7 @@ export const STREAMER_STACK: LocalScriptDefinition[] = [
     character: "bountyhunter",
     getScript: {
       en: () => import("./Luigi's Mansion.json").then((m) => m.default),
+      fr: () => import("./Luigi's Mansion.json").then((m) => m.default),
     },
   },
   {
@@ -15,6 +16,7 @@ export const STREAMER_STACK: LocalScriptDefinition[] = [
     character: "hermit",
     getScript: {
       en: () => import("./Switchcraft.json").then((m) => m.default),
+      fr: () => import("./Switchcraft.json").then((m) => m.default),
     },
   },
   {
@@ -23,6 +25,7 @@ export const STREAMER_STACK: LocalScriptDefinition[] = [
     character: "marionette",
     getScript: {
       en: () => import("./Red Stick, Blue Stick.json").then((m) => m.default),
+      fr: () => import("./Red Stick, Blue Stick.json").then((m) => m.default),
     },
   },
   {
@@ -31,6 +34,7 @@ export const STREAMER_STACK: LocalScriptDefinition[] = [
     character: "heretic",
     getScript: {
       en: () => import("./Jumping to Conclusions.json").then((m) => m.default),
+      fr: () => import("./Jumping to Conclusions.json").then((m) => m.default),
     },
   },
   {
@@ -39,6 +43,7 @@ export const STREAMER_STACK: LocalScriptDefinition[] = [
     character: "banshee",
     getScript: {
       en: () => import("./The Keening Call.json").then((m) => m.default),
+      fr: () => import("./The Keening Call.json").then((m) => m.default),
     },
   },
   {
@@ -48,6 +53,8 @@ export const STREAMER_STACK: LocalScriptDefinition[] = [
     getScript: {
       en: () =>
         import("./Quis Custodiet Ipsos Custodes.json").then((m) => m.default),
+      fr: () =>
+        import("./Quis Custodiet Ipsos Custodes.json").then((m) => m.default),
     },
   },
   {
@@ -56,6 +63,7 @@ export const STREAMER_STACK: LocalScriptDefinition[] = [
     character: "vizier",
     getScript: {
       en: () => import("./Fizzy Vizzy.json").then((m) => m.default),
+      fr: () => import("./Fizzy Vizzy.json").then((m) => m.default),
     },
   },
   {
@@ -64,6 +72,7 @@ export const STREAMER_STACK: LocalScriptDefinition[] = [
     character: "cannibal",
     getScript: {
       en: () => import("./Birthday Feast!.json").then((m) => m.default),
+      fr: () => import("./Birthday Feast!.json").then((m) => m.default),
     },
   },
   {
@@ -72,6 +81,7 @@ export const STREAMER_STACK: LocalScriptDefinition[] = [
     character: "leviathan",
     getScript: {
       en: () => import("./Midnight Sun.json").then((m) => m.default),
+      fr: () => import("./Midnight Sun.json").then((m) => m.default),
     },
   },
   {
@@ -80,6 +90,7 @@ export const STREAMER_STACK: LocalScriptDefinition[] = [
     character: "psychopath",
     getScript: {
       en: () => import("./Psychosocial.json").then((m) => m.default),
+      fr: () => import("./Psychosocial.json").then((m) => m.default),
     },
   },
   {
@@ -88,6 +99,7 @@ export const STREAMER_STACK: LocalScriptDefinition[] = [
     character: "kazali",
     getScript: {
       en: () => import("./Clockwork Cyborg.json").then((m) => m.default),
+      fr: () => import("./Clockwork Cyborg.json").then((m) => m.default),
     },
   },
   {
@@ -96,6 +108,8 @@ export const STREAMER_STACK: LocalScriptDefinition[] = [
     character: "legion",
     getScript: {
       en: () =>
+        import("./Dusk in the House of the Damned.json").then((m) => m.default),
+      fr: () =>
         import("./Dusk in the House of the Damned.json").then((m) => m.default),
     },
   },

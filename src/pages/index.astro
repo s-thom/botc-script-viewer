@@ -32,7 +32,7 @@ const t = createTranslator({ locale: Astro.currentLocale ?? "en" });
       <UploadForm />
     </div>
 
-    <CollectionsMenu />
+    <CollectionsMenu t={t} />
   </div>
 
   <Footer t={t} />

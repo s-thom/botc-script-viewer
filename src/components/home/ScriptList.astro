@@ -1,4 +1,5 @@
 ---
+import { getRelativeLocaleUrl } from "astro:i18n";
 import { CHARACTERS_BY_ID } from "../../lib/characters";
 import type { LocalScriptDefinition } from "../../types/botc";
 import CharacterIcon from "../display/CharacterIcon.astro";
@@ -16,7 +17,13 @@ const { collectionId, scripts, loading } = Astro.props;
   {
     scripts.map((script) => (
       <li class="script-list-item">
-        <a href={`/${collectionId}/${script.id}`} class="script-link">
+        <a
+          href={getRelativeLocaleUrl(
+            Astro.currentLocale ?? "en",
+            `/${collectionId}/${script.id}`,
+          )}
+          class="script-link"
+        >
           <CharacterIcon
             class="script-icon"
             size={48}

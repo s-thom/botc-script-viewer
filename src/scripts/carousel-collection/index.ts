@@ -7,13 +7,17 @@ export const CAROUSEL_COLLECTION: LocalScriptDefinition[] = [
     character: "ojo",
     getScript: {
       en: () => import("./Anonymous Dishonesty.json").then((m) => m.default),
+      fr: () => import("./Anonymous Dishonesty.json").then((m) => m.default),
     },
   },
   {
     id: "contempt",
     title: "Contempt",
     character: "vizier",
-    getScript: { en: () => import("./Contempt.json").then((m) => m.default) },
+    getScript: {
+      en: () => import("./Contempt.json").then((m) => m.default),
+      fr: () => import("./Contempt.json").then((m) => m.default),
+    },
   },
   {
     id: "devout-theists",
@@ -21,6 +25,7 @@ export const CAROUSEL_COLLECTION: LocalScriptDefinition[] = [
     character: "highpriestess",
     getScript: {
       en: () => import("./Devout Theists.json").then((m) => m.default),
+      fr: () => import("./Devout Theists.json").then((m) => m.default),
     },
   },
   {
@@ -29,6 +34,7 @@ export const CAROUSEL_COLLECTION: LocalScriptDefinition[] = [
     character: "goblin",
     getScript: {
       en: () => import("./Harold Holt's Revenge.json").then((m) => m.default),
+      fr: () => import("./Harold Holt's Revenge.json").then((m) => m.default),
     },
   },
   {
@@ -37,6 +43,7 @@ export const CAROUSEL_COLLECTION: LocalScriptDefinition[] = [
     character: "harpy",
     getScript: {
       en: () => import("./Insanity and Intuition.json").then((m) => m.default),
+      fr: () => import("./Insanity and Intuition.json").then((m) => m.default),
     },
   },
   {
@@ -45,6 +52,7 @@ export const CAROUSEL_COLLECTION: LocalScriptDefinition[] = [
     character: "wizard",
     getScript: {
       en: () => import("./Irrational Behaviour.json").then((m) => m.default),
+      fr: () => import("./Irrational Behaviour.json").then((m) => m.default),
     },
   },
   {
@@ -53,6 +61,7 @@ export const CAROUSEL_COLLECTION: LocalScriptDefinition[] = [
     character: "alhadikhia",
     getScript: {
       en: () => import("./The Midnight Oasis.json").then((m) => m.default),
+      fr: () => import("./The Midnight Oasis.json").then((m) => m.default),
     },
   },
   {
@@ -61,6 +70,7 @@ export const CAROUSEL_COLLECTION: LocalScriptDefinition[] = [
     character: "organgrinder",
     getScript: {
       en: () => import("./Monkey Do Math.json").then((m) => m.default),
+      fr: () => import("./Monkey Do Math.json").then((m) => m.default),
     },
   },
   {
@@ -70,6 +80,8 @@ export const CAROUSEL_COLLECTION: LocalScriptDefinition[] = [
     getScript: {
       en: () =>
         import("./The Ones You Least Expect.json").then((m) => m.default),
+      fr: () =>
+        import("./The Ones You Least Expect.json").then((m) => m.default),
     },
   },
   {
@@ -78,6 +90,7 @@ export const CAROUSEL_COLLECTION: LocalScriptDefinition[] = [
     character: "princess",
     getScript: {
       en: () => import("./Punchy v3.8 copy.json").then((m) => m.default),
+      fr: () => import("./Punchy v3.8 copy.json").then((m) => m.default),
     },
   },
   {
@@ -86,6 +99,7 @@ export const CAROUSEL_COLLECTION: LocalScriptDefinition[] = [
     character: "riot",
     getScript: {
       en: () => import("./Quick Maths.json").then((m) => m.default),
+      fr: () => import("./Quick Maths.json").then((m) => m.default),
     },
   },
   {
@@ -95,6 +109,8 @@ export const CAROUSEL_COLLECTION: LocalScriptDefinition[] = [
     getScript: {
       en: () =>
         import("./Revenge of the Martian Vampires.json").then((m) => m.default),
+      fr: () =>
+        import("./Revenge of the Martian Vampires.json").then((m) => m.default),
     },
   },
   {
@@ -103,6 +119,7 @@ export const CAROUSEL_COLLECTION: LocalScriptDefinition[] = [
     character: "cultleader",
     getScript: {
       en: () => import("./Whose Cult Is It Anyway.json").then((m) => m.default),
+      fr: () => import("./Whose Cult Is It Anyway.json").then((m) => m.default),
     },
   },
 ];

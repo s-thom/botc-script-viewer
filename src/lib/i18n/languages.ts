@@ -16,6 +16,12 @@ export const LANGUAGE_DATA: Record<LocaleIds, LocaleData> = {
     script: enScript,
     viewer: enViewer,
   },
+  fr: {
+    app: enApp,
+    game: enGame,
+    script: enScript,
+    viewer: enViewer,
+  },
 };
 
 export const LOCALE_STACKS: Record<LocaleIds, unknown[]> =

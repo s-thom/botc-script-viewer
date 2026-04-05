@@ -1,6 +1,14 @@
 ---
+import type { Translator } from "../../lib/i18n";
 import { LOCAL_SCRIPT_COLLECTIONS } from "../../scripts";
+import LocalisedMessage from "../i18n/LocalisedMessage.astro";
 import ScriptList from "./ScriptList.astro";
+
+export interface Props {
+  t: Translator;
+}
+
+const { t } = Astro.props;
 ---
 
 <div class="box">
@@ -14,7 +22,12 @@ import ScriptList from "./ScriptList.astro";
       )
       .map(([collectionId, collection]) => (
         <section>
-          <h3>{collection.title}</h3>
+          <h3>
+            <LocalisedMessage
+              t={t}
+              key={`viewer.collection.${collectionId}.title`}
+            />
+          </h3>
           <ScriptList
             collectionId={collectionId}
             scripts={collection.scripts}
@@ -33,7 +46,12 @@ import ScriptList from "./ScriptList.astro";
       )
       .map(([collectionId, collection]) => (
         <section>
-          <h3>{collection.title}</h3>
+          <h3>
+            <LocalisedMessage
+              t={t}
+              key={`viewer.collection.${collectionId}.title`}
+            />
+          </h3>
           <ScriptList
             collectionId={collectionId}
             scripts={collection.scripts}

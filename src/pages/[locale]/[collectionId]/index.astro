@@ -1,18 +1,22 @@
 ---
-import ScriptList from "../../components/home/ScriptList.astro";
-import LocalisedMessage from "../../components/i18n/LocalisedMessage.astro";
-import Footer from "../../components/misc/Footer.astro";
-import PageView from "../../components/misc/PageView.astro";
-import CenteredLayout from "../../layouts/CenteredLayout.astro";
-import { createTranslator } from "../../lib/i18n";
-import { LOCAL_SCRIPT_COLLECTIONS } from "../../scripts";
+import ScriptList from "../../../components/home/ScriptList.astro";
+import LocalisedMessage from "../../../components/i18n/LocalisedMessage.astro";
+import Footer from "../../../components/misc/Footer.astro";
+import PageView from "../../../components/misc/PageView.astro";
+import CenteredLayout from "../../../layouts/CenteredLayout.astro";
+import { createTranslator, ENABLED_LOCALES } from "../../../lib/i18n";
+import { LOCAL_SCRIPT_COLLECTIONS } from "../../../scripts";
 
 export function getStaticPaths() {
-  return Object.keys(LOCAL_SCRIPT_COLLECTIONS).map((collectionId) => ({
-    params: {
-      collectionId: collectionId as keyof typeof LOCAL_SCRIPT_COLLECTIONS,
-    },
-  }));
+  return ENABLED_LOCALES.filter((locale) => !locale.isDefault).flatMap(
+    (locale) =>
+      Object.keys(LOCAL_SCRIPT_COLLECTIONS).map((collectionId) => ({
+        params: {
+          collectionId: collectionId as keyof typeof LOCAL_SCRIPT_COLLECTIONS,
+          locale: locale.slug,
+        },
+      })),
+  );
 }
 
 const { collectionId } = Astro.params;

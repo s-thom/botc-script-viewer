@@ -5,7 +5,10 @@ export const WORLD_CUP_25: LocalScriptDefinition[] = [
     id: "1daymore",
     title: "1 Day More",
     character: "nightwatchman",
-    getScript: { en: () => import("./1daymore.json").then((m) => m.default) },
+    getScript: {
+      en: () => import("./1daymore.json").then((m) => m.default),
+      fr: () => import("./1daymore.json").then((m) => m.default),
+    },
   },
   {
     id: "beautifulhouse",
@@ -13,6 +16,7 @@ export const WORLD_CUP_25: LocalScriptDefinition[] = [
     character: "amnesiac",
     getScript: {
       en: () => import("./beautifulhouse.json").then((m) => m.default),
+      fr: () => import("./beautifulhouse.json").then((m) => m.default),
     },
   },
   {
@@ -21,6 +25,7 @@ export const WORLD_CUP_25: LocalScriptDefinition[] = [
     character: "summoner",
     getScript: {
       en: () => import("./binarysupernovae.json").then((m) => m.default),
+      fr: () => import("./binarysupernovae.json").then((m) => m.default),
     },
   },
   {
@@ -29,6 +34,7 @@ export const WORLD_CUP_25: LocalScriptDefinition[] = [
     character: "noble",
     getScript: {
       en: () => import("./buyersremorse.json").then((m) => m.default),
+      fr: () => import("./buyersremorse.json").then((m) => m.default),
     },
   },
   {
@@ -37,13 +43,17 @@ export const WORLD_CUP_25: LocalScriptDefinition[] = [
     character: "oracle",
     getScript: {
       en: () => import("./deadcouncil.json").then((m) => m.default),
+      fr: () => import("./deadcouncil.json").then((m) => m.default),
     },
   },
   {
     id: "deadpeople",
     title: "I see dead people",
     character: "sage",
-    getScript: { en: () => import("./deadpeople.json").then((m) => m.default) },
+    getScript: {
+      en: () => import("./deadpeople.json").then((m) => m.default),
+      fr: () => import("./deadpeople.json").then((m) => m.default),
+    },
   },
   {
     id: "djinnsbargain",
@@ -51,13 +61,17 @@ export const WORLD_CUP_25: LocalScriptDefinition[] = [
     character: "djinn",
     getScript: {
       en: () => import("./djinnsbargain.json").then((m) => m.default),
+      fr: () => import("./djinnsbargain.json").then((m) => m.default),
     },
   },
   {
     id: "offwizard",
     title: "Off to see the Wizard",
     character: "wizard",
-    getScript: { en: () => import("./offwizard.json").then((m) => m.default) },
+    getScript: {
+      en: () => import("./offwizard.json").then((m) => m.default),
+      fr: () => import("./offwizard.json").then((m) => m.default),
+    },
   },
   {
     id: "phantomdetectives",
@@ -65,25 +79,35 @@ export const WORLD_CUP_25: LocalScriptDefinition[] = [
     character: "banshee",
     getScript: {
       en: () => import("./phantomdetectives.json").then((m) => m.default),
+      fr: () => import("./phantomdetectives.json").then((m) => m.default),
     },
   },
   {
     id: "riverstyx",
     title: "The River Styx",
     character: "ferryman",
-    getScript: { en: () => import("./riverstyx.json").then((m) => m.default) },
+    getScript: {
+      en: () => import("./riverstyx.json").then((m) => m.default),
+      fr: () => import("./riverstyx.json").then((m) => m.default),
+    },
   },
   {
     id: "seat7",
     title: "The Ballad of Seat 7",
     character: "scarletwoman",
-    getScript: { en: () => import("./seat7.json").then((m) => m.default) },
+    getScript: {
+      en: () => import("./seat7.json").then((m) => m.default),
+      fr: () => import("./seat7.json").then((m) => m.default),
+    },
   },
   {
     id: "stowedaway",
     title: "Stowed Away",
     character: "apprentice",
-    getScript: { en: () => import("./stowedaway.json").then((m) => m.default) },
+    getScript: {
+      en: () => import("./stowedaway.json").then((m) => m.default),
+      fr: () => import("./stowedaway.json").then((m) => m.default),
+    },
   },
   {
     id: "trainedkiller",
@@ -91,24 +115,34 @@ export const WORLD_CUP_25: LocalScriptDefinition[] = [
     character: "lilmonsta",
     getScript: {
       en: () => import("./trainedkiller.json").then((m) => m.default),
+      fr: () => import("./trainedkiller.json").then((m) => m.default),
     },
   },
   {
     id: "warrens",
     title: "The Warrens",
     character: "undertaker",
-    getScript: { en: () => import("./warrens.json").then((m) => m.default) },
+    getScript: {
+      en: () => import("./warrens.json").then((m) => m.default),
+      fr: () => import("./warrens.json").then((m) => m.default),
+    },
   },
   {
     id: "witchhunt",
     title: "Witch Hunt",
     character: "witch",
-    getScript: { en: () => import("./witchhunt.json").then((m) => m.default) },
+    getScript: {
+      en: () => import("./witchhunt.json").then((m) => m.default),
+      fr: () => import("./witchhunt.json").then((m) => m.default),
+    },
   },
   {
     id: "wonders",
     title: "show me wonders",
     character: "alhadikhia",
-    getScript: { en: () => import("./wonders.json").then((m) => m.default) },
+    getScript: {
+      en: () => import("./wonders.json").then((m) => m.default),
+      fr: () => import("./wonders.json").then((m) => m.default),
+    },
   },
 ];

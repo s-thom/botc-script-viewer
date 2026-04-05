@@ -10,6 +10,10 @@ export const BASE_3: LocalScriptDefinition[] = [
         import("../../generated/edition-scripts/en/tb.json").then(
           (m) => m.default,
         ),
+      fr: () =>
+        import("../../generated/edition-scripts/fr/tb.json").then(
+          (m) => m.default,
+        ),
     },
   },
   {
@@ -21,6 +25,10 @@ export const BASE_3: LocalScriptDefinition[] = [
         import("../../generated/edition-scripts/en/snv.json").then(
           (m) => m.default,
         ),
+      fr: () =>
+        import("../../generated/edition-scripts/fr/snv.json").then(
+          (m) => m.default,
+        ),
     },
   },
   {
@@ -30,6 +38,10 @@ export const BASE_3: LocalScriptDefinition[] = [
     getScript: {
       en: () =>
         import("../../generated/edition-scripts/en/bmr.json").then(
+          (m) => m.default,
+        ),
+      fr: () =>
+        import("../../generated/edition-scripts/fr/bmr.json").then(
           (m) => m.default,
         ),
     },
