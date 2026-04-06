@@ -1,1 +1,65 @@
-{}
+{
+  "common": {
+    "nameShort": "Visionneur de script BotC",
+    "nameLong": "Visionneur de script Blood on the Clocktower",
+    "nameLongFirst": "Blood on the Clocktower",
+    "nameLongLast": "Visionneur de script"
+  },
+  "script": {
+    "titleWithAuthor": "{title} {small}\u2002par {author}{/small}",
+    "untitledScript": "Script sans titre",
+    "wikiLabel": "Voir {title} sur le wiki",
+    "reminder": "Rappel",
+    "nightOrder": "Ordre de la nuit",
+    "nightOrderWarning": "Les personnages suivants sont référencés dans l'ordre de la nuit, mais ne figurent pas sur le script : {characters}"
+  },
+  "collection": {
+    "title": "Collection: {title}",
+    "base3": {
+      "title": "Base 3",
+      "description": "Scripts officiels fournis par The Pandemonium Institute."
+    },
+    "carousel": {
+      "title": "Collection Carrousel",
+      "description": "Scripts créés par la communauté qui mettent en avant les personnages sortis dans le Carrousel."
+    },
+    "wc25": {
+      "title": "Coupe du Monde 2025",
+      "description": "Scripts inclus dans la compétition de la Coupe du Monde 2025 avec des règles spéciales qui modifient le jeu."
+    },
+    "s2": {
+      "title": "Sélection des streamers",
+      "description": "Une collection de scripts de certains de vos streamers Clocktower préférés et de leurs communautés, utilisant de nombreux personnages disponibles depuis la sortie du Carrousel !"
+    },
+    "v": {
+      "title": "Divers",
+      "description": "Scripts que j'ai collectés au cours de mes voyages. Ceci n'est en aucun cas une liste des « meilleurs » scripts."
+    },
+    "month": {
+      "title": "Script du mois",
+      "description": "Les scripts mis en avant ce mois-ci dans l'application officielle."
+    }
+  },
+  "skipList": {
+    "skipTo": "Aller à:"
+  },
+  "navigation": {
+    "downloadJson": "Télécharger le JSON",
+    "print": "Imprimer",
+    "edit": "Modifier",
+    "qrCode": "Code QR",
+    "selectLanguage": "Sélectionner la langue"
+  },
+  "theme": {
+    "theme": "Theme: {span}{theme}{/span}",
+    "default": "Système",
+    "light": "Clair",
+    "dark": "Sombre"
+  },
+  "errors": {
+    "notFound": "Introuvable",
+    "notFoundHeading": "Page non trouvée",
+    "notFoundDescription": "Vérifiez l'URL ou {link}retournez à l'accueil{/link}.",
+    "backToHome": "Retour à l'accueil"
+  }
+}

@@ -30,6 +30,7 @@ export const LOCALE_MAP: Record<LocaleIds, LocaleInfo> = {
     botcId: "fr",
     fallbacks: ["fr_community", "en"],
     translators: [],
+    hasMachineTranslations: true,
     hasCommunityTranslations: true,
   },
   fr_community: {
