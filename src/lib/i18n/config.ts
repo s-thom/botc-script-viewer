@@ -49,6 +49,7 @@ export const LOCALE_MAP: Record<LocaleIds, LocaleInfo> = {
     botcId: "de",
     fallbacks: ["en"],
     translators: [],
+    hasMachineTranslations: true,
   },
   "de-ch": {
     name: "Deutsch (CH)",
@@ -57,6 +58,7 @@ export const LOCALE_MAP: Record<LocaleIds, LocaleInfo> = {
     botcId: "de_CH",
     fallbacks: ["de", "en"],
     translators: [],
+    hasMachineTranslations: true,
   },
 };
 

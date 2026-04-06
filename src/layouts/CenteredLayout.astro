@@ -21,7 +21,7 @@ const { t, meta } = Astro.props;
     <div class="paper-border">
       <div class="pattern">
         <div class="header-content container">
-          <a href={getRelativeLocaleUrl(Astro.currentLocale ?? "en", "/")}>
+          <a href={getRelativeLocaleUrl(Astro.currentLocale ?? "en", "")}>
             <h1 class="heading">
               <LocalisedMessage t={t} key="viewer.common.nameLong" />
             </h1>

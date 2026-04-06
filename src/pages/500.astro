@@ -9,6 +9,7 @@ import {
   type TranslateParams,
 } from "../lib/i18n";
 import { AppError } from "../types/site";
+import { getRelativeLocaleUrl } from "astro:i18n";
 
 interface Props {
   error: unknown;
@@ -64,6 +65,8 @@ const t = createTranslator({ locale });
     <LocalisedMessage t={t} key={descriptionKey} params={descriptionParams} />
   </p>
   <p>
-    <a href="/"><LocalisedMessage t={t} key="viewer.errors.backToHome" /></a>
+    <a href={getRelativeLocaleUrl(Astro.currentLocale ?? "en", "")}
+      ><LocalisedMessage t={t} key="viewer.errors.backToHome" /></a
+    >
   </p>
 </CenteredLayout>

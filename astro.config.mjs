@@ -12,7 +12,6 @@ export default defineConfig({
   site: isProd ? `https://botc-script-viewer.sthom.kiwi` : undefined,
   adapter: cloudflare({ imageService: "compile" }),
   integrations: [svelte({ compilerOptions: { dev: !isProd } })],
-  trailingSlash: "never",
   image: {
     domains: ALLOWED_EXTERNAL_HOSTNAMES,
   },
@@ -22,6 +21,9 @@ export default defineConfig({
     locales: ENABLED_LOCALES.map((locale) => locale.astroId),
   },
   scopedStyleStrategy: "class",
+  build: {
+    format: "file",
+  },
   vite: {
     build: { cssCodeSplit: false },
     optimizeDeps: {

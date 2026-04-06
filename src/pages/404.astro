@@ -4,6 +4,7 @@ import LocalisedMessage from "../components/i18n/LocalisedMessage.astro";
 import { witch } from "../generated/character-icons";
 import CenteredLayout from "../layouts/CenteredLayout.astro";
 import { createTranslator, type LocaleIds } from "../lib/i18n";
+import { getRelativeLocaleUrl } from "astro:i18n";
 
 const locale = (Astro.currentLocale as LocaleIds) ?? "en";
 const t = createTranslator({ locale });
@@ -33,7 +34,7 @@ const t = createTranslator({ locale });
     <LocalisedMessage
       t={t}
       key="viewer.errors.notFoundDescription"
-      params={{ link: "/" }}
+      params={{ link: getRelativeLocaleUrl(Astro.currentLocale ?? "en", "") }}
     />
   </p>
 </CenteredLayout>

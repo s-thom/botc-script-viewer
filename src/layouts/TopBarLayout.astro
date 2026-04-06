@@ -1,4 +1,5 @@
 ---
+import { getRelativeLocaleUrl } from "astro:i18n";
 import LocalisedMessage from "../components/i18n/LocalisedMessage.astro";
 import HeaderActions from "../components/misc/HeaderActions.astro";
 import type { Translator } from "../lib/i18n/types";
@@ -22,7 +23,7 @@ const { t, meta } = Astro.props;
     <div class="paper-border">
       <div class="pattern">
         <div class="header-content">
-          <a href="/">
+          <a href={getRelativeLocaleUrl(Astro.currentLocale ?? "en", "")}>
             <h1 class="heading">
               <LocalisedMessage t={t} key="viewer.common.nameShort" />
             </h1>

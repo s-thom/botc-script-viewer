@@ -5,9 +5,19 @@ import PageView from "../components/misc/PageView.astro";
 import Footer from "../components/misc/Footer.astro";
 import CenteredLayout from "../layouts/CenteredLayout.astro";
 import UploadForm from "../components/home/UploadForm.astro";
-import { createTranslator, type LocaleIds } from "../lib/i18n";
+import { createTranslator, ENABLED_LOCALES, type LocaleIds } from "../lib/i18n";
 import LocalisedMessage from "../components/i18n/LocalisedMessage.astro";
 import { getRelativeLocaleUrl } from "astro:i18n";
+
+export function getStaticPaths() {
+  return ENABLED_LOCALES.filter((locale) => !locale.isDefault).flatMap(
+    (locale) => ({
+      params: {
+        locale: locale.astroId,
+      },
+    }),
+  );
+}
 
 const locale = (Astro.currentLocale as LocaleIds) ?? "en";
 const t = createTranslator({ locale });
