@@ -1,40 +1,48 @@
-import type { SvgComponent } from "astro/types";
-import enIcon from "language-icons/icons/en.svg";
-import frIcon from "language-icons/icons/fr.svg";
-
-export type LocaleIds = "en" | "fr";
+export type LocaleIds = "en" | "fr" | "fr_community";
 
 export interface LocaleInfo {
   name: string;
-  slug: LocaleIds;
+  isEnabled: boolean;
+  isDefault?: boolean;
+  astroId: LocaleIds;
   botcId: string;
-  iconComponent: SvgComponent;
+  communitySheetId?: string;
   fallbacks: LocaleIds[];
   translators: string[];
-  hasMachineTranslations: boolean;
-  isDefault?: boolean;
+  hasMachineTranslations?: boolean;
+  hasCommunityTranslations?: boolean;
 }
 
 export const LOCALE_MAP: Record<LocaleIds, LocaleInfo> = {
   en: {
     name: "English",
-    slug: "en",
+    isEnabled: true,
+    isDefault: true,
+    astroId: "en",
     botcId: "en",
-    iconComponent: enIcon,
     fallbacks: [],
     translators: [],
-    hasMachineTranslations: false,
-    isDefault: true,
   },
   fr: {
-    name: "French",
-    slug: "fr",
+    name: "Français",
+    isEnabled: true,
+    astroId: "fr",
     botcId: "fr",
-    iconComponent: frIcon,
-    fallbacks: ["en"],
+    fallbacks: ["fr_community", "en"],
     translators: [],
-    hasMachineTranslations: false,
+    hasCommunityTranslations: true,
+  },
+  fr_community: {
+    name: "Français",
+    isEnabled: false,
+    astroId: "fr",
+    botcId: "fr",
+    communitySheetId: "410848247",
+    fallbacks: [],
+    translators: [],
   },
 };
 
-export const ENABLED_LOCALES = Object.values(LOCALE_MAP);
+export const ENABLED_LOCALES = Object.values(LOCALE_MAP).filter(
+  (locale) => locale.isEnabled,
+);

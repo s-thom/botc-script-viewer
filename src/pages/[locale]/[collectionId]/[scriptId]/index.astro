@@ -18,7 +18,7 @@ export function getStaticPaths() {
               collectionId:
                 collectionId as keyof typeof LOCAL_SCRIPT_COLLECTIONS,
               scriptId: script.id,
-              locale: locale.slug,
+              locale: locale.astroId,
             },
           })),
       ),

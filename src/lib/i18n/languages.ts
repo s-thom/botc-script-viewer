@@ -1,3 +1,4 @@
+import frGameCommunity from "../../generated/i18n/community/fr_community.json" with { type: "json" };
 import enApp from "../../generated/i18n/en/app.json" with { type: "json" };
 import enGame from "../../generated/i18n/en/game.json" with { type: "json" };
 import enScript from "../../generated/i18n/en/script.json" with { type: "json" };
@@ -26,12 +27,18 @@ export const LANGUAGE_DATA: Record<LocaleIds, LocaleData> = {
     script: frScript,
     viewer: frViewer,
   },
+  fr_community: {
+    app: {},
+    game: frGameCommunity,
+    script: {},
+    viewer: {},
+  },
 };
 
 export const LOCALE_STACKS: Record<LocaleIds, unknown[]> =
   ENABLED_LOCALES.reduce(
     (map, locale) => {
-      map[locale.slug] = locale.fallbacks.map(
+      map[locale.astroId] = locale.fallbacks.map(
         (fallback) => LOCALE_MAP[fallback],
       );
       return map;

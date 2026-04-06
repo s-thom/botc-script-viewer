@@ -8,7 +8,7 @@ import {
 
 export function getStaticPaths() {
   return ENABLED_LOCALES.filter((locale) => !locale.isDefault).flatMap(
-    (locale) => getStaticPathsForLocale(locale.slug),
+    (locale) => getStaticPathsForLocale(locale.astroId),
   );
 }
 

@@ -5,11 +5,11 @@ import { ENABLED_LOCALES } from "../src/lib/i18n/index.ts";
 import { LANGUAGE_DATA } from "../src/lib/i18n/languages.ts";
 
 for (const locale of ENABLED_LOCALES) {
-  await mkdir(`src/generated/edition-scripts/${locale.slug}`, {
+  await mkdir(`src/generated/edition-scripts/${locale.astroId}`, {
     recursive: true,
   });
 
-  const localeData = LANGUAGE_DATA[locale.slug];
+  const localeData = LANGUAGE_DATA[locale.astroId];
 
   for (const edition of data.editions) {
     if (edition.id === "custom") {
@@ -36,7 +36,7 @@ for (const locale of ENABLED_LOCALES) {
     }
 
     await writeFile(
-      `src/generated/edition-scripts/${locale.slug}/${edition.id}.json`,
+      `src/generated/edition-scripts/${locale.astroId}/${edition.id}.json`,
       JSON.stringify(script, null, 2),
     );
   }

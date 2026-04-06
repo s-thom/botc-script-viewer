@@ -51,6 +51,23 @@ const localeInfo: LocaleInfo | undefined = LOCALE_MAP[t.locale as LocaleIds];
     />
   </p>
   {
+    localeInfo && localeInfo.hasCommunityTranslations && (
+      <p>
+        {localeInfo.hasCommunityTranslations && (
+          <LocalisedMessage
+            t={t}
+            key="viewer.footer.translatedByCommunity"
+            params={{
+              externalLink:
+                "https://docs.google.com/spreadsheets/u/0/d/1aAJdqSTafHnw01w-WZ94UPx1Me70Kz-EG1NFfBht2tA/htmlview#gid=923580658",
+              externalLinkEvent: "translate-spreadsheet-link",
+            }}
+          />
+        )}
+      </p>
+    )
+  }
+  {
     localeInfo && localeInfo.hasMachineTranslations && (
       <p>
         {localeInfo.hasMachineTranslations && (

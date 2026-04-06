@@ -17,8 +17,8 @@ export default defineConfig({
   },
   i18n: {
     defaultLocale:
-      ENABLED_LOCALES.find((locale) => locale.isDefault)?.slug ?? "en",
-    locales: ENABLED_LOCALES.map((locale) => locale.slug),
+      ENABLED_LOCALES.find((locale) => locale.isDefault)?.astroId ?? "en",
+    locales: ENABLED_LOCALES.map((locale) => locale.astroId),
   },
   scopedStyleStrategy: "class",
   vite: {

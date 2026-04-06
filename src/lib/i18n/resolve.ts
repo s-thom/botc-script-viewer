@@ -42,7 +42,12 @@ export function resolveKey(
   for (const fallback of LOCALE_MAP[locale].fallbacks) {
     const result = tryLocale(fallback);
     if (result !== undefined) {
-      return { value: result, fallbackLocale: fallback };
+      // Quick check for community translations, which should count towards the main language.
+      const fallbackInfo = LOCALE_MAP[fallback];
+      const fallbackLocale =
+        locale === fallbackInfo.astroId ? undefined : fallbackInfo.astroId;
+
+      return { value: result, fallbackLocale };
     }
   }
 

@@ -28,9 +28,10 @@ const { segments, overrideLocale, character } = Astro.props;
               }
 
               return (
-                <a href={href} data-umami-event={segment.params["link"]}>
-                  {segment.children.map((child) => mapSingleSegment(child))}
-                </a>
+                // prettier-ignore
+                <a href={href} data-umami-event={segment.params["link"]}>{
+                  segment.children.map((child) => mapSingleSegment(child))
+                }</a>
               );
             }
             case "externalLink": {
@@ -43,33 +44,32 @@ const { segments, overrideLocale, character } = Astro.props;
               }
 
               return (
-                <a
-                  href={href}
-                  target="_blank"
-                  rel="external noreferrer"
-                  data-umami-event={segment.params["externalLink"]}
-                >
-                  {segment.children.map((child) => mapSingleSegment(child))}
-                </a>
+                // prettier-ignore
+                <a href={href} target="_blank" rel="external noreferrer" data-umami-event={segment.params["externalLink"]}>{
+                  segment.children.map((child) => mapSingleSegment(child))
+                }</a>
               );
             }
             case "span":
               return (
-                <span class:list={[segment.params["spanClass"]]}>
-                  {segment.children.map((child) => mapSingleSegment(child))}
-                </span>
+                // prettier-ignore
+                <span class:list={[segment.params["spanClass"]]}>{
+                  segment.children.map((child) => mapSingleSegment(child))
+                }</span>
               );
             case "bold":
               return (
-                <strong>
-                  {segment.children.map((child) => mapSingleSegment(child))}
-                </strong>
+                // prettier-ignore
+                <strong>{
+                  segment.children.map((child) => mapSingleSegment(child))
+                }</strong>
               );
             case "small":
               return (
-                <span class="small">
-                  {segment.children.map((child) => mapSingleSegment(child))}
-                </span>
+                // prettier-ignore
+                <span class="small">{
+                  segment.children.map((child) => mapSingleSegment(child))
+                }</span>
               );
             case "reminder":
               return <ReminderToken character={character} />;

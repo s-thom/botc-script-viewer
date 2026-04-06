@@ -18,7 +18,10 @@ const currentUrl = Astro.url;
 
 const localeAlternateMap = ENABLED_LOCALES.reduce(
   (obj, locale) => {
-    obj[locale.slug] = getAbsoluteLocaleUrl(locale.slug, currentUrl.pathname);
+    obj[locale.astroId] = getAbsoluteLocaleUrl(
+      locale.astroId,
+      currentUrl.pathname,
+    );
 
     return obj;
   },

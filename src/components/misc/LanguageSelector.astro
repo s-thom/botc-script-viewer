@@ -1,8 +1,21 @@
 ---
 import { Image } from "astro:assets";
 import { getRelativeLocaleUrl } from "astro:i18n";
-import { ENABLED_LOCALES, type Translator } from "../../lib/i18n";
+import {
+  ENABLED_LOCALES,
+  type LocaleIds,
+  type Translator,
+} from "../../lib/i18n";
 import switchIcon from "../../assets/language-switch.webp";
+import enIcon from "language-icons/icons/en.svg";
+import frIcon from "language-icons/icons/fr.svg";
+import type { SvgComponent } from "astro/types";
+
+const ICON_COMPONENTS: Record<LocaleIds, SvgComponent> = {
+  en: enIcon,
+  fr: frIcon,
+  fr_community: frIcon,
+};
 
 export interface Props {
   t: Translator;
@@ -35,17 +48,17 @@ const { t, basePath } = Astro.props;
       <ul class="language-list">
         {
           ENABLED_LOCALES.map((locale) => {
-            const LanguageIcon = locale.iconComponent;
+            const LanguageIcon = ICON_COMPONENTS[locale.astroId];
 
             return (
               <li>
                 <a
                   class:list={[
                     "language-link",
-                    locale.slug === t.locale && "current",
+                    locale.astroId === t.locale && "current",
                   ]}
-                  href={getRelativeLocaleUrl(locale.slug, basePath)}
-                  hreflang={locale.slug}
+                  href={getRelativeLocaleUrl(locale.astroId, basePath)}
+                  hreflang={locale.astroId}
                 >
                   <LanguageIcon width={24} height={24} viewBox="0 0 128 128" />
                   {locale.name}
