@@ -45,7 +45,7 @@ const getScript =
   scriptDefinition.localeOverrides?.[locale] ?? scriptDefinition.getScript;
 const rawScript = await getScript();
 
-const t = createTranslator({ locale });
+const t = await createTranslator({ locale });
 ---
 
 <ScriptViewerLayout

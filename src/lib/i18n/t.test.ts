@@ -3,7 +3,7 @@ import { describe, it } from "node:test";
 import { createTranslator } from "./t.ts";
 import type { MessageSegment, TagMessageSegment } from "./types.ts";
 
-const t = createTranslator({ locale: "en" });
+const t = await createTranslator({ locale: "en" });
 
 const textOf = (segments: MessageSegment[]): string =>
   segments
@@ -40,7 +40,9 @@ describe("createTranslator — plain strings", () => {
 
   it("substitutes a named variable", () => {
     assert.equal(
-      t.string("script.analysis.maximum-character-recommendation", { number: 25 }).value,
+      t.string("script.analysis.maximum-character-recommendation", {
+        number: 25,
+      }).value,
       "The recommended maximum number of characters is 25.",
     );
   });
@@ -96,7 +98,9 @@ describe("createTranslator — t.string", () => {
 
   it("strips tags to inner text", () => {
     assert.ok(
-      t.string("script.tour.welcome-01").value.includes("Blood on the Clocktower"),
+      t
+        .string("script.tour.welcome-01")
+        .value.includes("Blood on the Clocktower"),
     );
   });
 });

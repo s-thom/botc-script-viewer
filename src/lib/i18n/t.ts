@@ -1,17 +1,23 @@
 import { AppError } from "../../types/site.ts";
-import { LOCALE_MAP } from "./config.ts";
+import { LOCALE_MAP, type LocaleIds } from "./config.ts";
 import { formatToPlainText, resolveVariables } from "./format.ts";
+import { LANGUAGE_DATA } from "./languages.ts";
 import { parseMessage } from "./parse.ts";
 import { isPluralMessage, selectPluralForm } from "./plural.ts";
 import { resolveKey } from "./resolve.ts";
 import type {
+  LocaleData,
   MessageSegment,
   TranslateParams,
   TranslateResult,
   Translator,
 } from "./types.ts";
 
-export function createTranslator({ locale }: { locale: string }): Translator {
+export async function createTranslator({
+  locale,
+}: {
+  locale: string;
+}): Promise<Translator> {
   if (!(locale in LOCALE_MAP)) {
     throw new AppError(`Unknown locale ${locale}`, {
       status: 400,
@@ -22,7 +28,14 @@ export function createTranslator({ locale }: { locale: string }): Translator {
   }
 
   const knownLocale = locale as keyof typeof LOCALE_MAP;
-  const standardLocale = LOCALE_MAP[knownLocale]?.standardId ?? locale;
+  const localeInfo = LOCALE_MAP[knownLocale];
+  const standardLocale = localeInfo.standardId ?? knownLocale;
+
+  const locales: Partial<Record<LocaleIds, LocaleData>> = {};
+  locales[knownLocale] = await LANGUAGE_DATA[knownLocale]();
+  for (const fallback of localeInfo.fallbacks) {
+    locales[fallback] = await LANGUAGE_DATA[fallback]();
+  }
 
   const segmenter = (raw: string, params: TranslateParams = {}) => {
     const { count, formatReplacements } = params;
@@ -47,7 +60,7 @@ export function createTranslator({ locale }: { locale: string }): Translator {
     key: string,
     ignoreMissing?: boolean,
   ): TranslateResult<string | undefined> => {
-    const result = resolveKey(knownLocale, key);
+    const result = resolveKey(knownLocale, key, locales);
 
     if (result.value === undefined) {
       if (!ignoreMissing && import.meta.env?.DEV) {

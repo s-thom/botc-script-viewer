@@ -10,7 +10,7 @@ import LocalisedMessage from "../components/i18n/LocalisedMessage.astro";
 import { getRelativeLocaleUrl } from "astro:i18n";
 
 const locale = (Astro.currentLocale as LocaleIds) ?? "en";
-const t = createTranslator({ locale });
+const t = await createTranslator({ locale });
 ---
 
 <CenteredLayout

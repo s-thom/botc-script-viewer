@@ -25,7 +25,7 @@ if (!(collectionId in LOCAL_SCRIPT_COLLECTIONS)) {
 const collection = LOCAL_SCRIPT_COLLECTIONS[collectionId];
 
 const locale = (Astro.currentLocale as LocaleIds) ?? "en";
-const t = createTranslator({ locale });
+const t = await createTranslator({ locale });
 ---
 
 <CenteredLayout

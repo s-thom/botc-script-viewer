@@ -12,7 +12,7 @@ const { frontmatter } = Astro.props;
 
 // TODO: Not hardcode these pages to English
 const locale = (Astro.currentLocale as LocaleIds) ?? "en";
-const t = createTranslator({ locale });
+const t = await createTranslator({ locale });
 ---
 
 <TopBarLayout

@@ -1,6 +1,5 @@
 import { LOCALE_MAP, type LocaleIds } from "./config.ts";
-import { LANGUAGE_DATA } from "./languages.ts";
-import type { TranslateResult } from "./types.ts";
+import type { LocaleData, TranslateResult } from "./types.ts";
 
 function walkPath(
   obj: Record<string, unknown>,
@@ -19,11 +18,12 @@ function walkPath(
 export function resolveKey(
   locale: LocaleIds,
   key: string,
+  locales: Partial<Record<LocaleIds, LocaleData>>,
 ): TranslateResult<string | undefined> {
   const [ns, ...path] = key.split(".");
 
   const tryLocale = (loc: LocaleIds): string | undefined => {
-    const data = LANGUAGE_DATA[loc];
+    const data = locales[loc];
     if (!data) {
       return undefined;
     }

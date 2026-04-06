@@ -20,7 +20,7 @@ export function getStaticPaths() {
 }
 
 const locale = (Astro.currentLocale as LocaleIds) ?? "en";
-const t = createTranslator({ locale });
+const t = await createTranslator({ locale });
 ---
 
 <CenteredLayout

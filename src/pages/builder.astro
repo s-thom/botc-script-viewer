@@ -36,7 +36,7 @@ if (Astro.request.method === "POST") {
 }
 
 const locale = (Astro.currentLocale as LocaleIds) ?? "en";
-const t = createTranslator({ locale });
+const t = await createTranslator({ locale });
 ---
 
 <CenteredLayout
