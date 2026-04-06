@@ -1,4 +1,4 @@
-export type LocaleIds = "en" | "fr" | "fr_community";
+export type LocaleIds = "en" | "fr" | "fr_community" | "de" | "de-ch";
 
 export interface LocaleInfo {
   name: string;
@@ -39,6 +39,22 @@ export const LOCALE_MAP: Record<LocaleIds, LocaleInfo> = {
     botcId: "fr",
     communitySheetId: "410848247",
     fallbacks: [],
+    translators: [],
+  },
+  de: {
+    name: "Deutsch",
+    isEnabled: true,
+    astroId: "de",
+    botcId: "de",
+    fallbacks: ["en"],
+    translators: [],
+  },
+  "de-ch": {
+    name: "Deutsch (CH)",
+    isEnabled: true,
+    astroId: "de-ch",
+    botcId: "de_CH",
+    fallbacks: ["de", "en"],
     translators: [],
   },
 };

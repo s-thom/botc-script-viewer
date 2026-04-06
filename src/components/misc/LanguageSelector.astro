@@ -8,6 +8,7 @@ import {
 } from "../../lib/i18n";
 import switchIcon from "../../assets/language-switch.webp";
 import enIcon from "language-icons/icons/en.svg";
+import deIcon from "language-icons/icons/de.svg";
 import frIcon from "language-icons/icons/fr.svg";
 import type { SvgComponent } from "astro/types";
 
@@ -15,6 +16,8 @@ const ICON_COMPONENTS: Record<LocaleIds, SvgComponent> = {
   en: enIcon,
   fr: frIcon,
   fr_community: frIcon,
+  de: deIcon,
+  "de-ch": deIcon,
 };
 
 export interface Props {
