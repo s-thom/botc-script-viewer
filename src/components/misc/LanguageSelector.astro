@@ -1,16 +1,16 @@
 ---
+import type { SvgComponent } from "astro/types";
 import { Image } from "astro:assets";
 import { getRelativeLocaleUrl } from "astro:i18n";
+import deIcon from "language-icons/icons/de.svg";
+import enIcon from "language-icons/icons/en.svg";
+import frIcon from "language-icons/icons/fr.svg";
+import switchIcon from "../../assets/language-switch.webp";
 import {
   ENABLED_LOCALES,
   type LocaleIds,
   type Translator,
 } from "../../lib/i18n";
-import switchIcon from "../../assets/language-switch.webp";
-import enIcon from "language-icons/icons/en.svg";
-import deIcon from "language-icons/icons/de.svg";
-import frIcon from "language-icons/icons/fr.svg";
-import type { SvgComponent } from "astro/types";
 
 const ICON_COMPONENTS: Record<LocaleIds, SvgComponent> = {
   en: enIcon,
@@ -26,6 +26,8 @@ export interface Props {
 }
 
 const { t, basePath } = Astro.props;
+
+const CurrentLocaleIcon = ICON_COMPONENTS[t.locale as LocaleIds];
 ---
 
 <div>
@@ -33,14 +35,25 @@ const { t, basePath } = Astro.props;
     type="button"
     class="language-button"
     popovertarget="language-selector"
-    ><Image
+  >
+    <Image
       src={switchIcon}
       width={32}
       height={32}
       densities={[1, 2, 3]}
       alt={t.string("viewer.navigation.selectLanguage").value}
-    /></button
-  >
+    />
+    {
+      CurrentLocaleIcon && (
+        <CurrentLocaleIcon
+          class="current-icon"
+          width={12}
+          height={12}
+          viewBox="0 0 128 128"
+        />
+      )
+    }
+  </button>
   <dialog
     id="language-selector"
     class="popover"
@@ -77,6 +90,7 @@ const { t, basePath } = Astro.props;
 
 <style>
   .language-button {
+    position: relative;
     display: block;
     padding: 0;
     border: none;
@@ -84,6 +98,12 @@ const { t, basePath } = Astro.props;
     height: 32px;
     background: transparent;
     anchor-name: --language-selector;
+  }
+
+  .current-icon {
+    position: absolute;
+    inset-block-end: 0;
+    inset-inline-end: 0;
   }
 
   .popover {
