@@ -12,6 +12,7 @@ export default defineConfig({
   site: isProd ? `https://botc-script-viewer.sthom.kiwi` : undefined,
   adapter: cloudflare({ imageService: "compile" }),
   integrations: [svelte({ compilerOptions: { dev: !isProd } })],
+  trailingSlash: "never",
   image: {
     domains: ALLOWED_EXTERNAL_HOSTNAMES,
   },

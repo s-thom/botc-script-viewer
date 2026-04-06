@@ -1,10 +1,10 @@
 ---
-import type { BloodOnTheClocktowerCustomScript } from "../../../generated/script-schema";
-import ScriptViewerLayout from "../../../layouts/ScriptViewerLayout.astro";
-import { bytesToString, decompressFromBase64 } from "../../../lib/compression";
-import { MAX_AGE_SECONDS } from "../../../lib/constants";
-import { createTranslator } from "../../../lib/i18n";
-import { getPathWithoutLocale } from "../../../lib/url";
+import type { BloodOnTheClocktowerCustomScript } from "../../generated/script-schema";
+import ScriptViewerLayout from "../../layouts/ScriptViewerLayout.astro";
+import { bytesToString, decompressFromBase64 } from "../../lib/compression";
+import { MAX_AGE_SECONDS } from "../../lib/constants";
+import { createTranslator } from "../../lib/i18n";
+import { getPathWithoutLocale } from "../../lib/url";
 
 export const prerender = false;
 
