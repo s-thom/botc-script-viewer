@@ -5,6 +5,7 @@ import {
   type LocaleIds,
   ENABLED_LOCALES,
 } from "../../../../lib/i18n";
+import { getPathWithoutLocale } from "../../../../lib/url";
 import { LOCAL_SCRIPT_COLLECTIONS } from "../../../../scripts";
 
 export function getStaticPaths() {
@@ -48,5 +49,6 @@ const t = createTranslator({ locale });
 <ScriptViewerLayout
   t={t}
   rawScript={rawScript}
+  basePath={getPathWithoutLocale(Astro.routePattern, Astro.url.pathname)}
   overrideJsonPathSegment={`${scriptDefinition.id}.json`}
 />

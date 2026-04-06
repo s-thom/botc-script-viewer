@@ -36,8 +36,13 @@ const { t, characters, class: className, showWikiLink } = Astro.props;
     padding-inline-start: 0;
     margin-block: 1rem;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(24rem, 1fr));
+    grid-template-columns: 1fr;
     gap: 1rem;
+  }
+  @media (min-width: 500px) {
+    .character-list {
+      grid-template-columns: repeat(auto-fill, minmax(24rem, 1fr));
+    }
   }
 
   .character-list-item {

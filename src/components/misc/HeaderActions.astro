@@ -1,0 +1,31 @@
+---
+import type { Translator } from "../../lib/i18n";
+import LanguageSelector from "./LanguageSelector.astro";
+import ThemeToggle from "./ThemeToggle.astro";
+
+export interface Props {
+  t: Translator;
+  basePath: string;
+}
+
+const { t, basePath } = Astro.props;
+---
+
+<div class="action-list">
+  <LanguageSelector t={t} basePath={basePath} />
+  <ThemeToggle t={t} />
+</div>
+
+<style>
+  .action-list {
+    padding: 8px;
+    display: flex;
+    gap: 4px;
+    flex-direction: column-reverse;
+    justify-content: start;
+
+    @media (min-width: 650px) {
+      flex-direction: row;
+    }
+  }
+</style>

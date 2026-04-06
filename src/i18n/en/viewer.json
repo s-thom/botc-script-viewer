@@ -60,7 +60,8 @@
     "downloadJson": "Download JSON",
     "print": "Print",
     "edit": "Edit",
-    "qrCode": "QR Code"
+    "qrCode": "QR Code",
+    "selectLanguage": "Select language"
   },
   "theme": {
     "theme": "Theme: {span}{theme}{/span}",

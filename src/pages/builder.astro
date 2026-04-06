@@ -45,6 +45,7 @@ const t = createTranslator({ locale: Astro.currentLocale ?? "en" });
       title: "Builder",
       nameShort: t.string("viewer.common.nameShort").value,
     }).value,
+    basePath: "/builder",
     noIndex: true,
   }}
 >

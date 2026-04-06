@@ -12,7 +12,7 @@ const t = createTranslator({ locale: Astro.currentLocale ?? "en" });
 
 <CenteredLayout
   t={t}
-  meta={{ title: t.string("viewer.common.nameLong").value }}
+  meta={{ title: t.string("viewer.common.nameLong").value, basePath: "/" }}
 >
   <Fragment slot="head">
     <PageView />

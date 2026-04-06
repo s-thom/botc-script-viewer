@@ -1,6 +1,7 @@
 ---
+import { getRelativeLocaleUrl } from "astro:i18n";
 import LocalisedMessage from "../components/i18n/LocalisedMessage.astro";
-import ThemeToggle from "../components/misc/ThemeToggle.astro";
+import HeaderActions from "../components/misc/HeaderActions.astro";
 import type { Translator } from "../lib/i18n/types";
 import type { PageMeta } from "../types/site";
 import MinimalLayout from "./MinimalLayout.astro";
@@ -20,7 +21,7 @@ const { t, meta } = Astro.props;
     <div class="paper-border">
       <div class="pattern">
         <div class="header-content container">
-          <a href="/">
+          <a href={getRelativeLocaleUrl(Astro.currentLocale ?? "en", "/")}>
             <h1 class="heading">
               <LocalisedMessage t={t} key="viewer.common.nameLong" />
             </h1>
@@ -29,7 +30,9 @@ const { t, meta } = Astro.props;
       </div>
     </div>
 
-    <ThemeToggle t={t} />
+    <div class="floating-actions-container">
+      <HeaderActions t={t} basePath={meta.basePath} />
+    </div>
   </header>
 
   <div class="container">
@@ -112,5 +115,11 @@ const { t, meta } = Astro.props;
     text-align: center;
     margin: 2rem;
     font-weight: 600;
+  }
+
+  .floating-actions-container {
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-end: 0;
   }
 </style>

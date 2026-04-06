@@ -4,6 +4,7 @@ import ScriptViewerLayout from "../../../layouts/ScriptViewerLayout.astro";
 import { bytesToString, decompressFromBase64 } from "../../../lib/compression";
 import { MAX_AGE_SECONDS } from "../../../lib/constants";
 import { createTranslator } from "../../../lib/i18n";
+import { getPathWithoutLocale } from "../../../lib/url";
 
 export const prerender = false;
 
@@ -25,4 +26,9 @@ Astro.response.headers.set(
 );
 ---
 
-<ScriptViewerLayout t={t} rawScript={rawScript} noIndex />
+<ScriptViewerLayout
+  t={t}
+  rawScript={rawScript}
+  basePath={getPathWithoutLocale(Astro.routePattern, Astro.url.pathname)}
+  noIndex
+/>

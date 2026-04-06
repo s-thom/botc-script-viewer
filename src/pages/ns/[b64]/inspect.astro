@@ -13,6 +13,7 @@ import { MAX_AGE_SECONDS } from "../../../lib/constants";
 import { createTranslator } from "../../../lib/i18n";
 import { decodeScript } from "../../../lib/number-store";
 import { explainDecodeScript } from "../../../lib/number-store/explain";
+import { getPathWithoutLocale } from "../../../lib/url";
 
 export const prerender = false;
 
@@ -73,6 +74,7 @@ const t = createTranslator({ locale: Astro.currentLocale ?? "en" });
       nameShort: t.string("viewer.common.nameShort").value,
     }).value,
     noIndex: true,
+    basePath: getPathWithoutLocale(Astro.routePattern, Astro.url.pathname),
   }}
 >
   <Fragment slot="head">

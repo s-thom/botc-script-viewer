@@ -5,6 +5,7 @@ import CenteredLayout from "../layouts/CenteredLayout.astro";
 import { AppError } from "../types/site";
 import { createTranslator, type TranslateParams } from "../lib/i18n";
 import LocalisedMessage from "../components/i18n/LocalisedMessage.astro";
+import { getPathWithoutLocale } from "../lib/url";
 
 interface Props {
   error: unknown;
@@ -39,6 +40,7 @@ const t = createTranslator({ locale: Astro.currentLocale ?? "en" });
       title: t.string(titleKey).value,
       nameShort: t.string("viewer.common.nameShort").value,
     }).value,
+    basePath: getPathWithoutLocale(Astro.routePattern, Astro.url.pathname),
   }}
 >
   <Fragment slot="head">

@@ -21,7 +21,12 @@ export default defineConfig({
     locales: ENABLED_LOCALES.map((locale) => locale.slug),
   },
   scopedStyleStrategy: "class",
-  vite: { build: { cssCodeSplit: false } },
+  vite: {
+    build: { cssCodeSplit: false },
+    optimizeDeps: {
+      exclude: ["language-icons"],
+    },
+  },
   fonts: [
     {
       provider: fontProviders.local(),

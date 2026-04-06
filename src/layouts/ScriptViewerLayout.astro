@@ -13,11 +13,13 @@ import TopBarLayout from "./TopBarLayout.astro";
 interface Props {
   t: Translator;
   rawScript: BloodOnTheClocktowerCustomScript;
+  basePath: string;
   overrideJsonPathSegment?: string;
   noIndex?: boolean;
 }
 
-const { t, rawScript, overrideJsonPathSegment, noIndex } = Astro.props;
+const { t, rawScript, basePath, overrideJsonPathSegment, noIndex } =
+  Astro.props;
 
 const script = normaliseScript(rawScript, t);
 
@@ -47,6 +49,7 @@ const scriptNameWithFallback =
       title: scriptNameWithFallback,
       nameShort: t.string("viewer.common.nameShort").value,
     }).value,
+    basePath,
     noIndex,
     hasLocaleAlternates: true,
   }}

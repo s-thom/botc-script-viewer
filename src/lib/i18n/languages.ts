@@ -1,7 +1,11 @@
 import enApp from "../../generated/i18n/en/app.json" with { type: "json" };
 import enGame from "../../generated/i18n/en/game.json" with { type: "json" };
 import enScript from "../../generated/i18n/en/script.json" with { type: "json" };
+import frApp from "../../generated/i18n/fr/app.json" with { type: "json" };
+import frGame from "../../generated/i18n/fr/game.json" with { type: "json" };
+import frScript from "../../generated/i18n/fr/script.json" with { type: "json" };
 import enViewer from "../../i18n/en/viewer.json" with { type: "json" };
+import frViewer from "../../i18n/fr/viewer.json" with { type: "json" };
 import { ENABLED_LOCALES, LOCALE_MAP, type LocaleIds } from "./config.ts";
 import type { LocaleData } from "./types.ts";
 
@@ -17,10 +21,10 @@ export const LANGUAGE_DATA: Record<LocaleIds, LocaleData> = {
     viewer: enViewer,
   },
   fr: {
-    app: enApp,
-    game: enGame,
-    script: enScript,
-    viewer: enViewer,
+    app: frApp,
+    game: frGame,
+    script: frScript,
+    viewer: frViewer,
   },
 };
 

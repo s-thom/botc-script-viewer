@@ -1,6 +1,6 @@
 ---
 import LocalisedMessage from "../components/i18n/LocalisedMessage.astro";
-import ThemeToggle from "../components/misc/ThemeToggle.astro";
+import HeaderActions from "../components/misc/HeaderActions.astro";
 import type { Translator } from "../lib/i18n/types";
 import type { PageMeta } from "../types/site";
 import MinimalLayout from "./MinimalLayout.astro";
@@ -38,10 +38,10 @@ const { t, meta } = Astro.props;
             )
           }
         </div>
+
+        <HeaderActions t={t} basePath={meta.basePath} />
       </div>
     </div>
-
-    <ThemeToggle t={t} />
   </header>
 
   <div class="container">
@@ -63,6 +63,8 @@ const { t, meta } = Astro.props;
 
   .pattern {
     background: url("../assets/headerbg.webp") var(--color-header-background);
+    display: flex;
+    justify-content: space-between;
   }
 
   .paper-border,
@@ -115,7 +117,7 @@ const { t, meta } = Astro.props;
     display: flex;
     align-items: center;
     padding-inline-start: 8px;
-    padding-inline-end: 32px;
+    padding-inline-end: 16px;
     padding-block-start: 8px;
     padding-block-end: 16px;
     gap: 8px;

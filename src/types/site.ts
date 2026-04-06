@@ -2,6 +2,7 @@ import type { TranslateParams } from "../lib/i18n";
 
 export interface PageMeta {
   title: string;
+  basePath: string;
   description?: string;
   noIndex?: boolean;
   hasLocaleAlternates?: boolean;
