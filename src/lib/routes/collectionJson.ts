@@ -45,7 +45,10 @@ export async function getJsonResponse(
 
   const resolvedLocale = (locale ?? "en") as LocaleIds;
 
-  const rawScript = await scriptDefinition.getScript[resolvedLocale]();
+  const getScript =
+    scriptDefinition.localeOverrides?.[resolvedLocale] ??
+    scriptDefinition.getScript;
+  const rawScript = await getScript();
 
   const headers = new Headers();
   headers.set("Content-Type", "application/json");

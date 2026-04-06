@@ -41,7 +41,9 @@ if (!scriptDefinition) {
 }
 
 const locale = (Astro.currentLocale ?? "en") as LocaleIds;
-const rawScript = await scriptDefinition.getScript[locale]();
+const getScript =
+  scriptDefinition.localeOverrides?.[locale] ?? scriptDefinition.getScript;
+const rawScript = await getScript();
 
 const t = createTranslator({ locale });
 ---
