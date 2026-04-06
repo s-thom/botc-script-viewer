@@ -12,11 +12,21 @@ interface Props {
 }
 
 const { t, meta } = Astro.props;
-const { title, description, noIndex, hasLocaleAlternates } = meta;
+const { title, description, noIndex, lang, translate } = meta;
 
 const currentUrl = Astro.url;
+const canonicalUrl = new URL(currentUrl);
+canonicalUrl.hash = "";
+canonicalUrl.search = "";
 
-const localeAlternateMap = ENABLED_LOCALES.reduce(
+const pageLocales = translate
+  ? ENABLED_LOCALES.filter(
+      (locale) =>
+        translate.locales === "all" ||
+        translate.locales.includes(locale.astroId),
+    )
+  : [];
+const localeAlternateMap = pageLocales.reduce(
   (obj, locale) => {
     obj[locale.astroId] = getAbsoluteLocaleUrl(
       locale.astroId,
@@ -30,7 +40,7 @@ const localeAlternateMap = ENABLED_LOCALES.reduce(
 ---
 
 <!doctype html>
-<html lang={t.locale} prefix="og: https://ogp.me/ns#">
+<html lang={lang} prefix="og: https://ogp.me/ns#">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -60,12 +70,12 @@ const localeAlternateMap = ENABLED_LOCALES.reduce(
     <link rel="icon" href="/favicon.png" />
 
     {
-      hasLocaleAlternates &&
+      translate &&
         Object.entries(localeAlternateMap).map(([lang, url]) => (
           <link rel="alternate" href={url} hreflang={lang} />
         ))
     }
-    <link rel="canonical" href={currentUrl.toString()} />
+    <link rel="canonical" href={canonicalUrl.toString()} />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content="/banner.png" />

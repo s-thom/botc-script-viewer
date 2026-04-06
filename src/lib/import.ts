@@ -171,10 +171,12 @@ async function fetchScriptFromUrl(
           scheme as keyof typeof LOCAL_SCRIPT_COLLECTIONS
         ].scripts.find((entry) => entry.id === data);
         if (definition) {
-          const script = await definition.getScript[locale]();
+          const getScript =
+            definition.localeOverrides?.[locale] ?? definition.getScript;
+          const rawScript = await getScript();
           return {
             type: "script",
-            script: JSON.stringify(script),
+            script: JSON.stringify(rawScript),
           };
         }
       }

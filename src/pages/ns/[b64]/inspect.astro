@@ -10,10 +10,9 @@ import {
   stringToBytes,
 } from "../../../lib/compression";
 import { MAX_AGE_SECONDS } from "../../../lib/constants";
-import { createTranslator } from "../../../lib/i18n";
+import { createTranslator, type LocaleIds } from "../../../lib/i18n";
 import { decodeScript } from "../../../lib/number-store";
 import { explainDecodeScript } from "../../../lib/number-store/explain";
-import { getPathWithoutLocale } from "../../../lib/url";
 
 export const prerender = false;
 
@@ -63,7 +62,8 @@ Astro.response.headers.set(
   `public, max-age=${MAX_AGE_SECONDS}`,
 );
 
-const t = createTranslator({ locale: Astro.currentLocale ?? "en" });
+const locale = (Astro.currentLocale as LocaleIds) ?? "en";
+const t = createTranslator({ locale });
 ---
 
 <TopBarLayout
@@ -73,8 +73,8 @@ const t = createTranslator({ locale: Astro.currentLocale ?? "en" });
       title: "Inspect",
       nameShort: t.string("viewer.common.nameShort").value,
     }).value,
+    lang: locale,
     noIndex: true,
-    basePath: getPathWithoutLocale(Astro.routePattern, Astro.url.pathname),
   }}
 >
   <Fragment slot="head">

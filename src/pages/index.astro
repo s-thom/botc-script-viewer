@@ -5,14 +5,15 @@ import PageView from "../components/misc/PageView.astro";
 import Footer from "../components/misc/Footer.astro";
 import CenteredLayout from "../layouts/CenteredLayout.astro";
 import UploadForm from "../components/home/UploadForm.astro";
-import { createTranslator } from "../lib/i18n";
+import { createTranslator, type LocaleIds } from "../lib/i18n";
 
-const t = createTranslator({ locale: Astro.currentLocale ?? "en" });
+const locale = (Astro.currentLocale as LocaleIds) ?? "en";
+const t = createTranslator({ locale });
 ---
 
 <CenteredLayout
   t={t}
-  meta={{ title: t.string("viewer.common.nameLong").value, basePath: "/" }}
+  meta={{ title: t.string("viewer.common.nameLong").value, lang: locale }}
 >
   <Fragment slot="head">
     <PageView />

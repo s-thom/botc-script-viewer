@@ -1,11 +1,16 @@
-import type { TranslateParams } from "../lib/i18n";
+import type { LocaleIds, TranslateParams } from "../lib/i18n";
+
+export interface PageTranslateData {
+  basePath: string;
+  locales: LocaleIds[] | "all";
+}
 
 export interface PageMeta {
   title: string;
-  basePath: string;
+  lang: LocaleIds;
+  translate?: PageTranslateData;
   description?: string;
   noIndex?: boolean;
-  hasLocaleAlternates?: boolean;
 }
 
 interface AppErrorOptions {

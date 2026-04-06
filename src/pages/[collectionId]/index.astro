@@ -4,7 +4,7 @@ import LocalisedMessage from "../../components/i18n/LocalisedMessage.astro";
 import Footer from "../../components/misc/Footer.astro";
 import PageView from "../../components/misc/PageView.astro";
 import CenteredLayout from "../../layouts/CenteredLayout.astro";
-import { createTranslator } from "../../lib/i18n";
+import { createTranslator, type LocaleIds } from "../../lib/i18n";
 import { getPathWithoutLocale } from "../../lib/url";
 import { LOCAL_SCRIPT_COLLECTIONS } from "../../scripts";
 
@@ -24,7 +24,8 @@ if (!(collectionId in LOCAL_SCRIPT_COLLECTIONS)) {
 
 const collection = LOCAL_SCRIPT_COLLECTIONS[collectionId];
 
-const t = createTranslator({ locale: Astro.currentLocale ?? "en" });
+const locale = (Astro.currentLocale as LocaleIds) ?? "en";
+const t = createTranslator({ locale });
 ---
 
 <CenteredLayout
@@ -36,7 +37,11 @@ const t = createTranslator({ locale: Astro.currentLocale ?? "en" });
       }).value,
       nameShort: t.string("viewer.common.nameShort").value,
     }).value,
-    basePath: getPathWithoutLocale(Astro.routePattern, Astro.url.pathname),
+    lang: locale,
+    translate: {
+      locales: "all",
+      basePath: getPathWithoutLocale(Astro.routePattern, Astro.url.pathname),
+    },
     description: t.string(`viewer.collection.${collectionId}.description`)
       .value,
   }}

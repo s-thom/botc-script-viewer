@@ -1,8 +1,7 @@
 ---
 import { type MarkdownLayoutProps } from "astro";
 import Footer from "../components/misc/Footer.astro";
-import { createTranslator } from "../lib/i18n";
-import { getPathWithoutLocale } from "../lib/url";
+import { createTranslator, type LocaleIds } from "../lib/i18n";
 import TopBarLayout from "./TopBarLayout.astro";
 
 type Props = MarkdownLayoutProps<{
@@ -12,14 +11,15 @@ type Props = MarkdownLayoutProps<{
 const { frontmatter } = Astro.props;
 
 // TODO: Not hardcode these pages to English
-const t = createTranslator({ locale: "en" });
+const locale = (Astro.currentLocale as LocaleIds) ?? "en";
+const t = createTranslator({ locale });
 ---
 
 <TopBarLayout
   t={t}
   meta={{
     title: t.string("viewer.head.title", { title: frontmatter.title }).value,
-    basePath: getPathWithoutLocale(Astro.routePattern, Astro.url.pathname),
+    lang: locale,
   }}
 >
   <div class="md flow">

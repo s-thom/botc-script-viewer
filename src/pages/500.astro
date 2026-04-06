@@ -1,11 +1,14 @@
 ---
 import { Image } from "astro:assets";
+import LocalisedMessage from "../components/i18n/LocalisedMessage.astro";
 import { goblin, witch } from "../generated/character-icons";
 import CenteredLayout from "../layouts/CenteredLayout.astro";
+import {
+  createTranslator,
+  type LocaleIds,
+  type TranslateParams,
+} from "../lib/i18n";
 import { AppError } from "../types/site";
-import { createTranslator, type TranslateParams } from "../lib/i18n";
-import LocalisedMessage from "../components/i18n/LocalisedMessage.astro";
-import { getPathWithoutLocale } from "../lib/url";
 
 interface Props {
   error: unknown;
@@ -30,7 +33,8 @@ if (error instanceof Error) {
 
 Astro.response.status = status;
 
-const t = createTranslator({ locale: Astro.currentLocale ?? "en" });
+const locale = (Astro.currentLocale as LocaleIds) ?? "en";
+const t = createTranslator({ locale });
 ---
 
 <CenteredLayout
@@ -40,7 +44,7 @@ const t = createTranslator({ locale: Astro.currentLocale ?? "en" });
       title: t.string(titleKey).value,
       nameShort: t.string("viewer.common.nameShort").value,
     }).value,
-    basePath: getPathWithoutLocale(Astro.routePattern, Astro.url.pathname),
+    lang: locale,
   }}
 >
   <Fragment slot="head">

@@ -6,7 +6,7 @@ import PageView from "../components/misc/PageView.astro";
 import SavedScriptList from "../components/svelte/builder/SavedScriptList.svelte";
 import CenteredLayout from "../layouts/CenteredLayout.astro";
 import { compressToBase64, stringToBytes } from "../lib/compression";
-import { createTranslator } from "../lib/i18n";
+import { createTranslator, type LocaleIds } from "../lib/i18n";
 
 let scriptBuilderUrl: string | undefined;
 if (Astro.request.method === "POST") {
@@ -35,7 +35,8 @@ if (Astro.request.method === "POST") {
   }
 }
 
-const t = createTranslator({ locale: Astro.currentLocale ?? "en" });
+const locale = (Astro.currentLocale as LocaleIds) ?? "en";
+const t = createTranslator({ locale });
 ---
 
 <CenteredLayout
@@ -45,7 +46,7 @@ const t = createTranslator({ locale: Astro.currentLocale ?? "en" });
       title: "Builder",
       nameShort: t.string("viewer.common.nameShort").value,
     }).value,
-    basePath: "/builder",
+    lang: locale,
     noIndex: true,
   }}
 >

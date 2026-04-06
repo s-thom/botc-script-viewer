@@ -5,6 +5,7 @@ import LocalisedMessage from "../components/i18n/LocalisedMessage.astro";
 import PageView from "../components/misc/PageView.astro";
 import type { BloodOnTheClocktowerCustomScript } from "../generated/script-schema";
 import { compressToBase64, stringToBytes } from "../lib/compression";
+import type { LocaleIds } from "../lib/i18n";
 import type { Translator } from "../lib/i18n/types";
 import { normaliseScript } from "../lib/normalise";
 import { fixDoubleSlashPaths } from "../lib/url";
@@ -49,9 +50,12 @@ const scriptNameWithFallback =
       title: scriptNameWithFallback,
       nameShort: t.string("viewer.common.nameShort").value,
     }).value,
-    basePath,
+    lang: t.locale as LocaleIds,
+    translate: {
+      basePath,
+      locales: "all",
+    },
     noIndex,
-    hasLocaleAlternates: true,
   }}
 >
   <Fragment slot="head">

@@ -1,12 +1,12 @@
 ---
 import { Image } from "astro:assets";
+import LocalisedMessage from "../components/i18n/LocalisedMessage.astro";
 import { witch } from "../generated/character-icons";
 import CenteredLayout from "../layouts/CenteredLayout.astro";
-import { createTranslator } from "../lib/i18n";
-import LocalisedMessage from "../components/i18n/LocalisedMessage.astro";
-import { getPathWithoutLocale } from "../lib/url";
+import { createTranslator, type LocaleIds } from "../lib/i18n";
 
-const t = createTranslator({ locale: Astro.currentLocale ?? "en" });
+const locale = (Astro.currentLocale as LocaleIds) ?? "en";
+const t = createTranslator({ locale });
 ---
 
 <CenteredLayout
@@ -16,7 +16,7 @@ const t = createTranslator({ locale: Astro.currentLocale ?? "en" });
       title: t.string("viewer.errors.notFound").value,
       nameShort: t.string("viewer.common.nameShort").value,
     }).value,
-    basePath: getPathWithoutLocale(Astro.routePattern, Astro.url.pathname),
+    lang: locale,
   }}
 >
   <h1><LocalisedMessage t={t} key="viewer.errors.notFoundHeading" /></h1>

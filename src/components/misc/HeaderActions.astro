@@ -1,18 +1,19 @@
 ---
 import type { Translator } from "../../lib/i18n";
+import type { PageTranslateData } from "../../types/site";
 import LanguageSelector from "./LanguageSelector.astro";
 import ThemeToggle from "./ThemeToggle.astro";
 
 export interface Props {
   t: Translator;
-  basePath: string;
+  translate?: PageTranslateData;
 }
 
-const { t, basePath } = Astro.props;
+const { t, translate: translation } = Astro.props;
 ---
 
 <div class="action-list">
-  <LanguageSelector t={t} basePath={basePath} />
+  {translation && <LanguageSelector t={t} basePath={translation.basePath} />}
   <ThemeToggle t={t} />
 </div>
 
