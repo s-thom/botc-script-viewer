@@ -22,7 +22,7 @@ async function downloadAndSaveJson(langId: string, file: string) {
 }
 
 for (const locale of ENABLED_LOCALES) {
-  await mkdir(join(DESTINATION_DIR, locale.astroId), { recursive: true });
+  await mkdir(join(DESTINATION_DIR, locale.botcId), { recursive: true });
 
   await downloadAndSaveJson(locale.botcId, "app");
   await downloadAndSaveJson(locale.botcId, "game");
