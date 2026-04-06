@@ -14,9 +14,6 @@ export type AppScreen =
   | "switcher"
   | "switcher:import";
 
-export const APP_SETTINGS_KEY = "builder-app";
-export const CURRENT_APP_SETTINGS_VERSION = 1;
-
 export interface BuilderAppSettingsV1 {
   id: "builder-app";
   version: 1;
@@ -36,11 +33,6 @@ export interface BuilderAppSettingsV1 {
     fun: boolean;
   };
 }
-
-export type BuilderAppSettingsAll = BuilderAppSettingsV1;
-export type BuilderAppSettingsLatest = BuilderAppSettingsV1;
-
-export const CURRENT_SCRIPT_SETTINGS_VERSION = 1;
 
 export interface BuilderScriptSettingsV1 {
   id: "builder-script";

@@ -4,10 +4,11 @@ import type {
   SavedScriptData,
 } from "../builder/state/types";
 
-export const APP_DATABASE_KEY = "script-viewer";
 export const BUILDER_SCRIPTS_KEY = "builder-scripts";
 export const BUILDER_SCRIPTS_UPDATED_INDEX_KEY = "by-updated";
-export const BUILDER_SETTINGS_KEY = "builder-settings";
+
+const APP_DATABASE_KEY = "script-viewer";
+const BUILDER_SETTINGS_KEY = "builder-settings";
 
 interface ScriptBuilderDatabase extends DBSchema {
   [BUILDER_SCRIPTS_KEY]: {

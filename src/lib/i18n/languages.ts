@@ -15,7 +15,7 @@ import de_chViewer from "../../i18n/de-ch.json" with { type: "json" };
 import deViewer from "../../i18n/de.json" with { type: "json" };
 import enViewer from "../../i18n/en.json" with { type: "json" };
 import frViewer from "../../i18n/fr.json" with { type: "json" };
-import { ENABLED_LOCALES, LOCALE_MAP, type LocaleIds } from "./config.ts";
+import { type LocaleIds } from "./config.ts";
 import type { LocaleData } from "./types.ts";
 
 // NOTE: If the size of these JSON files combined starts being an issue for Cloudflare Workers' size limits,
@@ -54,14 +54,3 @@ export const LANGUAGE_DATA: Record<LocaleIds, LocaleData> = {
     viewer: de_chViewer,
   },
 };
-
-export const LOCALE_STACKS: Record<LocaleIds, unknown[]> =
-  ENABLED_LOCALES.reduce(
-    (map, locale) => {
-      map[locale.astroId] = locale.fallbacks.map(
-        (fallback) => LOCALE_MAP[fallback],
-      );
-      return map;
-    },
-    {} as Record<LocaleIds, unknown[]>,
-  );
