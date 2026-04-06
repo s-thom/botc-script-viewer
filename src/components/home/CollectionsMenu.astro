@@ -12,7 +12,9 @@ const { t } = Astro.props;
 ---
 
 <div class="box">
-  <h2>Official scripts</h2>
+  <h2>
+    <LocalisedMessage t={t} key="viewer.collection.officialScripts" />
+  </h2>
 
   {
     Object.entries(LOCAL_SCRIPT_COLLECTIONS)
@@ -37,7 +39,9 @@ const { t } = Astro.props;
       ))
   }
 
-  <h2>Unofficial collections</h2>
+  <h2>
+    <LocalisedMessage t={t} key="viewer.collection.unofficialCollections" />
+  </h2>
   {
     Object.entries(LOCAL_SCRIPT_COLLECTIONS)
       .filter(

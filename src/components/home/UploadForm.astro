@@ -1,5 +1,12 @@
 ---
+import type { Translator } from "../../lib/i18n";
+import LocalisedMessage from "../i18n/LocalisedMessage.astro";
 
+export interface Props {
+  t: Translator;
+}
+
+const { t } = Astro.props;
 ---
 
 <form
@@ -9,10 +16,12 @@
   enctype="multipart/form-data"
   class="form"
 >
-  <h2>Upload file.</h2>
+  <h2>
+    <LocalisedMessage t={t} key="viewer.home.uploadFile" />
+  </h2>
 
   <label class="file-input-label" for="file" aria-describedby="upload-error">
-    <span>Click to upload JSON file or drag file here.</span>
+    <LocalisedMessage t={t} key="viewer.home.clickToUpload" />
   </label>
   <input
     class="file-input visually-hidden-always"
@@ -24,15 +33,12 @@
     required
   />
 
-  <div id="upload-status" class="visually-hidden-always" aria-live="polite">
-  </div>
-
   <button
     type="submit"
     class="button upload-submit"
     data-umami-event="upload-submit"
   >
-    Upload script
+    <LocalisedMessage t={t} key="viewer.home.viewScript" />
   </button>
 </form>
 
@@ -43,9 +49,8 @@
   const fileInput = form.querySelector<HTMLInputElement>("#file")!;
   const fileInputLabel =
     form.querySelector<HTMLLabelElement>("label[for=file]")!;
-  const statusRegion = form.querySelector<HTMLDivElement>("#upload-status")!;
 
-  setupUploadForm(form, fileInput, fileInputLabel, statusRegion);
+  setupUploadForm(form, fileInput, fileInputLabel);
 </script>
 
 <style>

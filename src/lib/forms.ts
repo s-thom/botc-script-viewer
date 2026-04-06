@@ -2,7 +2,6 @@ export function setupUploadForm(
   form: HTMLFormElement,
   fileInput: HTMLInputElement,
   fileInputLabel: HTMLLabelElement,
-  statusRegion: HTMLDivElement,
 ) {
   function submitForm() {
     if ("requestSubmit" in form) {
@@ -18,24 +17,10 @@ export function setupUploadForm(
     form.submit();
   }
 
-  function updateLabelWithFile(file: File | null) {
-    if (!file) {
-      fileInputLabel.textContent = "Select JSON file to upload.";
-      statusRegion!.textContent = "";
-      return;
-    }
-    fileInputLabel.textContent = file.name;
-    statusRegion!.textContent = `Selected file: ${file.name}`;
-  }
-
   fileInput.addEventListener("change", () => {
     if (!fileInput.files || fileInput.files.length === 0) {
-      updateLabelWithFile(null);
       return;
     }
-
-    const file = fileInput.files[0];
-    updateLabelWithFile(file);
 
     submitForm();
   });
@@ -123,14 +108,12 @@ export function setupUploadForm(
 
     if (!file) {
       fileInput.value = "";
-      updateLabelWithFile(null);
       return;
     }
 
     const dataTransfer = new DataTransfer();
     dataTransfer.items.add(file);
     fileInput.files = dataTransfer.files;
-    updateLabelWithFile(file);
 
     submitForm();
   }

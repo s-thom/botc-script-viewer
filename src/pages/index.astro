@@ -6,6 +6,8 @@ import Footer from "../components/misc/Footer.astro";
 import CenteredLayout from "../layouts/CenteredLayout.astro";
 import UploadForm from "../components/home/UploadForm.astro";
 import { createTranslator, type LocaleIds } from "../lib/i18n";
+import LocalisedMessage from "../components/i18n/LocalisedMessage.astro";
+import { getRelativeLocaleUrl } from "astro:i18n";
 
 const locale = (Astro.currentLocale as LocaleIds) ?? "en";
 const t = createTranslator({ locale });
@@ -21,16 +23,21 @@ const t = createTranslator({ locale });
 
   <div class="content">
     <p>
-      An unofficial website for viewing <a
-        href="https://bloodontheclocktower.com/"
-        target="_blank"
-        rel="external noreferrer">Blood on the Clocktower</a
-      > scripts in your browser. <a href="/about">What does that mean</a>?
+      <LocalisedMessage
+        t={t}
+        key="viewer.home.description"
+        params={{ externalLink: "https://bloodontheclocktower.com/" }}
+      />
+      <LocalisedMessage
+        t={t}
+        key="viewer.home.about"
+        params={{ link: getRelativeLocaleUrl(locale, "/about") }}
+      />
     </p>
 
     <div class="grid">
-      <ScriptForm />
-      <UploadForm />
+      <ScriptForm t={t} />
+      <UploadForm t={t} />
     </div>
 
     <CollectionsMenu t={t} />

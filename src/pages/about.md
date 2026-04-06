@@ -33,9 +33,25 @@ On this website, you can upload a JSON file on the home page. If you are viewing
 
 ## How do I turn a script JSON into a PDF?
 
-JSON files can't be printed directly. Both this website and the [official script tool](https://script.bloodontheclocktower.com/) allow you to turn a JSON file into a PDF.
+JSON files can't be printed directly. This website, the [official script tool](https://script.bloodontheclocktower.com/), and [the fancy script generator](https://fancy.ravenswoodstudio.xyz/) allow you to turn a script JSON file into a PDF.
 
-1. Upload the script to [this website](/) or the [script tool](https://script.bloodontheclocktower.com/).
+### The official script tool
+
+1. Upload the script to the [script tool](https://script.bloodontheclocktower.com/).
+2. Open your browser's print dialog (through the menu or pressing `ctrl/cmd + P`).
+3. Select "Save as PDF", or similar, from the printer selection.
+4. Select "Print".
+
+### This website
+
+1. Upload the script to [this website](/).
+2. Select the "Print" option at the top to open your browser's print menu.
+3. Select "Save as PDF", or similar, from the printer selection.
+4. Select "Print".
+
+### The fancy script generator
+
+1. Open [the fancy script generator](https://fancy.ravenswoodstudio.xyz/), and upload your script.
 2. Open your browser's print dialog (through the menu or pressing `ctrl/cmd + P`).
 3. Select "Save as PDF", or similar, from the printer selection.
 4. Select "Print".

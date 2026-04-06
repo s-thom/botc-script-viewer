@@ -1,5 +1,12 @@
 ---
+import type { Translator } from "../../lib/i18n";
+import LocalisedMessage from "../i18n/LocalisedMessage.astro";
 
+export interface Props {
+  t: Translator;
+}
+
+const { t } = Astro.props;
 ---
 
 <form
@@ -9,12 +16,16 @@
   enctype="multipart/form-data"
   class="form"
 >
-  <h2><label for="script">Paste script JSON or URL.</label></h2>
+  <h2>
+    <label for="script">
+      <LocalisedMessage t={t} key="viewer.home.pasteJsonOrUrl" />
+    </label>
+  </h2>
 
   <textarea class="textarea" name="script" id="script"></textarea>
 
   <button type="submit" class="button" data-umami-event="script-submit">
-    View script
+    <LocalisedMessage t={t} key="viewer.home.viewScript" />
   </button>
 </form>
 

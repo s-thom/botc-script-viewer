@@ -27,8 +27,18 @@
     "nightOrder": "Night Order",
     "nightOrderWarning": "The following characters are referenced in the night order, but are not listed on the script: {characters}"
   },
+  "home": {
+    "description": "An unofficial website for viewing {externalLink}Blood on the Clocktower{/externalLink} scripts in your browser.",
+    "about": "{link}Learn more{/link}.",
+    "pasteJsonOrUrl": "Paste script JSON or URL.",
+    "viewScript": "View script",
+    "uploadFile": "Upload file.",
+    "clickToUpload": "Click to upload JSON file or drag file here."
+  },
   "collection": {
     "title": "Collection: {title}",
+    "officialScripts": "Official scripts",
+    "unofficialCollections": "Unofficial collections",
     "base3": {
       "title": "Base 3",
       "description": "Official scripts provided by The Pandemonium Institute."
