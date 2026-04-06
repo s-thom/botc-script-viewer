@@ -112,4 +112,44 @@ export const LANGUAGE_DATA: Record<LocaleIds, () => Promise<LocaleData>> = {
       script: script.default,
       viewer: viewer.default,
     })),
+  pt: () =>
+    Promise.all([
+      import("../../generated/i18n/pt_PT/app.json"),
+      import("../../generated/i18n/pt_PT/game.json"),
+      import("../../generated/i18n/pt_PT/script.json"),
+      import("../../i18n/pt.json"),
+    ]).then(([app, game, script, viewer]) => ({
+      app: app.default,
+      game: game.default,
+      script: script.default,
+      viewer: viewer.default,
+    })),
+  pt_community: () =>
+    import("../../generated/i18n/community/pt_community.json").then((game) => ({
+      app: {},
+      game: game.default,
+      script: {},
+      viewer: {},
+    })),
+  "pt-br": () =>
+    Promise.all([
+      import("../../generated/i18n/pt_BR/app.json"),
+      import("../../generated/i18n/pt_BR/game.json"),
+      import("../../generated/i18n/pt_BR/script.json"),
+      import("../../i18n/pt-br.json"),
+    ]).then(([app, game, script, viewer]) => ({
+      app: app.default,
+      game: game.default,
+      script: script.default,
+      viewer: viewer.default,
+    })),
+  "pt-br_community": () =>
+    import("../../generated/i18n/community/pt-br_community.json").then(
+      (game) => ({
+        app: {},
+        game: game.default,
+        script: {},
+        viewer: {},
+      }),
+    ),
 };

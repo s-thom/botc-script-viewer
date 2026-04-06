@@ -8,7 +8,11 @@ export type LocaleIds =
   | "es"
   | "es_community"
   | "es-mx"
-  | "es-419";
+  | "es-419"
+  | "pt"
+  | "pt_community"
+  | "pt-br"
+  | "pt-br_community";
 
 export interface LocaleInfo {
   name: string;
@@ -120,6 +124,44 @@ export const LOCALE_MAP: Record<LocaleIds, LocaleInfo> = {
     translators: [],
     hasCommunityTranslations: true,
     hasMachineTranslations: true,
+  },
+  pt: {
+    name: "Português",
+    isEnabled: true,
+    astroId: "pt",
+    botcId: "pt_PT",
+    fallbacks: ["pt_community", "en"],
+    translators: [],
+    hasCommunityTranslations: true,
+    hasMachineTranslations: true,
+  },
+  pt_community: {
+    name: "Português",
+    isEnabled: false,
+    astroId: "pt",
+    botcId: "pt_PT",
+    communitySheetId: "1213506294",
+    fallbacks: [],
+    translators: [],
+  },
+  "pt-br": {
+    name: "Português (Brasil)",
+    isEnabled: true,
+    astroId: "pt-br",
+    botcId: "pt_BR",
+    fallbacks: ["pt-br_community", "pt", "pt_community", "en"],
+    translators: [],
+    hasCommunityTranslations: true,
+    hasMachineTranslations: true,
+  },
+  "pt-br_community": {
+    name: "Português (Brasil)",
+    isEnabled: false,
+    astroId: "pt-br",
+    botcId: "pt_BR",
+    communitySheetId: "1209768722",
+    fallbacks: [],
+    translators: [],
   },
 };
 

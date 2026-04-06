@@ -1,0 +1,77 @@
+{
+  "common": {
+    "nameShort": "Visualizador de Roteiros de BotC",
+    "nameLong": "Visualizador de Roteiros de Blood on the Clocktower",
+    "nameLongFirst": "Blood on the Clocktower",
+    "nameLongLast": "Visualizador de Roteiros"
+  },
+  "script": {
+    "title": "{title}",
+    "titleWithAuthor": "{title} {small} por {author}{/small}",
+    "untitledScript": "Roteiro Sem Título",
+    "wikiLink": "[wiki]",
+    "wikiLabel": "Ver {title} na wiki",
+    "reminder": "Lembrete",
+    "nightOrder": "Ordem da Noite",
+    "nightOrderWarning": "Os seguintes personagens são referenciados na ordem da noite, mas não estão listados no roteiro: {characters}"
+  },
+  "home": {
+    "description": "Um site não oficial para visualizar roteiros de {externalLink}Blood on the Clocktower{/externalLink} no seu navegador.",
+    "about": "{link}Leia mais{/link}.",
+    "pasteJsonOrUrl": "Cole o JSON do roteiro ou a URL.",
+    "viewScript": "Ver roteiro",
+    "uploadFile": "Enviar arquivo.",
+    "clickToUpload": "Clique para enviar o arquivo JSON ou arraste o arquivo para cá."
+  },
+  "collection": {
+    "title": "Coleção: {title}",
+    "officialScripts": "Roteiros oficiais",
+    "unofficialCollections": "Coleções não oficiais",
+    "base3": {
+      "title": "Base 3",
+      "description": "Roteiros oficiais fornecidos pelo The Pandemonium Institute."
+    },
+    "carousel": {
+      "title": "Coleção Carrossel",
+      "description": "Roteiros criados pela comunidade que exibem os personagens lançados no Carrossel."
+    },
+    "wc25": {
+      "title": "Copa do Mundo 2025",
+      "description": "Roteiros incluídos na competição da Copa do Mundo de 2025 com regras especiais que mudam o jogo."
+    },
+    "s2": {
+      "title": "Acervo dos Streamers",
+      "description": "Uma coleção de roteiros de alguns dos seus streamers de Clocktower favoritos e suas comunidades que utiliza muitos dos personagens disponíveis desde o lançamento do Carrossel!"
+    },
+    "v": {
+      "title": "Diversos",
+      "description": "Roteiros que coletei em minhas viagens. Esta não é, de forma alguma, uma lista de “melhores”."
+    },
+    "month": {
+      "title": "Roteiro do Mês",
+      "description": "Os roteiros em destaque do mês no aplicativo oficial."
+    }
+  },
+  "skipList": {
+    "skipTo": "Pular para:"
+  },
+  "navigation": {
+    "downloadJson": "Baixar JSON",
+    "print": "Imprimir",
+    "edit": "Editar",
+    "qrCode": "Código QR",
+    "selectLanguage": "Selecionar idioma"
+  },
+  "theme": {
+    "theme": "Theme: {span}{theme}{/span}",
+    "default": "Padrão do Sistema",
+    "light": "Claro",
+    "dark": "Escuro"
+  },
+  "errors": {
+    "notFound": "Não encontrado",
+    "notFoundHeading": "Página não encontrada",
+    "notFoundDescription": "Verifique a URL ou {link}volte para a página inicial{/link}.",
+    "backToHome": "Voltar para o início"
+  }
+}
