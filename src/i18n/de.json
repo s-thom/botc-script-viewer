@@ -1,1 +1,76 @@
-{}
+{
+  "common": {
+    "nameShort": "BotC Skript-Anzeige",
+    "nameLong": "Blood on the Clocktower Skript-Anzeige",
+    "nameLongFirst": "Blood on the Clocktower",
+    "nameLongLast": "Skript-Anzeige"
+  },
+  "script": {
+    "titleWithAuthor": "{title} {small}\u2002von {author}{/small}",
+    "untitledScript": "Unbenanntes Skript",
+    "wikiLink": "[wiki]",
+    "wikiLabel": "{title} im Wiki ansehen",
+    "reminder": "Erinnerung",
+    "nightOrder": "Nacht-Reihenfolge",
+    "nightOrderWarning": "Die folgenden Charaktere werden in der Nacht-Reihenfolge referenziert, sind aber nicht im Skript aufgeführt: {characters}"
+  },
+  "home": {
+    "description": "Eine inoffizielle Website zum Anzeigen von {externalLink}Blood on the Clocktower{/externalLink}-Skripten in Ihrem Browser.",
+    "about": "{link}Erfahren Sie mehr{/link}.",
+    "pasteJsonOrUrl": "Skript-JSON oder URL einfügen.",
+    "viewScript": "Skript anzeigen",
+    "uploadFile": "Datei hochladen.",
+    "clickToUpload": "Klicken Sie hier, um eine JSON-Datei hochzuladen, oder ziehen Sie die Datei hierher."
+  },
+  "collection": {
+    "title": "Sammlung: {title}",
+    "officialScripts": "Offizielle Skripte",
+    "unofficialCollections": "Inoffizielle Sammlungen",
+    "base3": {
+      "title": "Basis 3",
+      "description": "Offizielle Skripte, bereitgestellt vom Pandemonium Institute."
+    },
+    "carousel": {
+      "title": "Karussell-Sammlung",
+      "description": "Von der Community erstellte Skripte, die die im Karussell veröffentlichten Charaktere vorstellen."
+    },
+    "wc25": {
+      "title": "Weltmeisterschaft 2025",
+      "description": "Skripte aus dem Weltmeisterschafts-Wettbewerb 2025 mit Sonderregeln, die das Spiel verändern."
+    },
+    "s2": {
+      "title": "Streamer-Stapel",
+      "description": "Eine Sammlung von Skripten einiger deiner liebsten Clocktower-Streamer und ihrer Communitys, die viele der seit der Veröffentlichung des Karussells verfügbaren Charaktere nutzt!"
+    },
+    "v": {
+      "title": "Verschiedenes",
+      "description": "Skripte, die ich auf meinen Reisen gesammelt habe. Dies ist in keiner Weise eine „Best-of“-Liste."
+    },
+    "month": {
+      "title": "Skript des Monats",
+      "description": "Die vorgestellten Skripte des Monats in der offiziellen App."
+    }
+  },
+  "skipList": {
+    "skipTo": "Springe zu:"
+  },
+  "navigation": {
+    "downloadJson": "JSON herunterladen",
+    "print": "Drucken",
+    "edit": "Bearbeiten",
+    "qrCode": "QR-Code",
+    "selectLanguage": "Sprache auswählen"
+  },
+  "theme": {
+    "theme": "Theme: {span}{theme}{/span}",
+    "default": "System",
+    "light": "Hell",
+    "dark": "Dunkel"
+  },
+  "errors": {
+    "notFound": "Nicht gefunden",
+    "notFoundHeading": "Seite nicht gefunden",
+    "notFoundDescription": "Überprüfe die URL oder gehe {link}zurück zur Startseite{/link}.",
+    "backToHome": "Zurück zur Startseite"
+  }
+}

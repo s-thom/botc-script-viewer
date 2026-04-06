@@ -1,1 +1,89 @@
-{}
+{
+  "common": {
+    "nameShort": "BotC Skript-Azeig",
+    "nameLong": "Blood on the Clocktower Skript-Azeig",
+    "nameLongFirst": "Blood on the Clocktower",
+    "nameLongLast": "Skript-Azeig"
+  },
+  "head": {
+    "title": "{title} - {nameShort}"
+  },
+  "footer": {
+    "notAffiliated": "Die Websiite isch nöd mit em Pandemonium Institute verbunde.",
+    "descriptionsNotice": "Charakter-Icons und Beschriibige sind s Eigetum vom Steven Medway und vom Pandemonium Institute.",
+    "madeBy": "Website made by {externalLink}{author}{/externalLink}.",
+    "translatedBy": "Übersetzige vo {authors}.",
+    "translatedByMachine": "Parts of this website were translated using machine translation. Help replace machine translations by {externalLink}creating an issue on GitHub{/externalLink}.",
+    "translatedByCommunity": "Additional translations from the {externalLink}community spreadsheet{/externalLink}.",
+    "sourceCode": "{externalLink}Source code{/externalLink}."
+  },
+  "script": {
+    "title": "{title}",
+    "titleWithAuthor": "{title} {small} vom {author}{/small}",
+    "untitledScript": "Skript ohni Titel",
+    "wikiLink": "[wiki]",
+    "wikiLabel": "{title} uf em Wiki aaluege",
+    "reminder": "Erinnerig",
+    "nightOrder": "Nacht-Reihefolg",
+    "nightOrderWarning": "Di folgende Charakter werded i de Nacht-Reihefolg erwähnt, sind aber nöd uf em Skript ufgfüehrt: {characters}"
+  },
+  "home": {
+    "description": "En inoffizielli Websyte zum {externalLink}Blood on the Clocktower{/externalLink}-Skript im Browser aaluege.",
+    "about": "{link}Witerläse{/link}.",
+    "pasteJsonOrUrl": "Skript-JSON oder URL daa ine-kopiere.",
+    "viewScript": "Skript aaluege",
+    "uploadFile": "Datei ufelade.",
+    "clickToUpload": "Daa klicke zum d'JSON-Datei ufelade oder d'Datei eifach daa ine-zie."
+  },
+  "collection": {
+    "title": "Sammlig: {title}",
+    "officialScripts": "Offizielli Skript",
+    "unofficialCollections": "Inoffizielli Sammlige",
+    "base3": {
+      "title": "Basis 3",
+      "description": "Offizielli Skript, bereitgstellt vom Pandemonium Institute."
+    },
+    "carousel": {
+      "title": "Karussell-Sammlig",
+      "description": "Vo de Community erstellti Skript, wo d Charakter zeiged, wo mit em Karussell usecho sind."
+    },
+    "wc25": {
+      "title": "World Cup 2025",
+      "description": "Skript für de World Cup 2025 Wettbewärb mit spezielle Regle, wo s Spiel verändered."
+    },
+    "s2": {
+      "title": "Streamer-Sammlig",
+      "description": "E Sammlig vo Skript vo dine Lieblings-Clocktower-Streamer und ehre Communitys, wo vili vo de Charakter bruuched, wo sit em Karussell-Release verfüegbar sind!"
+    },
+    "v": {
+      "title": "Verschiedeni",
+      "description": "Skript, wo ich uf mine Reise gsamlet han. Das isch uf kein Fall e “Best of”-Lischte."
+    },
+    "month": {
+      "title": "Skript vom Monet",
+      "description": "Di usgwählte Skript vom Monet i de offizielle App."
+    }
+  },
+  "skipList": {
+    "skipTo": "Gump zu:"
+  },
+  "navigation": {
+    "downloadJson": "JSON abelade",
+    "print": "Drucke",
+    "edit": "Bearbeite",
+    "qrCode": "QR-Code",
+    "selectLanguage": "Sprooch uswähle"
+  },
+  "theme": {
+    "theme": "Theme: {span}{theme}{/span}",
+    "default": "System",
+    "light": "Hell",
+    "dark": "Dunkel"
+  },
+  "errors": {
+    "notFound": "Nöd gfunde",
+    "notFoundHeading": "Siite nöd gfunde",
+    "notFoundDescription": "Überprüef d'URL no oder gang {link}zrugg uf d'Startsite{/link}.",
+    "backToHome": "Zrugg zur Startsiite"
+  }
+}
