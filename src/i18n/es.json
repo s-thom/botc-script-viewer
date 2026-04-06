@@ -1,0 +1,77 @@
+{
+  "common": {
+    "nameShort": "Visor de Guiones de BotC",
+    "nameLong": "Visor de Guiones de Blood on the Clocktower",
+    "nameLongFirst": "Blood on the Clocktower",
+    "nameLongLast": "Visor de Guiones"
+  },
+  "script": {
+    "title": "{title}",
+    "titleWithAuthor": "{title} {small} del {author}{/small}",
+    "untitledScript": "Guion sin título",
+    "wikiLink": "[wiki]",
+    "wikiLabel": "Ver {title} en la wiki",
+    "reminder": "Recordatorio",
+    "nightOrder": "Orden Nocturno",
+    "nightOrderWarning": "Los siguientes personajes se mencionan en el orden nocturno, pero no aparecen en el guion: {characters}"
+  },
+  "home": {
+    "description": "Un sitio web no oficial para ver guiones de {externalLink}Blood on the Clocktower{/externalLink} en tu navegador.",
+    "about": "{link}Saber más{/link}.",
+    "pasteJsonOrUrl": "Pega el JSON del guion o la URL.",
+    "viewScript": "Ver guion",
+    "uploadFile": "Subir archivo.",
+    "clickToUpload": "Haz clic para subir un archivo JSON o arrástralo aquí."
+  },
+  "collection": {
+    "title": "Colección: {title}",
+    "officialScripts": "Guiones oficiales",
+    "unofficialCollections": "Colecciones no oficiales",
+    "base3": {
+      "title": "Base 3",
+      "description": "Guiones oficiales proporcionados por The Pandemonium Institute."
+    },
+    "carousel": {
+      "title": "Colección Carousel",
+      "description": "Guiones creados por la comunidad que muestran los personajes lanzados en el Carousel."
+    },
+    "wc25": {
+      "title": "Copa del Mundo 2025",
+      "description": "Guiones incluidos en la competición de la Copa del Mundo 2025 con reglas especiales que cambian el juego."
+    },
+    "s2": {
+      "title": "Colección de Streamers",
+      "description": "¡Una colección de guiones de algunos de tus streamers de Clocktower favoritos y sus comunidades que utiliza muchos de los personajes disponibles desde el lanzamiento del Carousel!"
+    },
+    "v": {
+      "title": "Varios",
+      "description": "Guiones que he recopilado en mis viajes. Esto no es de ninguna manera una lista de \"los mejores\"."
+    },
+    "month": {
+      "title": "Guion del Mes",
+      "description": "Los guiones destacados del mes en la aplicación oficial."
+    }
+  },
+  "skipList": {
+    "skipTo": "Saltar a:"
+  },
+  "navigation": {
+    "downloadJson": "Descargar JSON",
+    "print": "Imprimir",
+    "edit": "Editar",
+    "qrCode": "Código QR",
+    "selectLanguage": "Seleccionar idioma"
+  },
+  "theme": {
+    "theme": "Theme: {span}{theme}{/span}",
+    "default": "Sistema",
+    "light": "Claro",
+    "dark": "Oscuro"
+  },
+  "errors": {
+    "notFound": "No encontrado",
+    "notFoundHeading": "Página no encontrada",
+    "notFoundDescription": "Verifica la URL, o {link}regresa a la página de inicio{/link}.",
+    "backToHome": "Volver al inicio"
+  }
+}

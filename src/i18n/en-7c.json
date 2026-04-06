@@ -1,0 +1,89 @@
+{
+  "common": {
+    "nameShort": "BotC Script Spyglass",
+    "nameLong": "Blood on the Clocktower Script Spyglass",
+    "nameLongFirst": "Blood on the Clocktower",
+    "nameLongLast": "Script Spyglass"
+  },
+  "head": {
+    "title": "{title} - {nameShort}"
+  },
+  "footer": {
+    "notAffiliated": "This town be not in league with The Pandemonium Institute.",
+    "descriptionsNotice": "Character likenesses and descriptions be the property of Steven Medway and The Pandemonium Institute.",
+    "madeBy": "Town founded by {externalLink}{author}{/externalLink}.",
+    "translatedBy": "Tongues twisted by {authors}.",
+    "translatedByMachine": "Parts of this website were translated using machine translation. Help replace machine translations by {externalLink}creating an issue on GitHub{/externalLink}.",
+    "translatedByCommunity": "Additional translations from the {externalLink}community spreadsheet{/externalLink}.",
+    "sourceCode": "{externalLink}Source code{/externalLink}."
+  },
+  "script": {
+    "title": "{title}",
+    "titleWithAuthor": "{title} {small} by {author}{/small}",
+    "untitledScript": "Unmapped Sea",
+    "wikiLink": "[wiki]",
+    "wikiLabel": "Lay eyes on {title} on the wiki",
+    "reminder": "Mark",
+    "nightOrder": "The Night's Order",
+    "nightOrderWarning": "The followin' scallywags be mentioned in the rousin' list, but they ain't listed on the ledger: {characters}"
+  },
+  "home": {
+    "description": "An unofficial website for viewing {externalLink}Blood on the Clocktower{/externalLink} scripts in your browser.",
+    "about": "{link}Learn more{/link}.",
+    "pasteJsonOrUrl": "Paste Jason's ledger or URL.",
+    "viewScript": "Gaze upon the sea",
+    "uploadFile": "Hoist a ledger.",
+    "clickToUpload": "Click to hoist Jason's ledger or drag the blasted thing here."
+  },
+  "collection": {
+    "title": "Trove: {title}",
+    "officialScripts": "Safe Seas",
+    "unofficialCollections": "Rogue Seas",
+    "base3": {
+      "title": "Base 3",
+      "description": "Seas charted by The Pandemonium Institute."
+    },
+    "carousel": {
+      "title": "Carousel Treasure Trove",
+      "description": "Seas charted by the crew to show off the scallywags released in the Carousel."
+    },
+    "wc25": {
+      "title": "World Cup 2025",
+      "description": "Seas in the 2025 World Cup contest with special rules that change the game."
+    },
+    "s2": {
+      "title": "Streamer's Hoard",
+      "description": "A treasure trove of seas from some of yer favourite Clocktower streamers and their crews that uses many of the characters available since the Carousel was released!"
+    },
+    "v": {
+      "title": "Sundry Booty",
+      "description": "Seas I've plundered on me travels. This ain't in any way a “best of” list."
+    },
+    "month": {
+      "title": "Sea o' the Month",
+      "description": "The featured sea o' the month in the Cap'n's own app."
+    }
+  },
+  "skipList": {
+    "skipTo": "Jump to:"
+  },
+  "navigation": {
+    "downloadJson": "Jason's ledger",
+    "print": "Ink parchment",
+    "edit": "Make yer mark",
+    "qrCode": "Chequered map",
+    "selectLanguage": "Pick yer tongue"
+  },
+  "theme": {
+    "theme": "Theme: {span}{theme}{/span}",
+    "default": "Ship's Orders",
+    "light": "Daylight",
+    "dark": "Midnight"
+  },
+  "errors": {
+    "notFound": "Lost at sea",
+    "notFoundHeading": "Page be lost at sea",
+    "notFoundDescription": "Scour the URL, or go {link}back to port{/link}.",
+    "backToHome": "Back to port"
+  }
+}

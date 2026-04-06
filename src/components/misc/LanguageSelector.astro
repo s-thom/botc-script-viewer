@@ -4,6 +4,7 @@ import { Image } from "astro:assets";
 import { getRelativeLocaleUrl } from "astro:i18n";
 import deIcon from "language-icons/icons/de.svg";
 import enIcon from "language-icons/icons/en.svg";
+import esIcon from "language-icons/icons/es.svg";
 import frIcon from "language-icons/icons/fr.svg";
 import switchIcon from "../../assets/language-switch.webp";
 import {
@@ -14,10 +15,15 @@ import {
 
 const ICON_COMPONENTS: Record<LocaleIds, SvgComponent> = {
   en: enIcon,
+  "en-7c": enIcon,
   fr: frIcon,
   fr_community: frIcon,
   de: deIcon,
   "de-ch": deIcon,
+  es: esIcon,
+  es_community: esIcon,
+  "es-mx": esIcon,
+  "es-419": esIcon,
 };
 
 interface Props {

@@ -19,9 +19,10 @@ for (const locale of ENABLED_LOCALES) {
     const script: BloodOnTheClocktowerCustomScript = [
       {
         id: "_meta",
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         name:
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           (localeData as any)?.game?.editions?.[edition.id]?.name ??
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           (LANGUAGE_DATA["en"] as any).game.editions[edition.id].name,
         author: "The Pandemonium Institute",
         firstNight: edition.firstNight,

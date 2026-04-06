@@ -1,4 +1,5 @@
 ---
+import { LOCALE_MAP, type LocaleIds } from "../../lib/i18n";
 import type { Translator } from "../../lib/i18n/types";
 import { fixDoubleSlashPaths } from "../../lib/url";
 import type { NormalisedScript } from "../../types/botc";
@@ -191,9 +192,9 @@ const allExtraNightOrderCharacters = script.warnings.flatMap((warning) =>
             t={t}
             key="viewer.script.nightOrderWarning"
             params={{
-              characters: new Intl.ListFormat(t.locale).format(
-                allExtraNightOrderCharacters,
-              ),
+              characters: new Intl.ListFormat(
+                LOCALE_MAP[t.locale as LocaleIds]?.standardId ?? t.locale,
+              ).format(allExtraNightOrderCharacters),
             }}
           />
         </div>

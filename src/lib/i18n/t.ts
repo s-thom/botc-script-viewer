@@ -22,13 +22,14 @@ export function createTranslator({ locale }: { locale: string }): Translator {
   }
 
   const knownLocale = locale as keyof typeof LOCALE_MAP;
+  const standardLocale = LOCALE_MAP[knownLocale]?.standardId ?? locale;
 
   const segmenter = (raw: string, params: TranslateParams = {}) => {
     const { count, formatReplacements } = params;
 
     let selected = raw;
     if (count !== undefined && isPluralMessage(raw)) {
-      selected = selectPluralForm(raw, count, locale);
+      selected = selectPluralForm(raw, count, standardLocale);
     }
 
     if (formatReplacements) {

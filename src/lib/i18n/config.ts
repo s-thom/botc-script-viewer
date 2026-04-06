@@ -1,10 +1,22 @@
-export type LocaleIds = "en" | "fr" | "fr_community" | "de" | "de-ch";
+export type LocaleIds =
+  | "en"
+  | "en-7c"
+  | "fr"
+  | "fr_community"
+  | "de"
+  | "de-ch"
+  | "es"
+  | "es_community"
+  | "es-mx"
+  | "es-419";
 
 export interface LocaleInfo {
   name: string;
   isEnabled: boolean;
   isDefault?: boolean;
   astroId: LocaleIds;
+  /** Joke languages (like pirate) don't work with the Intl methods */
+  standardId?: string;
   botcId: string;
   communitySheetId?: string;
   fallbacks: LocaleIds[];
@@ -22,6 +34,16 @@ export const LOCALE_MAP: Record<LocaleIds, LocaleInfo> = {
     botcId: "en",
     fallbacks: [],
     translators: [],
+  },
+  "en-7c": {
+    name: "English (Pirate)",
+    isEnabled: true,
+    astroId: "en-7c",
+    standardId: "en",
+    botcId: "en@pirate",
+    fallbacks: ["en"],
+    translators: [],
+    hasMachineTranslations: true,
   },
   fr: {
     name: "Français",
@@ -58,6 +80,45 @@ export const LOCALE_MAP: Record<LocaleIds, LocaleInfo> = {
     botcId: "de_CH",
     fallbacks: ["de", "en"],
     translators: [],
+    hasMachineTranslations: true,
+  },
+  es: {
+    name: "Español",
+    isEnabled: true,
+    astroId: "es",
+    botcId: "es",
+    fallbacks: ["es_community", "en"],
+    translators: [],
+    hasCommunityTranslations: true,
+    hasMachineTranslations: true,
+  },
+  es_community: {
+    name: "Español",
+    isEnabled: false,
+    astroId: "es",
+    botcId: "es",
+    communitySheetId: "36117822",
+    fallbacks: [],
+    translators: [],
+  },
+  "es-mx": {
+    name: "Español (México)",
+    isEnabled: true,
+    astroId: "es-mx",
+    botcId: "es_MX",
+    fallbacks: ["es", "es_community", "en"],
+    translators: [],
+    hasCommunityTranslations: true,
+    hasMachineTranslations: true,
+  },
+  "es-419": {
+    name: "Español (Latinoamérica)",
+    isEnabled: true,
+    astroId: "es-419",
+    botcId: "es_419",
+    fallbacks: ["es", "es_community", "en"],
+    translators: [],
+    hasCommunityTranslations: true,
     hasMachineTranslations: true,
   },
 };

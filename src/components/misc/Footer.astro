@@ -34,9 +34,9 @@ const localeInfo: LocaleInfo | undefined = LOCALE_MAP[t.locale as LocaleIds];
           t={t}
           key="viewer.footer.translatedBy"
           params={{
-            authors: new Intl.ListFormat(t.locale).format(
-              localeInfo.translators,
-            ),
+            authors: new Intl.ListFormat(
+              LOCALE_MAP[t.locale as LocaleIds]?.standardId ?? t.locale,
+            ).format(localeInfo.translators),
           }}
         />
       )
