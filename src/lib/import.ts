@@ -117,6 +117,7 @@ function parseScriptJsonFromString(
   const result = rawScriptValidator.safeParse(json);
   if (!result.success) {
     throw new AppError("Script is not valid JSON", {
+      cause: result.error,
       status: 400,
       titleKey: "viewer.errors.invalidScript",
       descriptionKey: "viewer.errors.invalidScriptDescription",

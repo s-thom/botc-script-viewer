@@ -105,11 +105,11 @@ export async function decompressFromBase64(
         "Too big. A script is not expected to be this large.",
       );
       throw new AppError(
-        `Decompressed streal larger than ${DECOMPRESS_BYTE_LIMIT} bytes`,
+        `Decompressed stream larger than ${DECOMPRESS_BYTE_LIMIT} bytes`,
         {
           status: 400,
-          titleKey: "viewer.errors.largePayload",
-          descriptionKey: "viewer.errors.largePayloadDescription",
+          titleKey: "viewer.errors.urlSize",
+          descriptionKey: "viewer.errors.urlSizeScriptDescription",
         },
       );
     }

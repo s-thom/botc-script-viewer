@@ -1,7 +1,6 @@
 import { z } from "astro/zod";
 import type {
   BloodOnTheClocktowerCustomScript,
-  ScriptCharacter,
   ScriptMetadata,
 } from "../generated/script-schema";
 
@@ -29,18 +28,22 @@ const fullCharacterSchema = z.object({
     "demon",
     "traveller",
     "fabled",
+    "loric",
   ]),
-  edition: z.string().optional(),
+  edition: z.string().optional().nullable(),
   ability: z.string(),
-  flavor: z.string().optional(),
-  firstNight: z.number().optional(),
-  firstNightReminder: z.string().optional(),
-  otherNight: z.number().optional(),
-  otherNightReminder: z.string().optional(),
-  reminders: z.array(z.string()).optional(),
-  remindersGlobal: z.array(z.string()).optional(),
-  setup: z.boolean().optional(),
-  jinxes: z.array(z.object({ id: z.string(), reason: z.string() })).optional(),
+  flavor: z.string().optional().nullable(),
+  firstNight: z.number().optional().nullable(),
+  firstNightReminder: z.string().optional().nullable(),
+  otherNight: z.number().optional().nullable(),
+  otherNightReminder: z.string().optional().nullable(),
+  reminders: z.array(z.string()).optional().nullable(),
+  remindersGlobal: z.array(z.string()).optional().nullable(),
+  setup: z.boolean().optional().nullable(),
+  jinxes: z
+    .array(z.object({ id: z.string(), reason: z.string() }))
+    .optional()
+    .nullable(),
   special: z
     .array(
       z.object({
@@ -91,7 +94,7 @@ const fullCharacterSchema = z.object({
       }),
     )
     .optional(),
-}) satisfies z.ZodType<ScriptCharacter>;
+});
 
 const characterSchema = z.string();
 

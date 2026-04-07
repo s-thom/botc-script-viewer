@@ -11,6 +11,8 @@ import {
 import { AppError } from "../types/site";
 import { getRelativeLocaleUrl } from "astro:i18n";
 
+export const prerender = false;
+
 interface Props {
   error: unknown;
 }
