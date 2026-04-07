@@ -26,38 +26,38 @@ const OTHER_NIGHT_LOOKUP = data.nightOrder.otherNight.reduce<
   return map;
 }, new Map());
 
-function getSpecialNightInfo(id: string): SpecialNightInfo | null {
+function getSpecialNightInfo(
+  t: Translator,
+  id: string,
+): SpecialNightInfo | null {
   switch (id) {
     case "dusk":
       return {
         type: "special",
         id,
-        name: "Dusk",
-        reminderText:
-          "Check that all eyes are closed. Some Travellers, Fabled, & Loric act.",
+        name: t.string("game.roles.dusk.name").value,
+        reminderText: t.string("game.roles.dusk.first").value,
       };
     case "dawn":
       return {
         type: "special",
         id,
-        name: "Dawn",
-        reminderText: "Wait a few seconds. Call for eyes open.",
+        name: t.string("game.roles.dawn.name").value,
+        reminderText: t.string("game.roles.dawn.first").value,
       };
     case "minioninfo":
       return {
         type: "special",
         id,
-        name: "Minion Info",
-        reminderText:
-          "If there are 7 or more players, wake all Minions: Show the *THIS IS THE DEMON* token. Point to the demon.",
+        name: t.string("game.roles.minioninfo.name").value,
+        reminderText: t.string("game.roles.minioninfo.first").value,
       };
     case "demoninfo":
       return {
         type: "special",
         id,
-        name: "Demon Info",
-        reminderText:
-          "If there are 7 or more players, wake the Demon: Show the *THESE ARE YOUR MINIONS* token. Point to all Minions. Show the *THESE CHARACTERS ARE NOT IN PLAY* token. Show 3 not-in-play good character tokens.",
+        name: t.string("game.roles.demoninfo.name").value,
+        reminderText: t.string("game.roles.demoninfo.first").value,
       };
     default:
       return null;
@@ -65,6 +65,7 @@ function getSpecialNightInfo(id: string): SpecialNightInfo | null {
 }
 
 function getNightOrderArrays(
+  t: Translator,
   charactersById: Map<string, NormalisedScriptCharacter>,
   meta: ScriptMetadata,
 ) {
@@ -93,13 +94,13 @@ function getNightOrderArrays(
       return charOrder > specialOrder;
     });
     const position = insertIndex === -1 ? arr.length : insertIndex;
-    arr.splice(position, 0, getSpecialNightInfo(specialId)!);
+    arr.splice(position, 0, getSpecialNightInfo(t, specialId)!);
   }
 
   if (meta.firstNight) {
     firstNight = [];
     for (const id of meta.firstNight) {
-      const special = getSpecialNightInfo(id);
+      const special = getSpecialNightInfo(t, id);
       if (special) {
         firstNight.push(special);
         continue;
@@ -134,7 +135,7 @@ function getNightOrderArrays(
   }
 
   if (!hasSpecialId(firstNight, "dusk")) {
-    firstNight.unshift(getSpecialNightInfo("dusk")!);
+    firstNight.unshift(getSpecialNightInfo(t, "dusk")!);
   }
   if (!hasSpecialId(firstNight, "minioninfo")) {
     insertSpecialAtPosition(
@@ -153,13 +154,13 @@ function getNightOrderArrays(
     );
   }
   if (!hasSpecialId(firstNight, "dawn")) {
-    firstNight.push(getSpecialNightInfo("dawn")!);
+    firstNight.push(getSpecialNightInfo(t, "dawn")!);
   }
 
   if (meta.otherNight) {
     otherNight = [];
     for (const id of meta.otherNight) {
-      const special = getSpecialNightInfo(id);
+      const special = getSpecialNightInfo(t, id);
       if (special) {
         otherNight.push(special);
         continue;
@@ -195,10 +196,10 @@ function getNightOrderArrays(
 
   // Ensure other night has the required special markers
   if (!hasSpecialId(otherNight, "dusk")) {
-    otherNight.unshift(getSpecialNightInfo("dusk")!);
+    otherNight.unshift(getSpecialNightInfo(t, "dusk")!);
   }
   if (!hasSpecialId(otherNight, "dawn")) {
-    otherNight.push(getSpecialNightInfo("dawn")!);
+    otherNight.push(getSpecialNightInfo(t, "dawn")!);
   }
 
   return {
@@ -319,7 +320,7 @@ export function normaliseScript(
   }
 
   const { firstNight, otherNight, missingCharacters, invalidCharacterIds } =
-    getNightOrderArrays(newScript.charactersById, meta);
+    getNightOrderArrays(t, newScript.charactersById, meta);
   newScript.firstNight = firstNight;
   newScript.otherNight = otherNight;
   for (const missingCharacter of missingCharacters) {
