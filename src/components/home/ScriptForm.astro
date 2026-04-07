@@ -22,6 +22,8 @@ const { t } = Astro.props;
     </label>
   </h2>
 
+  <input type="hidden" name="locale" value={t.locale} />
+
   <textarea class="textarea" name="script" id="script"></textarea>
 
   <button type="submit" class="button" data-umami-event="script-submit">

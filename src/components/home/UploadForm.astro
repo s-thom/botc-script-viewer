@@ -20,6 +20,8 @@ const { t } = Astro.props;
     <LocalisedMessage t={t} key="viewer.home.uploadFile" />
   </h2>
 
+  <input type="hidden" name="locale" value={t.locale} />
+
   <label class="file-input-label" for="file" aria-describedby="upload-error">
     <LocalisedMessage t={t} key="viewer.home.clickToUpload" />
   </label>

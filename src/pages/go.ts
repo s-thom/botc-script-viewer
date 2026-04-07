@@ -1,41 +1,12 @@
 import type { APIRoute } from "astro";
-import type { BloodOnTheClocktowerCustomScript } from "../generated/script-schema";
+import { getRelativeLocaleUrl } from "astro:i18n";
 import { compressToBase64, stringToBytes } from "../lib/compression";
 import type { LocaleIds } from "../lib/i18n";
 import { scriptFromFormData } from "../lib/import";
 import { encodeScript } from "../lib/number-store";
+import { AppError } from "../types/site";
 
 export const prerender = false;
-
-/** A quick heuristic for  */
-function shouldUseNumberStore(
-  rawScript: BloodOnTheClocktowerCustomScript,
-  jsonStringLength: number,
-): boolean {
-  if (jsonStringLength > 4096) {
-    // Long JSON, the format is unlikely to be too helpful.
-    return false;
-  }
-
-  let numHomebrews = 0;
-
-  for (const item of rawScript) {
-    if (
-      typeof item === "object" &&
-      item.id !== "_meta" &&
-      Object.keys(item).length > 1
-    ) {
-      numHomebrews++;
-    }
-  }
-
-  // An arbitrarily picked number.
-  if (numHomebrews > 7) {
-    return false;
-  }
-
-  return true;
-}
 
 export const POST: APIRoute = async ({
   request,
@@ -44,6 +15,16 @@ export const POST: APIRoute = async ({
   currentLocale,
 }) => {
   const rawFormData = await request.formData();
+
+  const locale = rawFormData.get("locale");
+  if (typeof locale != "string") {
+    throw new AppError("Invalid locale", {
+      status: 400,
+      titleKey: "viewer.errors.genericError",
+      descriptionKey: "viewer.errors.genericErrorDescription",
+    });
+  }
+
   const rawScript = await scriptFromFormData(
     rawFormData,
     (currentLocale as LocaleIds | undefined) ?? "en",
@@ -53,21 +34,21 @@ export const POST: APIRoute = async ({
 
   const minifiedScript = JSON.stringify(rawScript);
 
-  if (shouldUseNumberStore(rawScript, minifiedScript.length)) {
-    try {
-      const bytes = encodeScript(rawScript);
-      const base64 = await compressToBase64(bytes, "deflate-raw", true);
-      return redirect(`/ns/${base64}`);
-    } catch (err) {
-      console.warn(
-        "Error trying to encode script in NS, falling back to JSON",
-        err,
-      );
-    }
+  try {
+    const bytes = encodeScript(rawScript);
+    const base64 = await compressToBase64(bytes, "deflate-raw", true);
+    const basePath = `/ns/${base64}`;
+    return redirect(getRelativeLocaleUrl(locale, basePath));
+  } catch (err) {
+    console.warn(
+      "Error trying to encode script in NS, falling back to JSON",
+      err,
+    );
   }
 
   // Fall back to just encoding the JSON
   const bytes = stringToBytes(minifiedScript);
   const base64 = await compressToBase64(bytes, "deflate-raw", true);
-  return redirect(`/json/${base64}`);
+  const basePath = `/json/${base64}`;
+  return redirect(getRelativeLocaleUrl(locale, basePath));
 };

@@ -13,6 +13,7 @@ import { rawScriptValidator } from "./parse";
 import { KeyedRateLimit } from "./rate-limits";
 
 const formSchema = z.object({
+  locale: z.string(),
   script: z.string().optional(),
   file: z
     .any()
