@@ -1,12 +1,12 @@
 ---
-import ScriptViewerLayout from "../../../layouts/ScriptViewerLayout.astro";
+import ScriptViewerLayout from "../../../../layouts/ScriptViewerLayout.astro";
 import {
   createTranslator,
   type LocaleIds,
   ENABLED_LOCALES,
-} from "../../../lib/i18n";
-import { getPathWithoutLocale } from "../../../lib/url";
-import { LOCAL_SCRIPT_COLLECTIONS } from "../../../scripts";
+} from "../../../../lib/i18n";
+import { getPathWithoutLocale } from "../../../../lib/url";
+import { LOCAL_SCRIPT_COLLECTIONS } from "../../../../scripts";
 
 export function getStaticPaths() {
   return ENABLED_LOCALES.filter((locale) => !locale.isDefault).flatMap(

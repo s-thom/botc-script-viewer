@@ -1,12 +1,16 @@
 ---
-import CollectionsMenu from "../components/home/CollectionsMenu.astro";
-import ScriptForm from "../components/home/ScriptForm.astro";
-import PageView from "../components/misc/PageView.astro";
-import Footer from "../components/misc/Footer.astro";
-import CenteredLayout from "../layouts/CenteredLayout.astro";
-import UploadForm from "../components/home/UploadForm.astro";
-import { createTranslator, ENABLED_LOCALES, type LocaleIds } from "../lib/i18n";
-import LocalisedMessage from "../components/i18n/LocalisedMessage.astro";
+import CollectionsMenu from "../../components/home/CollectionsMenu.astro";
+import ScriptForm from "../../components/home/ScriptForm.astro";
+import PageView from "../../components/misc/PageView.astro";
+import Footer from "../../components/misc/Footer.astro";
+import CenteredLayout from "../../layouts/CenteredLayout.astro";
+import UploadForm from "../../components/home/UploadForm.astro";
+import {
+  createTranslator,
+  ENABLED_LOCALES,
+  type LocaleIds,
+} from "../../lib/i18n";
+import LocalisedMessage from "../../components/i18n/LocalisedMessage.astro";
 import { getRelativeLocaleUrl } from "astro:i18n";
 
 export function getStaticPaths() {

@@ -21,9 +21,6 @@ export default defineConfig({
     locales: ENABLED_LOCALES.map((locale) => locale.astroId),
   },
   scopedStyleStrategy: "class",
-  build: {
-    format: "file",
-  },
   vite: {
     build: { cssCodeSplit: false },
     optimizeDeps: {

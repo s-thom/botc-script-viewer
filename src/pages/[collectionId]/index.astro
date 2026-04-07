@@ -1,12 +1,12 @@
 ---
-import ScriptList from "../components/home/ScriptList.astro";
-import LocalisedMessage from "../components/i18n/LocalisedMessage.astro";
-import Footer from "../components/misc/Footer.astro";
-import PageView from "../components/misc/PageView.astro";
-import CenteredLayout from "../layouts/CenteredLayout.astro";
-import { createTranslator, type LocaleIds } from "../lib/i18n";
-import { getPathWithoutLocale } from "../lib/url";
-import { LOCAL_SCRIPT_COLLECTIONS } from "../scripts";
+import ScriptList from "../../components/home/ScriptList.astro";
+import LocalisedMessage from "../../components/i18n/LocalisedMessage.astro";
+import Footer from "../../components/misc/Footer.astro";
+import PageView from "../../components/misc/PageView.astro";
+import CenteredLayout from "../../layouts/CenteredLayout.astro";
+import { createTranslator, type LocaleIds } from "../../lib/i18n";
+import { getPathWithoutLocale } from "../../lib/url";
+import { LOCAL_SCRIPT_COLLECTIONS } from "../../scripts";
 
 export function getStaticPaths() {
   return Object.keys(LOCAL_SCRIPT_COLLECTIONS).map((collectionId) => ({
