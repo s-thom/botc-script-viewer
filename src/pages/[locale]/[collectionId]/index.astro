@@ -74,7 +74,11 @@ const t = await createTranslator({ locale });
         key={`viewer.collection.${collectionId}.description`}
       />
     </p>
-    <ScriptList collectionId={collectionId} scripts={collection.scripts} />
+    <ScriptList
+      t={t}
+      collectionId={collectionId}
+      scripts={collection.scripts}
+    />
   </div>
   <Footer t={t} />
 </CenteredLayout>

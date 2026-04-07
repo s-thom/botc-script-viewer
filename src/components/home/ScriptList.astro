@@ -1,37 +1,28 @@
 ---
-import { getRelativeLocaleUrl } from "astro:i18n";
-import { CHARACTERS_BY_ID } from "../../lib/characters";
 import type { LocalScriptDefinition } from "../../types/botc";
-import CharacterIcon from "../display/CharacterIcon.astro";
+import type { Translator } from "../../lib/i18n";
+import ScriptListItem from "./ScriptListItem.astro";
 
 interface Props {
+  t: Translator;
   collectionId: string;
   scripts: LocalScriptDefinition[];
   loading?: "eager" | "lazy";
 }
 
-const { collectionId, scripts, loading } = Astro.props;
+const { t, collectionId, scripts, loading } = Astro.props;
 ---
 
 <ul class="script-list">
   {
     scripts.map((script) => (
       <li class="script-list-item">
-        <a
-          href={getRelativeLocaleUrl(
-            Astro.currentLocale ?? "en",
-            `/${collectionId}/${script.id}`,
-          )}
-          class="script-link"
-        >
-          <CharacterIcon
-            class="script-icon"
-            size={48}
-            character={CHARACTERS_BY_ID.get(script.character)!}
-            loading={loading}
-          />
-          <span class="script-title">{script.title}</span>
-        </a>
+        <ScriptListItem
+          t={t}
+          collectionId={collectionId}
+          script={script}
+          loading={loading}
+        />
       </li>
     ))
   }
@@ -45,25 +36,5 @@ const { collectionId, scripts, loading } = Astro.props;
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
     list-style: none;
     padding-inline-start: 0;
-  }
-
-  .script-link {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.2rem 0.4rem;
-    border-radius: 8px;
-    border: 2px solid transparent;
-
-    &:hover,
-    &:focus-within {
-      border-color: var(--color-control-border-hover);
-      background-color: var(--color-control-background-hover);
-    }
-
-    &:active {
-      background-color: var(--color-control-background-active);
-      border-color: var(--color-control-border-active);
-    }
   }
 </style>

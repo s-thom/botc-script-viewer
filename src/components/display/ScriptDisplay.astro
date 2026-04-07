@@ -42,7 +42,7 @@ const allExtraNightOrderCharacters = script.warnings.flatMap((warning) =>
             : "viewer.script.title"}
           params={{
             title:
-              script.name ?? t.string("viewer.script.untitledScript").value,
+              script.name || t.string("viewer.script.untitledScript").value,
             author: script.author,
           }}
         />

@@ -1,0 +1,64 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { CHARACTERS_BY_ID } from "../../lib/characters";
+import type { LocaleIds, Translator } from "../../lib/i18n";
+import CharacterIcon from "../display/CharacterIcon.astro";
+import type { LocalScriptDefinition } from "../../types/botc";
+import type { ScriptMetadata } from "../../generated/script-schema";
+
+export interface Props {
+  t: Translator;
+  collectionId: string;
+  script: LocalScriptDefinition;
+  loading?: "eager" | "lazy";
+}
+
+const { t, collectionId, script, loading } = Astro.props;
+
+const getScript =
+  script.localeOverrides?.[t.locale as LocaleIds] ?? script.getScript;
+const rawScript = await getScript();
+const meta = rawScript.find(
+  (item): item is ScriptMetadata =>
+    typeof item === "object" && item.id === "_meta",
+);
+const title = meta?.name || script.title;
+---
+
+<a
+  href={getRelativeLocaleUrl(
+    Astro.currentLocale ?? "en",
+    `/${collectionId}/${script.id}`,
+  )}
+  class="script-link"
+>
+  <CharacterIcon
+    class="script-icon"
+    size={48}
+    character={CHARACTERS_BY_ID.get(script.character)!}
+    loading={loading}
+  />
+  <span class="script-title">{title}</span>
+</a>
+
+<style>
+  .script-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.2rem 0.4rem;
+    border-radius: 8px;
+    border: 2px solid transparent;
+
+    &:hover,
+    &:focus-within {
+      border-color: var(--color-control-border-hover);
+      background-color: var(--color-control-background-hover);
+    }
+
+    &:active {
+      background-color: var(--color-control-background-active);
+      border-color: var(--color-control-border-active);
+    }
+  }
+</style>
