@@ -5,13 +5,17 @@ import { defineConfig, fontProviders } from "astro/config";
 import { ENABLED_LOCALES } from "./src/lib/i18n/config";
 import { ALLOWED_EXTERNAL_HOSTNAMES } from "./src/lib/images";
 
+import sitemap from "@astrojs/sitemap";
+
 const isProd = process.env.ENVIRONMENT === "production";
 
 // https://astro.build/config
 export default defineConfig({
-  site: isProd ? `https://botc-script-viewer.sthom.kiwi` : undefined,
+  site: isProd
+    ? `https://botc-script-viewer.sthom.kiwi`
+    : "http://localhost:4321",
   adapter: cloudflare({ imageService: "compile" }),
-  integrations: [svelte({ compilerOptions: { dev: !isProd } })],
+  integrations: [svelte({ compilerOptions: { dev: !isProd } }), sitemap()],
   image: {
     domains: ALLOWED_EXTERNAL_HOSTNAMES,
   },
