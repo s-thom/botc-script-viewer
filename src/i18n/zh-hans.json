@@ -1,0 +1,89 @@
+{
+  "common": {
+    "nameShort": "BotC 剧本查看器",
+    "nameLong": "染·钟楼谜团剧本查看器",
+    "nameLongFirst": "染·钟楼谜团",
+    "nameLongLast": "剧本查看器"
+  },
+  "head": {
+    "title": "{title} - {nameShort}"
+  },
+  "footer": {
+    "notAffiliated": "本网站与 The Pandemonium Institute 无任何关联。",
+    "descriptionsNotice": "角色图标及描述的版权归 Steven Medway 和 The Pandemonium Institute 所有。",
+    "madeBy": "网站由{externalLink}{author}{/externalLink}制作。",
+    "translatedBy": "翻译：{authors}。",
+    "translatedByMachine": "本站部分内容由机器翻译生成。您可以通过{externalLink}在 GitHub 上提交 Issue{/externalLink}来协助我们改进翻译质量。",
+    "translatedByCommunity": "来自{externalLink}社区表格{/externalLink}的额外翻译。",
+    "sourceCode": "{externalLink}源代码{/externalLink}."
+  },
+  "script": {
+    "title": "{title}",
+    "titleWithAuthor": "{title} {small} {author} 着{/small}",
+    "untitledScript": "未命名剧本",
+    "wikiLink": "[wiki]",
+    "wikiLabel": "在维基上查看 {title}",
+    "reminder": "提醒",
+    "nightOrder": "夜晚顺序",
+    "nightOrderWarning": "以下角色在夜晚顺序中被引用，但未在剧本中列出：{characters}"
+  },
+  "home": {
+    "description": "这是一个非官方网站，让您可以在浏览器中查看{externalLink}血染钟楼{/externalLink}剧本。",
+    "about": "{link}了解更多{/link}.",
+    "pasteJsonOrUrl": "粘贴剧本 JSON 或 URL。",
+    "viewScript": "查看剧本",
+    "uploadFile": "上传文件。",
+    "clickToUpload": "点击上传 JSON 文件或将文件拖拽至此。"
+  },
+  "collection": {
+    "title": "合集：{title}",
+    "officialScripts": "官方剧本",
+    "unofficialCollections": "非官方合集",
+    "base3": {
+      "title": "基础三",
+      "description": "由 The Pandemonium Institute 提供的官方剧本。"
+    },
+    "carousel": {
+      "title": "旋转木马合集",
+      "description": "由社区创作的剧本，用于展示“旋转木马”中发布的角色。"
+    },
+    "wc25": {
+      "title": "2025年世界杯",
+      "description": "包含在2025年世界杯比赛中的剧本，附有改变游戏的特殊规则。"
+    },
+    "s2": {
+      "title": "主播精选",
+      "description": "一些你最喜欢的主播及其社区创作的剧本合集，其中使用了自“旋转木马”发布以来的许多角色！"
+    },
+    "v": {
+      "title": "杂项",
+      "description": "我在各处收集的剧本。这绝不是一个“最佳”列表。"
+    },
+    "month": {
+      "title": "每月剧本",
+      "description": "官方应用中的每月精选剧本。"
+    }
+  },
+  "skipList": {
+    "skipTo": "跳转至："
+  },
+  "navigation": {
+    "downloadJson": "下载 JSON",
+    "print": "打印",
+    "edit": "编辑",
+    "qrCode": "二维码",
+    "selectLanguage": "选择语言"
+  },
+  "theme": {
+    "theme": "主题: {span}{theme}{/span}",
+    "default": "跟随系统",
+    "light": "浅色模式",
+    "dark": "深色模式"
+  },
+  "errors": {
+    "notFound": "未找到",
+    "notFoundHeading": "页面未找到",
+    "notFoundDescription": "检查网址，或{link}返回主页{/link}。",
+    "backToHome": "返回首页"
+  }
+}

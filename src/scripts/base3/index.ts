@@ -38,6 +38,18 @@ export const BASE_3: LocalScriptDefinition[] = [
         import("../../generated/edition-scripts/es-419/tb.json").then(
           (m) => m.default,
         ),
+      nl: () =>
+        import("../../generated/edition-scripts/nl/tb.json").then(
+          (m) => m.default,
+        ),
+      pl: () =>
+        import("../../generated/edition-scripts/pl/tb.json").then(
+          (m) => m.default,
+        ),
+      "zh-hans": () =>
+        import("../../generated/edition-scripts/zh-hans/tb.json").then(
+          (m) => m.default,
+        ),
       pt: () =>
         import("../../generated/edition-scripts/pt/tb.json").then(
           (m) => m.default,
@@ -85,6 +97,18 @@ export const BASE_3: LocalScriptDefinition[] = [
         import("../../generated/edition-scripts/es-419/snv.json").then(
           (m) => m.default,
         ),
+      nl: () =>
+        import("../../generated/edition-scripts/nl/snv.json").then(
+          (m) => m.default,
+        ),
+      pl: () =>
+        import("../../generated/edition-scripts/pl/snv.json").then(
+          (m) => m.default,
+        ),
+      "zh-hans": () =>
+        import("../../generated/edition-scripts/zh-hans/snv.json").then(
+          (m) => m.default,
+        ),
       pt: () =>
         import("../../generated/edition-scripts/pt/snv.json").then(
           (m) => m.default,
@@ -130,6 +154,18 @@ export const BASE_3: LocalScriptDefinition[] = [
         ),
       "es-419": () =>
         import("../../generated/edition-scripts/es-419/bmr.json").then(
+          (m) => m.default,
+        ),
+      nl: () =>
+        import("../../generated/edition-scripts/nl/bmr.json").then(
+          (m) => m.default,
+        ),
+      pl: () =>
+        import("../../generated/edition-scripts/pl/bmr.json").then(
+          (m) => m.default,
+        ),
+      "zh-hans": () =>
+        import("../../generated/edition-scripts/zh-hans/bmr.json").then(
           (m) => m.default,
         ),
       pt: () =>

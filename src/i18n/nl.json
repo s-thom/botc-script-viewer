@@ -1,0 +1,89 @@
+{
+  "common": {
+    "nameShort": "BotC Script Viewer",
+    "nameLong": "Blood on the Clocktower Script Viewer",
+    "nameLongFirst": "Blood on the Clocktower",
+    "nameLongLast": "Script Viewer"
+  },
+  "head": {
+    "title": "{title} - {nameShort}"
+  },
+  "footer": {
+    "notAffiliated": "Deze website is niet verbonden met The Pandemonium Institute.",
+    "descriptionsNotice": "Personage-iconen en -beschrijvingen zijn eigendom van Steven Medway en The Pandemonium Institute.",
+    "madeBy": "Website gemaakt door {externalLink}{author}{/externalLink}.",
+    "translatedBy": "Vertalingen door {authors}.",
+    "translatedByMachine": "Delen van deze website zijn vertaald met behulp van machinevertaling. Help mee om machinevertalingen te vervangen door {externalLink}een issue aan te maken op GitHub{/externalLink}.",
+    "translatedByCommunity": "Extra vertalingen uit de {externalLink}community spreadsheet{/externalLink}.",
+    "sourceCode": "{externalLink}Broncode{/externalLink}."
+  },
+  "script": {
+    "title": "{title}",
+    "titleWithAuthor": "{title} {small} van {author}{/small}",
+    "untitledScript": "Script zonder titel",
+    "wikiLink": "[wiki]",
+    "wikiLabel": "Bekijk {title} op de wiki",
+    "reminder": "Herinnering",
+    "nightOrder": "Nachtvolgorde",
+    "nightOrderWarning": "De volgende personages worden genoemd in de nachtvolgorde, maar staan niet op het script: {characters}"
+  },
+  "home": {
+    "description": "Een onofficiële website om {externalLink}Blood on the Clocktower{/externalLink}-scripts in je browser te bekijken.",
+    "about": "{link}Lees meer{/link}.",
+    "pasteJsonOrUrl": "Plak script-JSON of URL.",
+    "viewScript": "Bekijk script",
+    "uploadFile": "Bestand uploaden.",
+    "clickToUpload": "Klik om een JSON-bestand te uploaden of sleep het bestand hierheen."
+  },
+  "collection": {
+    "title": "Collectie: {title}",
+    "officialScripts": "Officiële scripts",
+    "unofficialCollections": "Onofficiële collecties",
+    "base3": {
+      "title": "Basis 3",
+      "description": "Officiële scripts aangeboden door The Pandemonium Institute."
+    },
+    "carousel": {
+      "title": "Carousel-collectie",
+      "description": "Scripts gemaakt door de community die de personages uit de Carousel-uitbreiding tonen."
+    },
+    "wc25": {
+      "title": "Wereldbeker 2025",
+      "description": "Scripts uit de Wereldbekercompetitie van 2025 met speciale regels die het spel veranderen."
+    },
+    "s2": {
+      "title": "Streamer Stack",
+      "description": "Een verzameling scripts van enkele van je favoriete Clocktower-streamers en hun communities, waarin veel van de personages worden gebruikt die beschikbaar zijn sinds de release van de Carousel!"
+    },
+    "v": {
+      "title": "Diversen",
+      "description": "Scripts die ik op mijn reizen heb verzameld. Dit is geenszins een \"best of\"-lijst."
+    },
+    "month": {
+      "title": "Script van de Maand",
+      "description": "De uitgelichte scripts van de maand in de officiële app."
+    }
+  },
+  "skipList": {
+    "skipTo": "Ga naar:"
+  },
+  "navigation": {
+    "downloadJson": "Download JSON",
+    "print": "Afdrukken",
+    "edit": "Bewerken",
+    "qrCode": "QR-code",
+    "selectLanguage": "Selecteer taal"
+  },
+  "theme": {
+    "theme": "Thema: {span}{theme}{/span}",
+    "default": "Systeem",
+    "light": "Licht",
+    "dark": "Donker"
+  },
+  "errors": {
+    "notFound": "Niet gevonden",
+    "notFoundHeading": "Pagina niet gevonden",
+    "notFoundDescription": "Controleer de URL of ga {link}terug naar de homepage{/link}.",
+    "backToHome": "Terug naar startpagina"
+  }
+}

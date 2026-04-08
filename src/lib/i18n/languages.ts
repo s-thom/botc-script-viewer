@@ -136,6 +136,57 @@ export const LANGUAGE_DATA: Record<LocaleIds, () => Promise<LocaleData>> = {
       script: script.default,
       viewer: viewer.default,
     })),
+  nl: () =>
+    Promise.all([
+      import("../../generated/i18n/nl/app.json", { with: { type: "json" } }),
+      import("../../generated/i18n/nl/game.json", { with: { type: "json" } }),
+      import("../../generated/i18n/nl/script.json", { with: { type: "json" } }),
+      import("../../i18n/nl.json", { with: { type: "json" } }),
+    ]).then(([app, game, script, viewer]) => ({
+      app: app.default,
+      game: game.default,
+      script: script.default,
+      viewer: viewer.default,
+    })),
+  nl_community: () =>
+    import("../../generated/i18n/community/nl_community.json", {
+      with: { type: "json" },
+    }).then((game) => ({
+      app: {},
+      game: game.default,
+      script: {},
+      viewer: {},
+    })),
+  pl: () =>
+    Promise.all([
+      import("../../generated/i18n/pl/app.json", { with: { type: "json" } }),
+      import("../../generated/i18n/pl/game.json", { with: { type: "json" } }),
+      import("../../generated/i18n/pl/script.json", { with: { type: "json" } }),
+      import("../../i18n/pl.json", { with: { type: "json" } }),
+    ]).then(([app, game, script, viewer]) => ({
+      app: app.default,
+      game: game.default,
+      script: script.default,
+      viewer: viewer.default,
+    })),
+  "zh-hans": () =>
+    Promise.all([
+      import("../../generated/i18n/zh_Hans/app.json", {
+        with: { type: "json" },
+      }),
+      import("../../generated/i18n/zh_Hans/game.json", {
+        with: { type: "json" },
+      }),
+      import("../../generated/i18n/zh_Hans/script.json", {
+        with: { type: "json" },
+      }),
+      import("../../i18n/zh-hans.json", { with: { type: "json" } }),
+    ]).then(([app, game, script, viewer]) => ({
+      app: app.default,
+      game: game.default,
+      script: script.default,
+      viewer: viewer.default,
+    })),
   pt: () =>
     Promise.all([
       import("../../generated/i18n/pt_PT/app.json", { with: { type: "json" } }),

@@ -9,10 +9,14 @@ export type LocaleIds =
   | "es_community"
   | "es-mx"
   | "es-419"
+  | "nl"
+  | "nl_community"
+  | "pl"
   | "pt"
   | "pt_community"
   | "pt-br"
-  | "pt-br_community";
+  | "pt-br_community"
+  | "zh-hans";
 
 export interface LocaleInfo {
   name: string;
@@ -48,25 +52,6 @@ export const LOCALE_MAP: Record<LocaleIds, LocaleInfo> = {
     fallbacks: ["en"],
     translators: [],
   },
-  fr: {
-    name: "Français",
-    isEnabled: true,
-    astroId: "fr",
-    botcId: "fr",
-    fallbacks: ["fr_community", "en"],
-    translators: [],
-    hasMachineTranslations: true,
-    hasCommunityTranslations: true,
-  },
-  fr_community: {
-    name: "Français",
-    isEnabled: false,
-    astroId: "fr",
-    botcId: "fr",
-    communitySheetId: "410848247",
-    fallbacks: [],
-    translators: [],
-  },
   de: {
     name: "Deutsch",
     isEnabled: true,
@@ -77,7 +62,7 @@ export const LOCALE_MAP: Record<LocaleIds, LocaleInfo> = {
     hasMachineTranslations: true,
   },
   "de-ch": {
-    name: "Deutsch (CH)",
+    name: "Deutsch (Schweizer)",
     isEnabled: true,
     astroId: "de-ch",
     botcId: "de_CH",
@@ -124,6 +109,53 @@ export const LOCALE_MAP: Record<LocaleIds, LocaleInfo> = {
     hasCommunityTranslations: true,
     hasMachineTranslations: true,
   },
+  fr: {
+    name: "Français",
+    isEnabled: true,
+    astroId: "fr",
+    botcId: "fr",
+    fallbacks: ["fr_community", "en"],
+    translators: [],
+    hasMachineTranslations: true,
+    hasCommunityTranslations: true,
+  },
+  fr_community: {
+    name: "Français",
+    isEnabled: false,
+    astroId: "fr",
+    botcId: "fr",
+    communitySheetId: "410848247",
+    fallbacks: [],
+    translators: [],
+  },
+  nl: {
+    name: "Nederlands",
+    isEnabled: true,
+    astroId: "nl",
+    botcId: "nl",
+    fallbacks: ["nl_community", "en"],
+    translators: [],
+    hasCommunityTranslations: true,
+    hasMachineTranslations: true,
+  },
+  nl_community: {
+    name: "Dutch",
+    isEnabled: false,
+    astroId: "nl",
+    botcId: "nl",
+    communitySheetId: "1448056793",
+    fallbacks: [],
+    translators: [],
+  },
+  pl: {
+    name: "Polski",
+    isEnabled: true,
+    astroId: "pl",
+    botcId: "pl",
+    fallbacks: ["en"],
+    translators: [],
+    hasMachineTranslations: true,
+  },
   pt: {
     name: "Português",
     isEnabled: true,
@@ -161,6 +193,15 @@ export const LOCALE_MAP: Record<LocaleIds, LocaleInfo> = {
     communitySheetId: "1209768722",
     fallbacks: [],
     translators: [],
+  },
+  "zh-hans": {
+    name: "简体中文",
+    isEnabled: true,
+    astroId: "zh-hans",
+    botcId: "zh_Hans",
+    fallbacks: ["en"],
+    translators: [],
+    hasMachineTranslations: true,
   },
 };
 

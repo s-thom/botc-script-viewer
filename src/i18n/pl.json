@@ -1,0 +1,90 @@
+{
+  "common": {
+    "nameShort": "Przeglądarka skryptów BotC",
+    "nameLong": "Przeglądarka skryptów Blood on the Clocktower",
+    "nameLongFirst": "Blood on the Clocktower",
+    "nameLongLast": "Przeglądarka skryptów"
+  },
+  "head": {
+    "title": "{title} - {nameShort}"
+  },
+  "footer": {
+    "notAffiliated": "Ta strona nie jest powiązana z The Pandemonium Institute.",
+    "descriptionsNotice": "Ikony i opisy postaci są własnością Stevena Medwaya i The Pandemonium Institute.",
+    "madeBy": "Strona stworzona przez {externalLink}{author}{/externalLink}.",
+    "translatedBy": "Tłumaczenie: {authors}.",
+    "translatedByMachine": "Niektóre części tej strony zostały przetłumaczone maszynowo. Pomóż nam poprawić automatyczne tłumaczenia, {externalLink}otwierając zgłoszenie w serwisie GitHub{/externalLink}.",
+    "translatedByCommunity": "Dodatkowe tłumaczenia z {externalLink}arkusza społeczności{/externalLink}.",
+    "sourceCode": "{externalLink}Kod źródłowy{/externalLink}."
+  },
+  "script": {
+    "title": "{title}",
+    "titleWithAuthor": "{title} {small} autorstwa {author}{/small}",
+    "untitledScript": "Skrypt bez tytułu",
+    "wikiLink": "[Wiki]",
+    "wikiLabel": "Zobacz {title} na wiki",
+    "reminder": "Przypomnienie",
+    "nightOrder": "Kolejność nocy",
+    "nightOrderWarning": "Następujące postacie są wymienione w kolejności nocy, ale nie ma ich na skrypcie: {characters}"
+  },
+  "home": {
+    "description": "Nieoficjalna strona do przeglądania scenariuszy {externalLink}Blood on the Clocktower{/externalLink} w przeglądarce.",
+    "about": "{link}Dowiedz się więcej{/link}.",
+    "pasteJsonOrUrl": "Wklej skrypt w formacie JSON lub URL.",
+    "viewScript": "Zobacz skrypt",
+    "uploadFile": "Prześlij plik.",
+    "clickToUpload": "Kliknij, aby przesłać plik JSON, lub przeciągnij go tutaj."
+  },
+  "collection": {
+    "title": "Kolekcja: {title}",
+    "officialScripts": "Oficjalne skrypty",
+    "unofficialCollections": "Nieoficjalne kolekcje",
+    "base3": {
+      "title": "Podstawowa Trójka",
+      "description": "Oficjalne skrypty udostępnione przez The Pandemonium Institute."
+    },
+    "carousel": {
+      "title": "Kolekcja Karuzela",
+      "description": "Skrypty stworzone przez społeczność, które prezentują postacie wydane w Karuzeli."
+    },
+    "wc25": {
+      "title": "Mistrzostwa Świata 2025",
+      "description": "Skrypty z zawodów Mistrzostw Świata 2025 ze specjalnymi zasadami, które zmieniają grę."
+    },
+    "s2": {
+      "title": "Paczka streamerów",
+      "description": "Kolekcja skryptów od waszych ulubionych streamerów Clocktower i ich społeczności, wykorzystująca wiele postaci dostępnych od czasu wydania Karuzeli!"
+    },
+    "v": {
+      "title": "Różne",
+      "description": "Skrypty, które zebrałem podczas moich podróży. To w żadnym wypadku nie jest lista „najlepszych”."
+    },
+    "month": {
+      "title": "Skrypt miesiąca",
+      "description": "Wyróżnione skrypty miesiąca w oficjalnej aplikacji."
+    }
+  },
+  "skipList": {
+    "skipTo": "Przejdź do:"
+  },
+  "navigation": {
+    "downloadJson": "Pobierz JSON",
+    "print": "Drukuj",
+    "edit": "Edytuj",
+    "qrCode": "Kod QR",
+    "selectLanguage": "Wybierz język"
+  },
+  "theme": {
+    "theme": "Motyw: {span}{theme}{/span}",
+    "default": "Systemowy",
+    "light": "Jasny",
+    "dark": "Ciemny"
+  },
+  "errors": {
+    "notFound": "Nie znaleziono",
+    "notFoundHeading": "Nie znaleziono strony",
+    "notFoundDescription": "Sprawdź adres URL lub {link}wróć do strony głównej{/link}.",
+    "backToHome": "Wróć na stronę główną",
+    "genericError": "Błąd strony"
+  }
+}
