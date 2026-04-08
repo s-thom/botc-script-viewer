@@ -194,8 +194,24 @@ export const ORDERED_CHARACTER_LIST = [
   "knaves",
 ];
 
-ORDERED_CHARACTER_LIST.length = 255;
+if (ORDERED_CHARACTER_LIST.length >= 240) {
+  console.warn(
+    `Build warning: character list for NS is nearing its limit (${ORDERED_CHARACTER_LIST}/${250}).`,
+  );
+}
+
+if (ORDERED_CHARACTER_LIST.length >= 250) {
+  throw new Error(
+    `Build error: character list for NS is at its limit (${ORDERED_CHARACTER_LIST}/${250}).`,
+  );
+}
+
+// The highest index that can be set in this array is [253] (length 254).
+// This array is offset by 1 compared to the actual byte encodings as 0x00 is
+// the meta section. 0xFF is reserved for arbitrary JSON (custom characters),
+// which then makes the highest available value in this array 253.
+ORDERED_CHARACTER_LIST.length = 254;
 ORDERED_CHARACTER_LIST[251] = "minioninfo";
 ORDERED_CHARACTER_LIST[252] = "demoninfo";
 ORDERED_CHARACTER_LIST[253] = "dusk";
-ORDERED_CHARACTER_LIST[254] = "dawn";
+ORDERED_CHARACTER_LIST[250] = "dawn"; // Dawn is at the start because of a pre-existing bug in the initial special night order implementation.

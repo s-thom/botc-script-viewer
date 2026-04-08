@@ -124,7 +124,7 @@ function encodeScriptMeta(meta: ScriptMetadata): Uint8Array {
     pointer = appendTLV(bytes, pointer, 7, encodeNightOrder(meta.firstNight));
   }
   if (meta.otherNight) {
-    pointer = appendTLV(bytes, pointer, 7, encodeNightOrder(meta.otherNight));
+    pointer = appendTLV(bytes, pointer, 8, encodeNightOrder(meta.otherNight));
   }
 
   // At this point the pointer should be the length of the actual content.

@@ -99,7 +99,7 @@ function explainDecodeBoolean(bytes: Uint8Array): ExplainNode[] {
   });
 
   if (bytes.length > 1) {
-    const restBytes = bytes.subarray(1, 1);
+    const restBytes = bytes.subarray(1);
     nodes.push({
       type: "warning",
       bytes: restBytes,

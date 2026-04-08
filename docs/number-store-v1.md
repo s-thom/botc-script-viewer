@@ -258,15 +258,19 @@ Note: Any Loric characters that were originally classified as Fabled are in the 
 | Hindu            | hindu          | `0xb1` |
 | Pope             | pope           | `0xb2` |
 | Ventriloquist    | ventriloquist  | `0xb3` |
+| God of Ug        | godofug        | `0xb4` |
+| Knaves           | knaves         | `0xb5` |
 
 Special
 
 | Character name | Id         | Value  |
 | -------------- | ---------- | ------ |
-| Minion Info    | minioninfo | `0xfb` |
-| Demon Info     | demoninfo  | `0xfc` |
-| Dusk           | dusk       | `0xfd` |
-| Dawn           | dawn       | `0xfe` |
+| Minion Info    | minioninfo | `0xfc` |
+| Demon Info     | demoninfo  | `0xfd` |
+| Dusk           | dusk       | `0xfe` |
+| Dawn           | dawn       | `0xfb` |
+
+Note that Dawn is at an earlier point compared to the others. This is due to a bug in the encoder's implementation when the special night order entries were added to the end of the mapping. If a v2 of this format is ever made, then please don't continue this mistake.
 
 </details>
 
