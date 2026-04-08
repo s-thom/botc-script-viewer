@@ -10,7 +10,7 @@ import {
   stringToBytes,
 } from "../../../../lib/compression";
 import { MAX_AGE_SECONDS } from "../../../../lib/constants";
-import { createTranslator, type LocaleIds } from "../../../../lib/i18n";
+import { createTranslator } from "../../../../lib/i18n";
 import { decodeScript } from "../../../../lib/number-store";
 import { explainDecodeScript } from "../../../../lib/number-store/explain";
 
@@ -62,7 +62,8 @@ Astro.response.headers.set(
   `public, max-age=${MAX_AGE_SECONDS}`,
 );
 
-const locale = (Astro.currentLocale as LocaleIds) ?? "en";
+// Hard-code inspect pages to English
+const locale = "en";
 const t = await createTranslator({ locale });
 ---
 
