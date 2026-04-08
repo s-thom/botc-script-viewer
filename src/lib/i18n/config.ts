@@ -47,7 +47,6 @@ export const LOCALE_MAP: Record<LocaleIds, LocaleInfo> = {
     botcId: "en@pirate",
     fallbacks: ["en"],
     translators: [],
-    hasMachineTranslations: true,
   },
   fr: {
     name: "Français",

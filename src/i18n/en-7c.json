@@ -1,71 +1,71 @@
 {
   "common": {
-    "nameShort": "BotC Script Spyglass",
-    "nameLong": "Blood on the Clocktower Script Spyglass",
+    "nameShort": "BotC Ledger Viewer",
+    "nameLong": "Blood on the Clocktower Ledger Viewer",
     "nameLongFirst": "Blood on the Clocktower",
-    "nameLongLast": "Script Spyglass"
+    "nameLongLast": "Ledger Viewer"
   },
   "head": {
     "title": "{title} - {nameShort}"
   },
   "footer": {
     "notAffiliated": "This town be not in league with The Pandemonium Institute.",
-    "descriptionsNotice": "Character likenesses and descriptions be the property of Steven Medway and The Pandemonium Institute.",
+    "descriptionsNotice": "Character likenesses and descriptions be belongin' to Steven Medway and The Pandemonium Institute.",
     "madeBy": "Town founded by {externalLink}{author}{/externalLink}.",
-    "translatedBy": "Tongues twisted by {authors}.",
-    "translatedByMachine": "Parts of this website were translated using machine translation. Help replace machine translations by {externalLink}creating an issue on GitHub{/externalLink}.",
-    "translatedByCommunity": "Additional translations from the {externalLink}community spreadsheet{/externalLink}.",
-    "sourceCode": "{externalLink}Source code{/externalLink}."
+    "translatedBy": "Speakin' set right by {authors}.",
+    "translatedByMachine": "Some speakin' in this town were spoken by a mechanical siren. Help replace the siren's song by {externalLink}postin' a note to the Hub o' Git{/externalLink}.",
+    "translatedByCommunity": "More words set right from the {externalLink}scallywags spreadsheet{/externalLink}.",
+    "sourceCode": "{externalLink}Town blueprints{/externalLink}."
   },
   "script": {
     "title": "{title}",
     "titleWithAuthor": "{title} {small} by {author}{/small}",
-    "untitledScript": "Unmapped Sea",
+    "untitledScript": "Unnamed ledger",
     "wikiLink": "[wiki]",
     "wikiLabel": "Lay eyes on {title} on the wiki",
     "reminder": "Mark",
-    "nightOrder": "The Night's Order",
-    "nightOrderWarning": "The followin' scallywags be mentioned in the rousin' list, but they ain't listed on the ledger: {characters}"
+    "nightOrder": "Rousin' list",
+    "nightOrderWarning": "The followin' stations be mentioned in the rousin' list, but they don't be listed on the ledger: {characters}"
   },
   "home": {
     "description": "An unofficial website for viewing {externalLink}Blood on the Clocktower{/externalLink} scripts in your browser.",
     "about": "{link}Learn more{/link}.",
-    "pasteJsonOrUrl": "Paste Jason's ledger or URL.",
-    "viewScript": "Gaze upon the sea",
-    "uploadFile": "Hoist a ledger.",
-    "clickToUpload": "Click to hoist Jason's ledger or drag the blasted thing here."
+    "pasteJsonOrUrl": "Gimme Jason's ledger or URL.",
+    "viewScript": "View ledger",
+    "uploadFile": "Upload a ledger.",
+    "clickToUpload": "Click to hoist Jason's ledger or drag the thing here."
   },
   "collection": {
     "title": "Trove: {title}",
-    "officialScripts": "Safe Seas",
-    "unofficialCollections": "Rogue Seas",
+    "officialScripts": "Admiralty's Ledgers",
+    "unofficialCollections": "Scallywags' Ledgers",
     "base3": {
       "title": "Base 3",
-      "description": "Seas charted by The Pandemonium Institute."
+      "description": "Ledgers by the admiralty at The Pandemonium Institute."
     },
     "carousel": {
-      "title": "Carousel Treasure Trove",
-      "description": "Seas charted by the crew to show off the scallywags released in the Carousel."
+      "title": "Carousel Cache",
+      "description": "Ledgers chosen by the admirals to show off the stations released in the Carousel."
     },
     "wc25": {
       "title": "World Cup 2025",
-      "description": "Seas in the 2025 World Cup contest with special rules that change the game."
+      "description": "Ledgers in the 2025 World Cup competition with special rules that change the game."
     },
     "s2": {
-      "title": "Streamer's Hoard",
-      "description": "A treasure trove of seas from some of yer favourite Clocktower streamers and their crews that uses many of the characters available since the Carousel was released!"
+      "title": "Streamer's Stockpile",
+      "description": "A pile of ledgers from some of yer favourite Clocktower streamers and their crews that uses many of the stations available since the Carousel was released!"
     },
     "v": {
       "title": "Sundry Booty",
-      "description": "Seas I've plundered on me travels. This ain't in any way a “best of” list."
+      "description": "Ledgers I've plundered on me travels. This ain't in any way a “best of” list."
     },
     "month": {
-      "title": "Sea o' the Month",
-      "description": "The featured sea o' the month in the Cap'n's own app."
+      "title": "Ledger o' the Month",
+      "description": "The featured ledger o' the month in the admiral's own app."
     }
   },
   "skipList": {
-    "skipTo": "Jump to:"
+    "skipTo": "Skip to:"
   },
   "navigation": {
     "downloadJson": "Jason's ledger",
@@ -75,9 +75,9 @@
     "selectLanguage": "Pick yer tongue"
   },
   "theme": {
-    "theme": "Theme: {span}{theme}{/span}",
+    "theme": "Trimmings: {span}{theme}{/span}",
     "default": "Ship's Orders",
-    "light": "Daylight",
+    "light": "Noonday",
     "dark": "Midnight"
   },
   "errors": {
