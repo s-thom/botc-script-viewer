@@ -239,6 +239,13 @@ export function normaliseScript(
   };
 
   function addCharacter(character: NormalisedScriptCharacter) {
+    if (newScript.charactersById.has(character.id)) {
+      console.warn(
+        `Trying to add character ${character.id}, but it has already been added.`,
+      );
+      return;
+    }
+
     const translated = getTranslatedScriptCharacter(t, character);
 
     newScript.characters.push(translated);
