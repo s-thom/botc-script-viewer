@@ -13,7 +13,7 @@
     "descriptionsNotice": "Ikony i opisy postaci są własnością Stevena Medwaya i The Pandemonium Institute.",
     "madeBy": "Strona stworzona przez {externalLink}{author}{/externalLink}.",
     "translatedBy": "Tłumaczenie: {authors}.",
-    "translatedByMachine": "Niektóre części tej strony zostały przetłumaczone maszynowo. Pomóż nam poprawić automatyczne tłumaczenia, {externalLink}otwierając zgłoszenie w serwisie GitHub{/externalLink}.",
+    "translatedByMachine": "Niektóre części tej strony zostały przetłumaczone maszynowo. {link}Pomóż w tłumaczeniu tej strony{/link}.",
     "translatedByCommunity": "Dodatkowe tłumaczenia z {externalLink}arkusza społeczności{/externalLink}.",
     "sourceCode": "{externalLink}Kod źródłowy{/externalLink}."
   },

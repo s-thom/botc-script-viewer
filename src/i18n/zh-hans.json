@@ -13,7 +13,7 @@
     "descriptionsNotice": "角色图标及描述的版权归 Steven Medway 和 The Pandemonium Institute 所有。",
     "madeBy": "网站由{externalLink}{author}{/externalLink}制作。",
     "translatedBy": "翻译：{authors}。",
-    "translatedByMachine": "本站部分内容由机器翻译生成。您可以通过{externalLink}在 GitHub 上提交 Issue{/externalLink}来协助我们改进翻译质量。",
+    "translatedByMachine": "本站部分内容由机器翻译生成。{link}帮助翻译这个网站{/link}。",
     "translatedByCommunity": "来自{externalLink}社区表格{/externalLink}的额外翻译。",
     "sourceCode": "{externalLink}源代码{/externalLink}."
   },

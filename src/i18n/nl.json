@@ -13,7 +13,7 @@
     "descriptionsNotice": "Personage-iconen en -beschrijvingen zijn eigendom van Steven Medway en The Pandemonium Institute.",
     "madeBy": "Website gemaakt door {externalLink}{author}{/externalLink}.",
     "translatedBy": "Vertalingen door {authors}.",
-    "translatedByMachine": "Delen van deze website zijn vertaald met behulp van machinevertaling. Help mee om machinevertalingen te vervangen door {externalLink}een issue aan te maken op GitHub{/externalLink}.",
+    "translatedByMachine": "Delen van deze website zijn vertaald met behulp van machinevertaling. {link}Help mee deze website te vertalen{/link}.",
     "translatedByCommunity": "Extra vertalingen uit de {externalLink}community spreadsheet{/externalLink}.",
     "sourceCode": "{externalLink}Broncode{/externalLink}."
   },

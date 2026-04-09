@@ -13,7 +13,7 @@
     "descriptionsNotice": "Character likenesses and descriptions be belongin' to Steven Medway and The Pandemonium Institute.",
     "madeBy": "Town founded by {externalLink}{author}{/externalLink}.",
     "translatedBy": "Speakin' set right by {authors}.",
-    "translatedByMachine": "Some speakin' in this town were spoken by a mechanical siren. Help replace the siren's song by {externalLink}postin' a note to the Hub o' Git{/externalLink}.",
+    "translatedByMachine": "Some speakin' in this town were spoken by a mechanical siren. Help replace the siren's song by {link}postin' a note to the Hub o' Git{/link}.",
     "translatedByCommunity": "More words set right from the {externalLink}scallywags spreadsheet{/externalLink}.",
     "sourceCode": "{externalLink}Town blueprints{/externalLink}."
   },

@@ -13,7 +13,7 @@
     "descriptionsNotice": "Character icons and descriptions are the property of Steven Medway and The Pandemonium Institute.",
     "madeBy": "Website made by {externalLink}{author}{/externalLink}.",
     "translatedBy": "Translations by {authors}.",
-    "translatedByMachine": "Parts of this website were translated using machine translation. Help replace machine translations by {externalLink}creating an issue on GitHub{/externalLink}.",
+    "translatedByMachine": "Parts of this website were translated using machine translation. {link}Help translate this website{/link}.",
     "translatedByCommunity": "Additional translations from the {externalLink}community spreadsheet{/externalLink}.",
     "sourceCode": "{externalLink}Source code{/externalLink}."
   },
