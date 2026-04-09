@@ -78,7 +78,7 @@ const {
     {
       title && (
         <div class="character-title-area">
-          <h4 class="character-title">
+          <span class="character-title">
             {titleLink ? (
               <a class="character-title-link" href={titleLink}>
                 <MessageSegments segments={t.raw(title)} />
@@ -86,7 +86,7 @@ const {
             ) : (
               <MessageSegments segments={t.raw(title)} />
             )}
-          </h4>
+          </span>
           {wikiLink && (
             <a
               class="character-wiki-link"
@@ -146,6 +146,7 @@ const {
 
   .character-title {
     font-family: var(--font-title);
+    font-size: 1.3rem;
   }
 
   .character-title-link:not(:is(:hover, :focus-within)) {
