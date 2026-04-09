@@ -139,7 +139,7 @@ textarea:not([rows]) {
   --color-control-border-error: #e4a6a7;
   --color-control-border-error: light-dark(#e4a6a7, #3b2a27);
 
-  --color-header-background: #1d4124;
+  --color-header-background: #1e4b28;
   --color-header-text: #fdedc9;
   --color-header-paper: #ffffff;
   --color-header-paper: light-dark(#fffdf4, #25241f);
