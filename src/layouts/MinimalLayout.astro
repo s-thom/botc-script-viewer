@@ -30,7 +30,7 @@ const localeAlternateMap = pageLocales.reduce(
   (obj, locale) => {
     obj[locale.astroId] = getAbsoluteLocaleUrl(
       locale.astroId,
-      currentUrl.pathname,
+      translate?.basePath ?? currentUrl.pathname,
     );
 
     return obj;
