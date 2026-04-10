@@ -6,6 +6,7 @@ import { ENABLED_LOCALES } from "./src/lib/i18n/config";
 import { ALLOWED_EXTERNAL_HOSTNAMES } from "./src/lib/images";
 
 import sitemap from "@astrojs/sitemap";
+import { sthomBase64Loader } from "./src/lib/vite/base64-loader";
 
 const isProd = process.env.ENVIRONMENT === "production";
 
@@ -30,6 +31,7 @@ export default defineConfig({
     optimizeDeps: {
       exclude: ["language-icons"],
     },
+    plugins: [sthomBase64Loader],
   },
   fonts: [
     {
