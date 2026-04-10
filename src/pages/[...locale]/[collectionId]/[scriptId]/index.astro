@@ -2,9 +2,10 @@
 import ScriptViewerLayout from "../../../../layouts/ScriptViewerLayout.astro";
 import {
   createTranslator,
-  type LocaleIds,
   ENABLED_LOCALES,
+  type LocaleIds,
 } from "../../../../lib/i18n";
+import { getCollectionRawScript } from "../../../../lib/routes/json";
 import { getPathWithoutLocale } from "../../../../lib/url";
 import { LOCAL_SCRIPT_COLLECTIONS } from "../../../../scripts";
 
@@ -25,23 +26,8 @@ export function getStaticPaths() {
 
 const { collectionId, scriptId } = Astro.params;
 
-if (!(collectionId in LOCAL_SCRIPT_COLLECTIONS)) {
-  return Astro.rewrite("/404");
-}
-
-const collection = LOCAL_SCRIPT_COLLECTIONS[collectionId];
-
-const scriptDefinition = collection.scripts.find(
-  (script) => script.id === scriptId,
-);
-if (!scriptDefinition) {
-  return Astro.rewrite("/404");
-}
-
 const locale = (Astro.currentLocale ?? "en") as LocaleIds;
-const getScript =
-  scriptDefinition.localeOverrides?.[locale] ?? scriptDefinition.getScript;
-const rawScript = await getScript();
+const rawScript = await getCollectionRawScript(locale, collectionId, scriptId);
 
 const t = await createTranslator({ locale });
 ---
@@ -50,5 +36,5 @@ const t = await createTranslator({ locale });
   t={t}
   rawScript={rawScript}
   basePath={getPathWithoutLocale(Astro.routePattern, Astro.url.pathname)}
-  overrideJsonPathSegment={`${scriptDefinition.id}.json`}
+  overrideJsonPathSegment={`${scriptId}.json`}
 />

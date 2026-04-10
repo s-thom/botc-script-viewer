@@ -1,9 +1,10 @@
 import type { APIRoute } from "astro";
 import { ENABLED_LOCALES } from "../../../../lib/i18n";
 import {
+  getCollectionRawScript,
+  getJsonOptionsResponse,
   getJsonResponse,
-  getOptionsResponse,
-} from "../../../../lib/routes/collectionJson";
+} from "../../../../lib/routes/json";
 import { LOCAL_SCRIPT_COLLECTIONS } from "../../../../scripts";
 
 export function getStaticPaths() {
@@ -22,12 +23,18 @@ export function getStaticPaths() {
   );
 }
 
-export const GET: APIRoute = async ({ params, rewrite, currentLocale }) => {
+export const GET: APIRoute = async ({ params, currentLocale }) => {
   const { collectionId, scriptId } = params;
 
-  return getJsonResponse(currentLocale, collectionId, scriptId, rewrite);
+  const rawScript = await getCollectionRawScript(
+    currentLocale,
+    collectionId,
+    scriptId,
+  );
+
+  return getJsonResponse(rawScript);
 };
 
 export const OPTIONS: APIRoute = async () => {
-  return getOptionsResponse();
+  return getJsonOptionsResponse();
 };
