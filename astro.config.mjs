@@ -79,5 +79,23 @@ export default defineConfig({
         ],
       },
     },
+    {
+      provider: fontProviders.local(),
+      name: "Source Han Serif SC",
+      cssVariable: "--font-source-han-serif-sc",
+      fallbacks: ["serif"],
+      optimizedFallbacks: false,
+      options: {
+        variants: [
+          {
+            src: [
+              "./src/assets/fonts/SourceHanSerif/SourceHanSerifSC-Regular.woff2",
+            ],
+            weight: 400,
+            style: "normal",
+          },
+        ],
+      },
+    },
   ],
 });
