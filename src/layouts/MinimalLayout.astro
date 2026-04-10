@@ -91,8 +91,8 @@ const shouldAddNoIndexTag = noIndex || !isProperLanguage;
     }
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content="/banner.png" />
-    <meta property="og:image" content="/banner.png" />
+    <meta name="twitter:image" content={meta.ogImagePath ?? "/banner.png"} />
+    <meta property="og:image" content={meta.ogImagePath ?? "/banner.png"} />
     <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="1280" />
     <meta property="og:image:height" content="640" />

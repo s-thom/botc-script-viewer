@@ -31,6 +31,7 @@ const t = await createTranslator({ locale });
     title: t.string("viewer.common.nameLong").value,
     lang: locale,
     translate: { basePath: "/", locales: "all" },
+    ogImagePath: `${locale}/banner.png`,
   }}
 >
   <Fragment slot="head">

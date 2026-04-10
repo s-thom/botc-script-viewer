@@ -12,6 +12,7 @@ export interface PageMeta {
   description?: string;
   noIndex?: boolean;
   noCanonical?: boolean;
+  ogImagePath?: string;
 }
 
 interface AppErrorOptions {
