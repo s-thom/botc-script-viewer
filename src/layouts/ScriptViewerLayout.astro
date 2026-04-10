@@ -28,6 +28,9 @@ const script = normaliseScript(rawScript, t);
 const qrPath = fixDoubleSlashPaths(
   new URL(`${Astro.url.pathname}/qr.svg`, Astro.url),
 );
+const ogImagePath = fixDoubleSlashPaths(
+  new URL(`${Astro.url.pathname}/banner.png`, Astro.url),
+);
 
 const jsonPath = overrideJsonPathSegment ?? "json";
 const downloadPath = fixDoubleSlashPaths(
@@ -58,6 +61,7 @@ const scriptNameWithFallback =
       locales: "all",
     },
     noIndex,
+    ogImagePath: ogImagePath.toString(),
   }}
 >
   <Fragment slot="head">
