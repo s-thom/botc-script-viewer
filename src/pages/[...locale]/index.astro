@@ -14,13 +14,11 @@ import LocalisedMessage from "../../components/i18n/LocalisedMessage.astro";
 import { getRelativeLocaleUrl } from "astro:i18n";
 
 export function getStaticPaths() {
-  return ENABLED_LOCALES.filter((locale) => !locale.isDefault).flatMap(
-    (locale) => ({
-      params: {
-        locale: locale.astroId,
-      },
-    }),
-  );
+  return ENABLED_LOCALES.map((locale) => ({
+    params: {
+      locale: locale.isDefault ? undefined : locale.astroId,
+    },
+  }));
 }
 
 const locale = (Astro.currentLocale as LocaleIds) ?? "en";

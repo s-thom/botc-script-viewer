@@ -3,12 +3,22 @@ import { ENABLED_LOCALES } from "../../../../lib/i18n";
 import {
   getJsonResponse,
   getOptionsResponse,
-  getStaticPathsForLocale,
 } from "../../../../lib/routes/collectionJson";
+import { LOCAL_SCRIPT_COLLECTIONS } from "../../../../scripts";
 
 export function getStaticPaths() {
-  return ENABLED_LOCALES.filter((locale) => !locale.isDefault).flatMap(
-    (locale) => getStaticPathsForLocale(locale.astroId),
+  return ENABLED_LOCALES.flatMap((locale) =>
+    Object.entries(LOCAL_SCRIPT_COLLECTIONS).flatMap(
+      ([collectionId, collection]) =>
+        collection.scripts.map((script) => ({
+          params: {
+            collectionId: collectionId as keyof typeof LOCAL_SCRIPT_COLLECTIONS,
+            scriptId: script.id,
+            jsonFileName: script.id,
+            locale: locale.isDefault ? undefined : locale.astroId,
+          },
+        })),
+    ),
   );
 }
 

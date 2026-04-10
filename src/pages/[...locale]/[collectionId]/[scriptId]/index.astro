@@ -9,19 +9,17 @@ import { getPathWithoutLocale } from "../../../../lib/url";
 import { LOCAL_SCRIPT_COLLECTIONS } from "../../../../scripts";
 
 export function getStaticPaths() {
-  return ENABLED_LOCALES.filter((locale) => !locale.isDefault).flatMap(
-    (locale) =>
-      Object.entries(LOCAL_SCRIPT_COLLECTIONS).flatMap(
-        ([collectionId, collection]) =>
-          collection.scripts.map((script) => ({
-            params: {
-              collectionId:
-                collectionId as keyof typeof LOCAL_SCRIPT_COLLECTIONS,
-              scriptId: script.id,
-              locale: locale.astroId,
-            },
-          })),
-      ),
+  return ENABLED_LOCALES.flatMap((locale) =>
+    Object.entries(LOCAL_SCRIPT_COLLECTIONS).flatMap(
+      ([collectionId, collection]) =>
+        collection.scripts.map((script) => ({
+          params: {
+            collectionId: collectionId as keyof typeof LOCAL_SCRIPT_COLLECTIONS,
+            scriptId: script.id,
+            locale: locale.isDefault ? undefined : locale.astroId,
+          },
+        })),
+    ),
   );
 }
 

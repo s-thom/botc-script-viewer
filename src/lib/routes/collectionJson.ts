@@ -3,20 +3,6 @@ import { LOCAL_SCRIPT_COLLECTIONS } from "../../scripts";
 import { MAX_AGE_SECONDS } from "../constants";
 import type { LocaleIds } from "../i18n";
 
-export function getStaticPathsForLocale(currentLocale: string) {
-  return Object.entries(LOCAL_SCRIPT_COLLECTIONS).flatMap(
-    ([collectionId, collection]) =>
-      collection.scripts.map((script) => ({
-        params: {
-          collectionId: collectionId as keyof typeof LOCAL_SCRIPT_COLLECTIONS,
-          scriptId: script.id,
-          jsonFileName: script.id,
-          locale: currentLocale,
-        },
-      })),
-  );
-}
-
 export async function getJsonResponse(
   locale: string | undefined,
   collectionId: string | undefined,
