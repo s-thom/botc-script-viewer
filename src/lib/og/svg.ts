@@ -23,7 +23,7 @@ export async function getScriptBannerSvg(
   overrideTitle?: string,
 ) {
   const parts = [
-    `<text x="640" y="90" text-anchor="middle" class="title" font-size="56" font-weight="bold" fill="#fdedc9">
+    `<text x="640" y="78" text-anchor="middle" class="title" font-size="56" font-weight="bold" fill="#fdedc9">
       ${t.string("viewer.common.nameLong").value}
     </text>`,
   ];
@@ -32,7 +32,7 @@ export async function getScriptBannerSvg(
     overrideTitle ??
     normalisedScript.name ??
     t.string("viewer.script.untitledScript").value;
-  let titleHeight = 360;
+  let titleHeight = 330;
 
   // Add character icons if there aren't too many, or too many of a particular type.
   if (normalisedScript.characters.length <= 32) {
@@ -41,10 +41,10 @@ export async function getScriptBannerSvg(
       (c) => c.team,
     );
     if (Object.values(charactersByType).every((type) => type.length <= 15)) {
-      titleHeight = 230;
+      titleHeight = 195;
 
       const CHARACTER_CENTER_X = 640;
-      const CHARACTER_CENTER_Y = 380;
+      const CHARACTER_CENTER_Y = 440;
 
       const characterArea = await getCharacterIconArea(
         charactersByType,
@@ -74,16 +74,20 @@ export async function getScriptBannerSvg(
   return getSmallHeaderSvg(parts.join(""));
 }
 
+function getJaggedClipPath(id: string, height: number) {
+  return `
+<clipPath id="${id}"><path d="M0,0l1280,0l0,${height}l-27.632,-0.458l-155.339,3.891l-302.854,-4.807l-157.851,1.763l-145.738,-3.563l-153.374,1.055l-148.452,6.239l-155.858,-4.915l-32.902,1.481Z"/></clipPath>
+  `;
+}
+
 function getBigHeaderSvg(content: string): string {
+  const headerHeight = 424;
+
   return `
 <svg viewBox="0 0 1280 640" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
     <image x="0" y="0" width="1280px" height="640px" xlink:href="data:image/png;base64,${ogPaperBase64}"/>
-    <clipPath id="clip_edge">
-        <path d="M188.76,446.316L32.902,437.713L0,440.306L0,16L1280,16L1280,439.104L1252.368,438.303L1097.029,445.114L794.175,436.7L636.324,439.785L490.586,433.549L337.212,435.396L188.76,446.316Z"/>
-    </clipPath>
-    <clipPath id="clip_header">
-        <path d="M188.76,430.316L32.902,421.713L0,424.306L0,-0L1280,-0L1280,423.104L1252.368,422.303L1097.029,429.114L794.175,420.7L636.324,423.785L490.586,417.549L337.212,419.396L188.76,430.316Z"/>
-    </clipPath>
+    ${getJaggedClipPath("clip_edge", headerHeight + 16)}
+    ${getJaggedClipPath("clip_header", headerHeight)}
     <g x="0" y="16px" clip-path="url(#clip_edge)">
         <rect x="0" y="0" width="1280px" height="840px" fill="#fffdf4" />
     </g>
@@ -97,15 +101,13 @@ function getBigHeaderSvg(content: string): string {
 }
 
 function getSmallHeaderSvg(content: string): string {
+  const headerHeight = 120;
+
   return `
 <svg viewBox="0 0 1280 640" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
     <image x="0" y="0" width="1280px" height="640px" xlink:href="data:image/png;base64,${ogPaperBase64}"/>
-    <clipPath id="clip_edge">
-        <path d="M188.76,191.025L32.902,182.423L0,185.016L0,16L1280,16L1280,183.814L1252.368,183.012L1097.029,189.823L794.175,181.41L636.324,184.495L490.586,178.259L337.212,180.105L188.76,191.025Z"/>
-    </clipPath>
-    <clipPath id="clip_header">
-        <path d="M188.76,175.025L32.902,166.423L0,169.016L0,-0L1280,-0L1280,167.814L1252.368,167.012L1097.029,173.823L794.175,165.41L636.324,168.495L490.586,162.259L337.212,164.105L188.76,175.025Z"/>
-    </clipPath>
+    ${getJaggedClipPath("clip_edge", headerHeight + 16)}
+    ${getJaggedClipPath("clip_header", headerHeight)}
     <g x="0" y="16px" clip-path="url(#clip_edge)">
         <rect x="0" y="0" width="1280px" height="840px" fill="#fffdf4" />
     </g>
