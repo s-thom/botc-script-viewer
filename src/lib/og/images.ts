@@ -2,8 +2,9 @@ import { getImage } from "astro:assets";
 import * as imageMetadata from "../../generated/character-icons";
 import type { CharacterTeam } from "../../generated/script-schema";
 import type { NormalisedScriptCharacter } from "../../types/botc";
+import { chunk } from "../util/array";
 
-const IMAGE_SIZE = 32;
+const IMAGE_SIZE = 52;
 const MAX_PER_ROW = 8;
 
 async function getImageElement(
@@ -14,7 +15,11 @@ async function getImageElement(
     imageMetadata[character.id as keyof typeof imageMetadata] ??
     imageMetadata[character.team];
 
-  const imageResult = await getImage({ src: metadata, width: IMAGE_SIZE });
+  const imageResult = await getImage({
+    src: metadata,
+    width: IMAGE_SIZE,
+    format: "png",
+  });
   const buffer = await (
     await fetch(new URL(imageResult.src, currentUrl.origin))
   ).bytes();
@@ -28,10 +33,7 @@ async function getCharacterRows(
   characters: NormalisedScriptCharacter[],
   currentUrl: URL,
 ): Promise<{ width: number; height: number; content: string }> {
-  const sets = Array.from(
-    { length: Math.ceil(characters.length / MAX_PER_ROW) },
-    (_, i) => characters.slice(i * MAX_PER_ROW, i * MAX_PER_ROW + MAX_PER_ROW),
-  );
+  const sets = chunk(characters, MAX_PER_ROW);
 
   const max = sets.reduce((max, set) => Math.max(max, set.length), 0);
   const totalWidth = max * IMAGE_SIZE;
