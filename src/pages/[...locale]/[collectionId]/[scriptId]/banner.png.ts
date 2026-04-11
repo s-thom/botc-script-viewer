@@ -6,6 +6,8 @@ import { getScriptBannerSvg } from "../../../../lib/og/svg";
 import { getCollectionRawScript } from "../../../../lib/routes/json";
 import { LOCAL_SCRIPT_COLLECTIONS } from "../../../../scripts";
 
+export const prerender = false;
+
 export function getStaticPaths() {
   return ENABLED_LOCALES.flatMap((locale) =>
     Object.entries(LOCAL_SCRIPT_COLLECTIONS).flatMap(
