@@ -3,6 +3,8 @@ import { createTranslator, ENABLED_LOCALES } from "../../lib/i18n";
 import { renderSvg } from "../../lib/og";
 import { getHomeBannerSvg } from "../../lib/og/svg";
 
+export const prerender = false;
+
 export function getStaticPaths() {
   return ENABLED_LOCALES.map((locale) => ({
     params: {
