@@ -3,6 +3,7 @@ import ogHeaderBase64 from "../../assets/og-header.png?base64";
 import ogPaperBase64 from "../../assets/og-paper.png?base64";
 import type { NormalisedScript } from "../../types/botc";
 import type { Translator } from "../i18n";
+import { getCharacterIconArea } from "./images";
 
 export function getHomeBannerSvg(t: Translator) {
   return getBigHeaderSvg(`
@@ -15,19 +16,62 @@ export function getHomeBannerSvg(t: Translator) {
   `);
 }
 
-export function getScriptBannerSvg(
+export async function getScriptBannerSvg(
   t: Translator,
   normalisedScript: NormalisedScript,
+  baseUrl: URL,
   overrideTitle?: string,
 ) {
-  return getSmallHeaderSvg(`
-    <text x="640" y="90" text-anchor="middle" class="title" font-size="56" font-weight="bold" fill="#fdedc9">
+  const parts = [
+    `<text x="640" y="90" text-anchor="middle" class="title" font-size="56" font-weight="bold" fill="#fdedc9">
       ${t.string("viewer.common.nameLong").value}
-    </text>
-    <text x="640" y="360" text-anchor="middle" class="title" font-size="56" font-weight="bold" fill="#282828">
-      ${overrideTitle ?? normalisedScript.name ?? t.string("viewer.script.untitledScript").value}
-    </text>
-  `);
+    </text>`,
+  ];
+
+  const title =
+    overrideTitle ??
+    normalisedScript.name ??
+    t.string("viewer.script.untitledScript").value;
+  let titleHeight = 360;
+
+  // Add character icons if there aren't too many, or too many of a particular type.
+  if (normalisedScript.characters.length <= 32) {
+    const charactersByType = Object.groupBy(
+      normalisedScript.characters,
+      (c) => c.team,
+    );
+    if (Object.values(charactersByType).every((type) => type.length <= 15)) {
+      titleHeight = 230;
+
+      const CHARACTER_CENTER_X = 640;
+      const CHARACTER_CENTER_Y = 380;
+
+      const characterArea = await getCharacterIconArea(
+        charactersByType,
+        baseUrl,
+      );
+
+      const charactersX = CHARACTER_CENTER_X - characterArea.width / 2;
+      const charactersY = CHARACTER_CENTER_Y - characterArea.height / 2;
+
+      parts.push(
+        `<svg x="${charactersX}px" y="${charactersY}px">${characterArea.content}</svg>`,
+      );
+    }
+  }
+
+  if (normalisedScript.author) {
+    parts.push(`
+      <text x="640" y="${titleHeight}" text-anchor="middle" class="title" font-size="56" font-weight="bold" fill="#282828"><![CDATA[${title.replace(/\]\]>/g, "")}]]></text>
+      <text x="640" y="${titleHeight + 45}" text-anchor="middle" class="title" font-size="32" font-weight="bold" fill="#282828"><![CDATA[${normalisedScript.author.replace(/\]\]>/g, "")}]]></text>
+    `);
+  } else {
+    parts.push(
+      `<text x="640" y="${titleHeight + 20}" text-anchor="middle" class="title" font-size="56" font-weight="bold" fill="#282828"><![CDATA[${title.replace(/\]\]>/g, "")}]]></text>`,
+    );
+  }
+
+  return getSmallHeaderSvg(parts.join(""));
 }
 
 function getBigHeaderSvg(content: string): string {

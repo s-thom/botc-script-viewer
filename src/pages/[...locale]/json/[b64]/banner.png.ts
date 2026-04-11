@@ -31,7 +31,7 @@ export const GET: APIRoute = async ({ url, currentLocale, params }) => {
   const t = await createTranslator({ locale: currentLocale ?? "en" });
   const script = normaliseScript(rawScript, t);
 
-  const svg = getScriptBannerSvg(t, script);
+  const svg = await getScriptBannerSvg(t, script, url);
   const buffer = await renderSvg(svg, url);
 
   return new Response(buffer, {
