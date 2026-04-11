@@ -32,6 +32,7 @@ export async function renderSvg(
       fontBuffers,
       loadSystemFonts: false,
     },
+    imageRendering: 1,
   });
 
   const image = resvg.render();
