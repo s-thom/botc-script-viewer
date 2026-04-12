@@ -33,16 +33,16 @@ if (!scriptRequest.ok) {
 
 const scriptContent = await scriptRequest.text();
 
-const assetNamesToIds = new Map<string, string>();
+const assetNamesToVariableName = new Map<string, string>();
 for (const match of Array.from(
   scriptContent.matchAll(
-    /["'`]\/src\/assets\/icons\/(?:[^/]+\/)?([^"'`/]+).webp["'`]:([\w$]+)\b/g,
+    /["'`]\/src\/assets\/((?:[^"'`/]+\/)*[^"'`/]+).webp["'`]:([\w$]+)\b/g,
   ),
 )) {
-  const [, assetName, id] = match;
+  const [, assetName, variableName] = match;
 
-  if (assetNamesToIds.has(assetName)) {
-    if (assetNamesToIds.get(assetName) !== id) {
+  if (assetNamesToVariableName.has(assetName)) {
+    if (assetNamesToVariableName.get(assetName) !== variableName) {
       console.warn(
         `Original ${assetName} exists multiple times with different identifiers`,
       );
@@ -51,69 +51,72 @@ for (const match of Array.from(
     continue;
   }
 
-  assetNamesToIds.set(assetName, id);
+  assetNamesToVariableName.set(assetName, variableName);
 }
 
-const assetIdsToUrls = new Map<string, string>();
+// Uncomment if you need to know all of the asset names
+// console.log(Array.from(assetNamesToVariableName.keys()).join(" "));
+
+const variableNamesToUrls = new Map<string, string>();
 for (const match of Array.from(
   scriptContent.matchAll(
     /((?:\b|\$)[\w]+)(?:\b|\$)=["'`](\/assets\/[^"'`]+-[A-Za-z0-9_-]{8}\.webp|data:image\/webp;base64,[^"'`]+)["'`]/g,
   ),
 )) {
-  const [, id, url] = match;
+  const [, variableName, url] = match;
 
-  if (assetIdsToUrls.has(id)) {
-    if (assetIdsToUrls.get(id) !== url) {
+  if (variableNamesToUrls.has(variableName)) {
+    if (variableNamesToUrls.get(variableName) !== url) {
       console.warn(
-        `Actual ${id} exists multiple times with different identifiers`,
+        `Actual ${variableName} exists multiple times with different identifiers`,
       );
     }
 
     continue;
   }
 
-  assetIdsToUrls.set(id, url);
+  variableNamesToUrls.set(variableName, url);
 }
 
 const toFetchMap = new Map<string, string>();
 for (const role of data.roles) {
   if (role.edition === "special") {
-    toFetchMap.set(role.id, role.id);
+    toFetchMap.set(`${role.id}`, `icons/${role.edition}/${role.id}`);
     continue;
   }
 
   switch (role.team) {
     case "traveller":
-      toFetchMap.set(role.id, role.id);
+      toFetchMap.set(`${role.id}`, `icons/${role.edition}/${role.id}`);
       break;
     case "townsfolk":
     case "outsider":
-      toFetchMap.set(role.id, `${role.id}_g`);
+      toFetchMap.set(`${role.id}`, `icons/${role.edition}/${role.id}_g`);
       break;
     case "minion":
     case "demon":
-      toFetchMap.set(role.id, `${role.id}_e`);
+      toFetchMap.set(`${role.id}`, `icons/${role.edition}/${role.id}_e`);
       break;
     case "fabled":
     case "loric":
-      toFetchMap.set(role.id, role.id);
+      toFetchMap.set(`${role.id}`, `icons/${role.edition}/${role.id}`);
       break;
     default:
   }
 }
 
-toFetchMap.set("townsfolk", "townsfolk_g");
-toFetchMap.set("outsider", "outsider_g");
-toFetchMap.set("minion", "minion_e");
-toFetchMap.set("demon", "demon_e");
-toFetchMap.set("traveller", "traveller");
-toFetchMap.set("fabled", "fabled");
-toFetchMap.set("loric", "loric");
+toFetchMap.set("townsfolk_g", "icons/generic/townsfolk_g");
+toFetchMap.set("outsider_g", "icons/generic/outsider_g");
+toFetchMap.set("minion_e", "icons/generic/minion_e");
+toFetchMap.set("demon_e", "icons/generic/demon_e");
+toFetchMap.set("traveller", "icons/generic/traveller");
+toFetchMap.set("fabled", "icons/generic/fabled");
+toFetchMap.set("loric", "icons/generic/loric");
 
-toFetchMap.set("minioninfo", "minion-info");
-toFetchMap.set("demoninfo", "demon-info");
-toFetchMap.set("dusk", "dusk");
-toFetchMap.set("dawn", "dawn");
+toFetchMap.set("minioninfo", "icons/minion-info");
+toFetchMap.set("demoninfo", "icons/demon-info");
+toFetchMap.set("dusk", "icons/dusk");
+toFetchMap.set("dawn", "icons/dawn");
 
 await mkdir(CACHE_DIR, { recursive: true });
 await mkdir(DESTINATION_DIR, { recursive: true });
@@ -152,11 +155,11 @@ const requestQueue = new PQueue({
   interval: 1000,
   intervalCap: 6,
 });
-async function processIcon(characterId: string, assetName: string) {
-  const filename = `${characterId}.webp`;
+async function processIcon(exportName: string, assetName: string) {
+  const filename = `${exportName}.webp`;
 
   importLines.push(
-    `export { default as ${characterId} } from "./${filename}";\n`,
+    `export { default as ${exportName} } from "./${filename}";\n`,
   );
 
   const cacheFilePath = join(CACHE_DIR, filename);
@@ -173,15 +176,17 @@ async function processIcon(characterId: string, assetName: string) {
     } catch (err2) {
       // Not in cache dir, create
 
-      const assetId = assetNamesToIds.get(assetName);
-      if (!assetId) {
-        console.warn(`No asset ID known for ${assetName}`);
+      const variableName = assetNamesToVariableName.get(assetName);
+      if (!variableName) {
+        console.warn(`No variable name known for ${assetName}`);
         return;
       }
 
-      const urlPath = assetIdsToUrls.get(assetId);
+      const urlPath = variableNamesToUrls.get(variableName);
       if (!urlPath) {
-        console.warn(`No asset URL known for ${assetName} (${assetId})`);
+        console.warn(
+          `No asset URL known for ${assetName} (variable ${variableName})`,
+        );
         return;
       }
 
@@ -201,8 +206,8 @@ async function processIcon(characterId: string, assetName: string) {
 const queue = new PQueue({ concurrency: 5 });
 Array.from(toFetchMap.entries())
   .sort((a, b) => a[0].localeCompare(b[0]))
-  .forEach(([id, originalFileName]) =>
-    queue.add(() => processIcon(id, originalFileName)),
+  .forEach(([identifier, assetUrl]) =>
+    queue.add(() => processIcon(identifier, assetUrl)),
   );
 
 await queue.onIdle();
