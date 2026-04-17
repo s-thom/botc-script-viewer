@@ -39,6 +39,7 @@
     "title": "合集：{title}",
     "officialScripts": "官方剧本",
     "unofficialCollections": "非官方合集",
+    "partOfCollection": "收录于：{link}{collection}{/link}",
     "base3": {
       "title": "基础三",
       "description": "由 The Pandemonium Institute 提供的官方剧本。"

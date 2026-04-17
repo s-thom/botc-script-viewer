@@ -25,6 +25,7 @@
     "title": "Collection: {title}",
     "officialScripts": "Scripts officiels",
     "unofficialCollections": "Collections non officielles",
+    "partOfCollection": "Fait partie de la collection: {link}{collection}{/link}",
     "base3": {
       "title": "Base 3",
       "description": "Scripts officiels fournis par The Pandemonium Institute."

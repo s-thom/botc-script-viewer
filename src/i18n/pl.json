@@ -39,6 +39,7 @@
     "title": "Kolekcja: {title}",
     "officialScripts": "Oficjalne skrypty",
     "unofficialCollections": "Nieoficjalne kolekcje",
+    "partOfCollection": "Część kolekcji: {link}{collection}{/link}",
     "base3": {
       "title": "Podstawowa Trójka",
       "description": "Oficjalne skrypty udostępnione przez The Pandemonium Institute."

@@ -39,6 +39,7 @@
     "title": "Collectie: {title}",
     "officialScripts": "Officiële scripts",
     "unofficialCollections": "Onofficiële collecties",
+    "partOfCollection": "Onderdeel van collectie: {link}{collection}{/link}",
     "base3": {
       "title": "Basis 3",
       "description": "Officiële scripts aangeboden door The Pandemonium Institute."

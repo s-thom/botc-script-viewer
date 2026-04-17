@@ -27,6 +27,7 @@
     "title": "Sammlig: {title}",
     "officialScripts": "Offizielli Skript",
     "unofficialCollections": "Inoffizielli Sammlige",
+    "partOfCollection": "Teil vo dr Sammlig: {link}{collection}{/link}",
     "base3": {
       "title": "Basis 3",
       "description": "Offizielli Skript, bereitgstellt vom Pandemonium Institute."

@@ -27,6 +27,7 @@
     "title": "Coleção: {title}",
     "officialScripts": "Roteiros oficiais",
     "unofficialCollections": "Coleções não oficiais",
+    "partOfCollection": "Parte da coleção: {link}{collection}{/link}",
     "base3": {
       "title": "Base 3",
       "description": "Roteiros oficiais fornecidos pelo The Pandemonium Institute."

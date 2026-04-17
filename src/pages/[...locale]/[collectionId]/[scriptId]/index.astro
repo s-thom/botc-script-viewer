@@ -1,4 +1,5 @@
 ---
+import LocalisedMessage from "../../../../components/i18n/LocalisedMessage.astro";
 import ScriptViewerLayout from "../../../../layouts/ScriptViewerLayout.astro";
 import {
   createTranslator,
@@ -55,4 +56,27 @@ const t = await createTranslator({ locale });
     Astro.url.pathname,
   )}
   overrideJsonPathSegment={`${scriptDefinition.id}.json`}
-/>
+>
+  <div class="screen-only before-script" slot="before-script">
+    <LocalisedMessage
+      t={t}
+      key="viewer.collection.partOfCollection"
+      params={{
+        link: "..",
+        collection: t.string(`viewer.collection.${collectionId}.title`).value,
+      }}
+    />
+  </div>
+</ScriptViewerLayout>
+
+<style>
+  @media screen {
+    .before-script {
+      margin: 2rem 1rem;
+
+      @media (min-width: 900px) {
+        margin: 2rem;
+      }
+    }
+  }
+</style>

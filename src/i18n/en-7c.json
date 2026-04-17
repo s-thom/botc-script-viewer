@@ -39,6 +39,7 @@
     "title": "Trove: {title}",
     "officialScripts": "Admiralty's Ledgers",
     "unofficialCollections": "Scallywags' Ledgers",
+    "partOfCollection": "Stowed in trove: {link}{collection}{/link}",
     "base3": {
       "title": "Base 3",
       "description": "Ledgers by the admiralty at The Pandemonium Institute."
