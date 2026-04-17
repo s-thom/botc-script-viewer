@@ -8,9 +8,14 @@ export function fixDoubleSlashPaths(url: URL): URL {
 
 export function getPathWithoutLocale(
   routePattern: string,
+  currentLocale: string | undefined,
   pathName: string,
 ): string {
-  if (/^\/\[locale\]\//.test(routePattern)) {
+  if (
+    currentLocale !== undefined &&
+    currentLocale !== "en" &&
+    /^\/\[\.\.\.locale\]\//.test(routePattern)
+  ) {
     return pathName.replace(/^\/[^/]+\//, "/");
   }
 

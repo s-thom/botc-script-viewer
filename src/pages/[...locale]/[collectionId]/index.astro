@@ -47,7 +47,11 @@ const t = await createTranslator({ locale });
     lang: locale,
     translate: {
       locales: "all",
-      basePath: getPathWithoutLocale(Astro.routePattern, Astro.url.pathname),
+      basePath: getPathWithoutLocale(
+        Astro.routePattern,
+        Astro.currentLocale,
+        Astro.url.pathname,
+      ),
     },
     description: t.string(`viewer.collection.${collectionId}.description`)
       .value,

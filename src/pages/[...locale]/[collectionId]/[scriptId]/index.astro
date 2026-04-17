@@ -49,6 +49,10 @@ const t = await createTranslator({ locale });
 <ScriptViewerLayout
   t={t}
   rawScript={rawScript}
-  basePath={getPathWithoutLocale(Astro.routePattern, Astro.url.pathname)}
+  basePath={getPathWithoutLocale(
+    Astro.routePattern,
+    Astro.currentLocale,
+    Astro.url.pathname,
+  )}
   overrideJsonPathSegment={`${scriptDefinition.id}.json`}
 />
