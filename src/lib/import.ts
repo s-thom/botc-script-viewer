@@ -249,7 +249,32 @@ async function fetchScriptFromUrl(
   }
 
   try {
-    const rawScript = await response.text();
+    const RESPONSE_BYTE_LIMIT = 512 * 1024;
+    const reader = response.body?.getReader();
+    if (!reader) {
+      return { type: "error", message: "Error reading response" };
+    }
+
+    let currentSize = 0;
+    const chunks: Uint8Array[] = [];
+    while (true) {
+      const { value, done } = await reader.read();
+      if (done) break;
+      currentSize += value.byteLength;
+      if (currentSize > RESPONSE_BYTE_LIMIT) {
+        await reader.cancel("Response too large");
+        return { type: "error", message: "Script is too large" };
+      }
+      chunks.push(value);
+    }
+
+    const combined = new Uint8Array(currentSize);
+    let offset = 0;
+    for (const chunk of chunks) {
+      combined.set(chunk, offset);
+      offset += chunk.byteLength;
+    }
+    const rawScript = new TextDecoder().decode(combined);
 
     return {
       type: "script",
