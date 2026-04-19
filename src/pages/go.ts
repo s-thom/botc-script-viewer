@@ -1,7 +1,7 @@
 import type { APIRoute } from "astro";
 import { getRelativeLocaleUrl } from "astro:i18n";
 import { compressToBase64, stringToBytes } from "../lib/compression";
-import type { LocaleIds } from "../lib/i18n";
+import { ENABLED_LOCALES, type LocaleIds } from "../lib/i18n";
 import { scriptFromFormData } from "../lib/import";
 import { encodeScript } from "../lib/number-store";
 import { AppError } from "../types/site";
@@ -17,7 +17,10 @@ export const POST: APIRoute = async ({
   const rawFormData = await request.formData();
 
   const locale = rawFormData.get("locale");
-  if (typeof locale != "string") {
+  if (
+    typeof locale != "string" ||
+    !ENABLED_LOCALES.some((l) => l.astroId === locale)
+  ) {
     throw new AppError("Invalid locale", {
       status: 400,
       titleKey: "viewer.errors.genericError",

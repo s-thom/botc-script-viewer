@@ -220,7 +220,7 @@ async function fetchScriptFromUrl(
   let response: Response;
   try {
     response = await FETCH_QUEUE.enqueue(url.hostname, () =>
-      fetch(url, { headers }),
+      fetch(url, { headers, signal: AbortSignal.timeout(10_000) }),
     );
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (err) {
@@ -238,7 +238,10 @@ async function fetchScriptFromUrl(
   }
 
   const responseType = response.headers.get("Content-Type");
-  if (!(responseType === "application/json" || responseType === null)) {
+  if (
+    responseType !== null &&
+    !responseType.split(";")[0].trim().includes("application/json")
+  ) {
     return {
       type: "error",
       message: "URL does not contain JSON",
