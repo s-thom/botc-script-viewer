@@ -4,11 +4,7 @@ import type {
   OfficialCharacterDeprecated,
   ScriptCharacter,
 } from "../generated/script-schema";
-import { LOCAL_SCRIPT_COLLECTIONS } from "../scripts";
 import { AppError } from "../types/site";
-import { decompressFromBase64 } from "./compression";
-import type { LocaleIds } from "./i18n";
-import { decodeScript } from "./number-store";
 import { rawScriptValidator } from "./parse";
 import { KeyedRateLimit } from "./rate-limits";
 
@@ -25,79 +21,6 @@ const formSchema = z.object({
 const FETCH_QUEUE = new KeyedRateLimit({ intervalMs: 1000, intervalCap: 5 });
 const REQUEST_USR_AGENT =
   "Script Viewer/1.0; (compatible; +https://github.com/s-thom/botc-script-viewer)";
-
-interface RawScriptData {
-  type: "script";
-  script: string;
-}
-
-interface UrlData {
-  type: "url";
-  url: URL;
-}
-
-interface FileData {
-  type: "file";
-  file: File;
-}
-
-interface ErrorData {
-  type: "error";
-  message: string;
-}
-
-type AllDataType = RawScriptData | UrlData | FileData;
-
-function parseImportFormData(formData: FormData): AllDataType {
-  const schemaResult = formSchema.safeParse(
-    Object.fromEntries(formData.entries()),
-  );
-  if (!schemaResult.success) {
-    throw new AppError("Invalid form data", {
-      cause: schemaResult.error,
-      status: 400,
-      titleKey: "viewer.errors.invalidJson",
-      descriptionKey: "viewer.errors.invalidJsonDescription",
-    });
-  }
-
-  const { script, file } = schemaResult.data;
-  if (file && file.size > 0) {
-    if (file.type !== "application/json") {
-      throw new AppError("Uploaded file is not JSON", {
-        status: 400,
-        titleKey: "viewer.errors.invalidJson",
-        descriptionKey: "viewer.errors.invalidJsonDescription",
-      });
-    }
-
-    return {
-      type: "file",
-      file,
-    };
-  }
-
-  if (script) {
-    const url = URL.parse(script);
-    if (url != null) {
-      return {
-        type: "url",
-        url,
-      };
-    }
-
-    return {
-      type: "script",
-      script,
-    };
-  }
-
-  throw new AppError("No script content given", {
-    status: 400,
-    titleKey: "viewer.errors.invalidJson",
-    descriptionKey: "viewer.errors.invalidJsonDescription",
-  });
-}
 
 function parseScriptJsonFromString(
   str: string,
@@ -156,62 +79,7 @@ function parseScriptJsonFromString(
   return script;
 }
 
-export async function fetchScriptFromUrl(
-  url: URL,
-  locale: LocaleIds,
-  serverHostname: string,
-  allowRemote: boolean,
-): Promise<RawScriptData | ErrorData> {
-  // If it's the same hostname, then no need to do requests
-  if (url.hostname === serverHostname) {
-    const pathMatch = url.pathname.match(/^\/([^/]+)\/([^/]+)(?:\/(json))?$/);
-    if (pathMatch) {
-      const [, scheme, data] = pathMatch;
-
-      if (scheme in LOCAL_SCRIPT_COLLECTIONS) {
-        const definition = LOCAL_SCRIPT_COLLECTIONS[
-          scheme as keyof typeof LOCAL_SCRIPT_COLLECTIONS
-        ].scripts.find((entry) => entry.id === data);
-        if (definition) {
-          const getScript =
-            definition.localeOverrides?.[locale] ?? definition.getScript;
-          const rawScript = await getScript();
-          return {
-            type: "script",
-            script: JSON.stringify(rawScript),
-          };
-        }
-      }
-
-      if (scheme === "ns") {
-        const bytes = await decompressFromBase64(data, "deflate-raw", true);
-        const rawScript = decodeScript(bytes);
-
-        return {
-          type: "script",
-          script: JSON.stringify(rawScript),
-        };
-      }
-
-      return {
-        type: "error",
-        message: `Cannot find script for path /${pathMatch[0]}/${pathMatch[1]}`,
-      };
-    }
-
-    return {
-      type: "error",
-      message: "Unknown path",
-    };
-  }
-
-  if (!allowRemote) {
-    return {
-      type: "error",
-      message: "Remote scripts not allowed",
-    };
-  }
-
+export async function fetchScriptFromUrl(url: URL): Promise<string> {
   // Otherwise request URL and convert
   const headers = new Headers();
   headers.set("Accept", "application/json");
@@ -222,19 +90,21 @@ export async function fetchScriptFromUrl(
     response = await FETCH_QUEUE.enqueue(url.hostname, () =>
       fetch(url, { headers, signal: AbortSignal.timeout(10_000) }),
     );
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (err) {
-    return {
-      type: "error",
-      message: "Cannot find script at this URL",
-    };
+    throw new AppError("Unable to get response from URL", {
+      cause: err,
+      status: 404,
+      titleKey: "viewer.errors.notFound",
+      descriptionKey: "viewer.errors.notFoundDescription",
+    });
   }
 
   if (!response.ok) {
-    return {
-      type: "error",
-      message: "Cannot find script at this URL",
-    };
+    throw new AppError(`Error response from URL (${response.status})`, {
+      status: 404,
+      titleKey: "viewer.errors.notFound",
+      descriptionKey: "viewer.errors.notFoundDescription",
+    });
   }
 
   const responseType = response.headers.get("Content-Type");
@@ -242,92 +112,95 @@ export async function fetchScriptFromUrl(
     responseType !== null &&
     !responseType.split(";")[0].trim().includes("application/json")
   ) {
-    return {
-      type: "error",
-      message: "URL does not contain JSON",
-    };
+    throw new AppError("Response content type was not JSON", {
+      status: 404,
+      titleKey: "viewer.errors.notFound",
+      descriptionKey: "viewer.errors.notFoundDescription",
+    });
   }
 
-  try {
-    const RESPONSE_BYTE_LIMIT = 512 * 1024;
-    const reader = response.body?.getReader();
-    if (!reader) {
-      return { type: "error", message: "Error reading response" };
-    }
-
-    let currentSize = 0;
-    const chunks: Uint8Array[] = [];
-    while (true) {
-      const { value, done } = await reader.read();
-      if (done) break;
-      currentSize += value.byteLength;
-      if (currentSize > RESPONSE_BYTE_LIMIT) {
-        await reader.cancel("Response too large");
-        return { type: "error", message: "Script is too large" };
-      }
-      chunks.push(value);
-    }
-
-    const combined = new Uint8Array(currentSize);
-    let offset = 0;
-    for (const chunk of chunks) {
-      combined.set(chunk, offset);
-      offset += chunk.byteLength;
-    }
-    const rawScript = new TextDecoder().decode(combined);
-
-    return {
-      type: "script",
-      script: rawScript,
-    };
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  } catch (err) {
-    return {
-      type: "error",
-      message: "Error reading response",
-    };
+  const RESPONSE_BYTE_LIMIT = 512 * 1024;
+  const reader = response.body?.getReader();
+  if (!reader) {
+    throw new AppError("Response content type was not JSON", {
+      status: 500,
+      titleKey: "viewer.errors.genericError",
+      descriptionKey: "viewer.errors.genericErrorDescription",
+    });
   }
+
+  let currentSize = 0;
+  const chunks: Uint8Array[] = [];
+  while (true) {
+    const { value, done } = await reader.read();
+    if (done) break;
+    currentSize += value.byteLength;
+    if (currentSize > RESPONSE_BYTE_LIMIT) {
+      await reader.cancel("Response too large");
+      throw new AppError("Response was too large", {
+        status: 500,
+        titleKey: "viewer.errors.genericError",
+        descriptionKey: "viewer.errors.genericErrorDescription",
+      });
+    }
+    chunks.push(value);
+  }
+
+  const combined = new Uint8Array(currentSize);
+  let offset = 0;
+  for (const chunk of chunks) {
+    combined.set(chunk, offset);
+    offset += chunk.byteLength;
+  }
+  const rawScript = new TextDecoder().decode(combined);
+
+  return rawScript;
 }
 
 export async function scriptFromFormData(
   formData: FormData,
-  locale: LocaleIds,
-  serverHostname: string,
-  allowRemote: boolean,
 ): Promise<BloodOnTheClocktowerCustomScript> {
-  const formContents = parseImportFormData(formData);
-
-  let scriptString: string;
-  switch (formContents.type) {
-    case "script":
-      scriptString = formContents.script;
-      break;
-    case "url":
-      {
-        const result = await fetchScriptFromUrl(
-          formContents.url,
-          locale,
-          serverHostname,
-          allowRemote,
-        );
-        if (result.type === "error") {
-          throw new AppError(result.message, {
-            status: 400,
-            titleKey: "viewer.errors.requestFailed",
-            descriptionKey: "viewer.errors.requestFailedDescription",
-          });
-        }
-        scriptString = result.script;
-      }
-      break;
-    case "file":
-      {
-        const content = await formContents.file.text();
-        scriptString = content;
-      }
-      break;
+  const schemaResult = formSchema.safeParse(
+    Object.fromEntries(formData.entries()),
+  );
+  if (!schemaResult.success) {
+    throw new AppError("Invalid form data", {
+      cause: schemaResult.error,
+      status: 400,
+      titleKey: "viewer.errors.invalidJson",
+      descriptionKey: "viewer.errors.invalidJsonDescription",
+    });
   }
 
-  const script = parseScriptJsonFromString(scriptString);
-  return script;
+  const { script, file } = schemaResult.data;
+  let scriptString: string | undefined;
+  if (file && file.size > 0) {
+    if (file.type !== "application/json") {
+      throw new AppError("Uploaded file is not JSON", {
+        status: 400,
+        titleKey: "viewer.errors.invalidJson",
+        descriptionKey: "viewer.errors.invalidJsonDescription",
+      });
+    }
+
+    scriptString = await file.text();
+  } else if (script) {
+    const url = URL.parse(script);
+    if (url != null) {
+      scriptString = await fetchScriptFromUrl(url);
+    }
+
+    scriptString = script;
+  }
+
+  if (!scriptString) {
+    throw new AppError("No script content given", {
+      status: 400,
+      titleKey: "viewer.errors.invalidJson",
+      descriptionKey: "viewer.errors.invalidJsonDescription",
+    });
+  }
+
+  const parsedScript = parseScriptJsonFromString(scriptString);
+  return parsedScript;
 }

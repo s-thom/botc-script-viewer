@@ -15,30 +15,25 @@ if (!(scriptId && versionId)) {
   return Astro.rewrite("/404");
 }
 
-const requestUrl = new URL(
-  `https://www.botcscripts.com/script/${scriptId}/${versionId}/download`,
-);
-
-const locale = (Astro.currentLocale ?? "en") as LocaleIds;
-
-const result = await fetchScriptFromUrl(
-  requestUrl,
-  locale,
-  Astro.url.hostname,
-  true,
-);
-
-if (result.type === "error") {
+let rawScriptString: string;
+try {
+  const requestUrl = new URL(
+    `https://www.botcscripts.com/script/${scriptId}/${versionId}/download`,
+  );
+  rawScriptString = await fetchScriptFromUrl(requestUrl);
+} catch (err) {
   throw new AppError("Error while requesting Scripts Website script", {
+    cause: err,
     status: 404,
     titleKey: "viewer.errors.notFound",
     descriptionKey: "viewer.errors.notFoundDescription",
   });
 }
 
-const rawScript: BloodOnTheClocktowerCustomScript = JSON.parse(result.script);
+const rawScript: BloodOnTheClocktowerCustomScript = JSON.parse(rawScriptString);
 
-const t = await createTranslator({ locale: Astro.currentLocale ?? "en" });
+const locale = (Astro.currentLocale ?? "en") as LocaleIds;
+const t = await createTranslator({ locale });
 
 Astro.response.headers.set(
   "Cache-Control",

@@ -1,7 +1,7 @@
 import type { APIRoute } from "astro";
 import { getRelativeLocaleUrl } from "astro:i18n";
 import { compressToBase64, stringToBytes } from "../lib/compression";
-import { ENABLED_LOCALES, type LocaleIds } from "../lib/i18n";
+import { ENABLED_LOCALES } from "../lib/i18n";
 import { scriptFromFormData } from "../lib/import";
 import { encodeScript } from "../lib/number-store";
 import { LOCAL_SCRIPT_COLLECTIONS } from "../scripts";
@@ -13,7 +13,6 @@ export const POST: APIRoute = async ({
   request,
   redirect,
   url: requestUrl,
-  currentLocale,
 }) => {
   const rawFormData = await request.formData();
 
@@ -77,12 +76,7 @@ export const POST: APIRoute = async ({
     }
   }
 
-  const rawScript = await scriptFromFormData(
-    rawFormData,
-    (currentLocale as LocaleIds | undefined) ?? "en",
-    requestUrl.hostname,
-    true,
-  );
+  const rawScript = await scriptFromFormData(rawFormData);
 
   const minifiedScript = JSON.stringify(rawScript);
 
