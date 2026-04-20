@@ -156,7 +156,7 @@ function parseScriptJsonFromString(
   return script;
 }
 
-async function fetchScriptFromUrl(
+export async function fetchScriptFromUrl(
   url: URL,
   locale: LocaleIds,
   serverHostname: string,
