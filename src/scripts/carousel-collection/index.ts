@@ -23,7 +23,7 @@ export const CAROUSEL_COLLECTION: LocalScriptDefinition[] = [
   {
     id: "harold-holts-revenge",
     title: "Harold Holt’s Revenge",
-    character: "goblin",
+    character: "leviathan",
     getScript: () =>
       import("./Harold Holt's Revenge.json").then((m) => m.default),
   },
