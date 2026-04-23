@@ -211,7 +211,7 @@ function getNightOrderArrays(
 }
 
 function normaliseCharacterId(id: string): string {
-  return id.replace(/_/g, "");
+  return id.replace(/_-/g, "");
 }
 
 export function normaliseScript(
