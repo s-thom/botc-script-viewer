@@ -2,7 +2,7 @@
 import { Font } from "astro:assets";
 import { getAbsoluteLocaleUrl } from "astro:i18n";
 import "../css/index.css";
-import { ENABLED_LOCALES, type LocaleIds } from "../lib/i18n";
+import { ENABLED_LOCALES, LOCALE_MAP, type LocaleIds } from "../lib/i18n";
 import type { Translator } from "../lib/i18n/types";
 import type { PageMeta } from "../types/site";
 
@@ -12,7 +12,7 @@ interface Props {
 }
 
 const { t, meta } = Astro.props;
-const { title, description, noIndex, lang, translate } = meta;
+const { title, description, noIndex, lang, translate, noCanonical } = meta;
 
 const currentUrl = Astro.url;
 const canonicalUrl = new URL(currentUrl);
@@ -37,6 +37,14 @@ const localeAlternateMap = pageLocales.reduce(
   },
   {} as Record<LocaleIds, string>,
 );
+
+const currentLocaleInfo = LOCALE_MAP[t.locale as LocaleIds];
+// Don't add canonical links for unofficial language IDs like pirate.
+const isProperLanguage =
+  currentLocaleInfo !== undefined && currentLocaleInfo.standardId === undefined;
+
+const shouldAddCanonicalLink = !noCanonical && isProperLanguage;
+const shouldAddNoIndexTag = noIndex || !isProperLanguage;
 ---
 
 <!doctype html>
@@ -48,7 +56,7 @@ const localeAlternateMap = pageLocales.reduce(
     <Font cssVariable="--font-dumbledor" />
     <Font cssVariable="--font-sorts-mill-goudy" preload />
 
-    {noIndex && <meta name="robots" content="noindex" />}
+    {shouldAddNoIndexTag && <meta name="robots" content="noindex" />}
 
     <meta property="og:type" content="website" />
     <meta
@@ -76,7 +84,11 @@ const localeAlternateMap = pageLocales.reduce(
           <link rel="alternate" href={url} hreflang={lang} />
         ))
     }
-    <link rel="canonical" href={canonicalUrl.toString()} />
+    {
+      shouldAddCanonicalLink && (
+        <link rel="canonical" href={canonicalUrl.toString()} />
+      )
+    }
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content="/banner.png" />

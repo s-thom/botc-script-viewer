@@ -11,6 +11,7 @@ export interface PageMeta {
   translate?: PageTranslateData;
   description?: string;
   noIndex?: boolean;
+  noCanonical?: boolean;
 }
 
 interface AppErrorOptions {
