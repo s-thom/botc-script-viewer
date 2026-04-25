@@ -41,3 +41,9 @@ jobs:
 
       - name: Run build
         run: npm run build
+
+      - name: Run Typescript tests
+        run: npm run test
+
+      - name: Run Playwright tests
+        run: npm run test:e2e

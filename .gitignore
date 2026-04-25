@@ -28,3 +28,4 @@ worker-configuration.d.ts
 .wrangler
 
 .claude
+test-results/
