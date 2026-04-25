@@ -1,9 +1,6 @@
 import type { APIRoute } from "astro";
-import { ENABLED_LOCALES } from "../../../../lib/i18n";
-import {
-  getJsonResponse,
-  getOptionsResponse,
-} from "../../../../lib/routes/collectionJson";
+import { ENABLED_LOCALES, type LocaleIds } from "../../../../lib/i18n";
+import { getJsonHeaders, getOptionsResponse } from "../../../../lib/responses";
 import { LOCAL_SCRIPT_COLLECTIONS } from "../../../../scripts";
 
 export function getStaticPaths() {
@@ -25,7 +22,34 @@ export function getStaticPaths() {
 export const GET: APIRoute = async ({ params, rewrite, currentLocale }) => {
   const { collectionId, scriptId } = params;
 
-  return getJsonResponse(currentLocale, collectionId, scriptId, rewrite);
+  if (!collectionId || !scriptId) {
+    return rewrite("/404");
+  }
+
+  if (!(collectionId in LOCAL_SCRIPT_COLLECTIONS)) {
+    return rewrite("/404");
+  }
+
+  const collection =
+    LOCAL_SCRIPT_COLLECTIONS[
+      collectionId as keyof typeof LOCAL_SCRIPT_COLLECTIONS
+    ];
+
+  const scriptDefinition = collection.scripts.find(
+    (script) => script.id === scriptId,
+  );
+  if (!scriptDefinition) {
+    return rewrite("/404");
+  }
+
+  const resolvedLocale = (currentLocale ?? "en") as LocaleIds;
+
+  const getScript =
+    scriptDefinition.localeOverrides?.[resolvedLocale] ??
+    scriptDefinition.getScript;
+  const rawScript = await getScript();
+
+  return new Response(JSON.stringify(rawScript), { headers: getJsonHeaders() });
 };
 
 export const OPTIONS: APIRoute = async () => {

@@ -5,6 +5,7 @@ import type {
 } from "../../generated/script-schema";
 import { AppError } from "../../types/site.ts";
 import { bytesToString, stringToBytes } from "../compression.ts";
+import { MAX_SCRIPT_SIZE_BYTES } from "../constants.ts";
 import { normaliseCharacterId, ORDERED_CHARACTER_LIST } from "./characters.ts";
 import { sliceTLV } from "./util.ts";
 
@@ -13,8 +14,7 @@ import { sliceTLV } from "./util.ts";
 
 // Something short enough that in a lot of cases it won't need resizing much.
 const INITIAL_BUFFER_SIZE = 128;
-// 4KiB
-const MAX_BUFFER_SIZE = 512 * 1024;
+const MAX_BUFFER_SIZE = MAX_SCRIPT_SIZE_BYTES;
 
 function ensureBufferSize(bytes: Uint8Array, length: number) {
   if (length >= bytes.byteLength) {

@@ -1,8 +1,5 @@
 import { AppError } from "../types/site.ts";
-
-// Limit decompression to 512kB. A script _shouldn't_ be larger than that.
-// Fall of Rome, a full homebrew, is 18kB.
-const DECOMPRESS_BYTE_LIMIT = 512 * 1024;
+import { MAX_SCRIPT_SIZE_BYTES } from "./constants.ts";
 
 export function encodeBase64(str: string, useSafeEncoding: boolean): string {
   const b64 = btoa(str);
@@ -100,12 +97,12 @@ export async function decompressFromBase64(
     if (done) break;
 
     currentSize += value.byteLength;
-    if (currentSize > DECOMPRESS_BYTE_LIMIT) {
+    if (currentSize > MAX_SCRIPT_SIZE_BYTES) {
       await reader.cancel(
         "Too big. A script is not expected to be this large.",
       );
       throw new AppError(
-        `Decompressed stream larger than ${DECOMPRESS_BYTE_LIMIT} bytes`,
+        `Decompressed stream larger than ${MAX_SCRIPT_SIZE_BYTES} bytes`,
         {
           status: 400,
           titleKey: "viewer.errors.urlSize",

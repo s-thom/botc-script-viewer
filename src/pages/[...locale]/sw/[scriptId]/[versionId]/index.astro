@@ -3,7 +3,7 @@ import type { BloodOnTheClocktowerCustomScript } from "../../../../../generated/
 import ScriptViewerLayout from "../../../../../layouts/ScriptViewerLayout.astro";
 import { MAX_AGE_SECONDS } from "../../../../../lib/constants";
 import { createTranslator, type LocaleIds } from "../../../../../lib/i18n";
-import { fetchScriptFromUrl } from "../../../../../lib/import";
+import { fetchScriptFromUrl } from "../../../../../lib/import/fetch";
 import { getPathWithoutLocale } from "../../../../../lib/url";
 import { AppError } from "../../../../../types/site";
 

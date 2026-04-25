@@ -2,7 +2,7 @@ import { z } from "astro/zod";
 import type {
   BloodOnTheClocktowerCustomScript,
   ScriptMetadata,
-} from "../generated/script-schema";
+} from "../../generated/script-schema";
 
 const metaSchema = z.object({
   id: z.enum(["_meta"]),

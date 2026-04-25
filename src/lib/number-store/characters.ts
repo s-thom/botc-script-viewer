@@ -200,13 +200,13 @@ export const ORDERED_CHARACTER_LIST = [
 
 if (ORDERED_CHARACTER_LIST.length >= 240) {
   console.warn(
-    `Build warning: character list for NS is nearing its limit (${ORDERED_CHARACTER_LIST}/${250}).`,
+    `Build warning: character list for NS is nearing its limit (${ORDERED_CHARACTER_LIST.length}/${250}).`,
   );
 }
 
 if (ORDERED_CHARACTER_LIST.length >= 250) {
   throw new Error(
-    `Build error: character list for NS is at its limit (${ORDERED_CHARACTER_LIST}/${250}).`,
+    `Build error: character list for NS is at its limit (${ORDERED_CHARACTER_LIST.length}/${250}).`,
   );
 }
 

@@ -14,7 +14,7 @@ export function getPathWithoutLocale(
   if (
     currentLocale !== undefined &&
     currentLocale !== "en" &&
-    /^\/\[\.\.\.locale\]\//.test(routePattern)
+    routePattern.startsWith("/[...locale]/")
   ) {
     return pathName.replace(/^\/[^/]+\//, "/");
   }

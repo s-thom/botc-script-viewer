@@ -2,8 +2,8 @@
 import cloudflare from "@astrojs/cloudflare";
 import svelte from "@astrojs/svelte";
 import { defineConfig, fontProviders } from "astro/config";
+import { ALLOWED_EXTERNAL_HOSTNAMES } from "./src/lib/constants";
 import { ENABLED_LOCALES } from "./src/lib/i18n/config";
-import { ALLOWED_EXTERNAL_HOSTNAMES } from "./src/lib/images";
 
 import sitemap from "@astrojs/sitemap";
 

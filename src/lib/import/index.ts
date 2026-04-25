@@ -3,10 +3,11 @@ import type {
   BloodOnTheClocktowerCustomScript,
   OfficialCharacterDeprecated,
   ScriptCharacter,
-} from "../generated/script-schema";
-import { AppError } from "../types/site";
-import { rawScriptValidator } from "./parse";
+} from "../../generated/script-schema";
+import { AppError } from "../../types/site";
+import { fetchScriptFromUrl } from "./fetch";
 import { KeyedRateLimit } from "./rate-limits";
+import { rawScriptValidator } from "./schema";
 
 const formSchema = z.object({
   locale: z.string(),
@@ -18,8 +19,11 @@ const formSchema = z.object({
 });
 
 // Only allow 5 requests per second per hostname when requesting scripts.
-const FETCH_QUEUE = new KeyedRateLimit({ intervalMs: 1000, intervalCap: 5 });
-const REQUEST_USR_AGENT =
+export const FETCH_QUEUE = new KeyedRateLimit({
+  intervalMs: 1000,
+  intervalCap: 5,
+});
+export const REQUEST_USR_AGENT =
   "Script Viewer/1.0; (compatible; +https://github.com/s-thom/botc-script-viewer)";
 
 function parseScriptJsonFromString(
@@ -77,84 +81,6 @@ function parseScriptJsonFromString(
   }
 
   return script;
-}
-
-export async function fetchScriptFromUrl(url: URL): Promise<string> {
-  // Otherwise request URL and convert
-  const headers = new Headers();
-  headers.set("Accept", "application/json");
-  headers.set("User-Agent", REQUEST_USR_AGENT);
-
-  let response: Response;
-  try {
-    response = await FETCH_QUEUE.enqueue(url.hostname, () =>
-      fetch(url, { headers, signal: AbortSignal.timeout(10_000) }),
-    );
-  } catch (err) {
-    throw new AppError("Unable to get response from URL", {
-      cause: err,
-      status: 404,
-      titleKey: "viewer.errors.notFound",
-      descriptionKey: "viewer.errors.notFoundDescription",
-    });
-  }
-
-  if (!response.ok) {
-    throw new AppError(`Error response from URL (${response.status})`, {
-      status: 404,
-      titleKey: "viewer.errors.notFound",
-      descriptionKey: "viewer.errors.notFoundDescription",
-    });
-  }
-
-  const responseType = response.headers.get("Content-Type");
-  if (
-    responseType !== null &&
-    !responseType.split(";")[0].trim().includes("application/json")
-  ) {
-    throw new AppError("Response content type was not JSON", {
-      status: 404,
-      titleKey: "viewer.errors.notFound",
-      descriptionKey: "viewer.errors.notFoundDescription",
-    });
-  }
-
-  const RESPONSE_BYTE_LIMIT = 512 * 1024;
-  const reader = response.body?.getReader();
-  if (!reader) {
-    throw new AppError("Response content type was not JSON", {
-      status: 500,
-      titleKey: "viewer.errors.genericError",
-      descriptionKey: "viewer.errors.genericErrorDescription",
-    });
-  }
-
-  let currentSize = 0;
-  const chunks: Uint8Array[] = [];
-  while (true) {
-    const { value, done } = await reader.read();
-    if (done) break;
-    currentSize += value.byteLength;
-    if (currentSize > RESPONSE_BYTE_LIMIT) {
-      await reader.cancel("Response too large");
-      throw new AppError("Response was too large", {
-        status: 500,
-        titleKey: "viewer.errors.genericError",
-        descriptionKey: "viewer.errors.genericErrorDescription",
-      });
-    }
-    chunks.push(value);
-  }
-
-  const combined = new Uint8Array(currentSize);
-  let offset = 0;
-  for (const chunk of chunks) {
-    combined.set(chunk, offset);
-    offset += chunk.byteLength;
-  }
-  const rawScript = new TextDecoder().decode(combined);
-
-  return rawScript;
 }
 
 export async function scriptFromFormData(
