@@ -3,10 +3,10 @@ import type {
   ScriptCharacter,
   ScriptMetadata,
 } from "../../generated/script-schema";
-import { AppError } from "../../types/site";
-import { bytesToString, stringToBytes } from "../compression";
-import { ORDERED_CHARACTER_LIST } from "./characters";
-import { sliceTLV } from "./util";
+import { AppError } from "../../types/site.ts";
+import { bytesToString, stringToBytes } from "../compression.ts";
+import { normaliseCharacterId, ORDERED_CHARACTER_LIST } from "./characters.ts";
+import { sliceTLV } from "./util.ts";
 
 // A binary serialisation format for Blood on the Clocktower scripts.
 // Read docs/number-store-v1.md for more info.
@@ -145,7 +145,8 @@ export function encodeScript(
 
   for (const item of script) {
     if (typeof item === "string") {
-      const index = ORDERED_CHARACTER_LIST.indexOf(item);
+      const id = normaliseCharacterId(item);
+      const index = ORDERED_CHARACTER_LIST.indexOf(id);
       if (index === -1) {
         throw new AppError(`Unknown character ${item}`, {
           status: 400,
@@ -162,7 +163,8 @@ export function encodeScript(
       const slice = encodeScriptMeta(meta);
       pointer = appendTLV(bytes, pointer, 0, slice);
     } else {
-      const index = ORDERED_CHARACTER_LIST.indexOf(item.id);
+      const id = normaliseCharacterId(item.id);
+      const index = ORDERED_CHARACTER_LIST.indexOf(id);
       if (index > -1) {
         // Possible bug: if a script defines a custom character with the same ID as
         // an official one, then those customisations will be lost.

@@ -1,4 +1,4 @@
-import { AppError } from "../../types/site";
+import { AppError } from "../../types/site.ts";
 
 function decodeLengthField(bytes: Uint8Array, pointer: number): number {
   return (bytes[pointer] << 8) + bytes[pointer + 1];

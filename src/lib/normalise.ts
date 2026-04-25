@@ -12,6 +12,7 @@ import type {
 import { AppError } from "../types/site";
 import { CHARACTERS_BY_ID, getTranslatedScriptCharacter } from "./characters";
 import type { Translator } from "./i18n/types";
+import { normaliseCharacterId } from "./number-store/characters";
 
 const FIRST_NIGHT_LOOKUP = data.nightOrder.firstNight.reduce<
   Map<string, number>
@@ -208,10 +209,6 @@ function getNightOrderArrays(
     missingCharacters,
     invalidCharacterIds: Array.from(invalidCharacterIds).sort(),
   };
-}
-
-function normaliseCharacterId(id: string): string {
-  return id.replace(/[_-]/g, "");
 }
 
 export function normaliseScript(

@@ -1,3 +1,7 @@
+export function normaliseCharacterId(id: string): string {
+  return id.toLowerCase().replace(/[_-]/g, "");
+}
+
 export const ORDERED_CHARACTER_LIST = [
   // TB
   "washerwoman",

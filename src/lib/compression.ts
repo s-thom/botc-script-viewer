@@ -1,4 +1,4 @@
-import { AppError } from "../types/site";
+import { AppError } from "../types/site.ts";
 
 // Limit decompression to 512kB. A script _shouldn't_ be larger than that.
 // Fall of Rome, a full homebrew, is 18kB.

@@ -6,21 +6,18 @@ import type {
 } from "../generated/script-schema";
 import type { NormalisedScriptCharacter } from "../types/botc";
 import type { Translator } from "./i18n/types";
+import { normaliseCharacterId } from "./number-store/characters";
 
 export const CHARACTERS_BY_ID = data.roles.reduce<
   Map<string, NormalisedScriptCharacter>
 >((map, character) => {
   map.set(character.id, {
     ...(character as ScriptCharacter),
-    normalisedId: character.id.replace(/_/g, ""),
+    normalisedId: normaliseCharacterId(character.id),
     isHomebrew: false,
   });
   return map;
 }, new Map());
-
-function normaliseCharacterId(id: string): string {
-  return id.toLowerCase().replace(/_/g, "");
-}
 
 export function getTranslatedScriptCharacter(
   t: Translator,
