@@ -19,7 +19,7 @@
     "@astrojs/cloudflare": "^13.1.8",
     "@astrojs/sitemap": "^3.7.2",
     "@astrojs/svelte": "^8.0.4",
-    "astro": "^6.1.5",
+    "astro": "^6.1.9",
     "idb": "^8.0.3",
     "language-icons": "^0.3.0",
     "qrcode-svg": "^1.1.0",
