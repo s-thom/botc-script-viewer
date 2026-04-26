@@ -2,7 +2,7 @@ import { MAX_AGE_SECONDS } from "./constants";
 
 export function getJsonHeaders() {
   const headers = new Headers();
-  headers.set("Content-Type", "application/json");
+  headers.set("Content-Type", "application/json; charset=utf-8");
   headers.set("Cache-Control", `public, max-age=${MAX_AGE_SECONDS}`);
   headers.set("Access-Control-Allow-Origin", "*");
 
