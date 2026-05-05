@@ -16,19 +16,19 @@
     "test:all": "node --test && playwright test"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^13.1.8",
+    "@astrojs/cloudflare": "^13.3.1",
     "@astrojs/sitemap": "^3.7.2",
-    "@astrojs/svelte": "^8.0.4",
-    "astro": "^6.1.5",
+    "@astrojs/svelte": "^8.1.0",
+    "astro": "^6.2.2",
     "idb": "^8.0.3",
     "language-icons": "^0.3.0",
     "qrcode-svg": "^1.1.0",
-    "svelte": "^5.55.2"
+    "svelte": "^5.55.5"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.8",
+    "@astrojs/check": "^0.9.9",
     "@eslint/compat": "^2.0.5",
-    "@eslint/css": "^1.1.0",
+    "@eslint/css": "^1.2.0",
     "@eslint/js": "^9.39.4",
     "@eslint/markdown": "^7.5.1",
     "@playwright/test": "^1.59.1",
@@ -40,15 +40,15 @@
     "eslint-plugin-astro": "^1.7.0",
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-prettier": "^5.5.5",
-    "globals": "^17.4.0",
+    "globals": "^17.6.0",
     "json-schema-to-typescript": "^15.0.4",
-    "p-queue": "^9.1.2",
-    "prettier": "^3.8.2",
+    "p-queue": "^9.2.0",
+    "prettier": "^3.8.3",
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-organize-imports": "^4.3.0",
     "public-google-sheets-parser": "^1.5.4",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.58.1",
-    "wrangler": "^4.81.0"
+    "typescript-eslint": "^8.59.2",
+    "wrangler": "^4.87.0"
   }
 }
