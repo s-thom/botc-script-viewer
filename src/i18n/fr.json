@@ -5,6 +5,11 @@
     "nameLongFirst": "Blood on the Clocktower",
     "nameLongLast": "Visionneur de script"
   },
+  "head": {
+    "title": "{title} - {nameShort}",
+    "description": "{title}: {characters}",
+    "descriptionWithAuthor": "{title} par {author}: {characters}"
+  },
   "script": {
     "titleWithAuthor": "{title} {small}\u2002par {author}{/small}",
     "untitledScript": "Script sans titre",

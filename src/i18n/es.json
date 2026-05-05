@@ -5,6 +5,11 @@
     "nameLongFirst": "Blood on the Clocktower",
     "nameLongLast": "Visor de Guiones"
   },
+  "head": {
+    "title": "{title} - {nameShort}",
+    "description": "{title}: {characters}",
+    "descriptionWithAuthor": "{title} del {author}: {characters}"
+  },
   "script": {
     "title": "{title}",
     "titleWithAuthor": "{title} {small} del {author}{/small}",

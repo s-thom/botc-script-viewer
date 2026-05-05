@@ -5,6 +5,11 @@
     "nameLongFirst": "Blood on the Clocktower",
     "nameLongLast": "Visualizador de Roteiros"
   },
+  "head": {
+    "title": "{title} - {nameShort}",
+    "description": "{title}: {characters}",
+    "descriptionWithAuthor": "{title} por {author}: {characters}"
+  },
   "script": {
     "title": "{title}",
     "titleWithAuthor": "{title} {small} por {author}{/small}",

@@ -6,7 +6,9 @@
     "nameLongLast": "剧本查看器"
   },
   "head": {
-    "title": "{title} - {nameShort}"
+    "title": "{title} - {nameShort}",
+    "description": "{title}: {characters}",
+    "descriptionWithAuthor": "{title} {author} 着: {characters}"
   },
   "footer": {
     "notAffiliated": "本网站与 The Pandemonium Institute 无任何关联。",

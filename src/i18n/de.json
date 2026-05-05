@@ -5,6 +5,11 @@
     "nameLongFirst": "Blood on the Clocktower",
     "nameLongLast": "Skript-Anzeige"
   },
+  "head": {
+    "title": "{title} - {nameShort}",
+    "description": "{title}: {characters}",
+    "descriptionWithAuthor": "{title} von {author}: {characters}"
+  },
   "script": {
     "titleWithAuthor": "{title} {small}\u2002von {author}{/small}",
     "untitledScript": "Unbenanntes Skript",

@@ -5,6 +5,11 @@
     "nameLongFirst": "Blood on the Clocktower",
     "nameLongLast": "Skript-Azeig"
   },
+  "head": {
+    "title": "{title} - {nameShort}",
+    "description": "{title}: {characters}",
+    "descriptionWithAuthor": "{title} vom {author}: {characters}"
+  },
   "script": {
     "title": "{title}",
     "titleWithAuthor": "{title} {small} vom {author}{/small}",

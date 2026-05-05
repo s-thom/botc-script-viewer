@@ -6,7 +6,9 @@
     "nameLongLast": "Script Viewer"
   },
   "head": {
-    "title": "{title} - {nameShort}"
+    "title": "{title} - {nameShort}",
+    "description": "{title}: {characters}",
+    "descriptionWithAuthor": "{title} van {author}: {characters}"
   },
   "footer": {
     "notAffiliated": "Deze website is niet verbonden met The Pandemonium Institute.",
