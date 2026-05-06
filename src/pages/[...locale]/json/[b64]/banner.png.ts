@@ -1,8 +1,6 @@
 import type { APIRoute } from "astro";
 import { createTranslator, ENABLED_LOCALES } from "../../../../lib/i18n";
-import { normaliseScript } from "../../../../lib/normalise";
-import { renderSvg } from "../../../../lib/og";
-import { getScriptBannerSvg } from "../../../../lib/og/svg";
+import { getScriptBannerResponse } from "../../../../lib/routes/banner";
 import { getJsonRawScript } from "../../../../lib/routes/json";
 import { LOCAL_SCRIPT_COLLECTIONS } from "../../../../scripts";
 
@@ -29,15 +27,6 @@ export const GET: APIRoute = async ({ url, currentLocale, params }) => {
   const rawScript = await getJsonRawScript(b64);
 
   const t = await createTranslator({ locale: currentLocale ?? "en" });
-  const script = normaliseScript(rawScript, t);
 
-  const svg = await getScriptBannerSvg(t, script, url);
-  const buffer = await renderSvg(svg, url);
-
-  return new Response(buffer, {
-    headers: {
-      "Content-Type": "image/png",
-      "Cache-Control": "public, max-age=31536000",
-    },
-  });
+  return getScriptBannerResponse(t, rawScript, url);
 };

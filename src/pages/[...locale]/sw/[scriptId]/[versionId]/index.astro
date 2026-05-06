@@ -1,11 +1,9 @@
 ---
-import type { BloodOnTheClocktowerCustomScript } from "../../../../../generated/script-schema";
 import ScriptViewerLayout from "../../../../../layouts/ScriptViewerLayout.astro";
+import { fetchRawScript } from "../../../../../lib/botcscripts/fetch";
 import { MAX_AGE_SECONDS } from "../../../../../lib/constants";
 import { createTranslator, type LocaleIds } from "../../../../../lib/i18n";
-import { fetchScriptFromUrl } from "../../../../../lib/import/fetch";
 import { getPathWithoutLocale } from "../../../../../lib/url";
-import { AppError } from "../../../../../types/site";
 
 export const prerender = false;
 
@@ -15,22 +13,7 @@ if (!(scriptId && versionId)) {
   return Astro.rewrite("/404");
 }
 
-let rawScriptString: string;
-try {
-  const requestUrl = new URL(
-    `https://www.botcscripts.com/script/${scriptId}/${versionId}/download`,
-  );
-  rawScriptString = await fetchScriptFromUrl(requestUrl);
-} catch (err) {
-  throw new AppError("Error while requesting Scripts Website script", {
-    cause: err,
-    status: 404,
-    titleKey: "viewer.errors.notFound",
-    descriptionKey: "viewer.errors.notFoundDescription",
-  });
-}
-
-const rawScript: BloodOnTheClocktowerCustomScript = JSON.parse(rawScriptString);
+const rawScript = await fetchRawScript(scriptId, versionId);
 
 const locale = (Astro.currentLocale ?? "en") as LocaleIds;
 const t = await createTranslator({ locale });

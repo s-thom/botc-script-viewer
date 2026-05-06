@@ -1,10 +1,9 @@
 import type { APIRoute } from "astro";
-import { fetchScriptFromUrl } from "../../../../../lib/import/fetch";
+import { fetchRawScript } from "../../../../../lib/botcscripts/fetch";
 import {
   getJsonHeaders,
   getOptionsResponse,
 } from "../../../../../lib/responses";
-import { AppError } from "../../../../../types/site";
 
 export const prerender = false;
 
@@ -15,22 +14,9 @@ export const GET: APIRoute = async ({ params, rewrite }) => {
     return rewrite("/404");
   }
 
-  let rawScriptString: string;
-  try {
-    const requestUrl = new URL(
-      `https://www.botcscripts.com/script/${scriptId}/${versionId}/download`,
-    );
-    rawScriptString = await fetchScriptFromUrl(requestUrl);
-  } catch (err) {
-    throw new AppError("Error while requesting Scripts Website script", {
-      cause: err,
-      status: 404,
-      titleKey: "viewer.errors.notFound",
-      descriptionKey: "viewer.errors.notFoundDescription",
-    });
-  }
+  const rawScript = await fetchRawScript(scriptId, versionId);
 
-  return new Response(rawScriptString, { headers: getJsonHeaders() });
+  return new Response(JSON.stringify(rawScript), { headers: getJsonHeaders() });
 };
 
 export const OPTIONS: APIRoute = async ({ params }) => {
