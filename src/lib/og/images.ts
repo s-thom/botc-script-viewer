@@ -2,6 +2,7 @@ import { getImage } from "astro:assets";
 import * as imageMetadata from "../../generated/character-icons";
 import type { CharacterTeam } from "../../generated/script-schema";
 import type { NormalisedScriptCharacter } from "../../types/botc";
+import { TEAM_IMAGE_KEYS } from "../characters";
 import { chunk } from "../util/array";
 
 const IMAGE_SIZE = 52;
@@ -13,7 +14,7 @@ async function getImageElement(
 ): Promise<string> {
   const metadata =
     imageMetadata[character.id as keyof typeof imageMetadata] ??
-    imageMetadata[character.team];
+    imageMetadata[TEAM_IMAGE_KEYS[character.team]];
 
   const imageResult = await getImage({
     src: metadata,

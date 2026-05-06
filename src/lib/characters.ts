@@ -1,5 +1,9 @@
 import data from "../data/data.json" with { type: "json" };
-import type { ScriptCharacter } from "../generated/script-schema";
+import type * as imageMetadata from "../generated/character-icons";
+import type {
+  CharacterTeam,
+  ScriptCharacter,
+} from "../generated/script-schema";
 import type { NormalisedScriptCharacter } from "../types/botc";
 import type { Translator } from "./i18n/types";
 import { normaliseCharacterId } from "./number-store/characters";
@@ -14,6 +18,19 @@ export const CHARACTERS_BY_ID = data.roles.reduce<
   });
   return map;
 }, new Map());
+
+export const TEAM_IMAGE_KEYS: Record<
+  CharacterTeam,
+  keyof typeof imageMetadata
+> = {
+  townsfolk: "townsfolk_g",
+  outsider: "outsider_g",
+  minion: "minion_e",
+  demon: "demon_e",
+  traveller: "traveller",
+  fabled: "fabled",
+  loric: "loric",
+};
 
 export function getTranslatedScriptCharacter(
   t: Translator,

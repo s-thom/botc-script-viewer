@@ -1,5 +1,5 @@
 import { Resvg } from "@cf-wasm/resvg/workerd";
-import { fontData } from "astro:assets";
+import { experimental_getFontFileURL, fontData } from "astro:assets";
 
 async function getFont(
   key: keyof typeof fontData,
@@ -11,9 +11,9 @@ async function getFont(
   if (!fontSrc) {
     throw new Error(`Unable to load font (${key})`);
   }
-  const fontBuffer = await fetch(new URL(fontSrc, currentUrl.origin)).then(
-    (res) => res.arrayBuffer(),
-  );
+
+  const fontUrl = experimental_getFontFileURL(fontSrc, currentUrl);
+  const fontBuffer = await fetch(fontUrl).then((res) => res.arrayBuffer());
 
   return new Uint8Array(fontBuffer);
 }
