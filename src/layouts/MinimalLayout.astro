@@ -23,13 +23,12 @@ const {
   noCanonical,
 } = meta;
 
-const currentUrl = Astro.url;
 const canonicalUrl = canonicalPath
   ? new URL(
       getRelativeLocaleUrl(Astro.currentLocale ?? "en", canonicalPath),
-      currentUrl,
+      Astro.url,
     )
-  : new URL(currentUrl);
+  : Astro.url;
 
 canonicalUrl.hash = "";
 canonicalUrl.search = "";
@@ -37,15 +36,19 @@ canonicalUrl.search = "";
 const pageLocales = translate
   ? ENABLED_LOCALES.filter(
       (locale) =>
-        translate.locales === "all" ||
-        translate.locales.includes(locale.astroId),
+        locale.standardId === undefined &&
+        (translate.locales === "all" ||
+          translate.locales.includes(locale.astroId)),
     )
   : [];
+
 const localeAlternateMap = pageLocales.reduce(
   (obj, locale) => {
     obj[locale.astroId] = getAbsoluteLocaleUrl(
       locale.astroId,
-      translate?.basePath ?? currentUrl.pathname,
+      canonicalPath
+        ? canonicalPath
+        : (translate?.basePath ?? canonicalUrl.pathname),
     );
 
     return obj;
