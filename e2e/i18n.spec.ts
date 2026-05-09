@@ -1,4 +1,9 @@
 import { expect, test } from "@playwright/test";
+import { ENABLED_LOCALES } from "../src/lib/i18n/config";
+
+const standardLocales = ENABLED_LOCALES.filter(
+  (locale) => locale.standardId === undefined,
+);
 
 test.describe("i18n URL correctness", () => {
   test.describe("locale-prefixed pages exist", () => {
@@ -51,12 +56,20 @@ test.describe("i18n URL correctness", () => {
       await page.goto("/base3/tb/");
     });
 
-    test("has 13 alternate links (one per enabled locale)", async ({
+    test("has one alternate link per enabled standard locale", async ({
       page,
     }) => {
       await expect(
         page.locator('head > link[rel="alternate"]'),
-      ).toHaveCount(13);
+      ).toHaveCount(standardLocales.length);
+
+      for (const locale of standardLocales) {
+        await expect(
+          page.locator(
+            `head > link[rel="alternate"][hreflang="${locale.astroId}"]`,
+          ),
+        ).toBeAttached();
+      }
     });
 
     // Anchored regex: matches ://host/de/base3/tb/ but not ://host/fr/de/base3/tb/
