@@ -54,6 +54,12 @@ const { t, meta } = Astro.props;
 
   .pattern {
     background: url("../assets/headerbg.webp") var(--color-header-background);
+
+    @supports (background-blend-mode: multiply) {
+      background-blend-mode: multiply;
+      background: url("../assets/header-ferns.webp")
+        var(--color-header-background);
+    }
   }
 
   .paper-border,

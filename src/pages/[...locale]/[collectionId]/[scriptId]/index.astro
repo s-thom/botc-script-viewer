@@ -56,6 +56,7 @@ const t = await createTranslator({ locale });
     Astro.url.pathname,
   )}
   overrideJsonPathSegment={`${scriptDefinition.id}.json`}
+  color={scriptDefinition.color}
 >
   <div class="screen-only before-script" slot="before-script">
     <LocalisedMessage

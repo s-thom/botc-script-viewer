@@ -11,17 +11,25 @@ import { normaliseScript } from "../lib/normalise";
 import { getScriptPageDescription } from "../lib/site/description";
 import { fixDoubleSlashPaths } from "../lib/url";
 import TopBarLayout from "./TopBarLayout.astro";
+import { parse, converter, clampChroma, formatRgb } from "culori";
 
 interface Props {
   t: Translator;
   rawScript: BloodOnTheClocktowerCustomScript;
   basePath: string;
+  color?: string;
   overrideJsonPathSegment?: string;
   noIndex?: boolean;
 }
 
-const { t, rawScript, basePath, overrideJsonPathSegment, noIndex } =
-  Astro.props;
+const {
+  t,
+  rawScript,
+  basePath,
+  color: overrideColor,
+  overrideJsonPathSegment,
+  noIndex,
+} = Astro.props;
 
 const script = normaliseScript(rawScript, t);
 
@@ -42,6 +50,24 @@ const scriptBuilderUrl = `https://script.bloodontheclocktower.com/?script=${enco
 
 const scriptNameWithFallback =
   script.name || t.string("viewer.script.untitledScript").value;
+
+let color = overrideColor ?? script.color;
+if (color !== undefined) {
+  const parsed = parse(color);
+  if (parsed === undefined) {
+    color = undefined;
+  } else {
+    const toOklch = converter("oklch");
+
+    const asOklch = toOklch(parsed);
+    // Reduce lightness so the title text is still readable.
+    // This might put the colour outside of the visible space, so clamp it back in bounds.
+    asOklch.l = Math.min(asOklch.l, 0.4);
+    const clamped = clampChroma(asOklch);
+
+    color = formatRgb(clamped);
+  }
+}
 ---
 
 <TopBarLayout
@@ -57,6 +83,7 @@ const scriptNameWithFallback =
       basePath,
       locales: "all",
     },
+    color: color,
     noIndex,
   }}
 >

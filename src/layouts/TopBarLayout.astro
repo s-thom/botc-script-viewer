@@ -66,6 +66,12 @@ const { t, meta } = Astro.props;
     background: url("../assets/headerbg.webp") var(--color-header-background);
     display: flex;
     justify-content: space-between;
+
+    @supports (background-blend-mode: multiply) {
+      background-blend-mode: multiply;
+      background: url("../assets/header-ferns.webp")
+        var(--color-header-background);
+    }
   }
 
   .paper-border,

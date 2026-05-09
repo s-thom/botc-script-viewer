@@ -5,6 +5,7 @@ export const BASE_3: LocalScriptDefinition[] = [
     id: "tb",
     title: "Trouble Brewing",
     character: "imp",
+    color: "#AB0D27",
     getScript: () =>
       import("../../generated/edition-scripts/en/tb.json").then(
         (m) => m.default,
@@ -64,6 +65,7 @@ export const BASE_3: LocalScriptDefinition[] = [
     id: "snv",
     title: "Sects and Violets",
     character: "pithag",
+    color: "#8D57AA",
     getScript: () =>
       import("../../generated/edition-scripts/en/snv.json").then(
         (m) => m.default,
@@ -123,6 +125,7 @@ export const BASE_3: LocalScriptDefinition[] = [
     id: "bmr",
     title: "Bad Moon Rising",
     character: "godfather",
+    color: "#EC9834",
     getScript: () =>
       import("../../generated/edition-scripts/en/bmr.json").then(
         (m) => m.default,

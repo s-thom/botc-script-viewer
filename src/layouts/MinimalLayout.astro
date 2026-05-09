@@ -12,7 +12,8 @@ interface Props {
 }
 
 const { t, meta } = Astro.props;
-const { title, description, noIndex, lang, translate, noCanonical } = meta;
+const { title, description, noIndex, lang, translate, color, noCanonical } =
+  meta;
 
 const currentUrl = Astro.url;
 const canonicalUrl = new URL(currentUrl);
@@ -48,7 +49,11 @@ const shouldAddNoIndexTag = noIndex || !isProperLanguage;
 ---
 
 <!doctype html>
-<html lang={lang} prefix="og: https://ogp.me/ns#">
+<html
+  lang={lang}
+  prefix="og: https://ogp.me/ns#"
+  style={{ "--color-header-background": color }}
+>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />

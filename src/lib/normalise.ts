@@ -315,6 +315,10 @@ export function normaliseScript(
   newScript.background = meta.background;
   newScript.almanac = meta.almanac;
 
+  // This website supports a non-standard `color` property to set the header colour.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  newScript.color = (meta as any).color;
+
   if (meta.bootlegger && meta.bootlegger.length) {
     newScript.bootlegger = meta.bootlegger;
     // Ensure bootlegger is in play if there are bootlegger rules

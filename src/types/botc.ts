@@ -45,6 +45,7 @@ export interface NormalisedScript {
   background?: string;
   almanac?: string;
   bootlegger?: string[];
+  color?: string;
   firstNight: NightInfo[];
   otherNight: NightInfo[];
   characters: NormalisedScriptCharacter[];
@@ -64,6 +65,7 @@ export interface LocalScriptDefinition {
   id: string;
   title: string;
   character: string;
+  color?: string;
   getScript: () => Promise<BloodOnTheClocktowerCustomScript>;
   localeOverrides?: Partial<
     Record<LocaleIds, () => Promise<BloodOnTheClocktowerCustomScript>>

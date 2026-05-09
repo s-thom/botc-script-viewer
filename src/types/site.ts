@@ -10,6 +10,7 @@ export interface PageMeta {
   lang: LocaleIds;
   translate?: PageTranslateData;
   description?: string;
+  color?: string;
   noIndex?: boolean;
   noCanonical?: boolean;
 }
