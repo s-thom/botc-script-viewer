@@ -13,6 +13,7 @@ const ALL_MONTHLY_SCRIPTS: (LocalScriptDefinition & { date: Date })[] = [
     id: "2026-02",
     title: "February 2026",
     character: "leviathan",
+    canonical: "/carousel/harold-holts-revenge",
     getScript: () => import("./2026-02.json").then((m) => m.default),
   },
   {
@@ -27,6 +28,7 @@ const ALL_MONTHLY_SCRIPTS: (LocalScriptDefinition & { date: Date })[] = [
     id: "2026-04",
     title: "April 2026",
     character: "ogre",
+    canonical: "/v/onion-pies",
     getScript: () => import("./2026-04.json").then((m) => m.default),
   },
   {
@@ -48,6 +50,7 @@ const ALL_MONTHLY_SCRIPTS: (LocalScriptDefinition & { date: Date })[] = [
     id: "2026-07",
     title: "July 2026",
     character: "psychopath",
+    canonical: "/v/nfm",
     getScript: () => import("./2026-07.json").then((m) => m.default),
   },
   {
@@ -76,6 +79,7 @@ const ALL_MONTHLY_SCRIPTS: (LocalScriptDefinition & { date: Date })[] = [
     id: "2026-11",
     title: "November 2026",
     character: "kazali",
+    canonical: "/s2/cyborg",
     getScript: () => import("./2026-11.json").then((m) => m.default),
   },
   {
