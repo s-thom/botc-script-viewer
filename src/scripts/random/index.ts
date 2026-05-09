@@ -35,9 +35,35 @@ export const RANDOM_SCRIPTS: LocalScriptDefinition[] = [
       import("./GaslightGatekeepGiggle.json").then((m) => m.default),
   },
   {
-    id: "Regalia",
+    id: "regalia",
     title: "Regalia",
     character: "king",
     getScript: () => import("./Regalia.json").then((m) => m.default),
+  },
+  {
+    id: "onion-pies",
+    title: "Onion Pies",
+    character: "ogre",
+    getScript: () => import("./OnionPies.json").then((m) => m.default),
+  },
+  {
+    id: "extension-cord",
+    title: "Extension Cord",
+    character: "nodashii",
+    getScript: () =>
+      import("./Extension Cord_5_1_0.json").then((m) => m.default),
+  },
+  {
+    id: "trust",
+    title: "Trust",
+    character: "mayor",
+    getScript: () => import("./Trust_2_0_0.json").then((m) => m.default),
+  },
+  {
+    id: "uncertain-death",
+    title: "Uncertain Death",
+    character: "oracle",
+    getScript: () =>
+      import("./Uncertain Death_1_0_1.json").then((m) => m.default),
   },
 ];
