@@ -12,6 +12,7 @@ export interface PageMeta {
   description?: string;
   color?: string;
   noIndex?: boolean;
+  canonicalPath?: string;
   noCanonical?: boolean;
 }
 

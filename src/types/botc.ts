@@ -66,6 +66,7 @@ export interface LocalScriptDefinition {
   title: string;
   character: string;
   color?: string;
+  canonical?: string;
   getScript: () => Promise<BloodOnTheClocktowerCustomScript>;
   localeOverrides?: Partial<
     Record<LocaleIds, () => Promise<BloodOnTheClocktowerCustomScript>>

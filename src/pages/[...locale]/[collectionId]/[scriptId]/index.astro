@@ -55,6 +55,7 @@ const t = await createTranslator({ locale });
     Astro.currentLocale,
     Astro.url.pathname,
   )}
+  canonicalBasePath={scriptDefinition.canonical}
   overrideJsonPathSegment={`${scriptDefinition.id}.json`}
   color={scriptDefinition.color}
 >

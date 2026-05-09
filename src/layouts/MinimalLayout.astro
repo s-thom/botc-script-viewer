@@ -1,6 +1,6 @@
 ---
 import { Font } from "astro:assets";
-import { getAbsoluteLocaleUrl } from "astro:i18n";
+import { getAbsoluteLocaleUrl, getRelativeLocaleUrl } from "astro:i18n";
 import "../css/index.css";
 import { ENABLED_LOCALES, LOCALE_MAP, type LocaleIds } from "../lib/i18n";
 import type { Translator } from "../lib/i18n/types";
@@ -12,11 +12,25 @@ interface Props {
 }
 
 const { t, meta } = Astro.props;
-const { title, description, noIndex, lang, translate, color, noCanonical } =
-  meta;
+const {
+  title,
+  description,
+  noIndex,
+  lang,
+  translate,
+  color,
+  canonicalPath,
+  noCanonical,
+} = meta;
 
 const currentUrl = Astro.url;
-const canonicalUrl = new URL(currentUrl);
+const canonicalUrl = canonicalPath
+  ? new URL(
+      getRelativeLocaleUrl(Astro.currentLocale ?? "en", canonicalPath),
+      currentUrl,
+    )
+  : new URL(currentUrl);
+
 canonicalUrl.hash = "";
 canonicalUrl.search = "";
 

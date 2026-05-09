@@ -17,6 +17,7 @@ interface Props {
   t: Translator;
   rawScript: BloodOnTheClocktowerCustomScript;
   basePath: string;
+  canonicalBasePath?: string;
   color?: string;
   overrideJsonPathSegment?: string;
   noIndex?: boolean;
@@ -26,6 +27,7 @@ const {
   t,
   rawScript,
   basePath,
+  canonicalBasePath,
   color: overrideColor,
   overrideJsonPathSegment,
   noIndex,
@@ -78,6 +80,7 @@ if (color !== undefined) {
       nameShort: t.string("viewer.common.nameShort").value,
     }).value,
     description: getScriptPageDescription(t, script),
+    canonicalPath: canonicalBasePath,
     lang: t.locale as LocaleIds,
     translate: {
       basePath,
