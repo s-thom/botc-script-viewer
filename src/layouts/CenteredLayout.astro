@@ -49,7 +49,7 @@ const { t, meta } = Astro.props;
 
   .paper-border {
     background: var(--color-header-paper);
-    padding-bottom: 12px;
+    padding-bottom: var(--paper-border-width);
   }
 
   .pattern {
@@ -111,6 +111,9 @@ const { t, meta } = Astro.props;
     margin: 0 auto;
     max-width: 60rem;
     padding: 2rem;
+    padding-left: calc(env(safe-area-inset-left) + 2rem);
+    padding-bottom: calc(env(safe-area-inset-bottom) + 2rem);
+    padding-right: calc(env(safe-area-inset-right) + 2rem);
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
@@ -121,6 +124,10 @@ const { t, meta } = Astro.props;
     text-align: center;
     margin: 2rem;
     font-weight: 600;
+  }
+
+  .header-content {
+    padding-top: calc(env(safe-area-inset-top) + 2rem);
   }
 
   .floating-actions-container {
