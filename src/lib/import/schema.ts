@@ -54,6 +54,7 @@ const fullCharacterSchema = z.object({
           "vote",
           "reveal",
           "player",
+          "reminder",
         ]),
         name: z.enum([
           "grimoire",
@@ -62,12 +63,15 @@ const fullCharacterSchema = z.object({
           "distribute-roles",
           "bag-disabled",
           "bag-duplicate",
+          "good-duplicate",
+          "evil-duplicate",
           "multiplier",
           "hidden",
           "replace-character",
           "player",
           "card",
           "open-eyes",
+          "public",
         ]),
         value: z.union([z.string(), z.number()]).optional(),
         time: z

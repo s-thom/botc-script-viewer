@@ -1141,7 +1141,10 @@
       "reminders": [],
       "setup": true,
       "ability": "The Storyteller can break the game rules, and if executed, good wins, even if you are dead. [No evil characters]",
-      "special": [{ "type": "selection", "name": "good-duplicate" }],
+      "special": [
+        { "type": "selection", "name": "good-duplicate" },
+        { "type": "selection", "name": "evil-duplicate" }
+      ],
       "flavor": "Let us disperse with unnecessary conjecture and silly paranoia. There is a perfectly rational explanation for everything. Yes, a teacup may indeed be orbiting the planet, too small to see, but I shall drink my tea from the very real china in my very real hands."
     },
     {
@@ -2818,7 +2821,10 @@
       "edition": "loric",
       "ability": "There are duplicate good characters in play. They might also be bluffs.",
       "flavor": "...Pulcherrimae.",
-      "special": [{ "type": "selection", "name": "good-duplicate" }]
+      "special": [
+        { "type": "selection", "name": "good-duplicate" },
+        { "type": "selection", "name": "evil-duplicate" }
+      ]
     },
     {
       "id": "stormcatcher",
@@ -2833,7 +2839,8 @@
     },
     {
       "id": "tor",
-      "otherNightReminder": "If a player died tonight, show the *YOU ARE* info token, their character token, & a thumbs up or thumbs down.",
+      "firstNightReminder": "Skip Minion Info and Demon Info.",
+      "otherNightReminder": "If a player died tonight, show the *YOU ARE* info token, their character token, & give a thumb signal.",
       "reminders": [],
       "setup": true,
       "name": "Tor",
@@ -2898,6 +2905,7 @@
       "poppygrower",
       "yaggababble",
       "magician",
+      "tor",
       "minioninfo",
       "snitch",
       "lunatic",
