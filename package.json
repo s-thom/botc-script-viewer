@@ -24,7 +24,7 @@
     "idb": "^8.0.3",
     "language-icons": "^0.3.0",
     "qrcode-svg": "^1.1.0",
-    "svelte": "^5.55.5"
+    "svelte": "^5.55.10"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.9",
