@@ -18,13 +18,11 @@
   "dependencies": {
     "@astrojs/cloudflare": "^13.3.1",
     "@astrojs/sitemap": "^3.7.2",
-    "@astrojs/svelte": "^8.1.0",
     "astro": "^6.2.2",
     "culori": "^4.0.2",
     "idb": "^8.0.3",
     "language-icons": "^0.3.0",
-    "qrcode-svg": "^1.1.0",
-    "svelte": "^5.55.5"
+    "qrcode-svg": "^1.1.0"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.9",

@@ -50,7 +50,7 @@ export const STREAMER_STACK: LocalScriptDefinition[] = [
     id: "birthday",
     title: "Birthday Feast!",
     character: "cannibal",
-    getScript: () => import("./Birthday Feast!.json").then((m) => m.default),
+    getScript: () => import("./Birthday Feast.json").then((m) => m.default),
   },
   {
     id: "midnight",

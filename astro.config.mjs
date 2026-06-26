@@ -1,6 +1,5 @@
 // @ts-check
 import cloudflare from "@astrojs/cloudflare";
-import svelte from "@astrojs/svelte";
 import { defineConfig, fontProviders } from "astro/config";
 import { ALLOWED_EXTERNAL_HOSTNAMES } from "./src/lib/constants";
 import { ENABLED_LOCALES } from "./src/lib/i18n/config";
@@ -15,7 +14,7 @@ export default defineConfig({
     ? `https://botc-script-viewer.sthom.kiwi`
     : "http://localhost:4321",
   adapter: cloudflare({ imageService: "compile" }),
-  integrations: [svelte({ compilerOptions: { dev: !isProd } }), sitemap()],
+  integrations: [sitemap()],
   image: {
     domains: ALLOWED_EXTERNAL_HOSTNAMES,
   },
