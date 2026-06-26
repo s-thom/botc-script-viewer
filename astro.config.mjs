@@ -8,6 +8,20 @@ import sitemap from "@astrojs/sitemap";
 
 const isProd = process.env.ENVIRONMENT === "production";
 
+/** @returns {import('vite').Plugin} */
+function stripImportAttributes() {
+  return {
+    name: "strip-import-attributes",
+    transform(code, id) {
+      if (!id.endsWith("languages.ts")) return null;
+      return {
+        code: code.replace(/,\s*\{\s*with:\s*\{[^}]+\}\s*\}\s*(?=\))/g, ""),
+        map: null,
+      };
+    },
+  };
+}
+
 // https://astro.build/config
 export default defineConfig({
   site: isProd
@@ -25,6 +39,7 @@ export default defineConfig({
   },
   scopedStyleStrategy: "class",
   vite: {
+    plugins: [stripImportAttributes()],
     build: { cssCodeSplit: false },
     optimizeDeps: {
       exclude: ["language-icons"],
