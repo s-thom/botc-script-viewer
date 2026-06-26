@@ -81,7 +81,7 @@ for (const match of Array.from(
 }
 
 // Uncomment if you need to know all of the asset names
-console.log(Array.from(assetNamesToVariableName.keys()).join(" "));
+// console.log(Array.from(assetNamesToVariableName.keys()).join(" "));
 
 const variableNamesToUrls = new Map<string, string>();
 for (const match of Array.from(

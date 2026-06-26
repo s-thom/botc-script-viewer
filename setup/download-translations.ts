@@ -1,30 +1,49 @@
-import { createWriteStream } from "node:fs";
-import { mkdir } from "node:fs/promises";
+import { mkdir, writeFile } from "node:fs/promises";
 import { join } from "node:path";
-import { Readable } from "node:stream";
-import { finished } from "node:stream/promises";
-import type { ReadableStream } from "node:stream/web";
+import { unzip } from "fflate";
 import { ENABLED_LOCALES } from "../src/lib/i18n/config.ts";
 
-const BASE_URL =
-  "https://raw.githubusercontent.com/ThePandemoniumInstitute/botc-translations/refs/heads/main";
+const ZIP_URL =
+  "https://github.com/ThePandemoniumInstitute/botc-translations/archive/refs/heads/main.zip";
 const DESTINATION_DIR = "src/generated/i18n";
+const FILES = ["app", "game", "script"] as const;
+const ZIP_PREFIX = "botc-translations-main/";
 
-async function downloadAndSaveJson(langId: string, file: string) {
-  console.log(`Downloading ${langId} ${file}...`);
-
-  const res = await fetch(`${BASE_URL}/${file}/${langId}.json`);
-  const destination = join(DESTINATION_DIR, langId, `${file}.json`);
-  const fileStream = createWriteStream(destination, { flags: "w" });
-  await finished(Readable.fromWeb(res.body as ReadableStream).pipe(fileStream));
-
-  console.log(`Saved ${langId} ${file}`);
+const needed = new Set<string>();
+for (const locale of ENABLED_LOCALES) {
+  for (const file of FILES) {
+    needed.add(`${ZIP_PREFIX}${file}/${locale.botcId}.json`);
+  }
 }
+
+console.log("Downloading translations zip...");
+const res = await fetch(ZIP_URL);
+if (!res.ok) {
+  throw new Error(`HTTP error! status: ${res.status}`);
+}
+const buffer = new Uint8Array(await res.arrayBuffer());
+console.log("Downloaded translations zip, extracting...");
+
+const extracted = await new Promise<Record<string, Uint8Array>>(
+  (resolve, reject) => {
+    unzip(buffer, { filter: (file) => needed.has(file.name) }, (err, data) => {
+      if (err) reject(err);
+      else resolve(data);
+    });
+  },
+);
 
 for (const locale of ENABLED_LOCALES) {
   await mkdir(join(DESTINATION_DIR, locale.botcId), { recursive: true });
 
-  await downloadAndSaveJson(locale.botcId, "app");
-  await downloadAndSaveJson(locale.botcId, "game");
-  await downloadAndSaveJson(locale.botcId, "script");
+  for (const file of FILES) {
+    const key = `${ZIP_PREFIX}${file}/${locale.botcId}.json`;
+    const content = extracted[key];
+    if (!content) {
+      console.warn(`Missing ${locale.botcId}/${file} in zip`);
+      continue;
+    }
+    await writeFile(join(DESTINATION_DIR, locale.botcId, `${file}.json`), content);
+    console.log(`Saved ${locale.botcId}/${file}`);
+  }
 }

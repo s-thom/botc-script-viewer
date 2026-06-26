@@ -1,4 +1,4 @@
-import data from "../data/data.json" with { type: "json" };
+import data from "../data/data.json";
 import type { ScriptCharacter } from "../generated/script-schema";
 import type { NormalisedScriptCharacter } from "../types/botc";
 import type { Translator } from "./i18n/types";

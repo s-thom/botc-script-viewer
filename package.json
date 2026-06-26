@@ -16,9 +16,9 @@
     "test:all": "node --test && playwright test"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^13.3.1",
-    "@astrojs/sitemap": "^3.7.2",
-    "astro": "^6.2.2",
+    "@astrojs/cloudflare": "^14.0.1",
+    "@astrojs/sitemap": "^3.7.3",
+    "astro": "^7.0.3",
     "culori": "^4.0.2",
     "idb": "^8.0.3",
     "language-icons": "^0.3.0",
@@ -41,6 +41,7 @@
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-prettier": "^5.5.5",
     "globals": "^17.6.0",
+    "fflate": "^0.8.2",
     "json-schema-to-typescript": "^15.0.4",
     "p-queue": "^9.2.0",
     "prettier": "^3.8.3",
