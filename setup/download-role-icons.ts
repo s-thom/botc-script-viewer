@@ -33,6 +33,32 @@ if (!scriptRequest.ok) {
 
 const scriptContent = await scriptRequest.text();
 
+const cssMatch = pageContent.match(
+  /href="(\/assets\/index-[A-Za-z0-9_-]{8}\.css)"/,
+);
+let cssContent = "";
+if (cssMatch) {
+  console.log("Fetching CSS", `https://botc.app${cssMatch[1]}`);
+  const cssRequest = await fetch(`https://botc.app${cssMatch[1]}`);
+  if (cssRequest.ok) {
+    cssContent = await cssRequest.text();
+  } else {
+    console.warn(`Failed to fetch CSS: ${cssRequest.status}`);
+  }
+} else {
+  console.warn("CSS bundle not found in HTML");
+}
+
+const cssRoleNamesToUrls = new Map<string, string>();
+for (const match of Array.from(
+  cssContent.matchAll(
+    /li\.role-([\w-]+)\s*\.icon[^{]*\{[^}]*background-image:url\(([^)]+)\)/g,
+  ),
+)) {
+  const [, roleName, url] = match;
+  cssRoleNamesToUrls.set(roleName, url);
+}
+
 const assetNamesToVariableName = new Map<string, string>();
 for (const match of Array.from(
   scriptContent.matchAll(
@@ -55,7 +81,7 @@ for (const match of Array.from(
 }
 
 // Uncomment if you need to know all of the asset names
-// console.log(Array.from(assetNamesToVariableName.keys()).join(" "));
+console.log(Array.from(assetNamesToVariableName.keys()).join(" "));
 
 const variableNamesToUrls = new Map<string, string>();
 for (const match of Array.from(
@@ -177,16 +203,11 @@ async function processIcon(exportName: string, assetName: string) {
       // Not in cache dir, create
 
       const variableName = assetNamesToVariableName.get(assetName);
-      if (!variableName) {
-        console.warn(`No variable name known for ${assetName}`);
-        return;
-      }
-
-      const urlPath = variableNamesToUrls.get(variableName);
+      const urlPath =
+        (variableName ? variableNamesToUrls.get(variableName) : undefined) ??
+        cssRoleNamesToUrls.get(exportName);
       if (!urlPath) {
-        console.warn(
-          `No asset URL known for ${assetName} (variable ${variableName})`,
-        );
+        console.warn(`No asset URL known for ${assetName}`);
         return;
       }
 
