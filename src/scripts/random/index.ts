@@ -66,4 +66,10 @@ export const RANDOM_SCRIPTS: LocalScriptDefinition[] = [
     getScript: () =>
       import("./Uncertain Death_1_0_1.json").then((m) => m.default),
   },
+  {
+    id: "whalebuffet",
+    title: "Whalebuffet",
+    character: "fisherman",
+    getScript: () => import("./whalebuffet").then((m) => m.default),
+  },
 ];
