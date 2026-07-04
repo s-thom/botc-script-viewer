@@ -388,6 +388,11 @@ a {
   --flow-space: 0.5em;
 }
 
+.flow > p > img,
+.flow > img {
+  height: auto;
+}
+
 .noscript-area {
   display: flex;
   flex-direction: column;

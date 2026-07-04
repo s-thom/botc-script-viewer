@@ -1,0 +1,324 @@
+---
+import { Image } from "astro:assets";
+import LocalisedMessage from "../../components/i18n/LocalisedMessage.astro";
+import Footer from "../../components/misc/Footer.astro";
+import TopBarLayout from "../../layouts/TopBarLayout.astro";
+import flowchartPng from "../../assets/pukka/Not_Quite_Vertical-pukka-flowchart.png";
+import { createTranslator, type LocaleIds } from "../../lib/i18n";
+import type { OfficialCharacterId } from "../../generated/types";
+import CharacterIcon from "../../components/display/CharacterIcon.astro";
+import { CHARACTERS_BY_ID } from "../../lib/characters";
+
+export function getStaticPaths() {
+  return [{ params: { locale: undefined } }];
+  // return ENABLED_LOCALES.map((locale) => ({
+  //   params: {
+  //     locale: locale.isDefault ? undefined : locale.astroId,
+  //   },
+  // }));
+}
+
+const locale = (Astro.currentLocale as LocaleIds) ?? "en";
+const t = await createTranslator({ locale });
+
+type BaseStep = {
+  type: string;
+  id: string;
+  textKeys: string[];
+  character?: OfficialCharacterId;
+};
+type FlowchartStep = BaseStep &
+  (
+    | {
+        type: "decision";
+        yes: string;
+        no: string;
+      }
+    | {
+        type: "process" | "end";
+        next: string;
+      }
+  );
+
+const FLOWCHART_STEPS: FlowchartStep[] = [
+  {
+    id: "isExorcistPicked",
+    type: "decision",
+    textKeys: ["viewer.pukka.decision.isExorcistPicked"],
+    character: "exorcist",
+    yes: "wakeAndExorcist",
+    no: "wakeAndChoose",
+  },
+  {
+    id: "wakeAndExorcist",
+    type: "process",
+    textKeys: ["viewer.pukka.process.wakeAndExorcist"],
+    character: "exorcist",
+    next: "hasPreviousPick",
+  },
+  {
+    id: "wakeAndChoose",
+    type: "process",
+    textKeys: ["viewer.pukka.process.wakeAndChoose"],
+    character: "pukka",
+    next: "isDrunkPoisonedOrGoon",
+  },
+  {
+    id: "isDrunkPoisonedOrGoon",
+    type: "decision",
+    textKeys: ["viewer.pukka.decision.isDrunkPoisonedOrGoon"],
+    character: "goon",
+    yes: "didChooseWhileDrunk",
+    no: "didChooseWhileSober",
+  },
+  {
+    id: "didChooseWhileDrunk",
+    type: "process",
+    textKeys: ["viewer.pukka.process.didChooseWhileDrunk"],
+    character: "drunk",
+    next: "hasPreviousPickDrunk",
+  },
+  {
+    id: "didChooseWhileSober",
+    type: "process",
+    textKeys: ["viewer.pukka.process.didChooseWhileSober"],
+    character: "pukka",
+    next: "hasPreviousPick",
+  },
+  {
+    id: "hasPreviousPick",
+    type: "decision",
+    textKeys: ["viewer.pukka.decision.hasPreviousPick"],
+    character: "pukka",
+    yes: "isDrunkPoisoned",
+    no: "finish",
+  },
+  {
+    id: "hasPreviousPickDrunk",
+    type: "decision",
+    textKeys: ["viewer.pukka.decision.hasPreviousPick"],
+    character: "pukka",
+    yes: "attackWhileDrunk",
+    no: "finish",
+  },
+  {
+    id: "isDrunkPoisoned",
+    type: "decision",
+    textKeys: ["viewer.pukka.decision.isDrunkPoisoned"],
+    character: "drunk",
+    yes: "attackWhileDrunk",
+    no: "attackWhileSober",
+  },
+  {
+    id: "attackWhileDrunk",
+    type: "process",
+    textKeys: ["viewer.pukka.process.attackWhileDrunk"],
+    character: "drunk",
+    next: "finish",
+  },
+  {
+    id: "attackWhileSober",
+    type: "process",
+    textKeys: ["viewer.pukka.process.attackWhileSober"],
+    character: "pukka",
+    next: "didPlayerDie",
+  },
+  {
+    id: "didPlayerDie",
+    type: "decision",
+    textKeys: ["viewer.pukka.decision.didPlayerDie"],
+    character: "pukka",
+    yes: "onDeathEffects",
+    no: "removePoison",
+  },
+  {
+    id: "onDeathEffects",
+    type: "process",
+    textKeys: [
+      "viewer.pukka.process.removePoison",
+      "viewer.pukka.process.onDeathEffects",
+    ],
+    character: "pukka",
+    next: "finish",
+  },
+  {
+    id: "removePoison",
+    type: "process",
+    textKeys: ["viewer.pukka.process.removePoison"],
+    character: "pukka",
+    next: "finish",
+  },
+  {
+    id: "finish",
+    type: "end",
+    textKeys: ["viewer.pukka.process.end"],
+    character: "deusexfiasco",
+    next: "isExorcistPicked",
+  },
+];
+
+const stepCSS = FLOWCHART_STEPS.map(
+  (step) =>
+    `.flowchart:has(input[type=radio][value="${step.id}"]:checked) [data-step="${step.id}"]{display:flex;}`,
+).join("");
+---
+
+<TopBarLayout
+  t={t}
+  meta={{
+    title: t.string("viewer.head.title", {
+      title: t.string("viewer.pukka.title").value,
+    }).value,
+    lang: locale,
+  }}
+>
+  <div class="md flow">
+    <h1><LocalisedMessage t={t} key="viewer.pukka.title" /></h1>
+
+    <p>
+      <LocalisedMessage t={t} key="viewer.pukka.content.intro" />
+    </p>
+    <p>
+      <LocalisedMessage t={t} key="viewer.pukka.content.intro2" />
+    </p>
+
+    <h2><LocalisedMessage t={t} key="viewer.pukka.content.interactive" /></h2>
+
+    <noscript>
+      <p>
+        <LocalisedMessage t={t} key="viewer.pukka.content.noJs" />
+      </p>
+    </noscript>
+
+    <div class="flowchart flow">
+      <fieldset class="state">
+        {
+          FLOWCHART_STEPS.map((step, i) => (
+            <input
+              type="radio"
+              name="flowchart-state"
+              id={`flowchart-step-${step.id}`}
+              value={step.id}
+              checked={i === 0}
+            />
+          ))
+        }
+      </fieldset>
+      {
+        FLOWCHART_STEPS.map((step) => (
+          <div data-step={step.id} class="step">
+            <div class="step-content">
+              {step.character && (
+                <CharacterIcon
+                  character={CHARACTERS_BY_ID.get(step.character)!}
+                  size={56}
+                />
+              )}
+              <div class="flow">
+                {step.textKeys.map((key) => (
+                  <p>
+                    <LocalisedMessage t={t} key={key} />
+                  </p>
+                ))}
+              </div>
+            </div>
+            {step.type === "decision" && (
+              <div class="step-actions">
+                <label for={`flowchart-step-${step.yes}`} class="button">
+                  <LocalisedMessage t={t} key="viewer.pukka.labels.yes" />
+                </label>
+                <label for={`flowchart-step-${step.no}`} class="button">
+                  <LocalisedMessage t={t} key="viewer.pukka.labels.no" />
+                </label>
+              </div>
+            )}
+            {step.type === "process" && (
+              <div class="step-actions">
+                <label for={`flowchart-step-${step.next}`} class="button">
+                  <LocalisedMessage t={t} key="viewer.pukka.labels.next" />
+                </label>
+              </div>
+            )}
+            {step.type === "end" && (
+              <div class="step-actions">
+                <label for={`flowchart-step-${step.next}`} class="button">
+                  <LocalisedMessage t={t} key="viewer.pukka.labels.reset" />
+                </label>
+              </div>
+            )}
+          </div>
+        ))
+      }
+    </div>
+
+    <h2><LocalisedMessage t={t} key="viewer.pukka.content.image" /></h2>
+
+    <p>
+      <LocalisedMessage
+        t={t}
+        key="viewer.pukka.content.source"
+        params={{
+          externalLink:
+            "https://www.reddit.com/r/BloodOnTheClocktower/comments/1g8rm4g/comment/lt0jlpg/",
+        }}
+      />
+    </p>
+
+    <Image
+      src={flowchartPng}
+      alt={t.string("viewer.pukka.content.imageAlt").value}
+      width={500}
+      densities={[1, 2, 3]}
+    />
+
+    <Footer t={t} />
+  </div>
+</TopBarLayout>
+
+<style>
+  .md {
+    margin: 0 auto;
+    max-width: 60rem;
+    padding: 2rem;
+  }
+
+  .state {
+    display: none;
+  }
+
+  .step {
+    background-color: var(--color-control-background);
+    border: 2px solid var(--color-control-border);
+    color: var(--color-text);
+    padding: 0.5rem;
+    border-radius: 15px;
+    width: 100%;
+
+    display: none;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .step-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+
+    @media (min-width: 600px) {
+      flex-direction: row;
+    }
+  }
+
+  .step-actions {
+    display: flex;
+    gap: 0.5rem;
+
+    label {
+      min-width: 5rem;
+      text-align: center;
+    }
+  }
+</style>
+
+<style set:html={stepCSS}></style>

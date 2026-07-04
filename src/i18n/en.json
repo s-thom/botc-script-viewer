@@ -83,6 +83,43 @@
     "light": "Light",
     "dark": "Dark"
   },
+  "pukka": {
+    "title": "Pukka Flowchart",
+    "content": {
+      "intro": "The Pukka is one of the more difficult demons to run in Blood on the Clocktower, due to the way in which its ability interacts with others. The poisoning happens on the night of the action, but any attacking is determined on a previous night. All of these interactions can happen on the Pukka's home script of Bad Moon Rising.",
+      "intro2": "To help storytellers run the Pukka without making mistakes, the Blood on the Clocktower community has produced a flowchart that shows the decisions that need to be made when running the Pukka during the night.",
+      "interactive": "Interactive flowchart",
+      "image": "Static image",
+      "imagePreference": "If you'd prefer a static image so that you can see the whole process, there is one below.",
+      "noJs": "This interactive version of the flowchart still works without JavaScript enabled.",
+      "source": "The following Pukka flowchart image was originally {externalLink}posted to Reddit by /u/Not_Quite_Vertical{/externalLink}.",
+      "imageAlt": "Pukka flowchart by /u/Not_Quite_Vertical."
+    },
+    "decision": {
+      "isExorcistPicked": "Did the Exorcist pick the Pukka earlier tonight?",
+      "isDrunkPoisonedOrGoon": "Is the Pukka currently drunk or poisoned (including if they were the first player to choose the Goon on this night)?",
+      "hasPreviousPick": "Was anyone marked with the Pukka's poisoned reminder token before the Pukka's turn tonight?",
+      "isDrunkPoisoned": "Is the Pukka currently drunk or poisoned?",
+      "didPlayerDie": "Did that player die to the Pukka's attack?"
+    },
+    "process": {
+      "wakeAndChoose": "Wake the Pukka, let them choose a player, then put them back to sleep.",
+      "wakeAndExorcist": "Wake the Pukka, show them who the Exorcist is, then put them back to sleep.",
+      "didChooseWhileSober": "The player the Pukka chose is poisoned. Add the poisoned reminder token.",
+      "didChooseWhileDrunk": "The player the Pukka chose is not poisoned. Do not move the Pukka's poisoned reminder token. If the Pukka was the first player to choose the Goon this night, mark the Pukka with the Goon's drunk reminder token.",
+      "attackWhileSober": "The Pukka attacks the player previously marked with the Pukka's poisoned reminder token.",
+      "attackWhileDrunk": "The Pukka does not attack the player marked with the Pukka's poisoned reminder token. They are still marked but are not affected by Pukka poison until the Pukka becomes sober and healthy.",
+      "removePoison": "Remove the Pukka's poisoned reminder token on that player.",
+      "onDeathEffects": "Any effect triggered at the moment of that player's death is still poisoned.",
+      "end": "The Pukka's turn is over. If the Pukka becomes drunk or poisoned, any player marked with the Pukka's poisoned reminder token won't be affected by Pukka poison until the Pukka becomes sober and healthy. If the Pukka dies or changes player, remove all Pukka reminder tokens."
+    },
+    "labels": {
+      "yes": "Yes",
+      "no": "No",
+      "next": "Next",
+      "reset": "Reset"
+    }
+  },
   "errors": {
     "notFound": "Not found",
     "notFoundHeading": "Page not found",
