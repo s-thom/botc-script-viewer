@@ -58,8 +58,6 @@ export interface UnresolvedTagMessageSegment {
 }
 
 export type UnresolvedMessageSegment =
-  | TextMessageSegment
-  | VariableMessageSegment
-  | UnresolvedTagMessageSegment;
+  TextMessageSegment | VariableMessageSegment | UnresolvedTagMessageSegment;
 
 export type MessageSegment = TextMessageSegment | TagMessageSegment;

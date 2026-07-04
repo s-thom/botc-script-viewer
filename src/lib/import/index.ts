@@ -114,9 +114,9 @@ export async function scriptFromFormData(
     const url = URL.parse(script);
     if (url != null) {
       scriptString = await fetchScriptFromUrl(url);
+    } else {
+      scriptString = script;
     }
-
-    scriptString = script;
   }
 
   if (!scriptString) {

@@ -1,7 +1,11 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import { formatToPlainText, resolveVariables } from "./format.ts";
-import type { MessageSegment, TagMessageSegment, UnresolvedMessageSegment } from "./types.ts";
+import type {
+  MessageSegment,
+  TagMessageSegment,
+  UnresolvedMessageSegment,
+} from "./types.ts";
 
 describe("resolveVariables", () => {
   it("resolves variable segments to text", () => {
@@ -16,7 +20,9 @@ describe("resolveVariables", () => {
   });
 
   it("preserves placeholder text for missing variable", () => {
-    const segments: UnresolvedMessageSegment[] = [{ type: "variable", name: "x" }];
+    const segments: UnresolvedMessageSegment[] = [
+      { type: "variable", name: "x" },
+    ];
     assert.deepEqual(resolveVariables(segments, {}), [
       { type: "text", value: "{x}" },
     ]);
@@ -24,7 +30,11 @@ describe("resolveVariables", () => {
 
   it("recurses into tag children and resolves variables within", () => {
     const segments: UnresolvedMessageSegment[] = [
-      { type: "tag", name: "bold", children: [{ type: "variable", name: "title" }] },
+      {
+        type: "tag",
+        name: "bold",
+        children: [{ type: "variable", name: "title" }],
+      },
     ];
     const result = resolveVariables(segments, { title: "BotC" });
     const tag = result[0] as TagMessageSegment;
@@ -35,7 +45,11 @@ describe("resolveVariables", () => {
 
   it("attaches params to resolved tag segments", () => {
     const segments: UnresolvedMessageSegment[] = [
-      { type: "tag", name: "link", children: [{ type: "text", value: "click" }] },
+      {
+        type: "tag",
+        name: "link",
+        children: [{ type: "text", value: "click" }],
+      },
     ];
     const params = { count: 1 };
     const result = resolveVariables(segments, params);
@@ -55,7 +69,12 @@ describe("formatToPlainText", () => {
   it("strips tags to inner text", () => {
     const segments: MessageSegment[] = [
       { type: "text", value: "See " },
-      { type: "tag", name: "bold", children: [{ type: "text", value: "this" }], params: {} },
+      {
+        type: "tag",
+        name: "bold",
+        children: [{ type: "text", value: "this" }],
+        params: {},
+      },
       { type: "text", value: "." },
     ];
     assert.equal(formatToPlainText(segments), "See this.");
@@ -68,7 +87,12 @@ describe("formatToPlainText", () => {
         name: "link",
         params: {},
         children: [
-          { type: "tag", name: "bold", children: [{ type: "text", value: "inner" }], params: {} },
+          {
+            type: "tag",
+            name: "bold",
+            children: [{ type: "text", value: "inner" }],
+            params: {},
+          },
         ],
       },
     ];

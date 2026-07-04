@@ -59,9 +59,9 @@ test.describe("i18n URL correctness", () => {
     test("has one alternate link per enabled standard locale", async ({
       page,
     }) => {
-      await expect(
-        page.locator('head > link[rel="alternate"]'),
-      ).toHaveCount(standardLocales.length);
+      await expect(page.locator('head > link[rel="alternate"]')).toHaveCount(
+        standardLocales.length,
+      );
 
       for (const locale of standardLocales) {
         await expect(

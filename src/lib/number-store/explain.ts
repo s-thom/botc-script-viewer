@@ -34,10 +34,7 @@ interface ExplainError extends ExplainBase {
 }
 
 export type ExplainNode =
-  | ExplainValue
-  | ExplainTLV
-  | ExplainWarning
-  | ExplainError;
+  ExplainValue | ExplainTLV | ExplainWarning | ExplainError;
 
 function explainTLV(
   bytes: Uint8Array,

@@ -1,6 +1,6 @@
+import { unzip } from "fflate";
 import { mkdir, writeFile } from "node:fs/promises";
 import { join } from "node:path";
-import { unzip } from "fflate";
 import { ENABLED_LOCALES } from "../src/lib/i18n/config.ts";
 
 const ZIP_URL =
@@ -43,7 +43,10 @@ for (const locale of ENABLED_LOCALES) {
       console.warn(`Missing ${locale.botcId}/${file} in zip`);
       continue;
     }
-    await writeFile(join(DESTINATION_DIR, locale.botcId, `${file}.json`), content);
+    await writeFile(
+      join(DESTINATION_DIR, locale.botcId, `${file}.json`),
+      content,
+    );
     console.log(`Saved ${locale.botcId}/${file}`);
   }
 }

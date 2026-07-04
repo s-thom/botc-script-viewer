@@ -44,17 +44,7 @@ export const GET: APIRoute = async ({ rewrite, url: requestUrl }) => {
       break;
   }
 
-  let qrCode: QRCode = new QRCode({
-    content: url,
-    padding: 4,
-    width: 512,
-    height: 512,
-    color: "#000000",
-    background: "#ffffff",
-    ecl: correctionLevel,
-    join: true,
-    container: "svg-viewbox",
-  });
+  let qrCode: QRCode;
   try {
     qrCode = new QRCode({
       content: url,
