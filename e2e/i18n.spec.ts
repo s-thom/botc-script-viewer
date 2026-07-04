@@ -19,7 +19,7 @@ test.describe("i18n URL correctness", () => {
 
     test("Simplified Chinese Trouble Brewing page loads", async ({ page }) => {
       await page.goto("/zh-hans/base3/tb/");
-      await expect(page.locator("h1#script")).toBeVisible();
+      await expect(page.locator("#script")).toBeVisible();
     });
   });
 

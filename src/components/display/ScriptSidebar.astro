@@ -15,9 +15,9 @@ const { t, script, collectionId, scriptId } = Astro.props;
 ---
 
 <div class="script-sidebar screen-only flow">
-  <h1 id="script" class="title">
+  <h2 id="script" class="title">
     {script.name || t.string("viewer.script.untitledScript").value}
-  </h1>
+  </h2>
   {
     script.author && (
       <p class="author">
@@ -126,8 +126,12 @@ const { t, script, collectionId, scriptId } = Astro.props;
     }
   }
 
+  .title {
+    font-size: 2rem;
+  }
+
   .author {
-    font-size: 24px;
+    font-size: 1.5rem;
     --flow-space: 0em;
   }
 

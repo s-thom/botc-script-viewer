@@ -5,7 +5,7 @@ test.describe("Home page form submissions", () => {
     await page.goto("/");
     await page.fill('textarea[name="script"]', '[{"id":"washerwoman"}]');
     await page.click('#script-form button[type="submit"]');
-    await expect(page.locator("h1#script")).toBeVisible();
+    await expect(page.locator("#script")).toBeVisible();
   });
 
   test("URL submission redirects to matching script page", async ({ page }) => {
@@ -16,7 +16,7 @@ test.describe("Home page form submissions", () => {
     );
     await page.click('#script-form button[type="submit"]');
     await expect(page).toHaveURL(/\/base3\/tb\//);
-    await expect(page.locator("h1#script")).toContainText("Trouble Brewing");
+    await expect(page.locator("#script")).toContainText("Trouble Brewing");
   });
 
   test("file upload submission renders script viewer", async ({ page }) => {
@@ -27,6 +27,6 @@ test.describe("Home page form submissions", () => {
       buffer: Buffer.from('[{"id":"washerwoman"}]'),
     });
     // The change event on the file input triggers automatic form submission
-    await expect(page.locator("h1#script")).toBeVisible();
+    await expect(page.locator("#script")).toBeVisible();
   });
 });

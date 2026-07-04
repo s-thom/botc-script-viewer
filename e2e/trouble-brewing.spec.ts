@@ -6,7 +6,7 @@ test.describe("Trouble Brewing script page", () => {
   });
 
   test("renders script title", async ({ page }) => {
-    await expect(page.locator("h1#script")).toContainText("Trouble Brewing");
+    await expect(page.locator("#script")).toContainText("Trouble Brewing");
   });
 
   test("renders all character section headings", async ({ page }) => {
