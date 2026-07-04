@@ -1,28 +1,82 @@
 [
-  { "id": "_meta", "name": "China Shop", "author": "Autumn" },
-  { "id": "knight" },
-  { "id": "grandmother" },
-  { "id": "general" },
-  { "id": "towncrier" },
-  { "id": "gambler" },
-  { "id": "acrobat" },
-  { "id": "savant" },
-  { "id": "fisherman" },
-  { "id": "amnesiac" },
-  { "id": "tealady" },
-  { "id": "mayor" },
-  { "id": "fool" },
-  { "id": "pacifist" },
-  { "id": "drunk" },
-  { "id": "tinker" },
-  { "id": "plaguedoctor" },
-  { "id": "moonchild" },
-  { "id": "godfather" },
-  { "id": "devilsadvocate" },
-  { "id": "witch" },
-  { "id": "assassin" },
-  { "id": "widow" },
-  { "id": "yaggababble" },
-  { "id": "vigormortis" },
-  { "id": "lordoftyphon" }
+  {
+    "id": "_meta",
+    "name": "China Shop",
+    "author": "Autumn"
+  },
+  {
+    "id": "knight"
+  },
+  {
+    "id": "grandmother"
+  },
+  {
+    "id": "general"
+  },
+  {
+    "id": "towncrier"
+  },
+  {
+    "id": "gambler"
+  },
+  {
+    "id": "acrobat"
+  },
+  {
+    "id": "savant"
+  },
+  {
+    "id": "fisherman"
+  },
+  {
+    "id": "amnesiac"
+  },
+  {
+    "id": "tealady"
+  },
+  {
+    "id": "mayor"
+  },
+  {
+    "id": "fool"
+  },
+  {
+    "id": "pacifist"
+  },
+  {
+    "id": "drunk"
+  },
+  {
+    "id": "tinker"
+  },
+  {
+    "id": "plaguedoctor"
+  },
+  {
+    "id": "moonchild"
+  },
+  {
+    "id": "godfather"
+  },
+  {
+    "id": "devilsadvocate"
+  },
+  {
+    "id": "witch"
+  },
+  {
+    "id": "assassin"
+  },
+  {
+    "id": "widow"
+  },
+  {
+    "id": "yaggababble"
+  },
+  {
+    "id": "vigormortis"
+  },
+  {
+    "id": "lordoftyphon"
+  }
 ]

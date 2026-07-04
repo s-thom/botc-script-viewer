@@ -1,19 +1,55 @@
 [
-  { "id": "_meta", "name": "Nobody Move", "author": "Brockwell" },
-  { "id": "snakecharmer" },
-  { "id": "alsaahir" },
-  { "id": "slayer" },
-  { "id": "philosopher" },
-  { "id": "alchemist" },
-  { "id": "virgin" },
-  { "id": "heretic" },
-  { "id": "damsel" },
-  { "id": "klutz" },
-  { "id": "psychopath" },
-  { "id": "goblin" },
-  { "id": "boomdandy" },
-  { "id": "pukka" },
-  { "id": "vortox" },
-  { "id": "sentinel" },
-  { "id": "duchess" }
+  {
+    "id": "_meta",
+    "name": "Nobody Move",
+    "author": "Brockwell"
+  },
+  {
+    "id": "snakecharmer"
+  },
+  {
+    "id": "alsaahir"
+  },
+  {
+    "id": "slayer"
+  },
+  {
+    "id": "philosopher"
+  },
+  {
+    "id": "alchemist"
+  },
+  {
+    "id": "virgin"
+  },
+  {
+    "id": "heretic"
+  },
+  {
+    "id": "damsel"
+  },
+  {
+    "id": "klutz"
+  },
+  {
+    "id": "psychopath"
+  },
+  {
+    "id": "goblin"
+  },
+  {
+    "id": "boomdandy"
+  },
+  {
+    "id": "pukka"
+  },
+  {
+    "id": "vortox"
+  },
+  {
+    "id": "sentinel"
+  },
+  {
+    "id": "duchess"
+  }
 ]

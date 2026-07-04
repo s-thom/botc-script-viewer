@@ -5,34 +5,94 @@
     "name": "The Passage of Time",
     "author": "Delta"
   },
-  { "id": "shugenja" },
-  { "id": "pixie" },
-  { "id": "general" },
-  { "id": "snakecharmer" },
-  { "id": "monk" },
-  { "id": "savant" },
-  { "id": "alsaahir" },
-  { "id": "engineer" },
-  { "id": "huntsman" },
-  { "id": "fisherman" },
-  { "id": "princess" },
-  { "id": "cannibal" },
-  { "id": "banshee" },
-  { "id": "plaguedoctor" },
-  { "id": "barber" },
-  { "id": "mutant" },
-  { "id": "damsel" },
-  { "id": "puzzlemaster" },
-  { "id": "psychopath" },
-  { "id": "wizard" },
-  { "id": "boomdandy" },
-  { "id": "organgrinder" },
-  { "id": "imp" },
-  { "id": "shabaloth" },
-  { "id": "fanggu" },
-  { "id": "harlot" },
-  { "id": "butcher" },
-  { "id": "gangster" },
-  { "id": "voudon" },
-  { "id": "sentinel" }
+  {
+    "id": "shugenja"
+  },
+  {
+    "id": "pixie"
+  },
+  {
+    "id": "general"
+  },
+  {
+    "id": "snakecharmer"
+  },
+  {
+    "id": "monk"
+  },
+  {
+    "id": "savant"
+  },
+  {
+    "id": "alsaahir"
+  },
+  {
+    "id": "engineer"
+  },
+  {
+    "id": "huntsman"
+  },
+  {
+    "id": "fisherman"
+  },
+  {
+    "id": "princess"
+  },
+  {
+    "id": "cannibal"
+  },
+  {
+    "id": "banshee"
+  },
+  {
+    "id": "plaguedoctor"
+  },
+  {
+    "id": "barber"
+  },
+  {
+    "id": "mutant"
+  },
+  {
+    "id": "damsel"
+  },
+  {
+    "id": "puzzlemaster"
+  },
+  {
+    "id": "psychopath"
+  },
+  {
+    "id": "wizard"
+  },
+  {
+    "id": "boomdandy"
+  },
+  {
+    "id": "organgrinder"
+  },
+  {
+    "id": "imp"
+  },
+  {
+    "id": "shabaloth"
+  },
+  {
+    "id": "fanggu"
+  },
+  {
+    "id": "harlot"
+  },
+  {
+    "id": "butcher"
+  },
+  {
+    "id": "gangster"
+  },
+  {
+    "id": "voudon"
+  },
+  {
+    "id": "sentinel"
+  }
 ]

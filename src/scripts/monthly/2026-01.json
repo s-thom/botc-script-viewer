@@ -1,5 +1,9 @@
 [
-  { "id": "_meta", "author": "Lau", "name": "Boozling" },
+  {
+    "id": "_meta",
+    "author": "Lau",
+    "name": "Boozling"
+  },
   "noble",
   "pixie",
   "highpriestess",

@@ -1,31 +1,91 @@
 [
-  { "id": "_meta", "name": "Ride the Cyclone", "author": "Paradox" },
-  { "id": "knight" },
-  { "id": "preacher" },
-  { "id": "balloonist" },
-  { "id": "highpriestess" },
-  { "id": "towncrier" },
-  { "id": "alsaahir" },
-  { "id": "savant" },
-  { "id": "fisherman" },
-  { "id": "philosopher" },
-  { "id": "seamstress" },
-  { "id": "princess" },
-  { "id": "banshee" },
-  { "id": "amnesiac" },
-  { "id": "snitch" },
-  { "id": "puzzlemaster" },
-  { "id": "golem" },
-  { "id": "politician" },
-  { "id": "boffin" },
-  { "id": "xaan" },
-  { "id": "boomdandy" },
-  { "id": "mastermind" },
-  { "id": "alhadikhia" },
-  { "id": "thief" },
-  { "id": "voudon" },
-  { "id": "judge" },
-  { "id": "matron" },
-  { "id": "apprentice" },
-  { "id": "djinn" }
+  {
+    "id": "_meta",
+    "name": "Ride the Cyclone",
+    "author": "Paradox"
+  },
+  {
+    "id": "knight"
+  },
+  {
+    "id": "preacher"
+  },
+  {
+    "id": "balloonist"
+  },
+  {
+    "id": "highpriestess"
+  },
+  {
+    "id": "towncrier"
+  },
+  {
+    "id": "alsaahir"
+  },
+  {
+    "id": "savant"
+  },
+  {
+    "id": "fisherman"
+  },
+  {
+    "id": "philosopher"
+  },
+  {
+    "id": "seamstress"
+  },
+  {
+    "id": "princess"
+  },
+  {
+    "id": "banshee"
+  },
+  {
+    "id": "amnesiac"
+  },
+  {
+    "id": "snitch"
+  },
+  {
+    "id": "puzzlemaster"
+  },
+  {
+    "id": "golem"
+  },
+  {
+    "id": "politician"
+  },
+  {
+    "id": "boffin"
+  },
+  {
+    "id": "xaan"
+  },
+  {
+    "id": "boomdandy"
+  },
+  {
+    "id": "mastermind"
+  },
+  {
+    "id": "alhadikhia"
+  },
+  {
+    "id": "thief"
+  },
+  {
+    "id": "voudon"
+  },
+  {
+    "id": "judge"
+  },
+  {
+    "id": "matron"
+  },
+  {
+    "id": "apprentice"
+  },
+  {
+    "id": "djinn"
+  }
 ]

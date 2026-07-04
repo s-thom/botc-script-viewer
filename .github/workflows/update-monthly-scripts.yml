@@ -1,0 +1,46 @@
+name: Monthly scripts auto-update
+
+on:
+  schedule:
+    # First day of the month.
+    - cron: "0 7 1 * *"
+  workflow_dispatch:
+
+jobs:
+  update-monthly-scripts:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: .node-version
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Download monthly scripts
+        run: node setup/download-monthly-scripts.ts
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v8
+        with:
+          add-paths: |
+            src/scripts/monthly/*.json
+          commit-message: "[Auto] Update monthly scripts"
+          branch: auto-update/monthly-scripts
+          delete-branch: true
+          author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+          committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+          title: "[Auto] Update monthly scripts"
+          body: |
+            Automatic update for the script of the month.
+
+            > [!WARNING]
+            > You may need to update `src/scripts/monthly/index.ts` if there
+            > are changes to a script, or if there are new scripts added.

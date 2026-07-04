@@ -5,19 +5,49 @@
     "name": "Spooky Tea 2: Very Spooky",
     "author": "Zets"
   },
-  { "id": "pixie" },
-  { "id": "chef" },
-  { "id": "empath" },
-  { "id": "chambermaid" },
-  { "id": "artist" },
-  { "id": "cannibal" },
-  { "id": "klutz" },
-  { "id": "lunatic" },
-  { "id": "fearmonger" },
-  { "id": "widow" },
-  { "id": "scarletwoman" },
-  { "id": "lilmonsta" },
-  { "id": "vortox" },
-  { "id": "duchess" },
-  { "id": "sentinel" }
+  {
+    "id": "pixie"
+  },
+  {
+    "id": "chef"
+  },
+  {
+    "id": "empath"
+  },
+  {
+    "id": "chambermaid"
+  },
+  {
+    "id": "artist"
+  },
+  {
+    "id": "cannibal"
+  },
+  {
+    "id": "klutz"
+  },
+  {
+    "id": "lunatic"
+  },
+  {
+    "id": "fearmonger"
+  },
+  {
+    "id": "widow"
+  },
+  {
+    "id": "scarletwoman"
+  },
+  {
+    "id": "lilmonsta"
+  },
+  {
+    "id": "vortox"
+  },
+  {
+    "id": "duchess"
+  },
+  {
+    "id": "sentinel"
+  }
 ]
