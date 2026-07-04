@@ -1,10 +1,10 @@
 ---
-import { CHARACTERS_BY_ID } from "../../lib/characters";
 import type { Translator } from "../../lib/i18n/types";
 import type { NormalisedScript } from "../../types/botc";
 import LocalisedMessage from "../i18n/LocalisedMessage.astro";
 import BootleggerList from "./BootleggerList.astro";
 import CharacterIcon from "./CharacterIcon.astro";
+import ScriptSidebarExtra from "./ScriptSidebarExtra.astro";
 
 interface Props {
   t: Translator;
@@ -43,28 +43,7 @@ const { t, script, collectionId, scriptId } = Astro.props;
     )
   }
 
-  {
-    collectionId && (
-      <div>
-        <CharacterIcon
-          character={CHARACTERS_BY_ID.get(
-            collectionId === "wc25" ? "djinn" : "steward",
-          )!}
-          size={24}
-          class="inline-icon-start"
-        />
-        <LocalisedMessage
-          t={t}
-          key="viewer.collection.partOfCollection"
-          params={{
-            link: "..",
-            collection: t.string(`viewer.collection.${collectionId}.title`)
-              .value,
-          }}
-        />
-      </div>
-    )
-  }
+  <slot name="after-description" />
 
   {
     script.teams.fabled.length + script.teams.loric.length > 0 && (
@@ -97,12 +76,7 @@ const { t, script, collectionId, scriptId } = Astro.props;
 
   {
     script.charactersById.has("pukka") && (
-      <div>
-        <CharacterIcon
-          character={CHARACTERS_BY_ID.get("pukka")!}
-          size={24}
-          class="inline-icon-start"
-        />
+      <ScriptSidebarExtra iconCharacterId="pukka">
         <LocalisedMessage
           t={t}
           key="viewer.pukka.view"
@@ -111,9 +85,11 @@ const { t, script, collectionId, scriptId } = Astro.props;
             content: t.string("viewer.pukka.title").value,
           }}
         />
-      </div>
+      </ScriptSidebarExtra>
     )
   }
+
+  <slot name="after-extras" />
 </div>
 
 <style>
@@ -171,11 +147,5 @@ const { t, script, collectionId, scriptId } = Astro.props;
   .fabled-title {
     font-family: var(--font-title);
     font-size: 1.2rem;
-  }
-
-  .script-sidebar :global(img.inline-icon-start) {
-    display: inline-block;
-    margin: -6px;
-    margin-inline-end: 0;
   }
 </style>

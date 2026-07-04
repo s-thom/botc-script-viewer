@@ -1,0 +1,31 @@
+---
+import { CHARACTERS_BY_ID } from "../../lib/characters";
+import CharacterIcon from "./CharacterIcon.astro";
+
+export interface Props {
+  iconCharacterId?: string;
+}
+
+const { iconCharacterId } = Astro.props;
+---
+
+<div class="extra">
+  {
+    iconCharacterId ? (
+      <CharacterIcon
+        character={CHARACTERS_BY_ID.get(iconCharacterId)!}
+        size={24}
+        class="extra-icon"
+      />
+    ) : null
+  }
+  <slot />
+</div>
+
+<style>
+  .extra :global(img.extra-icon) {
+    display: inline-block;
+    margin: -6px;
+    margin-inline-end: 0;
+  }
+</style>

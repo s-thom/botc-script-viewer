@@ -28,7 +28,8 @@
     "wikiLabel": "View {title} on wiki",
     "reminder": "Reminder",
     "nightOrder": "Night Order",
-    "nightOrderWarning": "The following characters are referenced in the night order, but are not listed on the script: {characters}"
+    "nightOrderWarning": "The following characters are referenced in the night order, but are not listed on the script: {characters}",
+    "viewOnBotcScripts": "View on {externalLink}botcscripts.com{/externalLink}"
   },
   "home": {
     "description": "An unofficial website for viewing {externalLink}Blood on the Clocktower{/externalLink} scripts in your browser.",

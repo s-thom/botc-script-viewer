@@ -143,7 +143,11 @@ if (color !== undefined) {
       script={script}
       collectionId={collectionId}
       scriptId={scriptId}
-    />
+    >
+      <slot name="sidebar-after-description" slot="after-description" />
+      <slot name="sidebar-after-extras" slot="after-extras" />
+    </ScriptSidebar>
+
     <ScriptDisplay t={t} script={script} />
   </div>
 </TopBarLayout>

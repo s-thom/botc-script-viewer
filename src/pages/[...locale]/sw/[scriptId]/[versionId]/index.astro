@@ -1,11 +1,12 @@
 ---
+import ScriptSidebarExtra from "../../../../../components/display/ScriptSidebarExtra.astro";
+import LocalisedMessage from "../../../../../components/i18n/LocalisedMessage.astro";
 import type { BloodOnTheClocktowerCustomScript } from "../../../../../generated/script-schema";
 import ScriptViewerLayout from "../../../../../layouts/ScriptViewerLayout.astro";
 import { MAX_AGE_SECONDS } from "../../../../../lib/constants";
 import { createTranslator, type LocaleIds } from "../../../../../lib/i18n";
-import { fetchScriptFromUrl } from "../../../../../lib/import/fetch";
+import { fetchScriptByIdVersion } from "../../../../../lib/import/botcscripts";
 import { getPathWithoutLocale } from "../../../../../lib/url";
-import { AppError } from "../../../../../types/site";
 
 export const prerender = false;
 
@@ -15,20 +16,7 @@ if (!(scriptId && versionId)) {
   return Astro.rewrite("/404");
 }
 
-let rawScriptString: string;
-try {
-  const requestUrl = new URL(
-    `https://www.botcscripts.com/script/${scriptId}/${versionId}/download`,
-  );
-  rawScriptString = await fetchScriptFromUrl(requestUrl);
-} catch (err) {
-  throw new AppError("Error while requesting Scripts Website script", {
-    cause: err,
-    status: 404,
-    titleKey: "viewer.errors.notFound",
-    descriptionKey: "viewer.errors.notFoundDescription",
-  });
-}
+const rawScriptString = await fetchScriptByIdVersion(scriptId, versionId);
 
 const rawScript: BloodOnTheClocktowerCustomScript = JSON.parse(rawScriptString);
 
@@ -50,4 +38,17 @@ Astro.response.headers.set(
     Astro.url.pathname,
   )}
   noIndex
-/>
+>
+  <ScriptSidebarExtra
+    slot="sidebar-after-description"
+    iconCharacterId="grandmother"
+  >
+    <LocalisedMessage
+      t={t}
+      key="viewer.script.viewOnBotcScripts"
+      params={{
+        externalLink: `https://www.botcscripts.com/script/${scriptId}/${versionId}`,
+      }}
+    />
+  </ScriptSidebarExtra>
+</ScriptViewerLayout>

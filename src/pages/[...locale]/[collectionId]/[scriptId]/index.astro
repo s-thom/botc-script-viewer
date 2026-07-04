@@ -1,4 +1,6 @@
 ---
+import ScriptSidebarExtra from "../../../../components/display/ScriptSidebarExtra.astro";
+import LocalisedMessage from "../../../../components/i18n/LocalisedMessage.astro";
 import ScriptViewerLayout from "../../../../layouts/ScriptViewerLayout.astro";
 import {
   createTranslator,
@@ -59,7 +61,21 @@ const t = await createTranslator({ locale });
   color={scriptDefinition.color}
   collectionId={collectionId}
   scriptId={scriptId}
-/>
+>
+  <ScriptSidebarExtra
+    slot="sidebar-after-description"
+    iconCharacterId={collectionId === "wc25" ? "djinn" : "steward"}
+  >
+    <LocalisedMessage
+      t={t}
+      key="viewer.collection.partOfCollection"
+      params={{
+        link: "..",
+        collection: t.string(`viewer.collection.${collectionId}.title`).value,
+      }}
+    />
+  </ScriptSidebarExtra>
+</ScriptViewerLayout>
 
 <style>
   @media screen {
