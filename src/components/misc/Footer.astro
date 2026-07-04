@@ -16,6 +16,7 @@ const localeInfo: LocaleInfo | undefined = LOCALE_MAP[t.locale as LocaleIds];
 <footer class:list={["footer", isScreenOnly && "screen-only"]}>
   <p>
     <LocalisedMessage t={t} key="viewer.footer.notAffiliated" />
+    {" "}
     <LocalisedMessage t={t} key="viewer.footer.descriptionsNotice" />
   </p>
   <p>
@@ -28,6 +29,7 @@ const localeInfo: LocaleInfo | undefined = LOCALE_MAP[t.locale as LocaleIds];
         externalLinkEvent: "sthom-link",
       }}
     />
+    {" "}
     {
       localeInfo && localeInfo.translators.length > 0 && (
         <LocalisedMessage
@@ -41,6 +43,7 @@ const localeInfo: LocaleInfo | undefined = LOCALE_MAP[t.locale as LocaleIds];
         />
       )
     }
+    {" "}
     <LocalisedMessage
       t={t}
       key="viewer.footer.sourceCode"
