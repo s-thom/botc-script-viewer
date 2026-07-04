@@ -13,6 +13,7 @@
   "script": {
     "title": "{title}",
     "titleWithAuthor": "{title} {small} vom {author}{/small}",
+    "byAuthor": "vom {author}",
     "untitledScript": "Skript ohni Titel",
     "wikiLink": "[wiki]",
     "wikiLabel": "{title} uf em Wiki aaluege",

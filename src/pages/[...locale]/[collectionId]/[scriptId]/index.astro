@@ -1,10 +1,9 @@
 ---
-import LocalisedMessage from "../../../../components/i18n/LocalisedMessage.astro";
 import ScriptViewerLayout from "../../../../layouts/ScriptViewerLayout.astro";
 import {
   createTranslator,
-  type LocaleIds,
   ENABLED_LOCALES,
+  type LocaleIds,
 } from "../../../../lib/i18n";
 import { getPathWithoutLocale } from "../../../../lib/url";
 import { LOCAL_SCRIPT_COLLECTIONS } from "../../../../scripts";
@@ -58,18 +57,9 @@ const t = await createTranslator({ locale });
   canonicalBasePath={scriptDefinition.canonical}
   overrideJsonPathSegment={`${scriptDefinition.id}.json`}
   color={scriptDefinition.color}
->
-  <div class="screen-only before-script" slot="before-script">
-    <LocalisedMessage
-      t={t}
-      key="viewer.collection.partOfCollection"
-      params={{
-        link: "..",
-        collection: t.string(`viewer.collection.${collectionId}.title`).value,
-      }}
-    />
-  </div>
-</ScriptViewerLayout>
+  collectionId={collectionId}
+  scriptId={scriptId}
+/>
 
 <style>
   @media screen {

@@ -22,6 +22,7 @@
   "script": {
     "title": "{title}",
     "titleWithAuthor": "{title} {small} autorstwa {author}{/small}",
+    "byAuthor": "autorstwa {author}",
     "untitledScript": "Skrypt bez tytułu",
     "wikiLink": "[Wiki]",
     "wikiLabel": "Zobacz {title} na wiki",

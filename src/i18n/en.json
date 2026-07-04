@@ -22,6 +22,7 @@
   "script": {
     "title": "{title}",
     "titleWithAuthor": "{title} {small}\u2002by {author}{/small}",
+    "byAuthor": "by {author}",
     "untitledScript": "Untitled Script",
     "wikiLink": "[wiki]",
     "wikiLabel": "View {title} on wiki",
@@ -85,8 +86,9 @@
   },
   "pukka": {
     "title": "Pukka Flowchart",
+    "view": "Need help understanding how to run Pukka? Use the {link}Pukka flowchart{/link}!",
     "content": {
-      "intro": "The Pukka is one of the more difficult demons to run in Blood on the Clocktower, due to the way in which its ability interacts with others. The poisoning happens on the night of the action, but any attacking is determined on a previous night. All of these interactions can happen on the Pukka's home script of Bad Moon Rising.",
+      "intro": "The Pukka is one of the more difficult demons to run in Blood on the Clocktower, due to the way in which its ability interacts with others. A Pukka on its own is straightforward, but since its kills are offset from its choices, it's harder to know how to run if a Pukka is drunk, poisoned, or chosen by an Exorcist. All of these interactions can happen on the Pukka's home script of {link}Bad Moon Rising{/link}.",
       "intro2": "To help storytellers run the Pukka without making mistakes, the Blood on the Clocktower community has produced a flowchart that shows the decisions that need to be made when running the Pukka during the night.",
       "interactive": "Interactive flowchart",
       "image": "Static image",

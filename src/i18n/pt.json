@@ -13,6 +13,7 @@
   "script": {
     "title": "{title}",
     "titleWithAuthor": "{title} {small} por {author}{/small}",
+    "byAuthor": "por {author}",
     "untitledScript": "Roteiro Sem Título",
     "wikiLink": "[wiki]",
     "wikiLabel": "Ver {title} na wiki",

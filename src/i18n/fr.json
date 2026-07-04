@@ -12,6 +12,7 @@
   },
   "script": {
     "titleWithAuthor": "{title} {small}\u2002par {author}{/small}",
+    "byAuthor": "par {author}",
     "untitledScript": "Script sans titre",
     "wikiLabel": "Voir {title} sur le wiki",
     "reminder": "Rappel",

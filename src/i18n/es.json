@@ -13,6 +13,7 @@
   "script": {
     "title": "{title}",
     "titleWithAuthor": "{title} {small} del {author}{/small}",
+    "byAuthor": "del {author}",
     "untitledScript": "Guion sin título",
     "wikiLink": "[wiki]",
     "wikiLabel": "Ver {title} en la wiki",

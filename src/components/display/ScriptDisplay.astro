@@ -33,7 +33,7 @@ const allExtraNightOrderCharacters = script.warnings.flatMap((warning) =>
   <ReminderDefinition />
 
   <div class="page">
-    <div class="title-area">
+    <div class="title-area print-only">
       <h1 id="script" class="title">
         <LocalisedMessage
           t={t}
@@ -70,9 +70,12 @@ const allExtraNightOrderCharacters = script.warnings.flatMap((warning) =>
         )
       }
     </div>
+
     {
       script.bootlegger && script.bootlegger.length > 0 && (
-        <BootleggerList t={t} rules={script.bootlegger} />
+        <div class="print-only">
+          <BootleggerList t={t} rules={script.bootlegger} />
+        </div>
       )
     }
     <h2 class="category-title">

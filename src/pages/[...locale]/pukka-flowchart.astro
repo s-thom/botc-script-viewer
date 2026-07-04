@@ -8,6 +8,7 @@ import { createTranslator, type LocaleIds } from "../../lib/i18n";
 import type { OfficialCharacterId } from "../../generated/types";
 import CharacterIcon from "../../components/display/CharacterIcon.astro";
 import { CHARACTERS_BY_ID } from "../../lib/characters";
+import { getRelativeLocaleUrl } from "astro:i18n";
 
 export function getStaticPaths() {
   return [{ params: { locale: undefined } }];
@@ -176,7 +177,13 @@ const stepCSS = FLOWCHART_STEPS.map(
     <h1><LocalisedMessage t={t} key="viewer.pukka.title" /></h1>
 
     <p>
-      <LocalisedMessage t={t} key="viewer.pukka.content.intro" />
+      <LocalisedMessage
+        t={t}
+        key="viewer.pukka.content.intro"
+        params={{
+          link: getRelativeLocaleUrl(Astro.currentLocale ?? "en", "/base3/bmr"),
+        }}
+      />
     </p>
     <p>
       <LocalisedMessage t={t} key="viewer.pukka.content.intro2" />
