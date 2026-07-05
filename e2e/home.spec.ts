@@ -4,7 +4,11 @@ test.describe("Home page form submissions", () => {
   test("JSON text submission renders script viewer", async ({ page }) => {
     await page.goto("/");
     await page.fill('textarea[name="script"]', '[{"id":"washerwoman"}]');
+    await expect(page.locator('textarea[name="script"]')).toHaveValue(
+      '[{"id":"washerwoman"}]',
+    );
     await page.click('#script-form button[type="submit"]');
+    await expect(page).toHaveURL(/\/ns\/.*\//);
     await expect(page.locator("#script")).toBeVisible();
   });
 
@@ -12,6 +16,9 @@ test.describe("Home page form submissions", () => {
     await page.goto("/");
     await page.fill(
       'textarea[name="script"]',
+      "http://localhost:4321/base3/tb/",
+    );
+    await expect(page.locator('textarea[name="script"]')).toHaveValue(
       "http://localhost:4321/base3/tb/",
     );
     await page.click('#script-form button[type="submit"]');
