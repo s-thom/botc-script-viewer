@@ -11,6 +11,7 @@
     "descriptionWithAuthor": "{title} by {author}: {characters}"
   },
   "footer": {
+    "communityCreatedContent": "Community created content",
     "notAffiliated": "This website is not affiliated with The Pandemonium Institute.",
     "descriptionsNotice": "Character icons and descriptions are the property of Steven Medway and The Pandemonium Institute.",
     "madeBy": "Website made by {externalLink}{author}{/externalLink}.",

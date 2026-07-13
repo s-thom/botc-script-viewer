@@ -7,7 +7,10 @@ export const MAX_SCRIPT_SIZE_BYTES = 512 * 1024;
 
 export const ALLOWED_EXTERNAL_HOSTNAMES = [
   "i.imgur.com",
+  "i.postimg.cc",
   "release.botc.app",
   "www.bloodstar.xyz",
+  "bloodstar.clocktica.com",
   "raw.githubusercontent.com",
+  "user-images.klutzbanana.com",
 ];

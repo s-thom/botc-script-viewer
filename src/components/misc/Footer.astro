@@ -2,6 +2,7 @@
 import { LOCALE_MAP, type LocaleIds, type LocaleInfo } from "../../lib/i18n";
 import type { Translator } from "../../lib/i18n/types";
 import LocalisedMessage from "../i18n/LocalisedMessage.astro";
+import { Image } from "astro:assets";
 
 interface Props {
   t: Translator;
@@ -85,6 +86,22 @@ const localeInfo: LocaleInfo | undefined = LOCALE_MAP[t.locale as LocaleIds];
       </p>
     )
   }
+  <Image
+    src="https://release.botc.app/resources/community/ccc-parchment.png"
+    alt={t.string("viewer.footer.communityCreatedContent").value}
+    class="ccc light"
+    width={152}
+    height={57}
+    densities={[1, 2, 3]}
+  />
+  <Image
+    src="https://release.botc.app/resources/community/ccc-sleeve.png"
+    alt={t.string("viewer.footer.communityCreatedContent").value}
+    class="ccc dark"
+    width={151}
+    height={60}
+    densities={[1, 2, 3]}
+  />
 </footer>
 
 <style>
@@ -92,5 +109,27 @@ const localeInfo: LocaleInfo | undefined = LOCALE_MAP[t.locale as LocaleIds];
     opacity: 0.7;
     font-size: 0.9rem;
     margin-block-start: 2rem;
+  }
+
+  .ccc {
+    display: none;
+  }
+
+  :global(:root[data-theme="light"]) .light {
+    display: block;
+  }
+  :global(:root[data-theme="dark"]) .dark {
+    display: block;
+  }
+
+  @media (prefers-color-scheme: light) {
+    :global(:root:not([data-theme])) .light {
+      display: block;
+    }
+  }
+  @media (prefers-color-scheme: dark) {
+    :global(:root:not([data-theme])) .dark {
+      display: block;
+    }
   }
 </style>
