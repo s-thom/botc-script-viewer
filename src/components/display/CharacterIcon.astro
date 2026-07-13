@@ -1,7 +1,7 @@
 ---
 import type { GetImageResult, ImageMetadata } from "astro";
 import { getImage, Image } from "astro:assets";
-import * as CHARACTER_ICONS from "../../generated/character-icons";
+import * as APP_ICONS from "../../assets/botc";
 import { CHARACTERS_BY_ID } from "../../lib/characters";
 import { ALLOWED_EXTERNAL_HOSTNAMES } from "../../lib/constants";
 import type { NormalisedScriptCharacter } from "../../types/botc";
@@ -24,31 +24,14 @@ const {
   loading = "eager",
 } = Astro.props;
 
-function getFallbackIcon(
-  team: NormalisedScriptCharacter["team"],
-): ImageMetadata {
-  switch (team) {
-    case "townsfolk":
-      return CHARACTER_ICONS.townsfolk_g;
-    case "outsider":
-      return CHARACTER_ICONS.outsider_g;
-    case "minion":
-      return CHARACTER_ICONS.minion_e;
-    case "demon":
-      return CHARACTER_ICONS.demon_e;
-    case "traveller":
-      return CHARACTER_ICONS.traveller;
-    case "fabled":
-      return CHARACTER_ICONS.fabled;
-    case "loric":
-      return CHARACTER_ICONS.fabled;
-  }
+function getFallbackIcon(team: NormalisedScriptCharacter["team"]): string {
+  return `https://release.botc.app/resources/characters/generic/${team}.webp`;
 }
 
 function ensureImageHostname(
   character: NormalisedScriptCharacter,
   imageUrl: string,
-): string | ImageMetadata {
+): string {
   try {
     const url = new URL(imageUrl);
     if (ALLOWED_EXTERNAL_HOSTNAMES.includes(url.hostname)) {
@@ -83,16 +66,29 @@ function getCharacterIcon(
     }
   }
 
-  // Role has no image defined, use local image if official character.
-  if (
-    character.edition === "special" ||
-    CHARACTERS_BY_ID.get(character.id) !== undefined
-  ) {
+  // Role has no image defined, check for special characters first. use local image if official character.
+  if (character.edition === "special") {
     return (
-      (CHARACTER_ICONS as Partial<Record<string, ImageMetadata>>)[
-        character.id
-      ] ?? getFallbackIcon(character.team)
+      (APP_ICONS as Partial<Record<string, ImageMetadata>>)[character.id] ??
+      getFallbackIcon(character.team)
     );
+  }
+
+  // If its an official character, use the official icon.
+  if (CHARACTERS_BY_ID.has(character.id)) {
+    let alignmentSuffix = "";
+    switch (character.team) {
+      case "townsfolk":
+      case "outsider":
+        alignmentSuffix = "_g";
+        break;
+      case "minion":
+      case "demon":
+        alignmentSuffix = "_e";
+        break;
+    }
+
+    return `https://release.botc.app/resources/characters/${character.edition}/${character.id}${alignmentSuffix}.webp`;
   }
 
   // Otherwise return default icon for type

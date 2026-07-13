@@ -1,6 +1,6 @@
 import { mkdir, writeFile } from "node:fs/promises";
-import data from "../src/data/data.json" with { type: "json" };
 import type { BloodOnTheClocktowerCustomScript } from "../src/generated/script-schema";
+import { editions, roles } from "../src/lib/data.ts";
 import { createTranslator, ENABLED_LOCALES } from "../src/lib/i18n/index.ts";
 
 for (const locale of ENABLED_LOCALES) {
@@ -10,7 +10,7 @@ for (const locale of ENABLED_LOCALES) {
 
   const t = await createTranslator({ locale: locale.astroId });
 
-  for (const edition of data.editions) {
+  for (const edition of editions) {
     if (edition.id === "custom") {
       continue;
     }
@@ -25,7 +25,7 @@ for (const locale of ENABLED_LOCALES) {
       },
     ];
 
-    for (const role of data.roles) {
+    for (const role of roles) {
       if (role.edition === edition.id) {
         script.push(role.id);
       }

@@ -1,8 +1,8 @@
-import data from "../../data/data.json";
 import type {
   BloodOnTheClocktowerCustomScript,
   ScriptCharacter,
 } from "../../generated/script-schema";
+import { roles } from "../../lib/data";
 
 function shouldAllowCharacter(character: ScriptCharacter): boolean {
   switch (character.team) {
@@ -34,7 +34,7 @@ function shouldAllowCharacter(character: ScriptCharacter): boolean {
   return true;
 }
 
-const characters = data.roles.filter((character) =>
+const characters = roles.filter((character) =>
   shouldAllowCharacter(character as never),
 );
 

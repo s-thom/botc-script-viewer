@@ -1,10 +1,10 @@
 import { mkdir, writeFile } from "node:fs/promises";
-import data from "../src/data/data.json" with { type: "json" };
+import { roles } from "../src/lib/data.ts";
 
 const set = new Set<string>();
 const knownExceptions = new Set(["dusk", "dawn", "minioninfo", "demoninfo"]);
 
-for (const character of data.roles) {
+for (const character of roles) {
   if (!knownExceptions.has(character.id)) {
     set.add(character.id);
   }

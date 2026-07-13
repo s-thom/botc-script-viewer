@@ -1,10 +1,10 @@
-import data from "../data/data.json";
 import type { ScriptCharacter } from "../generated/script-schema";
+import { roles } from "../lib/data";
 import type { NormalisedScriptCharacter } from "../types/botc";
 import type { Translator } from "./i18n/types";
 import { normaliseCharacterId } from "./number-store/characters";
 
-export const CHARACTERS_BY_ID = data.roles.reduce<
+export const CHARACTERS_BY_ID = roles.reduce<
   Map<string, NormalisedScriptCharacter>
 >((map, character) => {
   map.set(character.id, {

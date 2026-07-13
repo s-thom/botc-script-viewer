@@ -1,15 +1,15 @@
 ---
-import { Image } from "astro:assets";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import CharacterIcon from "../components/display/CharacterIcon.astro";
 import LocalisedMessage from "../components/i18n/LocalisedMessage.astro";
-import { goblin, witch } from "../generated/character-icons";
 import CenteredLayout from "../layouts/CenteredLayout.astro";
+import { CHARACTERS_BY_ID } from "../lib/characters";
 import {
   createTranslator,
   type LocaleIds,
   type TranslateParams,
 } from "../lib/i18n";
 import { AppError } from "../types/site";
-import { getRelativeLocaleUrl } from "astro:i18n";
 
 export const prerender = false;
 
@@ -56,12 +56,11 @@ const t = await createTranslator({ locale });
 
   <h1><LocalisedMessage t={t} key={titleKey} /></h1>
 
-  <Image
-    src={status === 404 ? witch : goblin}
+  <CharacterIcon
+    character={CHARACTERS_BY_ID.get(status === 404 ? "witch" : "goblin")!}
+    size={144}
     class="slow-spin"
-    alt=""
-    width={144}
-    densities={[1, 2, 3]}
+    loading="eager"
   />
   <p>
     <LocalisedMessage t={t} key={descriptionKey} params={descriptionParams} />

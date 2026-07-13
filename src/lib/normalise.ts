@@ -1,9 +1,9 @@
-import data from "../data/data.json";
 import type {
   BloodOnTheClocktowerCustomScript,
   ScriptCharacter,
   ScriptMetadata,
 } from "../generated/script-schema";
+import { nightOrder } from "../lib/data";
 import type {
   NormalisedScript,
   NormalisedScriptCharacter,
@@ -14,18 +14,20 @@ import { CHARACTERS_BY_ID, getTranslatedScriptCharacter } from "./characters";
 import type { Translator } from "./i18n/types";
 import { normaliseCharacterId } from "./number-store/characters";
 
-const FIRST_NIGHT_LOOKUP = data.nightOrder.firstNight.reduce<
-  Map<string, number>
->((map, id, index) => {
-  map.set(id, index);
-  return map;
-}, new Map());
-const OTHER_NIGHT_LOOKUP = data.nightOrder.otherNight.reduce<
-  Map<string, number>
->((map, id, index) => {
-  map.set(id, index);
-  return map;
-}, new Map());
+const FIRST_NIGHT_LOOKUP = nightOrder.firstNight.reduce<Map<string, number>>(
+  (map, id, index) => {
+    map.set(id, index);
+    return map;
+  },
+  new Map(),
+);
+const OTHER_NIGHT_LOOKUP = nightOrder.otherNight.reduce<Map<string, number>>(
+  (map, id, index) => {
+    map.set(id, index);
+    return map;
+  },
+  new Map(),
+);
 
 function getSpecialNightInfo(
   t: Translator,

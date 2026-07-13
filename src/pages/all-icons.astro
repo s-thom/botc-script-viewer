@@ -1,0 +1,54 @@
+---
+import CharacterIcon from "../components/display/CharacterIcon.astro";
+import MinimalLayout from "../layouts/MinimalLayout.astro";
+import { roles } from "../lib/data";
+import { createTranslator } from "../lib/i18n";
+import { normaliseScript } from "../lib/normalise";
+import type { NormalisedScriptCharacter } from "../types/botc";
+
+const t = await createTranslator({ locale: "en" });
+
+const allCharactersScript = roles.map((character) => character.id);
+const normalisedScript = normaliseScript(allCharactersScript, t);
+
+const specialIcons = (
+  ["dusk", "dawn", "minioninfo", "demoninfo"] as const
+).map<NormalisedScriptCharacter>((id) => ({
+  id,
+  name: "",
+  ability: "",
+  isHomebrew: false,
+  normalisedId: id,
+  team: "townsfolk",
+  edition: "special",
+}));
+---
+
+<MinimalLayout
+  t={t}
+  meta={{
+    title: t.string("viewer.common.nameLong").value,
+    lang: "en",
+    noIndex: true,
+  }}
+>
+  <div class="grid">
+    {
+      normalisedScript.characters.map((character) => (
+        <CharacterIcon character={character} size={48} />
+      ))
+    }
+    {
+      specialIcons.map((character) => (
+        <CharacterIcon character={character} size={48} />
+      ))
+    }
+  </div>
+</MinimalLayout>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 48px);
+  }
+</style>

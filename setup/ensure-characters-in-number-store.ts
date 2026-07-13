@@ -1,5 +1,5 @@
-import data from "../src/data/data.json" with { type: "json" };
 import type { ScriptCharacter } from "../src/generated/script-schema";
+import { roles } from "../src/lib/data.ts";
 import { ORDERED_CHARACTER_LIST } from "../src/lib/number-store/characters.ts";
 
 const nsCharacterSet = new Set(ORDERED_CHARACTER_LIST);
@@ -13,7 +13,7 @@ const knownExceptions = new Set([
 
 const missingSet = new Set<ScriptCharacter>();
 
-for (const character of data.roles) {
+for (const character of roles) {
   if (!nsCharacterSet.has(character.id) && !knownExceptions.has(character.id)) {
     missingSet.add(character as ScriptCharacter);
   }
