@@ -17,17 +17,19 @@ async function downloadAndSaveFile(url: string, filename: string) {
   console.log(`Saved ${filename}`);
 }
 
-await Promise.all([
-  downloadAndSaveFile(
-    "https://release.botc.app/resources/data/roles.json",
-    "roles.json",
-  ),
-  downloadAndSaveFile(
-    "https://release.botc.app/resources/data/jinxes.json",
-    "jinxes.json",
-  ),
-  downloadAndSaveFile(
-    "https://release.botc.app/resources/data/nightsheet.json",
-    "nightsheet.json",
-  ),
-]);
+export async function downloadData() {
+  await Promise.all([
+    downloadAndSaveFile(
+      "https://release.botc.app/resources/data/roles.json",
+      "roles.json",
+    ),
+    downloadAndSaveFile(
+      "https://release.botc.app/resources/data/jinxes.json",
+      "jinxes.json",
+    ),
+    downloadAndSaveFile(
+      "https://release.botc.app/resources/data/nightsheet.json",
+      "nightsheet.json",
+    ),
+  ]);
+}
