@@ -60,10 +60,7 @@ export interface NormalisedScript {
   teams: Record<CharacterTeam, NormalisedScriptCharacter[]>;
   jinxes: JinxInfo[];
   warnings: ScriptWarnings[];
-  interactions: {
-    hermit: InteractionInfo[];
-    extra: InteractionInfo[];
-  };
+  interactions: InteractionInfo[];
 }
 
 export interface LocalScriptCollection {

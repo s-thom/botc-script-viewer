@@ -12,10 +12,7 @@ import type {
 import { AppError } from "../types/site";
 import { CHARACTERS_BY_ID, getTranslatedScriptCharacter } from "./characters";
 import type { Translator } from "./i18n/types";
-import {
-  getExtraInteractionsForCharacters,
-  getHermitInteractionsForCharacters,
-} from "./interactions";
+import { getInteractionsForCharacters } from "./interactions";
 import { normaliseCharacterId } from "./number-store/characters";
 
 const FIRST_NIGHT_LOOKUP = nightOrder.firstNight.reduce<Map<string, number>>(
@@ -239,10 +236,7 @@ export function normaliseScript(
     },
     jinxes: [],
     warnings: [],
-    interactions: {
-      hermit: [],
-      extra: [],
-    },
+    interactions: [],
   };
 
   function addCharacter(character: NormalisedScriptCharacter) {
@@ -369,14 +363,7 @@ export function normaliseScript(
     }
   }
 
-  const characterSet = new Set(
-    newScript.characters.map((character) => character.id),
-  );
-
-  newScript.interactions.extra =
-    getExtraInteractionsForCharacters(characterSet);
-  newScript.interactions.hermit =
-    getHermitInteractionsForCharacters(characterSet);
+  newScript.interactions = getInteractionsForCharacters(newScript.characters);
 
   return newScript;
 }
