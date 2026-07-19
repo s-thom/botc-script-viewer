@@ -4,6 +4,7 @@ import type {
   ScriptCharacter,
 } from "../generated/script-schema";
 import type { LocaleIds } from "../lib/i18n";
+import type { InteractionStatus } from "./interactions";
 
 export interface NormalisedScriptCharacter extends ScriptCharacter {
   normalisedId: string;
@@ -37,6 +38,12 @@ export interface ExtraNightOrderCharactersWarning {
 
 export type ScriptWarnings = ExtraNightOrderCharactersWarning;
 
+export interface InteractionInfo {
+  level: InteractionStatus;
+  characters: string[];
+  value: string;
+}
+
 export interface NormalisedScript {
   name: string;
   author?: string;
@@ -53,6 +60,10 @@ export interface NormalisedScript {
   teams: Record<CharacterTeam, NormalisedScriptCharacter[]>;
   jinxes: JinxInfo[];
   warnings: ScriptWarnings[];
+  interactions: {
+    hermit: InteractionInfo[];
+    extra: InteractionInfo[];
+  };
 }
 
 export interface LocalScriptCollection {

@@ -16,6 +16,28 @@ export type HermitInteractionNested = {
 };
 export type HermitInteractions = HermitInteractionNested | StatusBlock;
 
+export function isStatusBlock(data: object): data is StatusBlock {
+  if (typeof data !== "object") {
+    return false;
+  }
+
+  const keys = Object.keys(data);
+  if (keys.length === 0) {
+    return false;
+  }
+
+  for (const key of keys) {
+    if (!STATUSES.includes(key as never)) {
+      return false;
+    }
+    if (typeof (data as never)[key] !== "string") {
+      return false;
+    }
+  }
+
+  return true;
+}
+
 export interface ExtraInteraction {
   interaction: StatusBlock;
   characters: OfficialCharacterId[];

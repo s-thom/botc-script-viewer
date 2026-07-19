@@ -4,13 +4,12 @@ import { join } from "node:path";
 import type { OfficialCharacterId } from "../src/generated/types.ts";
 import { roles } from "../src/lib/data.ts";
 import {
-  STATUSES,
+  isStatusBlock,
   type CharacterGroup,
   type ExtraInteraction,
   type HermitInteractionNested,
   type HermitInteractions,
   type RoleMatchups,
-  type StatusBlock,
 } from "../src/types/interactions.ts";
 
 const ZIP_URL =
@@ -28,28 +27,6 @@ function roleNameToId(name: string): OfficialCharacterId | undefined {
 }
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-function isStatusBlock(data: any): data is StatusBlock {
-  if (typeof data !== "object") {
-    return false;
-  }
-
-  const keys = Object.keys(data);
-  if (keys.length === 0) {
-    return false;
-  }
-
-  for (const key of keys) {
-    if (!STATUSES.includes(key as never)) {
-      return false;
-    }
-    if (typeof data[key] !== "string") {
-      return false;
-    }
-  }
-
-  return true;
-}
-
 function transformMatchups(data: any): RoleMatchups {
   const result: RoleMatchups = {};
 
