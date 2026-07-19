@@ -19,8 +19,8 @@ const { t, info, class: className } = Astro.props;
         {rule.type === "character" ? (
           <CharacterListItem
             t={t}
-            character={rule.character}
-            character1Link={`#${rule.character.id}`}
+            characters={[rule.character]}
+            characterLinks={[`#${rule.character.id}`]}
             title={rule.character.name}
             titleLink={`#${rule.character.id}`}
             description={rule.reminderText}
@@ -28,15 +28,17 @@ const { t, info, class: className } = Astro.props;
         ) : (
           <CharacterListItem
             t={t}
-            character={{
-              edition: "special",
-              team: "fabled",
-              id: rule.id,
-              name: rule.name,
-              ability: rule.reminderText ?? "",
-              normalisedId: rule.id,
-              isHomebrew: false,
-            }}
+            characters={[
+              {
+                edition: "special",
+                team: "fabled",
+                id: rule.id,
+                name: rule.name,
+                ability: rule.reminderText ?? "",
+                normalisedId: rule.id,
+                isHomebrew: false,
+              },
+            ]}
             title={rule.name}
             description={rule.reminderText}
             iconSize={32}

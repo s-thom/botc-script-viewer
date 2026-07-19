@@ -19,7 +19,7 @@ const { t, rules, class: className } = Astro.props;
         <li class="bootlegger-list-item">
           <CharacterListItem
             t={t}
-            character={CHARACTERS_BY_ID.get("bootlegger")!}
+            characters={[CHARACTERS_BY_ID.get("bootlegger")!]}
             description={rule}
           />
         </li>

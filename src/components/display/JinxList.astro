@@ -21,10 +21,8 @@ const { t, jinxes, class: className } = Astro.props;
       >
         <CharacterListItem
           t={t}
-          character={jinx.character1}
-          character1Link={`#${jinx.character1.id}`}
-          character2={jinx.character2}
-          character2Link={`#${jinx.character2.id}`}
+          characters={[jinx.character1, jinx.character2]}
+          characterLinks={[`#${jinx.character1.id}`, `#${jinx.character2.id}`]}
           description={jinx.reason}
         />
       </li>

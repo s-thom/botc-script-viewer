@@ -1,0 +1,60 @@
+---
+import type { Translator } from "../../lib/i18n/types";
+import type { InteractionInfo, NormalisedScript } from "../../types/botc";
+import CharacterListItem from "./CharacterListItem.astro";
+
+interface Props {
+  t: Translator;
+  script: NormalisedScript;
+  interactions: InteractionInfo[];
+  class?: string;
+}
+
+const { t, script, interactions, class: className } = Astro.props;
+---
+
+<ul class:list={["interaction-list", className]}>
+  {
+    interactions.map((interaction) => {
+      const characters = interaction.characters.map((id) =>
+        script.charactersById.get(id)!,
+      );
+
+      return (
+        <li
+          id={`interaction-${interaction.characters.join("-")}`}
+          class="interaction-list-item"
+        >
+          <CharacterListItem
+            t={t}
+            characters={characters}
+            characterLinks={interaction.characters.map((id) => `#${id}`)}
+            description={interaction.value}
+          />
+        </li>
+      );
+    })
+  }
+</ul>
+
+<style>
+  .interaction-list {
+    list-style: none;
+    padding-inline-start: 0;
+    margin-block: 1rem;
+    columns: 24rem;
+    column-gap: 1rem;
+  }
+
+  .interaction-list-item {
+    break-inside: avoid-column;
+
+    &:not(:first-child) {
+      margin-block-start: 1rem;
+    }
+
+    &:not(:last-child) {
+      margin-block-end: 1rem;
+    }
+  }
+</style>

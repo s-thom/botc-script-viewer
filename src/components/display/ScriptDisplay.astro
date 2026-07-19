@@ -2,12 +2,14 @@
 import { LOCALE_MAP, type LocaleIds } from "../../lib/i18n";
 import type { Translator } from "../../lib/i18n/types";
 import { fixDoubleSlashPaths } from "../../lib/url";
-import type { NormalisedScript } from "../../types/botc";
+import type { InteractionInfo, NormalisedScript } from "../../types/botc";
+import type { InteractionStatus } from "../../types/interactions";
 import LocalisedMessage from "../i18n/LocalisedMessage.astro";
 import Footer from "../misc/Footer.astro";
 import BootleggerList from "./BootleggerList.astro";
 import CharacterIcon from "./CharacterIcon.astro";
 import CharacterList from "./CharacterList.astro";
+import InteractionList from "./InteractionList.astro";
 import JinxList from "./JinxList.astro";
 import NightOrderList from "./NightOrderList.astro";
 import ReminderDefinition from "./reminder/ReminderDefinition.astro";
@@ -26,6 +28,18 @@ const qrPath = fixDoubleSlashPaths(
 // Warning information
 const allExtraNightOrderCharacters = script.warnings.flatMap((warning) =>
   warning.type === "extra-night-order-characters" ? warning.characters : [],
+);
+
+// Group interactions
+const interactionsByLevel = script.interactions.reduce<
+  Record<InteractionStatus, InteractionInfo[]>
+>(
+  (map, interaction) => {
+    map[interaction.level].push(interaction);
+
+    return map;
+  },
+  { conflict: [], warning: [], info: [], good: [], great: [] },
 );
 ---
 
@@ -220,6 +234,96 @@ const allExtraNightOrderCharacters = script.warnings.flatMap((warning) =>
     </div>
   </div>
 
+  {
+    script.interactions.length > 0 && (
+      <>
+        <hr class="screen-only" />
+
+        {/* TODO: Figure out how to translate all of the interactions data */}
+        <div class="page flow screen-only" lang="en">
+          <h2 id="interactions" class="category-title">
+            <LocalisedMessage t={t} key="viewer.interactions.title" />
+          </h2>
+
+          <div class="info-box screen-only">
+            <LocalisedMessage
+              t={t}
+              key="viewer.interactions.source"
+              params={{
+                externalLink: "https://lecodex.github.io/botc-interactions/",
+              }}
+            />
+          </div>
+
+          {interactionsByLevel.conflict.length > 0 && (
+            <>
+              <h3 id={`interactions-conflict`} class="category-title">
+                <LocalisedMessage
+                  t={t}
+                  key="viewer.interactions.levels.conflict"
+                  params={{ count: interactionsByLevel.conflict.length }}
+                />
+              </h3>
+
+              <InteractionList
+                t={t}
+                script={script}
+                interactions={interactionsByLevel.conflict}
+              />
+            </>
+          )}
+
+          {script.interactions.length - interactionsByLevel.conflict.length >
+            0 && (
+            <details>
+              <summary>
+                <LocalisedMessage
+                  t={t}
+                  key={
+                    interactionsByLevel.conflict.length > 0
+                      ? "viewer.interactions.viewAllCountMore"
+                      : "viewer.interactions.viewAllCount"
+                  }
+                  params={{
+                    count:
+                      script.interactions.length -
+                      interactionsByLevel.conflict.length,
+                  }}
+                />
+              </summary>
+
+              {Object.entries(interactionsByLevel).map(
+                ([level, interactions]) => {
+                  if (level === "conflict") {
+                    return null;
+                  }
+
+                  return (
+                    <>
+                      <h3 id={`interactions-${level}`} class="category-title">
+                        <LocalisedMessage
+                          t={t}
+                          key={`viewer.interactions.levels.${level}`}
+                          params={{ count: interactions.length }}
+                        />
+                      </h3>
+
+                      <InteractionList
+                        t={t}
+                        script={script}
+                        interactions={interactions}
+                      />
+                    </>
+                  );
+                },
+              )}
+            </details>
+          )}
+        </div>
+      </>
+    )
+  }
+
   <div class="page force-page qr-page print-only">
     <img
       id="qr-code"
@@ -368,6 +472,12 @@ const allExtraNightOrderCharacters = script.warnings.flatMap((warning) =>
     opacity: 0.7;
     font-size: 0.9rem;
     margin-block-start: 2rem;
+  }
+
+  .info-box {
+    background-color: var(--color-level-background-info);
+    border: 1px solid var(--color-level-border-info);
+    padding: 0.5rem;
   }
 
   .warning-box {

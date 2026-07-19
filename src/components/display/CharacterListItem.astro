@@ -7,12 +7,10 @@ import CharacterIcon from "./CharacterIcon.astro";
 
 interface Props {
   t: Translator;
-  character: NormalisedScriptCharacter | null;
-  character2?: NormalisedScriptCharacter;
+  characters: NormalisedScriptCharacter[];
+  characterLinks?: string[];
   title?: string;
   description?: string;
-  character1Link?: string;
-  character2Link?: string;
   titleLink?: string;
   wikiLink?: string;
   iconSize?: number;
@@ -21,12 +19,10 @@ interface Props {
 
 const {
   t,
-  character,
-  character2,
+  characters,
+  characterLinks,
   title,
   description,
-  character1Link,
-  character2Link,
   titleLink,
   wikiLink,
   iconSize = 48,
@@ -35,10 +31,11 @@ const {
 ---
 
 <div class="character">
+  {characters.length === 0 && <div class="character-icon-placeholder" />}
   {
-    character ? (
-      character1Link ? (
-        <a class="character-icon-link" href={character1Link}>
+    characters.map((character, i) =>
+      characterLinks?.[i] ? (
+        <a class="character-icon-link" href={characterLinks[i]}>
           <CharacterIcon
             character={character}
             size={iconSize}
@@ -51,28 +48,8 @@ const {
           size={iconSize}
           class:list={["character-icon-offset", iconClass]}
         />
-      )
-    ) : (
-      <div class="character-icon-placeholder" />
+      ),
     )
-  }
-  {
-    character2 &&
-      (character2Link ? (
-        <a class="character-icon-link" href={character2Link}>
-          <CharacterIcon
-            character={character2}
-            size={iconSize}
-            class:list={["character-icon-offset", iconClass]}
-          />
-        </a>
-      ) : (
-        <CharacterIcon
-          character={character2}
-          size={iconSize}
-          class:list={["character-icon-offset", iconClass]}
-        />
-      ))
   }
   <div class="character-info">
     {
@@ -106,7 +83,7 @@ const {
         <p class="character-description">
           <MessageSegments
             segments={t.raw(description, { formatReplacements: true })}
-            character={character ?? undefined}
+            character={characters[0] ?? undefined}
           />
         </p>
       )

@@ -125,6 +125,20 @@
       "reset": "Reset"
     }
   },
+  "interactions": {
+    "title": "Character Interactions",
+    "source": "Interaction data is sourced from LeCodex's {externalLink}Script Interactions tool{/externalLink}.",
+    "hasCountConflicts": "{count} potential conflict between characters found. {link}View conflict{/link}.|{n} potential conflicts between characters found. {link}View conflicts{/link}.",
+    "viewAllCount": "View all interactions ({count})",
+    "viewAllCountMore": "View all interactions ({count} more)",
+    "levels": {
+      "great": "Great",
+      "good": "Good",
+      "info": "Info",
+      "warning": "Warning|Warnings",
+      "conflict": "Conflict|Conflicts"
+    }
+  },
   "errors": {
     "notFound": "Not found",
     "notFoundHeading": "Page not found",

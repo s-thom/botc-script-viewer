@@ -144,7 +144,7 @@ export function getInteractionsForCharacters(
     }
 
     // Entries are the same for the common length, if one has more characters, sort it later.
-    const lengthDifference = b.characters.length - a.characters.length;
+    const lengthDifference = a.characters.length - b.characters.length;
     if (lengthDifference !== 0) {
       return lengthDifference;
     }

@@ -13,6 +13,10 @@ interface Props {
   scriptId?: string;
 }
 const { t, script, collectionId, scriptId } = Astro.props;
+
+const conflictInteractions = script.interactions.filter(
+  (interaction) => interaction.level === "conflict",
+);
 ---
 
 <div class="script-sidebar screen-only flow">
@@ -71,6 +75,22 @@ const { t, script, collectionId, scriptId } = Astro.props;
   {
     script.bootlegger && script.bootlegger.length > 0 && (
       <BootleggerList t={t} rules={script.bootlegger} />
+    )
+  }
+
+  {
+    conflictInteractions.length > 0 && (
+      <ScriptSidebarExtra iconCharacterId="gossip">
+        <LocalisedMessage
+          t={t}
+          key="viewer.interactions.hasCountConflicts"
+          params={{
+            count: conflictInteractions.length,
+            n: conflictInteractions.length,
+            link: "#interactions-conflict",
+          }}
+        />
+      </ScriptSidebarExtra>
     )
   }
 

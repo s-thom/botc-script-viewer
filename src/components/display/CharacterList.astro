@@ -20,7 +20,7 @@ const { t, characters, class: className, showWikiLink } = Astro.props;
       <li class={"character-list-item"} id={character.id}>
         <CharacterListItem
           t={t}
-          character={character}
+          characters={[character]}
           title={character.name}
           description={character.ability}
           wikiLink={showWikiLink ? getAlmanacLink(character) : undefined}
