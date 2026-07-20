@@ -1,4 +1,5 @@
 ---
+import { LOCALE_MAP, type LocaleIds } from "../../lib/i18n";
 import type { Translator } from "../../lib/i18n/types";
 import type { JinxInfo } from "../../types/botc";
 import CharacterListItem from "./CharacterListItem.astro";
@@ -23,6 +24,9 @@ const { t, jinxes, class: className } = Astro.props;
           t={t}
           characters={[jinx.character1, jinx.character2]}
           characterLinks={[`#${jinx.character1.id}`, `#${jinx.character2.id}`]}
+          title={new Intl.ListFormat(
+            LOCALE_MAP[t.locale as LocaleIds]?.standardId ?? t.locale,
+          ).format([jinx.character1.name, jinx.character2.name])}
           description={jinx.reason}
         />
       </li>
