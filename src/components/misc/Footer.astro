@@ -15,93 +15,97 @@ const localeInfo: LocaleInfo | undefined = LOCALE_MAP[t.locale as LocaleIds];
 ---
 
 <footer class:list={["footer", isScreenOnly && "screen-only"]}>
-  <p>
-    <LocalisedMessage t={t} key="viewer.footer.notAffiliated" />
-    {" "}
-    <LocalisedMessage t={t} key="viewer.footer.descriptionsNotice" />
-  </p>
-  <p>
-    <LocalisedMessage
-      t={t}
-      key="viewer.footer.madeBy"
-      params={{
-        author: "Stuart Thomson",
-        externalLink: "https://sthom.kiwi",
-        externalLinkEvent: "sthom-link",
-      }}
-    />
-    {" "}
+  <div class="footer-text">
+    <p>
+      <LocalisedMessage t={t} key="viewer.footer.notAffiliated" />
+      {" "}
+      <LocalisedMessage t={t} key="viewer.footer.descriptionsNotice" />
+    </p>
+    <p>
+      <LocalisedMessage
+        t={t}
+        key="viewer.footer.madeBy"
+        params={{
+          author: "Stuart Thomson",
+          externalLink: "https://sthom.kiwi",
+          externalLinkEvent: "sthom-link",
+        }}
+      />
+      {" "}
+      {
+        localeInfo && localeInfo.translators.length > 0 && (
+          <LocalisedMessage
+            t={t}
+            key="viewer.footer.translatedBy"
+            params={{
+              authors: new Intl.ListFormat(
+                LOCALE_MAP[t.locale as LocaleIds]?.standardId ?? t.locale,
+              ).format(localeInfo.translators),
+            }}
+          />
+        )
+      }
+      {" "}
+      <LocalisedMessage
+        t={t}
+        key="viewer.footer.sourceCode"
+        params={{
+          externalLink: "https://github.com/s-thom/botc-script-viewer",
+          externalLinkEvent: "github-link",
+        }}
+      />
+    </p>
     {
-      localeInfo && localeInfo.translators.length > 0 && (
-        <LocalisedMessage
-          t={t}
-          key="viewer.footer.translatedBy"
-          params={{
-            authors: new Intl.ListFormat(
-              LOCALE_MAP[t.locale as LocaleIds]?.standardId ?? t.locale,
-            ).format(localeInfo.translators),
-          }}
-        />
+      localeInfo && localeInfo.hasCommunityTranslations && (
+        <p>
+          {localeInfo.hasCommunityTranslations && (
+            <LocalisedMessage
+              t={t}
+              key="viewer.footer.translatedByCommunity"
+              params={{
+                externalLink:
+                  "https://docs.google.com/spreadsheets/u/0/d/1aAJdqSTafHnw01w-WZ94UPx1Me70Kz-EG1NFfBht2tA/htmlview#gid=923580658",
+                externalLinkEvent: "translate-spreadsheet-link",
+              }}
+            />
+          )}
+        </p>
       )
     }
-    {" "}
-    <LocalisedMessage
-      t={t}
-      key="viewer.footer.sourceCode"
-      params={{
-        externalLink: "https://github.com/s-thom/botc-script-viewer",
-        externalLinkEvent: "github-link",
-      }}
+    {
+      localeInfo && localeInfo.hasMachineTranslations && (
+        <p>
+          {localeInfo.hasMachineTranslations && (
+            <LocalisedMessage
+              t={t}
+              key="viewer.footer.translatedByMachine"
+              params={{
+                link: "/translation",
+              }}
+            />
+          )}
+        </p>
+      )
+    }
+  </div>
+  <div class="footer-ccc">
+    <Image
+      src="https://release.botc.app/resources/community/ccc-parchment.png"
+      alt={t.string("viewer.footer.communityCreatedContent").value}
+      class="ccc light"
+      width={152}
+      height={57}
+      densities={[1, 2, 3]}
     />
-  </p>
-  {
-    localeInfo && localeInfo.hasCommunityTranslations && (
-      <p>
-        {localeInfo.hasCommunityTranslations && (
-          <LocalisedMessage
-            t={t}
-            key="viewer.footer.translatedByCommunity"
-            params={{
-              externalLink:
-                "https://docs.google.com/spreadsheets/u/0/d/1aAJdqSTafHnw01w-WZ94UPx1Me70Kz-EG1NFfBht2tA/htmlview#gid=923580658",
-              externalLinkEvent: "translate-spreadsheet-link",
-            }}
-          />
-        )}
-      </p>
-    )
-  }
-  {
-    localeInfo && localeInfo.hasMachineTranslations && (
-      <p>
-        {localeInfo.hasMachineTranslations && (
-          <LocalisedMessage
-            t={t}
-            key="viewer.footer.translatedByMachine"
-            params={{
-              link: "/translation",
-            }}
-          />
-        )}
-      </p>
-    )
-  }
-  <Image
-    src="https://release.botc.app/resources/community/ccc-parchment.png"
-    alt={t.string("viewer.footer.communityCreatedContent").value}
-    class="ccc light"
-    width={152}
-    height={57}
-    densities={[1, 2, 3]}
-  />
-  <Image
-    src="https://release.botc.app/resources/community/ccc-sleeve.png"
-    alt={t.string("viewer.footer.communityCreatedContent").value}
-    class="ccc dark"
-    width={151}
-    height={60}
-    densities={[1, 2, 3]}
-  />
+    <Image
+      src="https://release.botc.app/resources/community/ccc-sleeve.png"
+      alt={t.string("viewer.footer.communityCreatedContent").value}
+      class="ccc dark"
+      width={151}
+      height={60}
+      densities={[1, 2, 3]}
+    />
+  </div>
 </footer>
 
 <style>
@@ -109,6 +113,20 @@ const localeInfo: LocaleInfo | undefined = LOCALE_MAP[t.locale as LocaleIds];
     opacity: 0.7;
     font-size: 0.9rem;
     margin-block-start: 2rem;
+
+    display: flex;
+    flex-direction: column;
+  }
+
+  .footer-ccc {
+    flex-shrink: 0;
+  }
+
+  @media (min-width: 550px) {
+    .footer {
+      flex-direction: row;
+      gap: 0.5rem;
+    }
   }
 
   .ccc {
