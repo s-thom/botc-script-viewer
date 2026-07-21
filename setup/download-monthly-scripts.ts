@@ -5,7 +5,7 @@ import PQueue from "p-queue";
 
 const DESTINATION_DIR = "src/scripts/monthly";
 
-export async function downloadMonthlyScripts() {
+export default async function downloadMonthlyScripts() {
   console.log("Fetching page");
   const pageRequest = await fetch("https://botc.app");
   if (!pageRequest.ok) {

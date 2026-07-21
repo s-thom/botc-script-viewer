@@ -15,7 +15,7 @@ const FULL_FILE_PATHS = new Set(
   ),
 );
 
-export async function downloadTranslations() {
+export default async function downloadTranslations() {
   console.log("Downloading translations zip...");
   const res = await fetch(ZIP_URL);
   if (!res.ok) {

@@ -1,26 +1,26 @@
-import { downloadData } from "./download-data.ts";
-import { downloadInteractions } from "./download-interactions.ts";
-import { downloadTranslations } from "./download-translations.ts";
-import { generateCommunityTranslations } from "./generate-community-translations.ts";
-import { generateEditionScripts } from "./generate-edition-scripts.ts";
-import { generateOfficialCharacterIds } from "./generate-official-character-ids.ts";
-import { generateScriptSchema } from "./generate-script-schema.ts";
-
 async function run() {
   console.log("[Setup] Generating Typescript schema for scripts");
-  await generateScriptSchema();
+  await import("./generate-script-schema.ts").then((m) => m.default());
+
   console.log("[Setup] Downloading data");
-  await downloadData();
+  await import("./download-data.ts").then((m) => m.default());
+
   console.log("[Setup] Downloading official translations");
-  await downloadTranslations();
+  await import("./download-translations.ts").then((m) => m.default());
+
   console.log("[Setup] Downloading community translations");
-  await generateCommunityTranslations();
+  await import("./generate-community-translations.ts").then((m) => m.default());
+
   console.log("[Setup] Downloading interactions data");
-  await downloadInteractions();
+  await import("./download-interactions.ts").then((m) => m.default());
+
   console.log("[Setup] Generating official scripts JSON");
-  await generateEditionScripts();
+  await import("./generate-edition-scripts.ts").then((m) => m.default());
+
   console.log("[Setup] Generating official character IDs type");
-  await generateOfficialCharacterIds();
+  await import("./generate-official-character-ids.ts").then((m) => m.default());
 }
 
 await run();
+
+export {};

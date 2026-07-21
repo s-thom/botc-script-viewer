@@ -136,7 +136,7 @@ const TRANSFORM_MAP: Record<(typeof FILES)[number], (data: any) => any> = {
 };
 /* eslint-enable @typescript-eslint/no-explicit-any */
 
-export async function downloadInteractions() {
+export default async function downloadInteractions() {
   console.log("Downloading interactions zip...");
   const res = await fetch(ZIP_URL);
   if (!res.ok) {

@@ -3,7 +3,7 @@ import type { BloodOnTheClocktowerCustomScript } from "../src/generated/script-s
 import { editions, roles } from "../src/lib/data.ts";
 import { createTranslator, ENABLED_LOCALES } from "../src/lib/i18n/index.ts";
 
-export async function generateEditionScripts() {
+export default async function generateEditionScripts() {
   for (const locale of ENABLED_LOCALES) {
     await mkdir(`src/generated/edition-scripts/${locale.astroId}`, {
       recursive: true,

@@ -3,7 +3,7 @@ import { compile } from "json-schema-to-typescript";
 import { mkdir, writeFile } from "node:fs/promises";
 import schema from "./schema.json" with { type: "json" };
 
-export async function generateScriptSchema() {
+export default async function generateScriptSchema() {
   const scriptSchema = schema as JSONSchema4;
 
   console.log("Compiling schema");

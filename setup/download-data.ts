@@ -17,7 +17,7 @@ async function downloadAndSaveFile(url: string, filename: string) {
   console.log(`Saved ${filename}`);
 }
 
-export async function downloadData() {
+export default async function downloadData() {
   await Promise.all([
     downloadAndSaveFile(
       "https://release.botc.app/resources/data/roles.json",

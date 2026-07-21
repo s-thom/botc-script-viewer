@@ -23,7 +23,7 @@ interface TranslatedInfo {
   other?: string;
 }
 
-export async function generateCommunityTranslations() {
+export default async function generateCommunityTranslations() {
   await mkdir(DESTINATION_DIR, { recursive: true });
 
   const communityLanguages = Object.entries(LOCALE_MAP).filter(

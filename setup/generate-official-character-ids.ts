@@ -1,7 +1,7 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import { roles } from "../src/lib/data.ts";
 
-export async function generateOfficialCharacterIds() {
+export default async function generateOfficialCharacterIds() {
   const set = new Set<string>();
   const knownExceptions = new Set(["dusk", "dawn", "minioninfo", "demoninfo"]);
 
