@@ -4,6 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "setup": "wrangler types && node setup/index.ts",
+    "validate": "node setup/ensure-characters-in-number-store.ts",
     "dev": "astro dev",
     "build": "astro build",
     "full-build": "npm run setup && npm run build",
