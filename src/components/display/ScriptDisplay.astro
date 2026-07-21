@@ -235,7 +235,7 @@ const interactionsByLevel = script.interactions.reduce<
   </div>
 
   {
-    script.interactions.length > 0 && (
+    interactionsByLevel.conflict.length > 0 && (
       <>
         <hr class="screen-only" />
 
@@ -255,70 +255,19 @@ const interactionsByLevel = script.interactions.reduce<
             />
           </div>
 
-          {interactionsByLevel.conflict.length > 0 && (
-            <>
-              <h3 id={`interactions-conflict`} class="category-title">
-                <LocalisedMessage
-                  t={t}
-                  key="viewer.interactions.levels.conflict"
-                  params={{ count: interactionsByLevel.conflict.length }}
-                />
-              </h3>
+          <h3 id={`interactions-conflict`} class="category-title">
+            <LocalisedMessage
+              t={t}
+              key="viewer.interactions.levels.conflict"
+              params={{ count: interactionsByLevel.conflict.length }}
+            />
+          </h3>
 
-              <InteractionList
-                t={t}
-                script={script}
-                interactions={interactionsByLevel.conflict}
-              />
-            </>
-          )}
-
-          {script.interactions.length - interactionsByLevel.conflict.length >
-            0 && (
-            <details>
-              <summary>
-                <LocalisedMessage
-                  t={t}
-                  key={
-                    interactionsByLevel.conflict.length > 0
-                      ? "viewer.interactions.viewAllCountMore"
-                      : "viewer.interactions.viewAllCount"
-                  }
-                  params={{
-                    count:
-                      script.interactions.length -
-                      interactionsByLevel.conflict.length,
-                  }}
-                />
-              </summary>
-
-              {Object.entries(interactionsByLevel).map(
-                ([level, interactions]) => {
-                  if (level === "conflict") {
-                    return null;
-                  }
-
-                  return (
-                    <>
-                      <h3 id={`interactions-${level}`} class="category-title">
-                        <LocalisedMessage
-                          t={t}
-                          key={`viewer.interactions.levels.${level}`}
-                          params={{ count: interactions.length }}
-                        />
-                      </h3>
-
-                      <InteractionList
-                        t={t}
-                        script={script}
-                        interactions={interactions}
-                      />
-                    </>
-                  );
-                },
-              )}
-            </details>
-          )}
+          <InteractionList
+            t={t}
+            script={script}
+            interactions={interactionsByLevel.conflict}
+          />
         </div>
       </>
     )
