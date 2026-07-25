@@ -241,12 +241,6 @@ function getNightOrderArrays(
         info.character.normalisedId,
       );
       if (characterIndex !== -1 && characterIndex < currentFirstNightIndex) {
-        console.log("first", {
-          characterIndex,
-          currentFirstNightIndex,
-          nid: info.character.normalisedId,
-          officialFirstNightCharacters,
-        });
         isFirstNightModified = true;
         break;
       }
@@ -261,12 +255,6 @@ function getNightOrderArrays(
       );
       if (characterIndex !== -1 && characterIndex < currentOtherNightIndex) {
         isOtherNightModified = true;
-        console.log("other", {
-          characterIndex,
-          currentFirstNightIndex,
-          nid: info.character.normalisedId,
-          officialFirstNightCharacters,
-        });
         break;
       }
 
