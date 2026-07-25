@@ -95,6 +95,18 @@ const conflictInteractions = script.interactions.filter(
   }
 
   {
+    script.hasModifiedNightOrder && (
+      <ScriptSidebarExtra iconCharacterId="moonchild">
+        <LocalisedMessage
+          t={t}
+          key="viewer.script.nightOrderModified"
+          params={{ link: "#night-order" }}
+        />
+      </ScriptSidebarExtra>
+    )
+  }
+
+  {
     script.charactersById.has("pukka") && (
       <ScriptSidebarExtra iconCharacterId="pukka">
         <LocalisedMessage

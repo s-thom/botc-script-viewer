@@ -5,6 +5,7 @@ import type {
 } from "../generated/script-schema";
 import { nightOrder } from "../lib/data";
 import type {
+  CharacterNightInfo,
   NormalisedScript,
   NormalisedScriptCharacter,
   SpecialNightInfo,
@@ -78,6 +79,8 @@ function getNightOrderArrays(
   const missingCharacters: NormalisedScriptCharacter[] = [];
   const invalidCharacterIds = new Set<string>();
 
+  const characters = Array.from(charactersById.values());
+
   function hasSpecialId(arr: NormalisedScript["firstNight"], id: string) {
     return arr.some((item) => item.type === "special" && item.id === id);
   }
@@ -123,7 +126,7 @@ function getNightOrderArrays(
       });
     }
   } else {
-    firstNight = Array.from(charactersById.values())
+    firstNight = characters
       .map((character) => ({
         character,
         index:
@@ -183,7 +186,7 @@ function getNightOrderArrays(
       });
     }
   } else {
-    otherNight = Array.from(charactersById.values())
+    otherNight = characters
       .map((character) => ({
         character,
         index:
@@ -206,11 +209,78 @@ function getNightOrderArrays(
     otherNight.push(getSpecialNightInfo(t, "dawn")!);
   }
 
+  // Check to see whether the night order has been modified.
+  // This only checks official characters, so if the script is heavily homebrewed then don't bother.
+  // I've chosen a threshold of at least 3 official non-NPC/non-Traveller characters.
+  // If I ever rewrite the night order logic, it'd be nice to properly compare the given night order to the official one
+  // and do a diff, but this code is not set up to do that right now.
+  let isFirstNightModified = false;
+  let isOtherNightModified = false;
+  if (
+    (meta.firstNight || meta.otherNight) &&
+    characters.filter(
+      (character) =>
+        !character.isHomebrew &&
+        character.team !== "fabled" &&
+        character.team !== "loric" &&
+        character.team !== "traveller",
+    ).length > 3
+  ) {
+    const officialFirstNightCharacters = firstNight.filter(
+      (item): item is CharacterNightInfo =>
+        item.type === "character" && !item.character.isHomebrew,
+    );
+    const officialOtherNightCharacters = otherNight.filter(
+      (item): item is CharacterNightInfo =>
+        item.type === "character" && !item.character.isHomebrew,
+    );
+
+    let currentFirstNightIndex = -1;
+    for (const info of officialFirstNightCharacters) {
+      const characterIndex = nightOrder.firstNight.indexOf(
+        info.character.normalisedId,
+      );
+      if (characterIndex !== -1 && characterIndex < currentFirstNightIndex) {
+        console.log("first", {
+          characterIndex,
+          currentFirstNightIndex,
+          nid: info.character.normalisedId,
+          officialFirstNightCharacters,
+        });
+        isFirstNightModified = true;
+        break;
+      }
+
+      currentFirstNightIndex = characterIndex;
+    }
+
+    let currentOtherNightIndex = -1;
+    for (const info of officialOtherNightCharacters) {
+      const characterIndex = nightOrder.firstNight.indexOf(
+        info.character.normalisedId,
+      );
+      if (characterIndex !== -1 && characterIndex < currentOtherNightIndex) {
+        isOtherNightModified = true;
+        console.log("other", {
+          characterIndex,
+          currentFirstNightIndex,
+          nid: info.character.normalisedId,
+          officialFirstNightCharacters,
+        });
+        break;
+      }
+
+      currentOtherNightIndex = characterIndex;
+    }
+  }
+
   return {
     firstNight,
     otherNight,
     missingCharacters,
     invalidCharacterIds: Array.from(invalidCharacterIds).sort(),
+    isFirstNightModified,
+    isOtherNightModified,
   };
 }
 
@@ -223,6 +293,7 @@ export function normaliseScript(
     name: "",
     firstNight: [],
     otherNight: [],
+    hasModifiedNightOrder: false,
     characters: [],
     charactersById: new Map(),
     teams: {
@@ -331,10 +402,18 @@ export function normaliseScript(
     }
   }
 
-  const { firstNight, otherNight, missingCharacters, invalidCharacterIds } =
-    getNightOrderArrays(t, newScript.charactersById, meta);
+  const {
+    firstNight,
+    otherNight,
+    missingCharacters,
+    invalidCharacterIds,
+    isFirstNightModified,
+    isOtherNightModified,
+  } = getNightOrderArrays(t, newScript.charactersById, meta);
   newScript.firstNight = firstNight;
   newScript.otherNight = otherNight;
+  newScript.hasModifiedNightOrder =
+    isFirstNightModified || isOtherNightModified;
   for (const missingCharacter of missingCharacters) {
     addCharacter(missingCharacter);
   }

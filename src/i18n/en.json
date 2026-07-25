@@ -30,6 +30,7 @@
     "reminder": "Reminder",
     "nightOrder": "Night Order",
     "nightOrderWarning": "The following characters are referenced in the night order, but are not listed on the script: {characters}",
+    "nightOrderModified": "The {link}night order{/link} has been modified from the default order",
     "viewOnBotcScripts": "View on {externalLink}botcscripts.com{/externalLink}"
   },
   "home": {

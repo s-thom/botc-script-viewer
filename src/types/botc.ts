@@ -55,6 +55,7 @@ export interface NormalisedScript {
   color?: string;
   firstNight: NightInfo[];
   otherNight: NightInfo[];
+  hasModifiedNightOrder: boolean;
   characters: NormalisedScriptCharacter[];
   charactersById: Map<string, NormalisedScriptCharacter>;
   teams: Record<CharacterTeam, NormalisedScriptCharacter[]>;
