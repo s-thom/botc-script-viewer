@@ -44,7 +44,7 @@ export const CAROUSEL_COLLECTION: LocalScriptDefinition[] = [
   {
     id: "midnight-oasis",
     title: "The Midnight Oasis",
-    character: "alhadikhia",
+    character: "atheist",
     getScript: () => import("./The Midnight Oasis.json").then((m) => m.default),
   },
   {
