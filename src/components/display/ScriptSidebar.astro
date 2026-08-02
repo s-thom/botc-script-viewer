@@ -1,12 +1,13 @@
 ---
+import { Image } from "astro:assets";
 import { ALLOWED_EXTERNAL_HOSTNAMES } from "../../lib/constants";
 import type { Translator } from "../../lib/i18n/types";
+import { getRemoteImageResize } from "../../lib/image";
 import type { NormalisedScript } from "../../types/botc";
 import LocalisedMessage from "../i18n/LocalisedMessage.astro";
 import BootleggerList from "./BootleggerList.astro";
 import CharacterIcon from "./CharacterIcon.astro";
 import ScriptSidebarExtra from "./ScriptSidebarExtra.astro";
-import { Image } from "astro:assets";
 
 interface Props {
   t: Translator;
@@ -20,10 +21,10 @@ const conflictInteractions = script.interactions.filter(
   (interaction) => interaction.level === "conflict",
 );
 
-const logoUrl =
+const logoData =
   script.logo &&
   ALLOWED_EXTERNAL_HOSTNAMES.includes(new URL(script.logo).hostname)
-    ? script.logo
+    ? await getRemoteImageResize(script.logo, { maxWidth: 96, maxHeight: 96 })
     : undefined;
 ---
 
@@ -47,13 +48,13 @@ const logoUrl =
         }
       </div>
       {
-        logoUrl && (
+        logoData && (
           <Image
-            src={logoUrl}
+            src={logoData.src}
             alt=""
             class="logo"
-            width={96}
-            height={96}
+            width={logoData.width}
+            height={logoData.height}
             densities={[1, 2, 3]}
             loading="eager"
           />
