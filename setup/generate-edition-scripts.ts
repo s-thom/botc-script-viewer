@@ -23,6 +23,7 @@ export default async function generateEditionScripts() {
           author: "The Pandemonium Institute",
           firstNight: edition.firstNight,
           otherNight: edition.otherNight,
+          logo: `https://release.botc.app/resources/editions/${edition.id}/logo.webp`,
         },
       ];
 

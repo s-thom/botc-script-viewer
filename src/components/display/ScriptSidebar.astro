@@ -1,10 +1,12 @@
 ---
+import { ALLOWED_EXTERNAL_HOSTNAMES } from "../../lib/constants";
 import type { Translator } from "../../lib/i18n/types";
 import type { NormalisedScript } from "../../types/botc";
 import LocalisedMessage from "../i18n/LocalisedMessage.astro";
 import BootleggerList from "./BootleggerList.astro";
 import CharacterIcon from "./CharacterIcon.astro";
 import ScriptSidebarExtra from "./ScriptSidebarExtra.astro";
+import { Image } from "astro:assets";
 
 interface Props {
   t: Translator;
@@ -17,115 +19,147 @@ const { t, script, collectionId, scriptId } = Astro.props;
 const conflictInteractions = script.interactions.filter(
   (interaction) => interaction.level === "conflict",
 );
+
+const logoUrl =
+  script.logo &&
+  ALLOWED_EXTERNAL_HOSTNAMES.includes(new URL(script.logo).hostname)
+    ? script.logo
+    : undefined;
 ---
 
-<div class="script-sidebar screen-only flow">
-  <h2 id="script" class="title">
-    {script.name || t.string("viewer.script.untitledScript").value}
-  </h2>
-  {
-    script.author && (
-      <p class="author">
-        <LocalisedMessage
-          t={t}
-          key="viewer.script.byAuthor"
-          params={{ author: script.author }}
-        />
-      </p>
-    )
-  }
+<div class="script-sidebar screen-only">
+  <div class="sidebar-content flow">
+    <div class="header-area">
+      <div class="title-area flow">
+        <h2 id="script" class="title">
+          {script.name || t.string("viewer.script.untitledScript").value}
+        </h2>
+        {
+          script.author && (
+            <p class="author">
+              <LocalisedMessage
+                t={t}
+                key="viewer.script.byAuthor"
+                params={{ author: script.author }}
+              />
+            </p>
+          )
+        }
+      </div>
+      {
+        logoUrl && (
+          <Image
+            src={logoUrl}
+            alt=""
+            class="logo"
+            width={96}
+            height={96}
+            background="rgba(0 0 0 / 0)"
+            densities={[1, 2, 3]}
+            loading="eager"
+          />
+        )
+      }
+    </div>
 
-  {
-    collectionId === "base3" && scriptId && (
-      <p class="description">
-        <LocalisedMessage
-          t={t}
-          key={`game.editions.${scriptId}.description`}
-          params={{ author: script.author }}
-        />
-      </p>
-    )
-  }
+    {
+      collectionId === "base3" && scriptId && (
+        <p class="description">
+          <LocalisedMessage
+            t={t}
+            key={`game.editions.${scriptId}.description`}
+            params={{ author: script.author }}
+          />
+        </p>
+      )
+    }
 
-  <slot name="after-description" />
+    <slot name="after-description" />
 
-  {
-    script.teams.fabled.length + script.teams.loric.length > 0 && (
-      <ul class="fabled-list">
-        {script.teams.fabled.map((character) => (
-          <li class="fabled-list-item">
-            <a href={`#${character.id}`} class="fabled-list-item">
-              <CharacterIcon size={48} character={character} />
-              <span class="fabled-title">{character.name}</span>
-            </a>
-          </li>
-        ))}
-        {script.teams.loric.map((character) => (
-          <li class="fabled-list-item">
-            <a href={`#${character.id}`} class="fabled-list-item">
-              <CharacterIcon size={48} character={character} />
-              <span class="fabled-title">{character.name}</span>
-            </a>
-          </li>
-        ))}
-      </ul>
-    )
-  }
+    {
+      script.teams.fabled.length + script.teams.loric.length > 0 && (
+        <ul class="fabled-list">
+          {script.teams.fabled.map((character) => (
+            <li class="fabled-list-item">
+              <a href={`#${character.id}`} class="fabled-list-item">
+                <CharacterIcon size={48} character={character} />
+                <span class="fabled-title">{character.name}</span>
+              </a>
+            </li>
+          ))}
+          {script.teams.loric.map((character) => (
+            <li class="fabled-list-item">
+              <a href={`#${character.id}`} class="fabled-list-item">
+                <CharacterIcon size={48} character={character} />
+                <span class="fabled-title">{character.name}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )
+    }
 
-  {
-    script.bootlegger && script.bootlegger.length > 0 && (
-      <BootleggerList t={t} rules={script.bootlegger} />
-    )
-  }
+    {
+      script.bootlegger && script.bootlegger.length > 0 && (
+        <BootleggerList t={t} rules={script.bootlegger} />
+      )
+    }
 
-  {
-    conflictInteractions.length > 0 && (
-      <ScriptSidebarExtra iconCharacterId="gossip">
-        <LocalisedMessage
-          t={t}
-          key="viewer.interactions.hasCountConflicts"
-          params={{
-            count: conflictInteractions.length,
-            n: conflictInteractions.length,
-            link: "#interactions-conflict",
-          }}
-        />
-      </ScriptSidebarExtra>
-    )
-  }
+    {
+      conflictInteractions.length > 0 && (
+        <ScriptSidebarExtra iconCharacterId="gossip">
+          <LocalisedMessage
+            t={t}
+            key="viewer.interactions.hasCountConflicts"
+            params={{
+              count: conflictInteractions.length,
+              n: conflictInteractions.length,
+              link: "#interactions-conflict",
+            }}
+          />
+        </ScriptSidebarExtra>
+      )
+    }
 
-  {
-    script.hasModifiedNightOrder && (
-      <ScriptSidebarExtra iconCharacterId="moonchild">
-        <LocalisedMessage
-          t={t}
-          key="viewer.script.nightOrderModified"
-          params={{ link: "#night-order" }}
-        />
-      </ScriptSidebarExtra>
-    )
-  }
+    {
+      script.hasModifiedNightOrder && (
+        <ScriptSidebarExtra iconCharacterId="moonchild">
+          <LocalisedMessage
+            t={t}
+            key="viewer.script.nightOrderModified"
+            params={{ link: "#night-order" }}
+          />
+        </ScriptSidebarExtra>
+      )
+    }
 
-  {
-    script.charactersById.has("pukka") && (
-      <ScriptSidebarExtra iconCharacterId="pukka">
-        <LocalisedMessage
-          t={t}
-          key="viewer.pukka.view"
-          params={{
-            link: "/pukka-flowchart",
-            content: t.string("viewer.pukka.title").value,
-          }}
-        />
-      </ScriptSidebarExtra>
-    )
-  }
+    {
+      script.charactersById.has("pukka") && (
+        <ScriptSidebarExtra iconCharacterId="pukka">
+          <LocalisedMessage
+            t={t}
+            key="viewer.pukka.view"
+            params={{
+              link: "/pukka-flowchart",
+              content: t.string("viewer.pukka.title").value,
+            }}
+          />
+        </ScriptSidebarExtra>
+      )
+    }
 
-  <slot name="after-extras" />
+    <slot name="after-extras" />
+  </div>
 </div>
 
 <style>
   .script-sidebar {
+    @media (min-width: 1200px) {
+      filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.5));
+    }
+  }
+
+  .sidebar-content {
     margin: 2rem 1rem;
 
     @media (min-width: 900px) {
@@ -138,17 +172,49 @@ const conflictInteractions = script.interactions.filter(
       height: fit-content;
 
       margin: 1rem;
+      margin-inline-end: 0;
+
+      color: var(--color-text);
+      background-color: var(--color-control-background);
+
       padding: 1rem;
 
-      background-color: var(--color-control-background);
-      border: 2px solid var(--color-control-border);
-      border-radius: 15px;
-      color: var(--color-text);
+      clip-path: polygon(
+        0 100%,
+        10% calc(100% - 10px),
+        20% calc(100% - 3px),
+        30% calc(100% - 12px),
+        40% calc(100% - 14px),
+        50% calc(100% - 8px),
+        60% calc(100% - 11px),
+        70% calc(100% - 7px),
+        80% calc(100% - 4px),
+        90% calc(100% - 9px),
+        100% calc(100% - 6px),
+        100% calc(14px - 6px),
+        90% calc(14px - 9px),
+        80% calc(14px - 4px),
+        70% calc(14px - 7px),
+        60% calc(14px - 11px),
+        50% calc(14px - 8px),
+        40% calc(14px - 14px),
+        30% calc(14px - 12px),
+        20% calc(14px - 3px),
+        10% calc(14px - 10px),
+        0 calc(14px - 0px)
+      );
     }
+  }
+
+  .logo {
+    margin: 0 auto;
+    flex-shrink: 0;
+    --flow-space: 0.5rem;
   }
 
   .title {
     font-size: 2rem;
+    --flow-space: 0.5rem;
   }
 
   .author {
@@ -156,8 +222,22 @@ const conflictInteractions = script.interactions.filter(
     --flow-space: 0em;
   }
 
-  .description {
-    --flow-space: 0em;
+  .header-area {
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+
+    @media (min-width: 400px) {
+      flex-direction: row;
+    }
+  }
+
+  .title-area {
+    flex-grow: 1;
+  }
+
+  .title-area + :global(*) {
+    --flow-space: 0.5em;
   }
 
   .fabled-list {

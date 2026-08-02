@@ -141,7 +141,7 @@ textarea:not([rows]) {
 
   --color-header-background: #20562d;
   --color-header-text: #fdedc9;
-  --color-header-paper: #ffffff;
+  --color-header-paper: #fffdf4;
   --color-header-paper: light-dark(#fffdf4, #25241f);
 
   --color-alignment: var(--color-text);
