@@ -154,16 +154,44 @@ const logoData =
 
 <style>
   .script-sidebar {
-    @media (min-width: 1200px) {
-      filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.5));
-    }
+    filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.5));
   }
 
   .sidebar-content {
-    margin: 2rem 1rem;
+    margin: 1rem 0.5rem;
 
-    @media (min-width: 900px) {
-      margin: 2rem;
+    color: var(--color-text);
+    background-color: var(--color-control-background);
+
+    padding: 1rem;
+
+    clip-path: polygon(
+      0 100%,
+      10% calc(100% - 10px),
+      20% calc(100% - 3px),
+      30% calc(100% - 12px),
+      40% calc(100% - 14px),
+      50% calc(100% - 8px),
+      60% calc(100% - 11px),
+      70% calc(100% - 7px),
+      80% calc(100% - 4px),
+      90% calc(100% - 9px),
+      100% calc(100% - 6px),
+      100% calc(14px - 6px),
+      90% calc(14px - 9px),
+      80% calc(14px - 4px),
+      70% calc(14px - 7px),
+      60% calc(14px - 11px),
+      50% calc(14px - 8px),
+      40% calc(14px - 14px),
+      30% calc(14px - 12px),
+      20% calc(14px - 3px),
+      10% calc(14px - 10px),
+      0 calc(14px - 0px)
+    );
+
+    @media (min-width: 500px) {
+      margin: 1rem;
     }
 
     @media (min-width: 1200px) {
@@ -173,36 +201,6 @@ const logoData =
 
       margin: 1rem;
       margin-inline-end: 0;
-
-      color: var(--color-text);
-      background-color: var(--color-control-background);
-
-      padding: 1rem;
-
-      clip-path: polygon(
-        0 100%,
-        10% calc(100% - 10px),
-        20% calc(100% - 3px),
-        30% calc(100% - 12px),
-        40% calc(100% - 14px),
-        50% calc(100% - 8px),
-        60% calc(100% - 11px),
-        70% calc(100% - 7px),
-        80% calc(100% - 4px),
-        90% calc(100% - 9px),
-        100% calc(100% - 6px),
-        100% calc(14px - 6px),
-        90% calc(14px - 9px),
-        80% calc(14px - 4px),
-        70% calc(14px - 7px),
-        60% calc(14px - 11px),
-        50% calc(14px - 8px),
-        40% calc(14px - 14px),
-        30% calc(14px - 12px),
-        20% calc(14px - 3px),
-        10% calc(14px - 10px),
-        0 calc(14px - 0px)
-      );
     }
   }
 
