@@ -5,8 +5,7 @@ import type {
   ScriptCharacter,
 } from "../../generated/script-schema";
 import { AppError } from "../../types/site";
-import { fetchScriptFromUrl } from "./fetch";
-import { KeyedRateLimit } from "./rate-limits";
+import { fetchJson } from "./fetch";
 import { rawScriptValidator } from "./schema";
 
 const formSchema = z.object({
@@ -17,14 +16,6 @@ const formSchema = z.object({
     .refine((value) => typeof value === "object" && value instanceof File)
     .optional(),
 });
-
-// Only allow 5 requests per second per hostname when requesting scripts.
-export const FETCH_QUEUE = new KeyedRateLimit({
-  intervalMs: 1000,
-  intervalCap: 5,
-});
-export const REQUEST_USR_AGENT =
-  "Script Viewer/1.0; (compatible; +https://github.com/s-thom/botc-script-viewer)";
 
 function parseScriptJsonFromString(
   str: string,
@@ -113,7 +104,7 @@ export async function scriptFromFormData(
   } else if (script) {
     const url = URL.parse(script);
     if (url != null) {
-      scriptString = await fetchScriptFromUrl(url);
+      scriptString = await fetchJson(url);
     } else {
       scriptString = script;
     }

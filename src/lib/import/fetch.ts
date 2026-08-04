@@ -1,8 +1,16 @@
-import { FETCH_QUEUE, REQUEST_USR_AGENT } from ".";
 import { AppError } from "../../types/site";
 import { MAX_SCRIPT_SIZE_BYTES } from "../constants";
+import { KeyedRateLimit } from "./rate-limits";
 
-export async function fetchScriptFromUrl(url: URL): Promise<string> {
+// Only allow 5 requests per second per hostname when requesting scripts.
+export const FETCH_QUEUE = new KeyedRateLimit({
+  intervalMs: 1000,
+  intervalCap: 5,
+});
+export const REQUEST_USR_AGENT =
+  "Script Viewer/1.0; (compatible; +https://github.com/s-thom/botc-script-viewer)";
+
+export async function fetchJson(url: URL): Promise<string> {
   // Otherwise request URL and convert
   const headers = new Headers();
   headers.set("Accept", "application/json");
@@ -44,7 +52,7 @@ export async function fetchScriptFromUrl(url: URL): Promise<string> {
 
   const reader = response.body?.getReader();
   if (!reader) {
-    throw new AppError("Response content type was not JSON", {
+    throw new AppError("Response could not be read", {
       status: 500,
       titleKey: "viewer.errors.genericError",
       descriptionKey: "viewer.errors.genericErrorDescription",
