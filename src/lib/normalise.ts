@@ -8,6 +8,7 @@ import type {
   CharacterNightInfo,
   NormalisedScript,
   NormalisedScriptCharacter,
+  NormalisedScriptFallbacks,
   SpecialNightInfo,
 } from "../types/botc";
 import { AppError } from "../types/site";
@@ -433,4 +434,16 @@ export function normaliseScript(
   newScript.interactions = getInteractionsForCharacters(newScript.characters);
 
   return newScript;
+}
+
+export function applyNormalisedScriptFallbacks(
+  script: NormalisedScript,
+  fallbacks: NormalisedScriptFallbacks,
+) {
+  if (!script.name && fallbacks.name !== undefined) {
+    script.name = fallbacks.name;
+  }
+  if (!script.author && fallbacks.author !== undefined) {
+    script.author = fallbacks.author;
+  }
 }

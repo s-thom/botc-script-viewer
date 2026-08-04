@@ -64,6 +64,11 @@ export interface NormalisedScript {
   interactions: InteractionInfo[];
 }
 
+export interface NormalisedScriptFallbacks {
+  name?: string;
+  author?: string;
+}
+
 export interface LocalScriptCollection {
   scripts: LocalScriptDefinition[];
   isOfficial?: boolean;

@@ -1,6 +1,7 @@
 ---
-import ScriptSidebar from "../components/display/ScriptSidebar.astro";
+import { clampChroma, converter, formatRgb, parse } from "culori";
 import ScriptDisplay from "../components/display/ScriptDisplay.astro";
+import ScriptSidebar from "../components/display/ScriptSidebar.astro";
 import SkipList from "../components/display/SkipList.astro";
 import LocalisedMessage from "../components/i18n/LocalisedMessage.astro";
 import PageView from "../components/misc/PageView.astro";
@@ -8,11 +9,14 @@ import type { BloodOnTheClocktowerCustomScript } from "../generated/script-schem
 import { compressToBase64, stringToBytes } from "../lib/compression";
 import type { LocaleIds } from "../lib/i18n";
 import type { Translator } from "../lib/i18n/types";
-import { normaliseScript } from "../lib/normalise";
+import {
+  applyNormalisedScriptFallbacks,
+  normaliseScript,
+} from "../lib/normalise";
 import { getScriptPageDescription } from "../lib/site/description";
 import { fixDoubleSlashPaths } from "../lib/url";
+import type { NormalisedScriptFallbacks } from "../types/botc";
 import TopBarLayout from "./TopBarLayout.astro";
-import { parse, converter, clampChroma, formatRgb } from "culori";
 
 interface Props {
   t: Translator;
@@ -24,6 +28,7 @@ interface Props {
   noIndex?: boolean;
   collectionId?: string;
   scriptId?: string;
+  fallbacks?: NormalisedScriptFallbacks;
 }
 
 const {
@@ -36,9 +41,14 @@ const {
   noIndex,
   collectionId,
   scriptId,
+  fallbacks,
 } = Astro.props;
 
 const script = normaliseScript(rawScript, t);
+
+if (fallbacks) {
+  applyNormalisedScriptFallbacks(script, fallbacks);
+}
 
 const qrPath = fixDoubleSlashPaths(
   new URL(`${Astro.url.pathname}/qr.svg`, Astro.url),

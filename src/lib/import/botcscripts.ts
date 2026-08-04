@@ -92,13 +92,12 @@ async function fetchVersionInstance(
   }
 }
 
-export async function fetchScriptByIdVersion(
+export async function fetchScriptVersionByIdVersion(
   scriptId: string,
   versionId: string,
-): Promise<string> {
+): Promise<VersionInstance> {
   const scriptInstance = await fetchScriptInstance(scriptId);
   const versionInstance = await fetchVersionInstance(scriptInstance, versionId);
 
-  const scriptString = JSON.stringify(versionInstance.content);
-  return scriptString;
+  return versionInstance;
 }
