@@ -1,10 +1,14 @@
 ---
+import { getAbsoluteLocaleUrl } from "astro:i18n";
 import ScriptSidebarExtra from "../../../../../components/display/ScriptSidebarExtra.astro";
 import LocalisedMessage from "../../../../../components/i18n/LocalisedMessage.astro";
 import ScriptViewerLayout from "../../../../../layouts/ScriptViewerLayout.astro";
 import { MAX_AGE_SECONDS } from "../../../../../lib/constants";
 import { createTranslator, type LocaleIds } from "../../../../../lib/i18n";
-import { fetchScriptVersionByIdVersion } from "../../../../../lib/import/botcscripts";
+import {
+  fetchScriptInstance,
+  fetchVersionInstance,
+} from "../../../../../lib/import/botcscripts";
 import { getPathWithoutLocale } from "../../../../../lib/url";
 
 export const prerender = false;
@@ -15,7 +19,13 @@ if (!(scriptId && versionId)) {
   return Astro.rewrite("/404");
 }
 
-const scriptVersion = await fetchScriptVersionByIdVersion(scriptId, versionId);
+const scriptInstance = await fetchScriptInstance(scriptId);
+const scriptVersion = await fetchVersionInstance(scriptInstance, versionId);
+
+const allVersionIds = Object.keys(scriptInstance.versions);
+const hasOtherVersion = Object.keys(scriptInstance.versions).some(
+  (id) => id !== versionId,
+);
 
 const locale = (Astro.currentLocale ?? "en") as LocaleIds;
 const t = await createTranslator({ locale });
@@ -49,4 +59,39 @@ Astro.response.headers.set(
       }}
     />
   </ScriptSidebarExtra>
+  {
+    hasOtherVersion && (
+      <ScriptSidebarExtra
+        slot="sidebar-after-description"
+        iconCharacterId="clockmaker"
+      >
+        <LocalisedMessage t={t} key="viewer.script.otherVersions" />{" "}
+        {allVersionIds.map((otherVersionId) =>
+          otherVersionId === versionId ? (
+            <span class="version-link">{otherVersionId}</span>
+          ) : (
+            <a
+              class="version-link"
+              href={getAbsoluteLocaleUrl(
+                locale,
+                `sw/${scriptId}/${otherVersionId}`,
+              )}
+              data-umami-event="botc-scripts-other-version"
+              data-umami-event-scriptid={scriptId}
+              data-umami-event-versionid={otherVersionId}
+            >
+              {otherVersionId}
+            </a>
+          ),
+        )}
+      </ScriptSidebarExtra>
+    )
+  }
 </ScriptViewerLayout>
+
+<style>
+  .version-link {
+    display: inline-block;
+    padding: 0 0.15rem;
+  }
+</style>

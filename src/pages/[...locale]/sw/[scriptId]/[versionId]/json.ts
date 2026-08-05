@@ -1,5 +1,8 @@
 import type { APIRoute } from "astro";
-import { fetchScriptVersionByIdVersion } from "../../../../../lib/import/botcscripts";
+import {
+  fetchScriptInstance,
+  fetchVersionInstance,
+} from "../../../../../lib/import/botcscripts";
 import {
   getJsonHeaders,
   getOptionsResponse,
@@ -14,10 +17,8 @@ export const GET: APIRoute = async ({ params, rewrite }) => {
     return rewrite("/404");
   }
 
-  const scriptVersion = await fetchScriptVersionByIdVersion(
-    scriptId,
-    versionId,
-  );
+  const scriptInstance = await fetchScriptInstance(scriptId);
+  const scriptVersion = await fetchVersionInstance(scriptInstance, versionId);
   const rawScriptString = JSON.stringify(scriptVersion.content);
 
   return new Response(rawScriptString, { headers: getJsonHeaders() });

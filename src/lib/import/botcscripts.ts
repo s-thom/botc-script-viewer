@@ -22,7 +22,9 @@ interface VersionInstance {
   score: number;
 }
 
-async function fetchScriptInstance(scriptId: string): Promise<ScriptInstance> {
+export async function fetchScriptInstance(
+  scriptId: string,
+): Promise<ScriptInstance> {
   const requestUrl = new URL(
     `https://www.botcscripts.com/api/script_ids/${scriptId}/`,
   );
@@ -45,7 +47,7 @@ async function fetchScriptInstance(scriptId: string): Promise<ScriptInstance> {
   }
 }
 
-async function fetchVersionInstance(
+export async function fetchVersionInstance(
   scriptInstance: ScriptInstance,
   versionId: string,
 ): Promise<VersionInstance> {
@@ -90,14 +92,4 @@ async function fetchVersionInstance(
       },
     );
   }
-}
-
-export async function fetchScriptVersionByIdVersion(
-  scriptId: string,
-  versionId: string,
-): Promise<VersionInstance> {
-  const scriptInstance = await fetchScriptInstance(scriptId);
-  const versionInstance = await fetchVersionInstance(scriptInstance, versionId);
-
-  return versionInstance;
 }
