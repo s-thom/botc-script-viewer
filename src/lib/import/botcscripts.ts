@@ -1,8 +1,9 @@
 import type { BloodOnTheClocktowerCustomScript } from "../../generated/script-schema";
 import { AppError } from "../../types/site";
+import { BOTC_SCRIPTS_HOSTNAME } from "../constants";
 import { fetchJson } from "./fetch";
 
-const ALLOWED_HOSTS = new Set(["www.botcscripts.com"]);
+const ALLOWED_HOSTS = new Set([BOTC_SCRIPTS_HOSTNAME]);
 
 interface ScriptInstance {
   pk: number;
@@ -26,7 +27,7 @@ export async function fetchScriptInstance(
   scriptId: string,
 ): Promise<ScriptInstance> {
   const requestUrl = new URL(
-    `https://www.botcscripts.com/api/script_ids/${scriptId}/`,
+    `https://${BOTC_SCRIPTS_HOSTNAME}/api/script_ids/${scriptId}/`,
   );
   const responseStr = await fetchJson(requestUrl);
 

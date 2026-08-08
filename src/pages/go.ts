@@ -1,6 +1,7 @@
 import type { APIRoute } from "astro";
 import { getRelativeLocaleUrl } from "astro:i18n";
 import { compressToBase64, stringToBytes } from "../lib/compression";
+import { BOTC_SCRIPTS_HOSTNAME, KLUTZBANANA_HOSTNAME } from "../lib/constants";
 import { ENABLED_LOCALES } from "../lib/i18n";
 import { scriptFromFormData } from "../lib/import";
 import { encodeScript } from "../lib/number-store";
@@ -33,7 +34,7 @@ export const POST: APIRoute = async ({
     const parsedInput = URL.parse(rawInput.trim());
     if (parsedInput != null) {
       // External: https://www.botcscripts.com/script/<id>/<version> → /sw/<id>/<version>/
-      if (parsedInput.hostname === "www.botcscripts.com") {
+      if (parsedInput.hostname === BOTC_SCRIPTS_HOSTNAME) {
         const swMatch = parsedInput.pathname.match(
           /^\/script\/([^/]+)\/([^/]+)\/?$/,
         );
@@ -42,6 +43,16 @@ export const POST: APIRoute = async ({
           return redirect(
             getRelativeLocaleUrl(locale, `/sw/${scriptId}/${versionId}/`),
           );
+        }
+      }
+      // External: https://klutzbanana.com/scripts/<id>/<***> → /kb/<id>/
+      if (parsedInput.hostname === KLUTZBANANA_HOSTNAME) {
+        const swMatch = parsedInput.pathname.match(
+          /^\/scripts\/([^/]+)\/([^/]+)\/?$/,
+        );
+        if (swMatch) {
+          const [, scriptId] = swMatch;
+          return redirect(getRelativeLocaleUrl(locale, `/kb/${scriptId}/`));
         }
       }
 

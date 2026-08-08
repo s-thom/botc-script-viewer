@@ -3,7 +3,10 @@ import { getAbsoluteLocaleUrl } from "astro:i18n";
 import ScriptSidebarExtra from "../../../../../components/display/ScriptSidebarExtra.astro";
 import LocalisedMessage from "../../../../../components/i18n/LocalisedMessage.astro";
 import ScriptViewerLayout from "../../../../../layouts/ScriptViewerLayout.astro";
-import { MAX_AGE_SECONDS } from "../../../../../lib/constants";
+import {
+  BOTC_SCRIPTS_HOSTNAME,
+  MAX_AGE_SECONDS,
+} from "../../../../../lib/constants";
 import { createTranslator, type LocaleIds } from "../../../../../lib/i18n";
 import {
   fetchScriptInstance,
@@ -55,7 +58,7 @@ Astro.response.headers.set(
       t={t}
       key="viewer.script.viewOnBotcScripts"
       params={{
-        externalLink: `https://www.botcscripts.com/script/${scriptId}/${versionId}`,
+        externalLink: `https://${BOTC_SCRIPTS_HOSTNAME}/script/${scriptId}/${versionId}`,
       }}
     />
   </ScriptSidebarExtra>

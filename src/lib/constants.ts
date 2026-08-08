@@ -14,3 +14,6 @@ export const ALLOWED_EXTERNAL_HOSTNAMES = [
   "raw.githubusercontent.com",
   "user-images.klutzbanana.com",
 ];
+
+export const BOTC_SCRIPTS_HOSTNAME = "www.botcscripts.com";
+export const KLUTZBANANA_HOSTNAME = "klutzbanana.com";

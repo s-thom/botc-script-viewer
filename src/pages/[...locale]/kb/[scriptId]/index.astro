@@ -1,0 +1,58 @@
+---
+import ScriptSidebarExtra from "../../../../components/display/ScriptSidebarExtra.astro";
+import LocalisedMessage from "../../../../components/i18n/LocalisedMessage.astro";
+import ScriptViewerLayout from "../../../../layouts/ScriptViewerLayout.astro";
+import {
+  KLUTZBANANA_HOSTNAME,
+  MAX_AGE_SECONDS,
+} from "../../../../lib/constants";
+import { createTranslator, type LocaleIds } from "../../../../lib/i18n";
+import { fetchKlutzbananaScript } from "../../../../lib/import/klutzbanana";
+import { getPathWithoutLocale } from "../../../../lib/url";
+
+export const prerender = false;
+
+const { scriptId } = Astro.params;
+
+if (!scriptId) {
+  return Astro.rewrite("/404");
+}
+
+const script = await fetchKlutzbananaScript(scriptId);
+
+const locale = (Astro.currentLocale ?? "en") as LocaleIds;
+const t = await createTranslator({ locale });
+
+Astro.response.headers.set(
+  "Cache-Control",
+  `public, max-age=${MAX_AGE_SECONDS}`,
+);
+---
+
+<ScriptViewerLayout
+  t={t}
+  rawScript={script}
+  basePath={getPathWithoutLocale(
+    Astro.routePattern,
+    Astro.currentLocale,
+    Astro.url.pathname,
+  )}
+  noIndex
+>
+  <ScriptSidebarExtra slot="sidebar-after-description" iconCharacterId="klutz">
+    <LocalisedMessage
+      t={t}
+      key="viewer.script.viewOnKlutzbanana"
+      params={{
+        externalLink: `https://${KLUTZBANANA_HOSTNAME}/scripts/${scriptId}/_`,
+      }}
+    />
+  </ScriptSidebarExtra>
+</ScriptViewerLayout>
+
+<style>
+  .version-link {
+    display: inline-block;
+    padding: 0 0.15rem;
+  }
+</style>
