@@ -47,6 +47,7 @@ export interface InteractionInfo {
 export interface NormalisedScript {
   name: string;
   author?: string;
+  description?: string;
   hideTitle?: boolean;
   logo?: string;
   background?: string;
@@ -67,6 +68,7 @@ export interface NormalisedScript {
 export interface NormalisedScriptFallbacks {
   name?: string;
   author?: string;
+  description?: string;
 }
 
 export interface LocalScriptCollection {

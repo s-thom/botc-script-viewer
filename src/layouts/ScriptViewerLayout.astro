@@ -26,8 +26,6 @@ interface Props {
   color?: string;
   overrideJsonPathSegment?: string;
   noIndex?: boolean;
-  collectionId?: string;
-  scriptId?: string;
   fallbacks?: NormalisedScriptFallbacks;
 }
 
@@ -39,8 +37,6 @@ const {
   color: overrideColor,
   overrideJsonPathSegment,
   noIndex,
-  collectionId,
-  scriptId,
   fallbacks,
 } = Astro.props;
 
@@ -148,12 +144,7 @@ if (color !== undefined) {
   </ul>
 
   <div class="script-viewer">
-    <ScriptSidebar
-      t={t}
-      script={script}
-      collectionId={collectionId}
-      scriptId={scriptId}
-    >
+    <ScriptSidebar t={t} script={script}>
       <slot name="sidebar-after-description" slot="after-description" />
       <slot name="sidebar-after-extras" slot="after-extras" />
     </ScriptSidebar>

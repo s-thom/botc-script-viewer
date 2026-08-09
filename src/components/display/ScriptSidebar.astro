@@ -12,10 +12,8 @@ import ScriptSidebarExtra from "./ScriptSidebarExtra.astro";
 interface Props {
   t: Translator;
   script: NormalisedScript;
-  collectionId?: string;
-  scriptId?: string;
 }
-const { t, script, collectionId, scriptId } = Astro.props;
+const { t, script } = Astro.props;
 
 const conflictInteractions = script.interactions.filter(
   (interaction) => interaction.level === "conflict",
@@ -62,17 +60,7 @@ const logoData =
       }
     </div>
 
-    {
-      collectionId === "base3" && scriptId && (
-        <p class="description">
-          <LocalisedMessage
-            t={t}
-            key={`game.editions.${scriptId}.description`}
-            params={{ author: script.author }}
-          />
-        </p>
-      )
-    }
+    {script.description && <p class="description">{script.description}</p>}
 
     <slot name="after-description" />
 

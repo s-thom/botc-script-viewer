@@ -46,6 +46,11 @@ const getScript =
 const rawScript = await getScript();
 
 const t = await createTranslator({ locale });
+
+const description =
+  collectionId === "base3"
+    ? t.string(`game.editions.${scriptId}.description`).value
+    : undefined;
 ---
 
 <ScriptViewerLayout
@@ -59,8 +64,7 @@ const t = await createTranslator({ locale });
   canonicalBasePath={scriptDefinition.canonical}
   overrideJsonPathSegment={`${scriptDefinition.id}.json`}
   color={scriptDefinition.color}
-  collectionId={collectionId}
-  scriptId={scriptId}
+  fallbacks={{ description }}
 >
   <ScriptSidebarExtra
     slot="sidebar-after-description"

@@ -1,5 +1,5 @@
 import type { NormalisedScript } from "../../types/botc";
-import { LOCALE_MAP, type LocaleIds, type Translator } from "../i18n";
+import { type Translator } from "../i18n";
 
 export function getScriptPageDescription(
   t: Translator,
@@ -9,9 +9,7 @@ export function getScriptPageDescription(
     characters.map((character) => character.name),
   );
 
-  const characterNameList = new Intl.ListFormat(
-    LOCALE_MAP[t.locale as LocaleIds]?.standardId ?? t.locale,
-  ).format(allCharacters);
+  const characterNameList = t.ListFormat().format(allCharacters);
 
   return t.string(
     script.author

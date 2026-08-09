@@ -446,4 +446,7 @@ export function applyNormalisedScriptFallbacks(
   if (!script.author && fallbacks.author !== undefined) {
     script.author = fallbacks.author;
   }
+  if (!script.description && fallbacks.description !== undefined) {
+    script.description = fallbacks.description;
+  }
 }
