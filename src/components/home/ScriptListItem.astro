@@ -1,10 +1,10 @@
 ---
 import { getRelativeLocaleUrl } from "astro:i18n";
-import { CHARACTERS_BY_ID } from "../../lib/characters";
-import { LOCALE_MAP, type LocaleIds, type Translator } from "../../lib/i18n";
-import CharacterIcon from "../display/CharacterIcon.astro";
-import type { LocalScriptDefinition } from "../../types/botc";
 import type { ScriptMetadata } from "../../generated/script-schema";
+import { CHARACTERS_BY_ID } from "../../lib/characters";
+import { type LocaleIds, type Translator } from "../../lib/i18n";
+import type { LocalScriptDefinition } from "../../types/botc";
+import CharacterIcon from "../display/CharacterIcon.astro";
 
 export interface Props {
   t: Translator;
@@ -29,13 +29,12 @@ if (
   "date" in script &&
   script.date instanceof Date
 ) {
-  title = new Intl.DateTimeFormat(
-    LOCALE_MAP[t.locale as LocaleIds]?.standardId ?? t.locale,
-    {
+  title = t
+    .DateTimeFormat({
       month: "long",
       year: "numeric",
-    },
-  ).format(script.date);
+    })
+    .format(script.date);
 }
 ---
 

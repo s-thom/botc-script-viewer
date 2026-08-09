@@ -1,5 +1,4 @@
 ---
-import { LOCALE_MAP, type LocaleIds } from "../../lib/i18n";
 import type { Translator } from "../../lib/i18n/types";
 import { fixDoubleSlashPaths } from "../../lib/url";
 import type { InteractionInfo, NormalisedScript } from "../../types/botc";
@@ -209,9 +208,7 @@ const interactionsByLevel = script.interactions.reduce<
             t={t}
             key="viewer.script.nightOrderWarning"
             params={{
-              characters: new Intl.ListFormat(
-                LOCALE_MAP[t.locale as LocaleIds]?.standardId ?? t.locale,
-              ).format(allExtraNightOrderCharacters),
+              characters: t.ListFormat().format(allExtraNightOrderCharacters),
             }}
           />
         </div>

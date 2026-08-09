@@ -14,6 +14,10 @@ export type Translator = ((
   string: (key: string, params?: TranslateParams) => TranslateResult<string>;
   raw: (raw: string, params?: TranslateParams) => MessageSegment[];
   rawString: (raw: string, params?: TranslateParams) => string;
+
+  ListFormat: (options?: Intl.ListFormatOptions) => Intl.ListFormat;
+  DateTimeFormat: (options?: Intl.DateTimeFormatOptions) => Intl.DateTimeFormat;
+  PluralRules: (options?: Intl.PluralRulesOptions) => Intl.PluralRules;
 };
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type

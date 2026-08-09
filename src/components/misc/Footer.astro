@@ -1,8 +1,8 @@
 ---
+import { Image } from "astro:assets";
 import { LOCALE_MAP, type LocaleIds, type LocaleInfo } from "../../lib/i18n";
 import type { Translator } from "../../lib/i18n/types";
 import LocalisedMessage from "../i18n/LocalisedMessage.astro";
-import { Image } from "astro:assets";
 
 interface Props {
   t: Translator;
@@ -38,9 +38,7 @@ const localeInfo: LocaleInfo | undefined = LOCALE_MAP[t.locale as LocaleIds];
             t={t}
             key="viewer.footer.translatedBy"
             params={{
-              authors: new Intl.ListFormat(
-                LOCALE_MAP[t.locale as LocaleIds]?.standardId ?? t.locale,
-              ).format(localeInfo.translators),
+              authors: t.ListFormat().format(localeInfo.translators),
             }}
           />
         )

@@ -116,6 +116,13 @@ export async function createTranslator({
 
       return str;
     },
+
+    ListFormat: (options?: Intl.ListFormatOptions) =>
+      new Intl.ListFormat(standardLocale, options),
+    DateTimeFormat: (options?: Intl.DateTimeFormatOptions) =>
+      new Intl.DateTimeFormat(standardLocale, options),
+    PluralRules: (options?: Intl.PluralRulesOptions) =>
+      new Intl.PluralRules(standardLocale, options),
   });
 
   return t;
