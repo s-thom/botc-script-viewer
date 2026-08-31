@@ -16,7 +16,7 @@
     "test:all": "node --test && playwright test"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^14.1.7",
+    "@astrojs/cloudflare": "^14.2.4",
     "@astrojs/sitemap": "^3.7.3",
     "astro": "^7.1.6",
     "culori": "^4.0.2",
@@ -35,22 +35,22 @@
     "@types/node": "^24.13.3",
     "@types/qrcode-svg": "^1.1.5",
     "@types/umami": "^2.10.1",
-    "eslint": "^10.8.0",
+    "eslint": "^10.9.1",
     "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-astro": "^3.0.1",
+    "eslint-plugin-astro": "^3.1.0",
     "eslint-plugin-jsx-a11y-x": "^0.2.0",
     "eslint-plugin-prettier": "^5.5.6",
     "fflate": "^0.8.3",
-    "globals": "^17.8.0",
+    "globals": "^17.11.0",
     "json-schema-to-typescript": "^15.0.4",
     "p-queue": "^9.3.3",
     "prettier": "^3.9.6",
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-organize-imports": "^4.3.0",
     "public-google-sheets-parser": "^1.5.4",
-    "typescript": "^6.0.3",
-    "typescript-eslint": "^8.65.0",
-    "wrangler": "^4.118.0"
+    "typescript": "^7.0.2",
+    "typescript-eslint": "^8.68.0",
+    "wrangler": "^4.125.0"
   },
   "overrides": {
     "eslint-plugin-jsx-a11y": "$eslint-plugin-jsx-a11y-x"
