@@ -6,6 +6,7 @@ const ALL_MONTHLY_SCRIPTS: (LocalScriptDefinition & { date: Date })[] = [
     id: "2026-01",
     title: "January 2026",
     character: "drunk",
+    botcScripts: { scriptId: 173, versionId: "9.0.0", pk: 8952 },
     getScript: () => import("./2026-01.json").then((m) => m.default),
   },
   {
@@ -17,6 +18,7 @@ const ALL_MONTHLY_SCRIPTS: (LocalScriptDefinition & { date: Date })[] = [
       collectionId: "carousel",
       scriptId: "harold-holts-revenge",
     },
+    botcScripts: { scriptId: 372, versionId: "1.1.0", pk: 5078 },
     getScript: () => import("./2026-02.json").then((m) => m.default),
   },
   {
@@ -24,6 +26,7 @@ const ALL_MONTHLY_SCRIPTS: (LocalScriptDefinition & { date: Date })[] = [
     id: "2026-03",
     title: "March 2026",
     character: "lordoftyphon",
+    botcScripts: { scriptId: 4583, versionId: "2.6.0", pk: 17078 },
     getScript: () => import("./2026-03.json").then((m) => m.default),
   },
   {
@@ -32,6 +35,7 @@ const ALL_MONTHLY_SCRIPTS: (LocalScriptDefinition & { date: Date })[] = [
     title: "April 2026",
     character: "ogre",
     canonicalRef: { collectionId: "v", scriptId: "onion-pies" },
+    botcScripts: { scriptId: 4008, versionId: "1.0.0", pk: 6852 },
     getScript: () => import("./2026-04.json").then((m) => m.default),
   },
   {
@@ -39,6 +43,7 @@ const ALL_MONTHLY_SCRIPTS: (LocalScriptDefinition & { date: Date })[] = [
     id: "2026-05",
     title: "May 2026",
     character: "alhadikhia",
+    botcScripts: { scriptId: 4098, versionId: "6.0.0", pk: 13634 },
     getScript: () => import("./2026-05.json").then((m) => m.default),
   },
   {
@@ -46,6 +51,7 @@ const ALL_MONTHLY_SCRIPTS: (LocalScriptDefinition & { date: Date })[] = [
     id: "2026-06",
     title: "June 2026",
     character: "clockmaker",
+    botcScripts: { scriptId: 32, versionId: "1.0.0", pk: 32 },
     getScript: () => import("./2026-06.json").then((m) => m.default),
   },
   {
@@ -54,6 +60,7 @@ const ALL_MONTHLY_SCRIPTS: (LocalScriptDefinition & { date: Date })[] = [
     title: "July 2026",
     character: "psychopath",
     canonicalRef: { collectionId: "v", scriptId: "nfm" },
+    botcScripts: { scriptId: 4669, versionId: "1.0.1", pk: 21028 },
     getScript: () => import("./2026-07.json").then((m) => m.default),
   },
   {
@@ -61,6 +68,7 @@ const ALL_MONTHLY_SCRIPTS: (LocalScriptDefinition & { date: Date })[] = [
     id: "2026-08",
     title: "August 2026",
     character: "hatter",
+    botcScripts: { scriptId: 2268, versionId: "1.1.0", pk: 3960 },
     getScript: () => import("./2026-08.json").then((m) => m.default),
   },
   {
@@ -68,6 +76,7 @@ const ALL_MONTHLY_SCRIPTS: (LocalScriptDefinition & { date: Date })[] = [
     id: "2026-09",
     title: "September 2026",
     character: "engineer",
+    botcScripts: { scriptId: 7519, versionId: "2.3.2", pk: 15520 },
     getScript: () => import("./2026-09.json").then((m) => m.default),
   },
   {
@@ -75,6 +84,7 @@ const ALL_MONTHLY_SCRIPTS: (LocalScriptDefinition & { date: Date })[] = [
     id: "2026-10",
     title: "October 2026",
     character: "fearmonger",
+    botcScripts: { scriptId: 936, versionId: "1.0.1", pk: 2202 },
     getScript: () => import("./2026-10.json").then((m) => m.default),
   },
   {
@@ -83,6 +93,7 @@ const ALL_MONTHLY_SCRIPTS: (LocalScriptDefinition & { date: Date })[] = [
     title: "November 2026",
     character: "kazali",
     canonicalRef: { collectionId: "s2", scriptId: "cyborg" },
+    botcScripts: { scriptId: 3936, versionId: "5.2.0", pk: 9523 },
     getScript: () => import("./2026-11.json").then((m) => m.default),
   },
   {
@@ -90,6 +101,7 @@ const ALL_MONTHLY_SCRIPTS: (LocalScriptDefinition & { date: Date })[] = [
     id: "2026-12",
     title: "December 2026",
     character: "imp",
+    botcScripts: { scriptId: 1945, versionId: "1.0.2", pk: 6670 },
     getScript: () => import("./2026-12.json").then((m) => m.default),
   },
 ];

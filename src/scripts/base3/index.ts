@@ -6,7 +6,7 @@ export const BASE_3: LocalScriptDefinition[] = [
     title: "Trouble Brewing",
     character: "imp",
     color: "#AB0D27",
-    botcScriptsPk: 178,
+    botcScripts: { scriptId: 133, versionId: "1.0.0", pk: 178 },
     getScript: () =>
       import("../../generated/edition-scripts/en/tb.json").then(
         (m) => m.default,
@@ -67,7 +67,7 @@ export const BASE_3: LocalScriptDefinition[] = [
     title: "Bad Moon Rising",
     character: "godfather",
     color: "#EC9834",
-    botcScriptsPk: 181,
+    botcScripts: { scriptId: 135, versionId: "1.0.0", pk: 181 },
     getScript: () =>
       import("../../generated/edition-scripts/en/bmr.json").then(
         (m) => m.default,
@@ -128,7 +128,7 @@ export const BASE_3: LocalScriptDefinition[] = [
     title: "Sects and Violets",
     character: "pithag",
     color: "#8D57AA",
-    botcScriptsPk: 180,
+    botcScripts: { scriptId: 134, versionId: "1.0.0", pk: 180 },
     getScript: () =>
       import("../../generated/edition-scripts/en/snv.json").then(
         (m) => m.default,

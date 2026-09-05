@@ -18,18 +18,25 @@ import {
 } from "../../../../../lib/import/botcscripts";
 import { getPathWithoutLocale } from "../../../../../lib/url";
 import { LOCAL_SCRIPT_COLLECTIONS } from "../../../../../scripts";
-import type { LocalScriptReference } from "../../../../../types/site";
+import type {
+  LocalScriptDefinition,
+  LocalScriptReference,
+} from "../../../../../types/site";
 
 export async function getStaticPaths() {
   const topScripts = await fetchTopScriptsByScore();
 
-  const pkMap = new Map<number, LocalScriptReference>();
+  // Map these scripts back to
+  const pkMap = new Map<
+    number,
+    { collectionId: string; script: LocalScriptDefinition }
+  >();
   for (const [collectionId, collection] of Object.entries(
     LOCAL_SCRIPT_COLLECTIONS,
   )) {
     for (const script of collection.scripts) {
-      if (typeof script.botcScriptsPk === "number") {
-        pkMap.set(script.botcScriptsPk, { collectionId, scriptId: script.id });
+      if (script.botcScripts && !script.canonicalRef) {
+        pkMap.set(script.botcScripts.scriptId, { collectionId, script });
       }
     }
   }
@@ -40,12 +47,27 @@ export async function getStaticPaths() {
       const scriptId = script.script_id.toString();
       const scriptInstance = await fetchScriptInstance(scriptId);
 
+      const localScript = pkMap.get(script.script_id);
+      let canonicalRef: LocalScriptReference | undefined;
+      if (localScript) {
+        if (localScript.script.botcScripts!.versionId !== script.version) {
+          console.warn(
+            `Script ${localScript.collectionId}/${localScript.script.id} is not the latest on BotC Scripts (${script.script_id}@${script.version} - ${script.pk}). This means the pre-rendered version will not match the canonical link`,
+          );
+        }
+
+        canonicalRef = {
+          collectionId: localScript.collectionId,
+          scriptId: localScript.script.id,
+        };
+      }
+
       return {
         scriptId,
         versionId: script.version,
         scriptInstance,
         scriptVersion: script,
-        canonicalRef: pkMap.get(script.script_id),
+        canonicalRef,
       };
     }),
   );

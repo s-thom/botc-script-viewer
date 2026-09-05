@@ -6,6 +6,7 @@ export const WORLD_CUP_25: LocalScriptDefinition[] = [
     title: "1 Day More",
     character: "nightwatchman",
     color: "#481941",
+    botcScripts: { scriptId: 6741, versionId: "1.0.1", pk: 11665 },
     getScript: () => import("./1daymore.json").then((m) => m.default),
   },
   {
@@ -13,6 +14,7 @@ export const WORLD_CUP_25: LocalScriptDefinition[] = [
     title: "This Is Not My Beautiful House",
     character: "amnesiac",
     color: "#481941",
+    botcScripts: { scriptId: 6707, versionId: "2.0.0", pk: 17107 },
     getScript: () => import("./beautifulhouse.json").then((m) => m.default),
   },
   {
@@ -20,6 +22,7 @@ export const WORLD_CUP_25: LocalScriptDefinition[] = [
     title: "Binary Supernovae",
     character: "summoner",
     color: "#481941",
+    botcScripts: { scriptId: 6457, versionId: "3.0.1", pk: 15603 },
     getScript: () => import("./binarysupernovae.json").then((m) => m.default),
   },
   {
@@ -27,12 +30,14 @@ export const WORLD_CUP_25: LocalScriptDefinition[] = [
     title: "Buyer's Remorse",
     character: "noble",
     color: "#481941",
+    botcScripts: { scriptId: 6716, versionId: "3.0.1", pk: 18646 },
     getScript: () => import("./buyersremorse.json").then((m) => m.default),
   },
   {
     id: "deadcouncil",
     title: "Council of the Dead",
     character: "oracle",
+    botcScripts: { scriptId: 6742, versionId: "1.1.0", pk: 11657 },
     color: "#481941",
     getScript: () => import("./deadcouncil.json").then((m) => m.default),
   },
@@ -41,6 +46,7 @@ export const WORLD_CUP_25: LocalScriptDefinition[] = [
     title: "I see dead people",
     character: "sage",
     color: "#481941",
+    botcScripts: { scriptId: 6799, versionId: "1.0.0", pk: 11463 },
     getScript: () => import("./deadpeople.json").then((m) => m.default),
   },
   {
@@ -48,6 +54,7 @@ export const WORLD_CUP_25: LocalScriptDefinition[] = [
     title: "The Djinn's Bargain",
     character: "djinn",
     color: "#481941",
+    botcScripts: { scriptId: 6146, versionId: "9.0.0", pk: 11892 },
     getScript: () => import("./djinnsbargain.json").then((m) => m.default),
   },
   {
@@ -55,6 +62,7 @@ export const WORLD_CUP_25: LocalScriptDefinition[] = [
     title: "Off to see the Wizard",
     character: "wizard",
     color: "#481941",
+    botcScripts: { scriptId: 6679, versionId: "1.0.2", pk: 12936 },
     getScript: () => import("./offwizard.json").then((m) => m.default),
   },
   {
@@ -62,6 +70,7 @@ export const WORLD_CUP_25: LocalScriptDefinition[] = [
     title: "The Phantom Detectives",
     character: "banshee",
     color: "#481941",
+    botcScripts: { scriptId: 6717, versionId: "5.2.1", pk: 12524 },
     getScript: () => import("./phantomdetectives.json").then((m) => m.default),
   },
   {
@@ -69,6 +78,7 @@ export const WORLD_CUP_25: LocalScriptDefinition[] = [
     title: "The River Styx",
     character: "ferryman",
     color: "#481941",
+    botcScripts: { scriptId: 6026, versionId: "1.2.0", pk: 11949 },
     getScript: () => import("./riverstyx.json").then((m) => m.default),
   },
   {
@@ -76,6 +86,7 @@ export const WORLD_CUP_25: LocalScriptDefinition[] = [
     title: "The Ballad of Seat 7",
     character: "scarletwoman",
     color: "#481941",
+    botcScripts: { scriptId: 6687, versionId: "6.0.0", pk: 13359 },
     getScript: () => import("./seat7.json").then((m) => m.default),
   },
   {
@@ -83,6 +94,7 @@ export const WORLD_CUP_25: LocalScriptDefinition[] = [
     title: "Stowed Away",
     character: "apprentice",
     color: "#481941",
+    botcScripts: { scriptId: 6714, versionId: "4.0.0", pk: 16499 },
     getScript: () => import("./stowedaway.json").then((m) => m.default),
   },
   {
@@ -90,6 +102,7 @@ export const WORLD_CUP_25: LocalScriptDefinition[] = [
     title: "Trained Killer",
     character: "lilmonsta",
     color: "#481941",
+    botcScripts: { scriptId: 6705, versionId: "1.2.0", pk: 12347 },
     getScript: () => import("./trainedkiller.json").then((m) => m.default),
   },
   {
@@ -97,6 +110,7 @@ export const WORLD_CUP_25: LocalScriptDefinition[] = [
     title: "The Warrens",
     character: "undertaker",
     color: "#481941",
+    botcScripts: { scriptId: 6773, versionId: "4.0.0", pk: 12694 },
     getScript: () => import("./warrens.json").then((m) => m.default),
   },
   {
@@ -104,6 +118,7 @@ export const WORLD_CUP_25: LocalScriptDefinition[] = [
     title: "Witch Hunt",
     character: "witch",
     color: "#481941",
+    botcScripts: { scriptId: 8749, versionId: "1.0.0", pk: 15070 },
     getScript: () => import("./witchhunt.json").then((m) => m.default),
   },
   {
@@ -111,6 +126,7 @@ export const WORLD_CUP_25: LocalScriptDefinition[] = [
     title: "show me wonders",
     character: "alhadikhia",
     color: "#481941",
+    botcScripts: { scriptId: 6779, versionId: "1.1.0", pk: 11963 },
     getScript: () => import("./wonders.json").then((m) => m.default),
   },
 ];

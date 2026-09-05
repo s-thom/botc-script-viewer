@@ -30,6 +30,12 @@ export interface LocalScriptReference {
   scriptId: string;
 }
 
+export interface BotcScriptsReference {
+  scriptId: number;
+  versionId: string;
+  pk: number;
+}
+
 export interface LocalScriptCollection {
   scripts: LocalScriptDefinition[];
   isOfficial?: boolean;
@@ -42,7 +48,7 @@ export interface LocalScriptDefinition {
   character: string;
   color?: string;
   canonicalRef?: LocalScriptReference;
-  botcScriptsPk?: number;
+  botcScripts?: BotcScriptsReference;
   getScript: () => Promise<BloodOnTheClocktowerCustomScript>;
   localeOverrides?: Partial<
     Record<LocaleIds, () => Promise<BloodOnTheClocktowerCustomScript>>

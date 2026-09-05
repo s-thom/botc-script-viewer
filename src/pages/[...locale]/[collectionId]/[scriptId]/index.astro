@@ -2,6 +2,7 @@
 import ScriptSidebarExtra from "../../../../components/display/ScriptSidebarExtra.astro";
 import LocalisedMessage from "../../../../components/i18n/LocalisedMessage.astro";
 import ScriptViewerLayout from "../../../../layouts/ScriptViewerLayout.astro";
+import { BOTC_SCRIPTS_HOSTNAME } from "../../../../lib/constants";
 import {
   createTranslator,
   ENABLED_LOCALES,
@@ -79,6 +80,22 @@ const description =
       }}
     />
   </ScriptSidebarExtra>
+  {
+    scriptDefinition.botcScripts && (
+      <ScriptSidebarExtra
+        slot="sidebar-after-description"
+        iconCharacterId="grandmother"
+      >
+        <LocalisedMessage
+          t={t}
+          key="viewer.script.viewOnBotcScripts"
+          params={{
+            externalLink: `https://${BOTC_SCRIPTS_HOSTNAME}/script/${scriptDefinition.botcScripts.scriptId}/${scriptDefinition.botcScripts.versionId}`,
+          }}
+        />
+      </ScriptSidebarExtra>
+    )
+  }
 </ScriptViewerLayout>
 
 <style>
