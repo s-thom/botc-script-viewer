@@ -11,6 +11,7 @@
     "descriptionWithAuthor": "{title} by {author}: {characters}"
   },
   "footer": {
+    "communityCreatedContent": "Scallywag spliced spoils",
     "notAffiliated": "This town be not in league with The Pandemonium Institute.",
     "descriptionsNotice": "Character likenesses and descriptions be belongin' to Steven Medway and The Pandemonium Institute.",
     "madeBy": "Town founded by {externalLink}{author}{/externalLink}.",
@@ -28,7 +29,11 @@
     "wikiLabel": "Lay eyes on {title} on the wiki",
     "reminder": "Mark",
     "nightOrder": "Rousin' list",
-    "nightOrderWarning": "The followin' stations be mentioned in the rousin' list, but they don't be listed on the ledger: {characters}"
+    "nightOrderWarning": "The followin' stations be mentioned in the rousin' list, but they don't be listed on the ledger: {characters}",
+    "nightOrderModified": "The {link}rousin' list{/link} be changed from the admiralty's orders",
+    "viewOnBotcScripts": "Lay eyes on {externalLink}botcscripts.com{/externalLink}",
+    "viewOnKlutzbanana": "Lay eyes on {externalLink}Klutzbanana{/externalLink}",
+    "otherVersions": "Other voyages:"
   },
   "home": {
     "description": "An unofficial website for viewing {externalLink}Blood on the Clocktower{/externalLink} scripts in your browser.",
@@ -83,6 +88,59 @@
     "default": "Ship's Orders",
     "light": "Noonday",
     "dark": "Midnight"
+  },
+  "pukka": {
+    "title": "Pukka Flowchart",
+    "view": "Not sure how to helm the Pukka? Use the {link}Pukka flowchart{/link} to navigate its dark deeds at night, matey.",
+    "content": {
+      "intro": "The Pukka be one o' the more troublesome demons to command in Blood on the Clocktower, 'cause o' how its black magic tangles with others. A Pukka on its own be plain sailin', but since its kills be delayed from its choices, it be harder to know what course to take if a Pukka be tipsy, seasick, or picked by a Chaplain. All these skirmishes can happen on the Pukka's home charts o' {link}Bad Moon Rising{/link}.",
+      "intro2": "To help storytellers sail Pukka games without runnin' aground, the Blood on the Clocktower crewmates have drawn up a flowchart showin' the choices that must be made when the Pukka wakes in the dead o' night.",
+      "interactive": "Interactive flowchart",
+      "image": "Still map",
+      "imagePreference": "If ye'd prefer a still map so ye can see the whole voyage, there be one below.",
+      "noJs": "This interactive version o' the flowchart still works even if yer JavaScript be scuttled.",
+      "source": "The followin' Pukka flowchart map was first {externalLink}posted to Reddit by /u/Not_Quite_Vertical{/externalLink}.",
+      "imageAlt": "Pukka flowchart by /u/Not_Quite_Vertical."
+    },
+    "decision": {
+      "isExorcistPicked": "Did the Chaplain mark the Pukka earlier this moon?",
+      "isDrunkPoisonedOrGoon": "Be the Pukka currently tipsy or seasick (includin' if they were the first matey to choose the Goon this moon)?",
+      "hasPreviousPick": "Was any matey marked with the Pukka's seasick token 'fore the Pukka's turn tonight?",
+      "isDrunkPoisoned": "Be the Pukka currently tipsy or seasick?",
+      "didPlayerDie": "Did that poor matey join the locker by the Pukka's sting?"
+    },
+    "process": {
+      "wakeAndChoose": "Rouse the Pukka, let 'em pick a matey, then send 'em back to their bunk.",
+      "wakeAndExorcist": "Rouse the Pukka, show 'em who the Chaplain be, then send 'em back to their bunk.",
+      "didChooseWhileSober": "The matey the Pukka chose be seasick. Mark them with the seasick mark.",
+      "didChooseWhileDrunk": "The matey the Pukka chose be not seasick. Don't ye move the Pukka's seasick mark. If the Pukka was the first to pick the Goon this night, mark the Pukka with the Goon's tipsy mark.",
+      "attackWhileSober": "The Pukka strikes the matey previously marked with the Pukka's seasick mark.",
+      "attackedStillPoisoned": "That matey's power be still seasick by the Pukka.",
+      "attackWhileDrunk": "The Pukka does nay strike the matey marked with the Pukka's seasick mark. They be still marked but aren't bothered by Pukka seasickness 'til the Pukka be sober and fit.",
+      "removePoison": "Lift the Pukka's seasick mark from that matey.",
+      "onDeathEffects": "Any magic triggered at the moment o' that matey's death be still seasick.",
+      "end": "The Pukka's turn be done. If the Pukka gets drunk or seasick, any matey marked with the Pukka's seasick mark won't be bothered by Pukka seasickness 'til the Pukka be sober and fit. If the Pukka dies or changes skins, lift all Pukka marks."
+    },
+    "labels": {
+      "yes": "Aye",
+      "no": "Nay",
+      "next": "Next",
+      "reset": "Reset"
+    }
+  },
+  "interactions": {
+    "title": "Character Skirmishes",
+    "source": "Skirmish data be hauled from LeCodex's {externalLink}Script Interactions tool{/externalLink}.",
+    "hasCountConflicts": "{count} potential brawl between characters found. {link}View the brawl{/link}.|{n} potential brawls between characters found. {link}View the brawls{/link}.",
+    "viewAllCount": "See all skirmishes ({count})",
+    "viewAllCountMore": "See all skirmishes ({count} more)",
+    "levels": {
+      "great": "Grand",
+      "good": "Fair",
+      "info": "Tidings",
+      "warning": "Warning|Warnings",
+      "conflict": "Brawl|Brawls"
+    }
   },
   "errors": {
     "notFound": "Lost at sea",
