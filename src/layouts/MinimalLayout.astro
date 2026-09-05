@@ -19,9 +19,13 @@ const {
   lang,
   translate,
   color,
-  canonicalPath,
+  canonicalRef,
   noCanonical,
 } = meta;
+
+const canonicalPath = canonicalRef
+  ? `/${canonicalRef.collectionId}/${canonicalRef.scriptId}`
+  : undefined;
 
 const canonicalUrl = canonicalPath
   ? new URL(

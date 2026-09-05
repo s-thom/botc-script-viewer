@@ -17,12 +17,13 @@ import { getScriptPageDescription } from "../lib/site/description";
 import { fixDoubleSlashPaths } from "../lib/url";
 import type { NormalisedScriptFallbacks } from "../types/botc";
 import TopBarLayout from "./TopBarLayout.astro";
+import type { LocalScriptReference } from "../types/site";
 
 interface Props {
   t: Translator;
   rawScript: BloodOnTheClocktowerCustomScript;
   basePath: string;
-  canonicalBasePath?: string;
+  canonicalRef?: LocalScriptReference;
   color?: string;
   overrideJsonPathSegment?: string;
   noIndex?: boolean;
@@ -33,7 +34,7 @@ const {
   t,
   rawScript,
   basePath,
-  canonicalBasePath,
+  canonicalRef,
   color: overrideColor,
   overrideJsonPathSegment,
   noIndex,
@@ -91,7 +92,7 @@ if (color !== undefined) {
       nameShort: t.string("viewer.common.nameShort").value,
     }).value,
     description: getScriptPageDescription(t, script),
-    canonicalPath: canonicalBasePath,
+    canonicalRef,
     lang: t.locale as LocaleIds,
     translate: {
       basePath,

@@ -1,4 +1,4 @@
-import type { LocalScriptDefinition } from "../../types/botc";
+import type { LocalScriptDefinition } from "../../types/site";
 
 export const WORLD_CUP_25: LocalScriptDefinition[] = [
   {

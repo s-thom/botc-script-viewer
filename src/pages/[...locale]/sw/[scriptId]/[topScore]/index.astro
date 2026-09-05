@@ -1,0 +1,150 @@
+---
+import { getAbsoluteLocaleUrl } from "astro:i18n";
+import ScriptSidebarExtra from "../../../../../components/display/ScriptSidebarExtra.astro";
+import LocalisedMessage from "../../../../../components/i18n/LocalisedMessage.astro";
+import ScriptViewerLayout from "../../../../../layouts/ScriptViewerLayout.astro";
+import {
+  BOTC_SCRIPTS_HOSTNAME,
+  MAX_AGE_SECONDS,
+} from "../../../../../lib/constants";
+import {
+  createTranslator,
+  ENABLED_LOCALES,
+  type LocaleIds,
+} from "../../../../../lib/i18n";
+import {
+  fetchScriptInstance,
+  fetchTopScriptsByScore,
+} from "../../../../../lib/import/botcscripts";
+import { getPathWithoutLocale } from "../../../../../lib/url";
+import { LOCAL_SCRIPT_COLLECTIONS } from "../../../../../scripts";
+import type { LocalScriptReference } from "../../../../../types/site";
+
+export async function getStaticPaths() {
+  const topScripts = await fetchTopScriptsByScore();
+
+  const pkMap = new Map<number, LocalScriptReference>();
+  for (const [collectionId, collection] of Object.entries(
+    LOCAL_SCRIPT_COLLECTIONS,
+  )) {
+    for (const script of collection.scripts) {
+      if (typeof script.botcScriptsPk === "number") {
+        pkMap.set(script.botcScriptsPk, { collectionId, scriptId: script.id });
+      }
+    }
+  }
+
+  // Fetch all script data now while figuring out the routes rather that calling it multiple times while prerendering.
+  const scriptData = await Promise.all(
+    topScripts.map(async (script) => {
+      const scriptId = script.script_id.toString();
+      const scriptInstance = await fetchScriptInstance(scriptId);
+
+      return {
+        scriptId,
+        versionId: script.version,
+        scriptInstance,
+        scriptVersion: script,
+        canonicalRef: pkMap.get(script.script_id),
+      };
+    }),
+  );
+
+  return Promise.all(
+    ENABLED_LOCALES.flatMap((locale) =>
+      scriptData.map(async (data) => ({
+        params: {
+          scriptId: data.scriptId,
+          topScore: data.versionId,
+          locale: locale.isDefault ? undefined : locale.astroId,
+        },
+        props: {
+          scriptInstance: data.scriptInstance,
+          scriptVersion: data.scriptVersion,
+          canonicalRef: data.canonicalRef,
+        },
+      })),
+    ),
+  );
+}
+
+const { scriptId, topScore: versionId } = Astro.params;
+const { scriptInstance, scriptVersion, canonicalRef } = Astro.props;
+
+if (!(scriptId && versionId)) {
+  return Astro.rewrite("/404");
+}
+
+const allVersionIds = Object.keys(scriptInstance.versions);
+const hasOtherVersion = Object.keys(scriptInstance.versions).some(
+  (id) => id !== versionId,
+);
+
+const locale = (Astro.currentLocale ?? "en") as LocaleIds;
+const t = await createTranslator({ locale });
+
+Astro.response.headers.set(
+  "Cache-Control",
+  `public, max-age=${MAX_AGE_SECONDS}`,
+);
+---
+
+<ScriptViewerLayout
+  t={t}
+  rawScript={scriptVersion.content}
+  basePath={getPathWithoutLocale(
+    Astro.routePattern,
+    Astro.currentLocale,
+    Astro.url.pathname,
+  )}
+  canonicalRef={canonicalRef}
+  fallbacks={{ name: scriptVersion.name, author: scriptVersion.author }}
+>
+  <ScriptSidebarExtra
+    slot="sidebar-after-description"
+    iconCharacterId="grandmother"
+  >
+    <LocalisedMessage
+      t={t}
+      key="viewer.script.viewOnBotcScripts"
+      params={{
+        externalLink: `https://${BOTC_SCRIPTS_HOSTNAME}/script/${scriptId}/${versionId}`,
+      }}
+    />
+  </ScriptSidebarExtra>
+  {
+    hasOtherVersion && (
+      <ScriptSidebarExtra
+        slot="sidebar-after-description"
+        iconCharacterId="clockmaker"
+      >
+        <LocalisedMessage t={t} key="viewer.script.otherVersions" />{" "}
+        {allVersionIds.map((otherVersionId) =>
+          otherVersionId === versionId ? (
+            <span class="version-link">{otherVersionId}</span>
+          ) : (
+            <a
+              class="version-link"
+              href={getAbsoluteLocaleUrl(
+                locale,
+                `sw/${scriptId}/${otherVersionId}`,
+              )}
+              data-umami-event="botc-scripts-other-version"
+              data-umami-event-scriptid={scriptId}
+              data-umami-event-versionid={otherVersionId}
+            >
+              {otherVersionId}
+            </a>
+          ),
+        )}
+      </ScriptSidebarExtra>
+    )
+  }
+</ScriptViewerLayout>
+
+<style>
+  .version-link {
+    display: inline-block;
+    padding: 0 0.15rem;
+  }
+</style>

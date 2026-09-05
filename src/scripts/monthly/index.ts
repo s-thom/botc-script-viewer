@@ -1,4 +1,4 @@
-import type { LocalScriptDefinition } from "../../types/botc";
+import type { LocalScriptDefinition } from "../../types/site";
 
 const ALL_MONTHLY_SCRIPTS: (LocalScriptDefinition & { date: Date })[] = [
   {
@@ -13,7 +13,10 @@ const ALL_MONTHLY_SCRIPTS: (LocalScriptDefinition & { date: Date })[] = [
     id: "2026-02",
     title: "February 2026",
     character: "leviathan",
-    canonical: "/carousel/harold-holts-revenge",
+    canonicalRef: {
+      collectionId: "carousel",
+      scriptId: "harold-holts-revenge",
+    },
     getScript: () => import("./2026-02.json").then((m) => m.default),
   },
   {
@@ -28,7 +31,7 @@ const ALL_MONTHLY_SCRIPTS: (LocalScriptDefinition & { date: Date })[] = [
     id: "2026-04",
     title: "April 2026",
     character: "ogre",
-    canonical: "/v/onion-pies",
+    canonicalRef: { collectionId: "v", scriptId: "onion-pies" },
     getScript: () => import("./2026-04.json").then((m) => m.default),
   },
   {
@@ -50,7 +53,7 @@ const ALL_MONTHLY_SCRIPTS: (LocalScriptDefinition & { date: Date })[] = [
     id: "2026-07",
     title: "July 2026",
     character: "psychopath",
-    canonical: "/v/nfm",
+    canonicalRef: { collectionId: "v", scriptId: "nfm" },
     getScript: () => import("./2026-07.json").then((m) => m.default),
   },
   {
@@ -79,7 +82,7 @@ const ALL_MONTHLY_SCRIPTS: (LocalScriptDefinition & { date: Date })[] = [
     id: "2026-11",
     title: "November 2026",
     character: "kazali",
-    canonical: "/s2/cyborg",
+    canonicalRef: { collectionId: "s2", scriptId: "cyborg" },
     getScript: () => import("./2026-11.json").then((m) => m.default),
   },
   {

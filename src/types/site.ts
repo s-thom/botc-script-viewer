@@ -1,3 +1,4 @@
+import type { BloodOnTheClocktowerCustomScript } from "../generated/script-schema";
 import type { LocaleIds, TranslateParams } from "../lib/i18n";
 
 export interface PageTranslateData {
@@ -12,7 +13,7 @@ export interface PageMeta {
   description?: string;
   color?: string;
   noIndex?: boolean;
-  canonicalPath?: string;
+  canonicalRef?: LocalScriptReference;
   noCanonical?: boolean;
 }
 
@@ -22,6 +23,30 @@ interface AppErrorOptions {
   titleKey: string;
   descriptionKey: string;
   descriptionParams?: TranslateParams;
+}
+
+export interface LocalScriptReference {
+  collectionId: string;
+  scriptId: string;
+}
+
+export interface LocalScriptCollection {
+  scripts: LocalScriptDefinition[];
+  isOfficial?: boolean;
+  showOnHome?: boolean;
+}
+
+export interface LocalScriptDefinition {
+  id: string;
+  title: string;
+  character: string;
+  color?: string;
+  canonicalRef?: LocalScriptReference;
+  botcScriptsPk?: number;
+  getScript: () => Promise<BloodOnTheClocktowerCustomScript>;
+  localeOverrides?: Partial<
+    Record<LocaleIds, () => Promise<BloodOnTheClocktowerCustomScript>>
+  >;
 }
 
 export class AppError extends Error {

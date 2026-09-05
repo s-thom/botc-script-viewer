@@ -1,4 +1,4 @@
-import type { LocalScriptDefinition } from "../../types/botc";
+import type { LocalScriptDefinition } from "../../types/site";
 
 export const CAROUSEL_COLLECTION: LocalScriptDefinition[] = [
   {

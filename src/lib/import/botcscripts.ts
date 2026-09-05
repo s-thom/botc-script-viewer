@@ -23,6 +23,13 @@ interface VersionInstance {
   score: number;
 }
 
+interface SearchResult {
+  count: number;
+  next: string | null;
+  previous: string | null;
+  results: VersionInstance[];
+}
+
 export async function fetchScriptInstance(
   scriptId: string,
 ): Promise<ScriptInstance> {
@@ -92,5 +99,25 @@ export async function fetchVersionInstance(
         descriptionKey: "viewer.errors.genericErrorDescription",
       },
     );
+  }
+}
+
+export async function fetchTopScriptsByScore(): Promise<VersionInstance[]> {
+  const requestUrl = new URL(
+    `https://${BOTC_SCRIPTS_HOSTNAME}/api/scripts/?ordering=-score`,
+  );
+  const responseStr = await fetchJson(requestUrl);
+
+  try {
+    const response: SearchResult = JSON.parse(responseStr);
+
+    return response.results;
+  } catch (err) {
+    throw new AppError(`Error while fetching top scripts`, {
+      cause: err,
+      status: 500,
+      titleKey: "viewer.errors.genericError",
+      descriptionKey: "viewer.errors.genericErrorDescription",
+    });
   }
 }

@@ -1,4 +1,4 @@
-import type { LocalScriptDefinition } from "../../types/botc";
+import type { LocalScriptDefinition } from "../../types/site";
 
 export const BASE_3: LocalScriptDefinition[] = [
   {
@@ -6,6 +6,7 @@ export const BASE_3: LocalScriptDefinition[] = [
     title: "Trouble Brewing",
     character: "imp",
     color: "#AB0D27",
+    botcScriptsPk: 178,
     getScript: () =>
       import("../../generated/edition-scripts/en/tb.json").then(
         (m) => m.default,
@@ -62,70 +63,11 @@ export const BASE_3: LocalScriptDefinition[] = [
     },
   },
   {
-    id: "snv",
-    title: "Sects and Violets",
-    character: "pithag",
-    color: "#8D57AA",
-    getScript: () =>
-      import("../../generated/edition-scripts/en/snv.json").then(
-        (m) => m.default,
-      ),
-    localeOverrides: {
-      "en-7c": () =>
-        import("../../generated/edition-scripts/en-7c/snv.json").then(
-          (m) => m.default,
-        ),
-      fr: () =>
-        import("../../generated/edition-scripts/fr/snv.json").then(
-          (m) => m.default,
-        ),
-      de: () =>
-        import("../../generated/edition-scripts/de/snv.json").then(
-          (m) => m.default,
-        ),
-      "de-ch": () =>
-        import("../../generated/edition-scripts/de-ch/snv.json").then(
-          (m) => m.default,
-        ),
-      es: () =>
-        import("../../generated/edition-scripts/es/snv.json").then(
-          (m) => m.default,
-        ),
-      "es-mx": () =>
-        import("../../generated/edition-scripts/es-mx/snv.json").then(
-          (m) => m.default,
-        ),
-      "es-419": () =>
-        import("../../generated/edition-scripts/es-419/snv.json").then(
-          (m) => m.default,
-        ),
-      nl: () =>
-        import("../../generated/edition-scripts/nl/snv.json").then(
-          (m) => m.default,
-        ),
-      pl: () =>
-        import("../../generated/edition-scripts/pl/snv.json").then(
-          (m) => m.default,
-        ),
-      "zh-hans": () =>
-        import("../../generated/edition-scripts/zh-hans/snv.json").then(
-          (m) => m.default,
-        ),
-      pt: () =>
-        import("../../generated/edition-scripts/pt/snv.json").then(
-          (m) => m.default,
-        ),
-      "pt-br": () =>
-        import("../../generated/edition-scripts/pt-br/snv.json").then(
-          (m) => m.default,
-        ),
-    },
-  },
-  {
     id: "bmr",
     title: "Bad Moon Rising",
     character: "godfather",
     color: "#EC9834",
+    botcScriptsPk: 181,
     getScript: () =>
       import("../../generated/edition-scripts/en/bmr.json").then(
         (m) => m.default,
@@ -177,6 +119,67 @@ export const BASE_3: LocalScriptDefinition[] = [
         ),
       "pt-br": () =>
         import("../../generated/edition-scripts/pt-br/bmr.json").then(
+          (m) => m.default,
+        ),
+    },
+  },
+  {
+    id: "snv",
+    title: "Sects and Violets",
+    character: "pithag",
+    color: "#8D57AA",
+    botcScriptsPk: 180,
+    getScript: () =>
+      import("../../generated/edition-scripts/en/snv.json").then(
+        (m) => m.default,
+      ),
+    localeOverrides: {
+      "en-7c": () =>
+        import("../../generated/edition-scripts/en-7c/snv.json").then(
+          (m) => m.default,
+        ),
+      fr: () =>
+        import("../../generated/edition-scripts/fr/snv.json").then(
+          (m) => m.default,
+        ),
+      de: () =>
+        import("../../generated/edition-scripts/de/snv.json").then(
+          (m) => m.default,
+        ),
+      "de-ch": () =>
+        import("../../generated/edition-scripts/de-ch/snv.json").then(
+          (m) => m.default,
+        ),
+      es: () =>
+        import("../../generated/edition-scripts/es/snv.json").then(
+          (m) => m.default,
+        ),
+      "es-mx": () =>
+        import("../../generated/edition-scripts/es-mx/snv.json").then(
+          (m) => m.default,
+        ),
+      "es-419": () =>
+        import("../../generated/edition-scripts/es-419/snv.json").then(
+          (m) => m.default,
+        ),
+      nl: () =>
+        import("../../generated/edition-scripts/nl/snv.json").then(
+          (m) => m.default,
+        ),
+      pl: () =>
+        import("../../generated/edition-scripts/pl/snv.json").then(
+          (m) => m.default,
+        ),
+      "zh-hans": () =>
+        import("../../generated/edition-scripts/zh-hans/snv.json").then(
+          (m) => m.default,
+        ),
+      pt: () =>
+        import("../../generated/edition-scripts/pt/snv.json").then(
+          (m) => m.default,
+        ),
+      "pt-br": () =>
+        import("../../generated/edition-scripts/pt-br/snv.json").then(
           (m) => m.default,
         ),
     },

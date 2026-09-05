@@ -1,9 +1,7 @@
 import type {
-  BloodOnTheClocktowerCustomScript,
   CharacterTeam,
   ScriptCharacter,
 } from "../generated/script-schema";
-import type { LocaleIds } from "../lib/i18n";
 import type { InteractionStatus } from "./interactions";
 
 export interface NormalisedScriptCharacter extends ScriptCharacter {
@@ -69,22 +67,4 @@ export interface NormalisedScriptFallbacks {
   name?: string;
   author?: string;
   description?: string;
-}
-
-export interface LocalScriptCollection {
-  scripts: LocalScriptDefinition[];
-  isOfficial?: boolean;
-  showOnHome?: boolean;
-}
-
-export interface LocalScriptDefinition {
-  id: string;
-  title: string;
-  character: string;
-  color?: string;
-  canonical?: string;
-  getScript: () => Promise<BloodOnTheClocktowerCustomScript>;
-  localeOverrides?: Partial<
-    Record<LocaleIds, () => Promise<BloodOnTheClocktowerCustomScript>>
-  >;
 }

@@ -1,4 +1,4 @@
-import type { LocalScriptCollection } from "../types/botc";
+import type { LocalScriptCollection } from "../types/site";
 import { BASE_3 } from "./base3";
 import { CAROUSEL_COLLECTION } from "./carousel-collection";
 import { MONTHLY_SCRIPTS } from "./monthly";
