@@ -64,7 +64,7 @@ const { t } = Astro.props;
   const labelLight = button.dataset.labelLight!;
   const labelDark = button.dataset.labelDark!;
 
-  function setTheme(theme: Theme) {
+  function setTheme(theme: Theme, sendAnalytics = true) {
     if (theme === "default") {
       labelText.textContent = labelDefault;
       delete document.documentElement.dataset.theme;
@@ -76,11 +76,11 @@ const { t } = Astro.props;
     }
     state = theme;
 
-    if ("umami" in window) {
+    if (sendAnalytics && "umami" in window) {
       window.umami.track("theme-toggle", { theme });
     }
   }
-  setTheme(state);
+  setTheme(state, false);
 
   button.addEventListener("click", () => {
     const isSystemDark = window.matchMedia(
