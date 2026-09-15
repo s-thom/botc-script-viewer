@@ -29,7 +29,7 @@ const { segments, overrideLocale, character } = Astro.props;
 
               return (
                 // prettier-ignore
-                <a href={href} data-umami-event={segment.params["link"]}>{
+                <a href={href} data-umami-event="internal-link" data-umami-event-href={segment.params["link"]}>{
                   segment.children.map((child) => mapSingleSegment(child))
                 }</a>
               );
@@ -45,7 +45,7 @@ const { segments, overrideLocale, character } = Astro.props;
 
               return (
                 // prettier-ignore
-                <a href={href} target="_blank" rel="external noreferrer" data-umami-event={segment.params["externalLink"]}>{
+                <a href={href} target="_blank" rel="external noreferrer" data-umami-event="external-link" data-umami-event-href={segment.params["externalLink"]}>{
                   segment.children.map((child) => mapSingleSegment(child))
                 }</a>
               );
