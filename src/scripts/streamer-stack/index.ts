@@ -82,7 +82,7 @@ export const STREAMER_STACK: LocalScriptDefinition[] = [
     getScript: () => import("./Clockwork Cyborg.json").then((m) => m.default),
   },
   {
-    id: "damned",
+    id: "dusk",
     title: "Dusk in the House of the Damned",
     character: "legion",
     botcScripts: { scriptId: 181, versionId: "3.0.2", pk: 19510 },
