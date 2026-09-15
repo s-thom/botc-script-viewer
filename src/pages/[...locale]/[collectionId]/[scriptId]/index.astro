@@ -48,10 +48,16 @@ const rawScript = await getScript();
 
 const t = await createTranslator({ locale });
 
-const description =
-  collectionId === "base3"
-    ? t.string(`game.editions.${scriptId}.description`).value
-    : undefined;
+let description: string | undefined;
+if (collectionId === "base3") {
+  description = t.string(`game.editions.${scriptId}.description`).value;
+} else {
+  const descriptionKey = `viewer.collection.${collectionId}.${scriptId}.description`;
+  const resolved = t.resolve(descriptionKey);
+  if (resolved.value) {
+    description = t.string(descriptionKey).value;
+  }
+}
 ---
 
 <ScriptViewerLayout

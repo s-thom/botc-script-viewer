@@ -73,6 +73,8 @@ const { segments, overrideLocale, character } = Astro.props;
               );
             case "reminder":
               return <ReminderToken character={character} />;
+            case "br":
+              return <br />;
             default:
               console.warn(`Unknown tag type: ${segment.name}`);
               return segment.children.map((child) => mapSingleSegment(child));

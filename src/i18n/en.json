@@ -54,7 +54,46 @@
     },
     "carousel": {
       "title": "Carousel Collection",
-      "description": "Community-created scripts that show off the characters released in the Carousel."
+      "description": "Community-created scripts that show off the characters released in the Carousel.",
+      "anonymous-dishonesty": {
+        "description": "The Ojo must choose their kills carefully to avoid setting off a Banshee or creating a chain of Farmers… if there’s an evil team, which there might not be in Anonymous Dishonesty."
+      },
+      "contempt": {
+        "description": "Built around the Vizier and the Bounty Hunter, Contempt has lots of interesting opportunities for evil-turned Townsfolk to find their teammates."
+      },
+      "devout-theists": {
+        "description": "The forces of evil may be more widespread than you expect in Devout Theists. Can the powerful Townsfolk take down the Demon(s) before they’re taken out by a Psychopath or overwhelmed by Legion?"
+      },
+      "harold-holts-revenge": {
+        "description": "It’s Laissez Un Faire, all grown up! Harold Holt’s Revenge gives the town 5 days to defeat the Leviathan, but they’ll have to do so while covering for the Damsel and avoiding the pitfalls of a Pit-Hag, Politician, and more."
+      },
+      "insanity-intuition": {
+        "description": "Originally built around the Harpy & High Priestess, Insanity & Intuition is overflowing with madness and muddled information. Get out your gut reads to get on the right track!"
+      },
+      "irrational-behaviour": {
+        "description": "With a Hermit, Wizard, and Wraith, you can be certain shenanigans are afoot. What’s not to love about Irrational Behaviour?"
+      },
+      "midnight-oasis": {
+        "description": "An Al-Hadikhia, a Vigormortis, or a dastardly Storyteller is at bay, and it’s the town’s job to figure out which. The Midnight Oasis is chock full of characters that can mess with the townsfolk, but who’s doing the messing?"
+      },
+      "monkey-do-math": {
+        "description": "Originally built to test the updates to the Acrobat, Alchemist, Lycanthrope, and Organ Grinder, Monkey Do Math is a puzzle full of misregistration and mystery. Even if good can figure out who’s evil, they’ll have to work together to execute correctly!"
+      },
+      "punchy": {
+        "description": "Look out, evil: there’s a Princess in town, and she’s feeling rather Punchy. The evil team is loud and devastating, but good can work together to overcome the dangers of the Psychopath, Vizier, and Harpy."
+      },
+      "the-ones-you-least-expect": {
+        "description": "Town has a lot of strong information available, but needs to be careful about relying on it all game, as trusted good players may not stay trustworthy for long. It’s always The Ones You Least Expect. "
+      },
+      "quick-maths": {
+        "description": "Built around new Riot, good players will have to do some Quick Maths in order to nominate correctly on the final day. But look out - the Marionette and Boffin mean that even seemingly good players might not be good!"
+      },
+      "martian-vampires": {
+        "description": "The winner of the Heretic script competition, Revenge of the Martian Vampires is a tried-and-tested tale of two teams trying to figure out what it takes to win. The General can lead good to victory, but only if they’re careful to share their information to the right players!"
+      },
+      "whose-cult": {
+        "description": "Welcome to Whose Cult Is It Anyway?, the game show where the Cult Leader is Storm Caught and anything can happen! Evil’s on the lookout for alternate win conditions as far as the eye can see, but good is stacked with power to combat the extra Minion coming from the Lord of Typhon and Lil’ Monsta."
+      }
     },
     "wc25": {
       "title": "World Cup 2025",
@@ -62,7 +101,40 @@
     },
     "s2": {
       "title": "Streamer Stack",
-      "description": "A collection of scripts from some of your favourite Clocktower streamers and their communities that utilizes many of the characters available since the Carousel has been released!"
+      "description": "A collection of scripts from some of your favourite Clocktower streamers and their communities that utilizes many of the characters available since the Carousel has been released!",
+      "switchcraft": {
+        "description": "{bold}Which evil characters are the “safest” to have in play?{/bold} Would you rather deal with both the Poisoner and the Spy, just to avoid a Goblin win? Or do you trust the Preacher and Town Crier to disarm that threat? Do you risk the Fang Gu possessing an Outsider, or the No Dashii poisoning your Townsfolk? Maybe it's better to hold off until you're sure the Hatter has been disarmed. And if the Hatter dies—what then? Will the evil team pivot to using the Spy to access the Grimoire, or do they shuffle the Goblin around like a cursed hot potato? With the Hermit in the mix too, evil might be switching things up faster than you can track."
+      },
+      "red-blue": {
+        "description": "Originally created to celebrate Habby's birthday around the time of Village Idiot's release, “Red Stick, Blue Stick” highlights many ways that the VI council can be infiltrated both by good (Mutant) and evil (Mezepheles, Marionette). This script also features CTBotC favorites both from the Carousel collection (General, Lleech) as well as base 3 (Pit-Hag, Po).{br}{/br}Recommended house rule: Cannibal eating the drunk VI gains a drunk instance of the VI ability."
+      },
+      "conclusions": {
+        "description": "A fun and complex script centered primarily around the Heretic, and forged from the embers of over 40 previous iterations, Jumping to Conclusions doesn't just ask both the good and evil teams “Is there a Heretic ability in play?” but instead asks “How many are?” all the while tempting either team to bring the game to an abrupt end with a sprinkling of alternative win conditions for either, should they dare take the risk. While it does require a cautious hand to properly set up, watching a game unfold is truly a spectacle in and of itself, akin to watching a car crash in slow motion, as everybody simultaneously (and titularly) jumps to an inevitable conclusion."
+      },
+      "keening": {
+        "description": "The Keening Call is a clash of a powerful good and evil team. Good holds many powerful information gatherers and protective assets—including the Banshee, the cornerstone of the script, with multiple ways to activate its ability. Conversely, evil has multiple methods to sow misinformation and crumble lines of trust—including the Banshee—through the Mezepheles. Pair that with multiple ways to move and protect the demon and you have a battle for the ages."
+      },
+      "custodiet": {
+        "description": "Originally created as a showcase script for the Day 1 Whispers stream after the Nightwatchman was released. The title of the script loosely translates to “Who watches the watchmen”. The script is intended to be pure social clocktower, with minimal info available, the Good Team has tools to build small trust circles and the Evil Team can mess with that."
+      },
+      "fizzy": {
+        "description": "{bold}Built around the concept of an evil player still helping their team despite being outed to town.{/bold} The biggest pitfall of outed evil characters is the stigma associated with talking to them. With this script, there are multiple reasons for good to talk to the Vizier, bluffing their way to stay alive another day. The Vizier will have to sort out which of the multiple players claiming Demon or Minion to them is true! Who the Vizier executes and if the Vizier can even still execute are keys to the solve. The Vizier can even become the demon and a crafty Vizier can provoke this possibility egging on town to waste an execution. Get ready to play “outed evil” to further your own goals!"
+      },
+      "birthday": {
+        "description": "This script was written to heavily lean into the medieval feast vibe. Flavor text and roleplaying is strongly encouraged (but not required). Mechanically, it is a versatile script that can result in very different types of game. The possibility of people surviving execution and demon attacks combined with potential extra night deaths can give a BMR vibe. Conversely, an information-heavy bag with Fang Gu and Cerenovus can feel like S&V. It's a script that gives the ST a lot of options, which makes it great to play over and over."
+      },
+      "midnight": {
+        "description": "The Leviathan is a Demon that emphasises the subtle, slow-burning, puzzle-solving elements of Blood on the Clocktower, and Midnight Sun combines this with a focus on social play. The Ogre has five days to work out what team they're on and help them win. Players may need to pay close attention to each other's behaviour to figure out if they're secretly the Lunatic or the Marionette, while the Mutant may need to get creative as they walk a fine line. The High Priestess and Butler encourage players to put their heads together, while the General shines in learning how close the town is to cutting through all the confusion and reaching the truth."
+      },
+      "psychosocial": {
+        "description": "Psychosocial is a high stakes fast paced script with no evil sources of poisoning. The good team can absolutely trust all their info but can they solve the game fast enough?"
+      },
+      "cyborg": {
+        "description": "Clockwork Cyborg is solo Kazali, an alternative game mode where outsider count is arbitrary but evil teams aren't. Almost every Townsfolk and a couple Outsiders learn info, but much of it is convoluted and takes half a game to disentangle in the form of roles like Savant, Amnesiac, Mathematician, and Puzzlemaster. The high-firepower minion lineup covers for Kazali's mechanical fragility with a strategically diverse range of misinfo, mobility, and murder. Unsolvable Outsider count balances a strong town, with droison, misregistration, and hidden Politicians disrupting the opportunity to put the pieces of the puzzle together."
+      },
+      "damned": {
+        "description": "Inspired by the description for the upcoming expansion Midnight in the House of the Damned, Dusk is a script all about crazy bluffs, wacky plays, and not a ton of clear mechanical information. Some abilities can win or lose singlehandedly, and this script features many extremely powerful and game-defining characters on it, such as Poppy Grower, Legion, Wizard, and most importantly Heretic. This is an advanced, pretty complex, and often extremely swingy script."
+      }
     },
     "v": {
       "title": "Various",
