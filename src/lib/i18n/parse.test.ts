@@ -82,6 +82,30 @@ describe("parseMessage", () => {
     assert.equal(segments[0].type, "tag");
   });
 
+  it("parses a tag closed with the {tag$} format", () => {
+    assert.deepEqual(parseMessage("{bold}hello{bold$}"), [
+      {
+        type: "tag",
+        name: "bold",
+        children: [{ type: "text", value: "hello" }],
+      },
+    ]);
+  });
+
+  it("parses nested tags mixing {/tag} and {tag$} close formats", () => {
+    const segments = parseMessage("{link}{block}inner{block$}{/link}");
+    assert.equal(segments.length, 1);
+    assert.equal(segments[0].type, "tag");
+    const outer = segments[0] as {
+      type: "tag";
+      name: string;
+      children: typeof segments;
+    };
+    assert.equal(outer.name, "link");
+    assert.equal(outer.children.length, 1);
+    assert.equal(outer.children[0].type, "tag");
+  });
+
   it("degrades mismatched close tags to text (stops parsing)", () => {
     // {/unknown} has no open — parseUntilClose() returns when it hits an unknown close
     const segments = parseMessage("hello{/unknown}world");
