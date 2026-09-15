@@ -93,6 +93,8 @@ const CurrentLocaleIcon = ICON_COMPONENTS[t.locale as LocaleIds];
                   ]}
                   href={getRelativeLocaleUrl(locale.astroId, basePath)}
                   hreflang={locale.astroId}
+                  data-umami-event="language-selector"
+                  data-umami-event-lang={locale.astroId}
                 >
                   <LanguageIcon width={24} height={24} viewBox="0 0 128 128" />
                   {locale.name}

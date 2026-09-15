@@ -110,12 +110,20 @@ if (color !== undefined) {
 
   <ul class="nav-links" slot="items-start">
     <li>
-      <a href={downloadPath} download={downloadFilename} type="application/json"
+      <a
+        href={downloadPath}
+        download={downloadFilename}
+        type="application/json"
+        data-umami-event="download-json"
         ><LocalisedMessage t={t} key="viewer.navigation.downloadJson" /></a
       >
     </li>
     <li>
-      <button type="button" class="link-button" id="print"
+      <button
+        type="button"
+        class="link-button"
+        id="print"
+        data-umami-event="print"
         ><LocalisedMessage t={t} key="viewer.navigation.print" /></button
       >
     </li>
@@ -138,7 +146,7 @@ if (color !== undefined) {
       >
     </li>
     <li>
-      <a href={qrPath}
+      <a href={qrPath} data-umami-event="show-qr-code"
         ><LocalisedMessage t={t} key="viewer.navigation.qrCode" /></a
       >
     </li>

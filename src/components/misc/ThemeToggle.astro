@@ -17,6 +17,8 @@ const { t } = Astro.props;
   data-label-default={t.string("viewer.theme.default").value}
   data-label-light={t.string("viewer.theme.light").value}
   data-label-dark={t.string("viewer.theme.dark").value}
+  data-umami-event="theme-toggle"
+  data-umami-event-theme="invalid"
   ><span class="visually-hidden">
     <LocalisedMessage
       t={t}
@@ -44,6 +46,10 @@ const { t } = Astro.props;
 </script>
 
 <script>
+  //@ts-expect-error Umami's types aren't auto-imported in Astro's script blocks
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  import type umami from "umami";
+
   type Theme = "default" | "light" | "dark";
   let state: Theme = (localStorage.getItem("sv-theme") as Theme) ?? "default";
 
@@ -69,6 +75,10 @@ const { t } = Astro.props;
       localStorage.setItem("sv-theme", theme);
     }
     state = theme;
+
+    if ("umami" in window) {
+      window.umami.track("theme-toggle", { theme });
+    }
   }
   setTheme(state);
 
