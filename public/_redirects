@@ -1,2 +1,2 @@
-/s2/damned/* /s2/dusk/* 301
-/:lang/s2/damned/* /:lang/s2/dusk/* 301
+/s2/damned/* /s2/dusk/:splat 301
+/:lang/s2/damned/* /:lang/s2/dusk/:splat 301
