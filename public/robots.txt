@@ -1,7 +1,6 @@
 User-agent: *
 Disallow: /ns
 Disallow: /json
-Disallow: /sw
 
 
 User-agent: A360-Search
@@ -151,7 +150,6 @@ User-agent: GrapeshotCrawler
 User-agent: GroovinaAdsbot
 User-agent: GTmetrix
 User-agent: GuestpostsBot/
-User-agent: HelloworkJobPostingBot
 User-agent: Honeybadger Uptime Check
 User-agent: http://easyurl.net/monitoring
 User-agent: http://www.binarycanary.com
