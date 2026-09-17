@@ -17,7 +17,7 @@ import {
   fetchTopScriptsByScore,
 } from "../../../../../lib/import/botcscripts";
 import { getPathWithoutLocale } from "../../../../../lib/url";
-import { LOCAL_SCRIPT_COLLECTIONS } from "../../../../../scripts";
+import { getLocalScriptCollections } from "../../../../../scripts";
 import type {
   LocalScriptDefinition,
   LocalScriptReference,
@@ -32,7 +32,7 @@ export async function getStaticPaths() {
     { collectionId: string; script: LocalScriptDefinition }
   >();
   for (const [collectionId, collection] of Object.entries(
-    LOCAL_SCRIPT_COLLECTIONS,
+    getLocalScriptCollections(),
   )) {
     for (const script of collection.scripts) {
       if (script.botcScripts && !script.canonicalRef) {

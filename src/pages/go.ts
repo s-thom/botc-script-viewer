@@ -5,7 +5,7 @@ import { BOTC_SCRIPTS_HOSTNAME, KLUTZBANANA_HOSTNAME } from "../lib/constants";
 import { ENABLED_LOCALES } from "../lib/i18n";
 import { scriptFromFormData } from "../lib/import";
 import { encodeScript } from "../lib/number-store";
-import { LOCAL_SCRIPT_COLLECTIONS } from "../scripts";
+import { getLocalScriptCollections } from "../scripts";
 import { AppError } from "../types/site";
 
 export const prerender = false;
@@ -78,7 +78,7 @@ export const POST: APIRoute = async ({
           (scheme === "sw" && baseRest.length === 2) ||
           (scheme === "ns" && baseRest.length === 1) ||
           (scheme === "json" && baseRest.length === 1) ||
-          (scheme in LOCAL_SCRIPT_COLLECTIONS && baseRest.length === 1)
+          (scheme in getLocalScriptCollections() && baseRest.length === 1)
         ) {
           const contentPath = `/${[scheme, ...baseRest].join("/")}/`;
           return redirect(getRelativeLocaleUrl(urlLocale, contentPath));

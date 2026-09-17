@@ -1,15 +1,17 @@
 import type { APIRoute } from "astro";
 import { ENABLED_LOCALES, type LocaleIds } from "../../../../lib/i18n";
 import { getJsonHeaders, getOptionsResponse } from "../../../../lib/responses";
-import { LOCAL_SCRIPT_COLLECTIONS } from "../../../../scripts";
+import { getLocalScriptCollections } from "../../../../scripts";
 
 export function getStaticPaths() {
+  const localScriptCollections = getLocalScriptCollections();
+
   return ENABLED_LOCALES.flatMap((locale) =>
-    Object.entries(LOCAL_SCRIPT_COLLECTIONS).flatMap(
+    Object.entries(localScriptCollections).flatMap(
       ([collectionId, collection]) =>
         collection.scripts.map((script) => ({
           params: {
-            collectionId: collectionId as keyof typeof LOCAL_SCRIPT_COLLECTIONS,
+            collectionId: collectionId as keyof typeof localScriptCollections,
             scriptId: script.id,
             jsonFileName: script.id,
             locale: locale.isDefault ? undefined : locale.astroId,
@@ -26,14 +28,13 @@ export const GET: APIRoute = async ({ params, rewrite, currentLocale }) => {
     return rewrite("/404");
   }
 
-  if (!(collectionId in LOCAL_SCRIPT_COLLECTIONS)) {
+  const localScriptCollections = getLocalScriptCollections();
+  if (!(collectionId in localScriptCollections)) {
     return rewrite("/404");
   }
 
   const collection =
-    LOCAL_SCRIPT_COLLECTIONS[
-      collectionId as keyof typeof LOCAL_SCRIPT_COLLECTIONS
-    ];
+    localScriptCollections[collectionId as keyof typeof localScriptCollections];
 
   const scriptDefinition = collection.scripts.find(
     (script) => script.id === scriptId,

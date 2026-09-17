@@ -1,6 +1,6 @@
 ---
 import type { Translator } from "../../lib/i18n";
-import { LOCAL_SCRIPT_COLLECTIONS } from "../../scripts";
+import { getLocalScriptCollections } from "../../scripts";
 import LocalisedMessage from "../i18n/LocalisedMessage.astro";
 import ScriptList from "./ScriptList.astro";
 
@@ -9,6 +9,8 @@ interface Props {
 }
 
 const { t } = Astro.props;
+
+const localScriptCollections = getLocalScriptCollections();
 ---
 
 <div class="box">
@@ -17,7 +19,7 @@ const { t } = Astro.props;
   </h2>
 
   {
-    Object.entries(LOCAL_SCRIPT_COLLECTIONS)
+    Object.entries(localScriptCollections)
       .filter(
         ([, collection]) =>
           collection.isOfficial && collection.showOnHome !== false,
@@ -44,7 +46,7 @@ const { t } = Astro.props;
     <LocalisedMessage t={t} key="viewer.collection.unofficialCollections" />
   </h2>
   {
-    Object.entries(LOCAL_SCRIPT_COLLECTIONS)
+    Object.entries(localScriptCollections)
       .filter(
         ([, collection]) =>
           !collection.isOfficial && collection.showOnHome !== false,

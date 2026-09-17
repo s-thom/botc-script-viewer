@@ -1,6 +1,6 @@
 import type { LocalScriptDefinition } from "../../types/site";
 
-const ALL_MONTHLY_SCRIPTS: (LocalScriptDefinition & { date: Date })[] = [
+export const MONTHLY_SCRIPTS: (LocalScriptDefinition & { date: Date })[] = [
   {
     date: new Date("2026-01-01T00:00:00.000Z"),
     id: "2026-01",
@@ -105,7 +105,3 @@ const ALL_MONTHLY_SCRIPTS: (LocalScriptDefinition & { date: Date })[] = [
     getScript: () => import("./2026-12.json").then((m) => m.default),
   },
 ];
-
-export const MONTHLY_SCRIPTS = ALL_MONTHLY_SCRIPTS.filter(
-  (script) => script.date.getTime() <= Date.now(),
-);

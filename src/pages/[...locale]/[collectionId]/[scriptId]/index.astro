@@ -9,15 +9,17 @@ import {
   type LocaleIds,
 } from "../../../../lib/i18n";
 import { getPathWithoutLocale } from "../../../../lib/url";
-import { LOCAL_SCRIPT_COLLECTIONS } from "../../../../scripts";
+import { getLocalScriptCollections } from "../../../../scripts";
 
 export function getStaticPaths() {
+  const localScriptCollections = getLocalScriptCollections();
+
   return ENABLED_LOCALES.flatMap((locale) =>
-    Object.entries(LOCAL_SCRIPT_COLLECTIONS).flatMap(
+    Object.entries(localScriptCollections).flatMap(
       ([collectionId, collection]) =>
         collection.scripts.map((script) => ({
           params: {
-            collectionId: collectionId as keyof typeof LOCAL_SCRIPT_COLLECTIONS,
+            collectionId: collectionId as keyof typeof localScriptCollections,
             scriptId: script.id,
             locale: locale.isDefault ? undefined : locale.astroId,
           },
@@ -28,11 +30,12 @@ export function getStaticPaths() {
 
 const { collectionId, scriptId } = Astro.params;
 
-if (!(collectionId in LOCAL_SCRIPT_COLLECTIONS)) {
+const localScriptCollections = getLocalScriptCollections();
+if (!(collectionId in localScriptCollections)) {
   return Astro.rewrite("/404");
 }
 
-const collection = LOCAL_SCRIPT_COLLECTIONS[collectionId];
+const collection = localScriptCollections[collectionId];
 
 const scriptDefinition = collection.scripts.find(
   (script) => script.id === scriptId,
