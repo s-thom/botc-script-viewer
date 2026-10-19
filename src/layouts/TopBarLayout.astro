@@ -31,13 +31,11 @@ const { t, meta } = Astro.props;
 
           <div class="space"></div>
 
-          {
-            Astro.slots.has("items-start") && (
-              <div class="items items-start">
-                <slot name="items-start" />
-              </div>
-            )
-          }
+          {Astro.slots.has("items-start") && (
+            <div class="items items-start">
+              <slot name="items-start" />
+            </div>
+          )}
         </div>
 
         <HeaderActions t={t} translate={meta.translate} />

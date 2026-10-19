@@ -50,9 +50,11 @@ const interactionsByLevel = script.interactions.reduce<
       <h1 class="title">
         <LocalisedMessage
           t={t}
-          key={script.author
-            ? "viewer.script.titleWithAuthor"
-            : "viewer.script.title"}
+          key={
+            script.author
+              ? "viewer.script.titleWithAuthor"
+              : "viewer.script.title"
+          }
           params={{
             title:
               script.name || t.string("viewer.script.untitledScript").value,
@@ -60,37 +62,33 @@ const interactionsByLevel = script.interactions.reduce<
           }}
         />
       </h1>
-      {
-        script.teams.fabled.length + script.teams.loric.length > 0 && (
-          <ul class="fabled-list">
-            {script.teams.fabled.map((character) => (
-              <li class="fabled-list-item">
-                <a href={`#${character.id}`} class="fabled-list-item">
-                  <CharacterIcon size={48} character={character} />
-                  <span class="fabled-title">{character.name}</span>
-                </a>
-              </li>
-            ))}
-            {script.teams.loric.map((character) => (
-              <li class="fabled-list-item">
-                <a href={`#${character.id}`} class="fabled-list-item">
-                  <CharacterIcon size={48} character={character} />
-                  <span class="fabled-title">{character.name}</span>
-                </a>
-              </li>
-            ))}
-          </ul>
-        )
-      }
+      {script.teams.fabled.length + script.teams.loric.length > 0 && (
+        <ul class="fabled-list">
+          {script.teams.fabled.map((character) => (
+            <li class="fabled-list-item">
+              <a href={`#${character.id}`} class="fabled-list-item">
+                <CharacterIcon size={48} character={character} />
+                <span class="fabled-title">{character.name}</span>
+              </a>
+            </li>
+          ))}
+          {script.teams.loric.map((character) => (
+            <li class="fabled-list-item">
+              <a href={`#${character.id}`} class="fabled-list-item">
+                <CharacterIcon size={48} character={character} />
+                <span class="fabled-title">{character.name}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
 
-    {
-      script.bootlegger && script.bootlegger.length > 0 && (
-        <div class="print-only">
-          <BootleggerList t={t} rules={script.bootlegger} />
-        </div>
-      )
-    }
+    {script.bootlegger && script.bootlegger.length > 0 && (
+      <div class="print-only">
+        <BootleggerList t={t} rules={script.bootlegger} />
+      </div>
+    )}
     <h2 class="category-title">
       <LocalisedMessage t={t} key="app.tabs.characters.title" />
     </h2>
@@ -128,71 +126,65 @@ const interactionsByLevel = script.interactions.reduce<
     <CharacterList t={t} characters={script.teams.demon} showWikiLink />
   </div>
 
-  {
-    (script.jinxes.length > 0 ||
-      script.teams.traveller.length > 0 ||
-      script.teams.fabled.length > 0 ||
-      script.teams.loric.length > 0) && (
-      <div class="page">
-        {script.teams.traveller.length > 0 && (
-          <>
-            <h3 id="travellers" class="category-title">
-              <LocalisedMessage
-                t={t}
-                key="app.grimoire.traveller"
-                params={{ count: Infinity }}
-              />
-            </h3>
-            <CharacterList
+  {(script.jinxes.length > 0 ||
+    script.teams.traveller.length > 0 ||
+    script.teams.fabled.length > 0 ||
+    script.teams.loric.length > 0) && (
+    <div class="page">
+      {script.teams.traveller.length > 0 && (
+        <>
+          <h3 id="travellers" class="category-title">
+            <LocalisedMessage
               t={t}
-              characters={script.teams.traveller}
-              showWikiLink
+              key="app.grimoire.traveller"
+              params={{ count: Infinity }}
             />
-          </>
-        )}
-        {script.teams.fabled.length > 0 && (
-          <>
-            <h3 id="fabled" class="category-title">
-              <LocalisedMessage
-                t={t}
-                key="app.grimoire.fabled"
-                params={{ count: Infinity }}
-              />
-            </h3>
-            <CharacterList
+          </h3>
+          <CharacterList
+            t={t}
+            characters={script.teams.traveller}
+            showWikiLink
+          />
+        </>
+      )}
+      {script.teams.fabled.length > 0 && (
+        <>
+          <h3 id="fabled" class="category-title">
+            <LocalisedMessage
               t={t}
-              characters={script.teams.fabled}
-              showWikiLink
+              key="app.grimoire.fabled"
+              params={{ count: Infinity }}
             />
-          </>
-        )}
-        {script.teams.loric.length > 0 && (
-          <>
-            <h3 id="loric" class="category-title">
-              <LocalisedMessage
-                t={t}
-                key="app.grimoire.loric"
-                params={{ count: Infinity }}
-              />
-            </h3>
-            <CharacterList t={t} characters={script.teams.loric} showWikiLink />
-          </>
-        )}
-        {script.jinxes.length > 0 && (
-          <>
-            <h3 id="jinxes" class="category-title">
-              <LocalisedMessage
-                t={t}
-                key="app.tabs.character.jinxes"
-                params={{ count: Infinity }}
-              />
-            </h3>
-            <JinxList t={t} jinxes={script.jinxes} />
-          </>
-        )}
-      </div>
-    )
-  }
+          </h3>
+          <CharacterList t={t} characters={script.teams.fabled} showWikiLink />
+        </>
+      )}
+      {script.teams.loric.length > 0 && (
+        <>
+          <h3 id="loric" class="category-title">
+            <LocalisedMessage
+              t={t}
+              key="app.grimoire.loric"
+              params={{ count: Infinity }}
+            />
+          </h3>
+          <CharacterList t={t} characters={script.teams.loric} showWikiLink />
+        </>
+      )}
+      {script.jinxes.length > 0 && (
+        <>
+          <h3 id="jinxes" class="category-title">
+            <LocalisedMessage
+              t={t}
+              key="app.tabs.character.jinxes"
+              params={{ count: Infinity }}
+            />
+          </h3>
+          <JinxList t={t} jinxes={script.jinxes} />
+        </>
+      )}
+    </div>
+  )}
 
   <hr class="screen-only" />
 
@@ -201,19 +193,17 @@ const interactionsByLevel = script.interactions.reduce<
       <LocalisedMessage t={t} key="viewer.script.nightOrder" />
     </h2>
 
-    {
-      allExtraNightOrderCharacters.length > 0 && (
-        <div class="warning-box screen-only">
-          <LocalisedMessage
-            t={t}
-            key="viewer.script.nightOrderWarning"
-            params={{
-              characters: t.ListFormat().format(allExtraNightOrderCharacters),
-            }}
-          />
-        </div>
-      )
-    }
+    {allExtraNightOrderCharacters.length > 0 && (
+      <div class="warning-box screen-only">
+        <LocalisedMessage
+          t={t}
+          key="viewer.script.nightOrderWarning"
+          params={{
+            characters: t.ListFormat().format(allExtraNightOrderCharacters),
+          }}
+        />
+      </div>
+    )}
 
     <div class="two-column">
       <div>
@@ -231,44 +221,42 @@ const interactionsByLevel = script.interactions.reduce<
     </div>
   </div>
 
-  {
-    interactionsByLevel.conflict.length > 0 && (
-      <>
-        <hr class="screen-only" />
+  {interactionsByLevel.conflict.length > 0 && (
+    <>
+      <hr class="screen-only" />
 
-        {/* TODO: Figure out how to translate all of the interactions data */}
-        <div class="page flow screen-only" lang="en">
-          <h2 id="interactions" class="category-title">
-            <LocalisedMessage t={t} key="viewer.interactions.title" />
-          </h2>
+      {/* TODO: Figure out how to translate all of the interactions data */}
+      <div class="page flow screen-only" lang="en">
+        <h2 id="interactions" class="category-title">
+          <LocalisedMessage t={t} key="viewer.interactions.title" />
+        </h2>
 
-          <div class="info-box screen-only">
-            <LocalisedMessage
-              t={t}
-              key="viewer.interactions.source"
-              params={{
-                externalLink: "https://lecodex.github.io/botc-interactions/",
-              }}
-            />
-          </div>
-
-          <h3 id={`interactions-conflict`} class="category-title">
-            <LocalisedMessage
-              t={t}
-              key="viewer.interactions.levels.conflict"
-              params={{ count: interactionsByLevel.conflict.length }}
-            />
-          </h3>
-
-          <InteractionList
+        <div class="info-box screen-only">
+          <LocalisedMessage
             t={t}
-            script={script}
-            interactions={interactionsByLevel.conflict}
+            key="viewer.interactions.source"
+            params={{
+              externalLink: "https://lecodex.github.io/botc-interactions/",
+            }}
           />
         </div>
-      </>
-    )
-  }
+
+        <h3 id={`interactions-conflict`} class="category-title">
+          <LocalisedMessage
+            t={t}
+            key="viewer.interactions.levels.conflict"
+            params={{ count: interactionsByLevel.conflict.length }}
+          />
+        </h3>
+
+        <InteractionList
+          t={t}
+          script={script}
+          interactions={interactionsByLevel.conflict}
+        />
+      </div>
+    </>
+  )}
 
   <div class="page force-page qr-page print-only">
     <img

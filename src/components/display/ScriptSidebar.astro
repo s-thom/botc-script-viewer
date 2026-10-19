@@ -33,108 +33,94 @@ const logoData =
         <h2 id="script" class="title">
           {script.name || t.string("viewer.script.untitledScript").value}
         </h2>
-        {
-          script.author && (
-            <p class="author">
-              <LocalisedMessage
-                t={t}
-                key="viewer.script.byAuthor"
-                params={{ author: script.author }}
-              />
-            </p>
-          )
-        }
+        {script.author && (
+          <p class="author">
+            <LocalisedMessage
+              t={t}
+              key="viewer.script.byAuthor"
+              params={{ author: script.author }}
+            />
+          </p>
+        )}
       </div>
-      {
-        logoData && (
-          <Image
-            src={logoData.src}
-            alt=""
-            class="logo"
-            width={logoData.width}
-            height={logoData.height}
-            densities={[1, 2, 3]}
-            loading="eager"
-          />
-        )
-      }
+      {logoData && (
+        <Image
+          src={logoData.src}
+          alt=""
+          class="logo"
+          width={logoData.width}
+          height={logoData.height}
+          densities={[1, 2, 3]}
+          loading="eager"
+        />
+      )}
     </div>
 
     {script.description && <p class="description">{script.description}</p>}
 
     <slot name="after-description" />
 
-    {
-      script.teams.fabled.length + script.teams.loric.length > 0 && (
-        <ul class="fabled-list">
-          {script.teams.fabled.map((character) => (
-            <li class="fabled-list-item">
-              <a href={`#${character.id}`} class="fabled-list-item">
-                <CharacterIcon size={48} character={character} />
-                <span class="fabled-title">{character.name}</span>
-              </a>
-            </li>
-          ))}
-          {script.teams.loric.map((character) => (
-            <li class="fabled-list-item">
-              <a href={`#${character.id}`} class="fabled-list-item">
-                <CharacterIcon size={48} character={character} />
-                <span class="fabled-title">{character.name}</span>
-              </a>
-            </li>
-          ))}
-        </ul>
-      )
-    }
+    {script.teams.fabled.length + script.teams.loric.length > 0 && (
+      <ul class="fabled-list">
+        {script.teams.fabled.map((character) => (
+          <li class="fabled-list-item">
+            <a href={`#${character.id}`} class="fabled-list-item">
+              <CharacterIcon size={48} character={character} />
+              <span class="fabled-title">{character.name}</span>
+            </a>
+          </li>
+        ))}
+        {script.teams.loric.map((character) => (
+          <li class="fabled-list-item">
+            <a href={`#${character.id}`} class="fabled-list-item">
+              <CharacterIcon size={48} character={character} />
+              <span class="fabled-title">{character.name}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    )}
 
-    {
-      script.bootlegger && script.bootlegger.length > 0 && (
-        <BootleggerList t={t} rules={script.bootlegger} />
-      )
-    }
+    {script.bootlegger && script.bootlegger.length > 0 && (
+      <BootleggerList t={t} rules={script.bootlegger} />
+    )}
 
-    {
-      conflictInteractions.length > 0 && (
-        <ScriptSidebarExtra iconCharacterId="gossip">
-          <LocalisedMessage
-            t={t}
-            key="viewer.interactions.hasCountConflicts"
-            params={{
-              count: conflictInteractions.length,
-              n: conflictInteractions.length,
-              link: "#interactions-conflict",
-            }}
-          />
-        </ScriptSidebarExtra>
-      )
-    }
+    {conflictInteractions.length > 0 && (
+      <ScriptSidebarExtra iconCharacterId="gossip">
+        <LocalisedMessage
+          t={t}
+          key="viewer.interactions.hasCountConflicts"
+          params={{
+            count: conflictInteractions.length,
+            n: conflictInteractions.length,
+            link: "#interactions-conflict",
+          }}
+        />
+      </ScriptSidebarExtra>
+    )}
 
-    {
-      script.hasModifiedNightOrder && (
-        <ScriptSidebarExtra iconCharacterId="moonchild">
-          <LocalisedMessage
-            t={t}
-            key="viewer.script.nightOrderModified"
-            params={{ link: "#night-order" }}
-          />
-        </ScriptSidebarExtra>
-      )
-    }
+    {script.hasModifiedNightOrder && (
+      <ScriptSidebarExtra iconCharacterId="moonchild">
+        <LocalisedMessage
+          t={t}
+          key="viewer.script.nightOrderModified"
+          params={{ link: "#night-order" }}
+        />
+      </ScriptSidebarExtra>
+    )}
 
-    {
-      script.charactersById.has("pukka") && (
-        <ScriptSidebarExtra iconCharacterId="pukka">
-          <LocalisedMessage
-            t={t}
-            key="viewer.pukka.view"
-            params={{
-              link: "/pukka-flowchart",
-              content: t.string("viewer.pukka.title").value,
-            }}
-          />
-        </ScriptSidebarExtra>
-      )
-    }
+    {script.charactersById.has("pukka") && (
+      <ScriptSidebarExtra iconCharacterId="pukka">
+        <LocalisedMessage
+          t={t}
+          key="viewer.pukka.view"
+          params={{
+            link: "/pukka-flowchart",
+            content: t.string("viewer.pukka.title").value,
+          }}
+        />
+      </ScriptSidebarExtra>
+    )}
 
     <slot name="after-extras" />
   </div>

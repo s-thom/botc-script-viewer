@@ -85,12 +85,16 @@ const t = await createTranslator({ locale });
   <div class="inspect-page">
     <h1>Inspect URL</h1>
 
-    <p><a href={`/ns/${b64}`}>View script</a></p>
+    <p>
+      <a href={`/ns/${b64}`}>View script</a>
+    </p>
 
     <h2>NS breakdown</h2>
-    <code class="node-container"
-      >{nodes.map((node) => <ExplainNode node={node} />)}</code
-    >
+    <code class="node-container">
+      {nodes.map((node) => (
+        <ExplainNode node={node} />
+      ))}
+    </code>
 
     <h2>URL data</h2>
     <table>
@@ -105,63 +109,63 @@ const t = await createTranslator({ locale });
         <tr>
           <td>Base64</td>
           <td>{b64.length}</td>
-          <td><code class="allow-word-break">{b64}</code></td>
+          <td>
+            <code class="allow-word-break">{b64}</code>
+          </td>
         </tr>
         <tr>
           <td>Compressed bytes</td>
           <td>{compressedBytes.length}</td>
-          <td
-            ><details>
+          <td>
+            <details>
               <summary>Expand</summary>
 
-              <code><ByteList bytes={compressedBytes} /></code>
-            </details></td
-          >
+              <code>
+                <ByteList bytes={compressedBytes} />
+              </code>
+            </details>
+          </td>
         </tr>
         <tr>
           <td>Decompressed bytes</td>
           <td>{bytes.length}</td>
-          <td
-            ><details>
+          <td>
+            <details>
               <summary>Expand</summary>
 
-              <code><ByteList bytes={bytes} /></code>
-            </details></td
-          >
+              <code>
+                <ByteList bytes={bytes} />
+              </code>
+            </details>
+          </td>
         </tr>
-        {
-          validData && (
-            <Fragment>
-              <tr>
-                <td>Decoded Script JSON</td>
-                <td>{validData.scriptString.length}</td>
-                <td>
-                  <details>
-                    <summary>Expand</summary>
-                    <p>
-                      This may not be a byte-byte match for the input script.
-                    </p>
-                    <code class="allow-word-break">
-                      {validData.scriptString}
-                    </code>
-                  </details>
-                </td>
-              </tr>
-              <tr>
-                <td>Script JSON Compressed Bytes</td>
-                <td>{validData.jsonCompressedBytes.length}</td>
-                <td>
-                  <details>
-                    <summary>Expand</summary>
-                    <code>
-                      <ByteList bytes={validData.jsonCompressedBytes} />
-                    </code>
-                  </details>
-                </td>
-              </tr>
-            </Fragment>
-          )
-        }
+        {validData && (
+          <Fragment>
+            <tr>
+              <td>Decoded Script JSON</td>
+              <td>{validData.scriptString.length}</td>
+              <td>
+                <details>
+                  <summary>Expand</summary>
+                  <p>This may not be a byte-byte match for the input script.</p>
+                  <code class="allow-word-break">{validData.scriptString}</code>
+                </details>
+              </td>
+            </tr>
+            <tr>
+              <td>Script JSON Compressed Bytes</td>
+              <td>{validData.jsonCompressedBytes.length}</td>
+              <td>
+                <details>
+                  <summary>Expand</summary>
+                  <code>
+                    <ByteList bytes={validData.jsonCompressedBytes} />
+                  </code>
+                </details>
+              </td>
+            </tr>
+          </Fragment>
+        )}
       </tbody>
     </table>
 
@@ -170,49 +174,45 @@ const t = await createTranslator({ locale });
       <tbody>
         <tr>
           <td>DEFLATE</td>
-          <td
-            >Saving: {
-              formatPercent2DP(1 - compressedBytes.length / bytes.length)
-            } ({bytes.length - compressedBytes.length} bytes)</td
-          >
+          <td>
+            Saving:{" "}
+            {formatPercent2DP(1 - compressedBytes.length / bytes.length)} (
+            {bytes.length - compressedBytes.length} bytes)
+          </td>
         </tr>
-        {
-          validData && (
-            <Fragment>
-              <tr>
-                <td>NS vs. JSON (Before DEFLATE)</td>
-                <td>
-                  Saving:{" "}
-                  {formatPercent2DP(
-                    1 - bytes.length / validData.scriptString.length,
-                  )}{" "}
-                  ({validData.scriptString.length - bytes.length} bytes)
-                </td>
-              </tr>
-              <tr>
-                <td>NS vs. JSON (After DEFLATE)</td>
-                <td>
-                  Saving:{" "}
-                  {formatPercent2DP(
-                    1 -
-                      compressedBytes.length /
-                        validData.jsonCompressedBytes.length,
-                  )}{" "}
-                  (
-                  {validData.jsonCompressedBytes.length -
-                    compressedBytes.length}{" "}
-                  bytes)
-                </td>
-              </tr>
-            </Fragment>
-          )
-        }
+        {validData && (
+          <Fragment>
+            <tr>
+              <td>NS vs. JSON (Before DEFLATE)</td>
+              <td>
+                Saving:{" "}
+                {formatPercent2DP(
+                  1 - bytes.length / validData.scriptString.length,
+                )}{" "}
+                ({validData.scriptString.length - bytes.length} bytes)
+              </td>
+            </tr>
+            <tr>
+              <td>NS vs. JSON (After DEFLATE)</td>
+              <td>
+                Saving:{" "}
+                {formatPercent2DP(
+                  1 -
+                    compressedBytes.length /
+                      validData.jsonCompressedBytes.length,
+                )}{" "}
+                ({validData.jsonCompressedBytes.length - compressedBytes.length}{" "}
+                bytes)
+              </td>
+            </tr>
+          </Fragment>
+        )}
         <tr>
           <td>Base64 URL encoding</td>
-          <td
-            >Saving: {formatPercent2DP(1 - b64.length / compressedBytes.length)}
-            ({compressedBytes.length} bytes to {b64.length} characters in URL)</td
-          >
+          <td>
+            Saving: {formatPercent2DP(1 - b64.length / compressedBytes.length)}(
+            {compressedBytes.length} bytes to {b64.length} characters in URL)
+          </td>
         </tr>
       </tbody>
     </table>

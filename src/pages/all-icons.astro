@@ -33,16 +33,12 @@ const specialIcons = (
   }}
 >
   <div class="grid">
-    {
-      normalisedScript.characters.map((character) => (
-        <CharacterIcon character={character} size={48} />
-      ))
-    }
-    {
-      specialIcons.map((character) => (
-        <CharacterIcon character={character} size={48} />
-      ))
-    }
+    {normalisedScript.characters.map((character) => (
+      <CharacterIcon character={character} size={48} />
+    ))}
+    {specialIcons.map((character) => (
+      <CharacterIcon character={character} size={48} />
+    ))}
   </div>
 </MinimalLayout>
 

@@ -13,24 +13,22 @@ const { t, jinxes, class: className } = Astro.props;
 ---
 
 <ul class:list={["jinx-list", className]}>
-  {
-    jinxes.map((jinx) => (
-      <li
-        id={`jinx-${jinx.character1.id}-${jinx.character2.id}`}
-        class="jinx-list-item"
-      >
-        <CharacterListItem
-          t={t}
-          characters={[jinx.character1, jinx.character2]}
-          characterLinks={[`#${jinx.character1.id}`, `#${jinx.character2.id}`]}
-          title={t
-            .ListFormat()
-            .format([jinx.character1.name, jinx.character2.name])}
-          description={jinx.reason}
-        />
-      </li>
-    ))
-  }
+  {jinxes.map((jinx) => (
+    <li
+      id={`jinx-${jinx.character1.id}-${jinx.character2.id}`}
+      class="jinx-list-item"
+    >
+      <CharacterListItem
+        t={t}
+        characters={[jinx.character1, jinx.character2]}
+        characterLinks={[`#${jinx.character1.id}`, `#${jinx.character2.id}`]}
+        title={t
+          .ListFormat()
+          .format([jinx.character1.name, jinx.character2.name])}
+        description={jinx.reason}
+      />
+    </li>
+  ))}
 </ul>
 
 <style>

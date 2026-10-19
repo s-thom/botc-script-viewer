@@ -178,7 +178,9 @@ const stepCSS = FLOWCHART_STEPS.map(
   }}
 >
   <div class="md flow">
-    <h1><LocalisedMessage t={t} key="viewer.pukka.title" /></h1>
+    <h1>
+      <LocalisedMessage t={t} key="viewer.pukka.title" />
+    </h1>
 
     <p>
       <LocalisedMessage
@@ -193,7 +195,9 @@ const stepCSS = FLOWCHART_STEPS.map(
       <LocalisedMessage t={t} key="viewer.pukka.content.intro2" />
     </p>
 
-    <h2><LocalisedMessage t={t} key="viewer.pukka.content.interactive" /></h2>
+    <h2>
+      <LocalisedMessage t={t} key="viewer.pukka.content.interactive" />
+    </h2>
 
     <noscript>
       <p>
@@ -203,66 +207,64 @@ const stepCSS = FLOWCHART_STEPS.map(
 
     <div class="flowchart flow">
       <fieldset class="state">
-        {
-          FLOWCHART_STEPS.map((step, i) => (
-            <input
-              type="radio"
-              name="flowchart-state"
-              id={`flowchart-step-${step.id}`}
-              value={step.id}
-              checked={i === 0}
-            />
-          ))
-        }
+        {FLOWCHART_STEPS.map((step, i) => (
+          <input
+            type="radio"
+            name="flowchart-state"
+            id={`flowchart-step-${step.id}`}
+            value={step.id}
+            checked={i === 0}
+          />
+        ))}
       </fieldset>
-      {
-        FLOWCHART_STEPS.map((step) => (
-          <div data-step={step.id} class="step">
-            <div class="step-content">
-              {step.character && (
-                <CharacterIcon
-                  character={CHARACTERS_BY_ID.get(step.character)!}
-                  size={56}
-                />
-              )}
-              <div class="flow">
-                {step.textKeys.map((key) => (
-                  <p>
-                    <LocalisedMessage t={t} key={key} />
-                  </p>
-                ))}
-              </div>
+      {FLOWCHART_STEPS.map((step) => (
+        <div data-step={step.id} class="step">
+          <div class="step-content">
+            {step.character && (
+              <CharacterIcon
+                character={CHARACTERS_BY_ID.get(step.character)!}
+                size={56}
+              />
+            )}
+            <div class="flow">
+              {step.textKeys.map((key) => (
+                <p>
+                  <LocalisedMessage t={t} key={key} />
+                </p>
+              ))}
             </div>
-            {step.type === "decision" && (
-              <div class="step-actions">
-                <label for={`flowchart-step-${step.yes}`} class="button">
-                  <LocalisedMessage t={t} key="viewer.pukka.labels.yes" />
-                </label>
-                <label for={`flowchart-step-${step.no}`} class="button">
-                  <LocalisedMessage t={t} key="viewer.pukka.labels.no" />
-                </label>
-              </div>
-            )}
-            {step.type === "process" && (
-              <div class="step-actions">
-                <label for={`flowchart-step-${step.next}`} class="button">
-                  <LocalisedMessage t={t} key="viewer.pukka.labels.next" />
-                </label>
-              </div>
-            )}
-            {step.type === "end" && (
-              <div class="step-actions">
-                <label for={`flowchart-step-${step.next}`} class="button">
-                  <LocalisedMessage t={t} key="viewer.pukka.labels.reset" />
-                </label>
-              </div>
-            )}
           </div>
-        ))
-      }
+          {step.type === "decision" && (
+            <div class="step-actions">
+              <label for={`flowchart-step-${step.yes}`} class="button">
+                <LocalisedMessage t={t} key="viewer.pukka.labels.yes" />
+              </label>
+              <label for={`flowchart-step-${step.no}`} class="button">
+                <LocalisedMessage t={t} key="viewer.pukka.labels.no" />
+              </label>
+            </div>
+          )}
+          {step.type === "process" && (
+            <div class="step-actions">
+              <label for={`flowchart-step-${step.next}`} class="button">
+                <LocalisedMessage t={t} key="viewer.pukka.labels.next" />
+              </label>
+            </div>
+          )}
+          {step.type === "end" && (
+            <div class="step-actions">
+              <label for={`flowchart-step-${step.next}`} class="button">
+                <LocalisedMessage t={t} key="viewer.pukka.labels.reset" />
+              </label>
+            </div>
+          )}
+        </div>
+      ))}
     </div>
 
-    <h2><LocalisedMessage t={t} key="viewer.pukka.content.image" /></h2>
+    <h2>
+      <LocalisedMessage t={t} key="viewer.pukka.content.image" />
+    </h2>
 
     <p>
       <LocalisedMessage

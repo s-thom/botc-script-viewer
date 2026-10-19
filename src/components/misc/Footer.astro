@@ -17,8 +17,7 @@ const localeInfo: LocaleInfo | undefined = LOCALE_MAP[t.locale as LocaleIds];
 <footer class:list={["footer", isScreenOnly && "screen-only"]}>
   <div class="footer-text">
     <p>
-      <LocalisedMessage t={t} key="viewer.footer.notAffiliated" />
-      {" "}
+      <LocalisedMessage t={t} key="viewer.footer.notAffiliated" />{" "}
       <LocalisedMessage t={t} key="viewer.footer.descriptionsNotice" />
     </p>
     <p>
@@ -30,20 +29,16 @@ const localeInfo: LocaleInfo | undefined = LOCALE_MAP[t.locale as LocaleIds];
           externalLink: "https://sthom.kiwi",
           externalLinkEvent: "sthom-link",
         }}
-      />
-      {" "}
-      {
-        localeInfo && localeInfo.translators.length > 0 && (
-          <LocalisedMessage
-            t={t}
-            key="viewer.footer.translatedBy"
-            params={{
-              authors: t.ListFormat().format(localeInfo.translators),
-            }}
-          />
-        )
-      }
-      {" "}
+      />{" "}
+      {localeInfo && localeInfo.translators.length > 0 && (
+        <LocalisedMessage
+          t={t}
+          key="viewer.footer.translatedBy"
+          params={{
+            authors: t.ListFormat().format(localeInfo.translators),
+          }}
+        />
+      )}{" "}
       <LocalisedMessage
         t={t}
         key="viewer.footer.sourceCode"
@@ -53,38 +48,34 @@ const localeInfo: LocaleInfo | undefined = LOCALE_MAP[t.locale as LocaleIds];
         }}
       />
     </p>
-    {
-      localeInfo && localeInfo.hasCommunityTranslations && (
-        <p>
-          {localeInfo.hasCommunityTranslations && (
-            <LocalisedMessage
-              t={t}
-              key="viewer.footer.translatedByCommunity"
-              params={{
-                externalLink:
-                  "https://docs.google.com/spreadsheets/u/0/d/1aAJdqSTafHnw01w-WZ94UPx1Me70Kz-EG1NFfBht2tA/htmlview#gid=923580658",
-                externalLinkEvent: "translate-spreadsheet-link",
-              }}
-            />
-          )}
-        </p>
-      )
-    }
-    {
-      localeInfo && localeInfo.hasMachineTranslations && (
-        <p>
-          {localeInfo.hasMachineTranslations && (
-            <LocalisedMessage
-              t={t}
-              key="viewer.footer.translatedByMachine"
-              params={{
-                link: "/translation",
-              }}
-            />
-          )}
-        </p>
-      )
-    }
+    {localeInfo && localeInfo.hasCommunityTranslations && (
+      <p>
+        {localeInfo.hasCommunityTranslations && (
+          <LocalisedMessage
+            t={t}
+            key="viewer.footer.translatedByCommunity"
+            params={{
+              externalLink:
+                "https://docs.google.com/spreadsheets/u/0/d/1aAJdqSTafHnw01w-WZ94UPx1Me70Kz-EG1NFfBht2tA/htmlview#gid=923580658",
+              externalLinkEvent: "translate-spreadsheet-link",
+            }}
+          />
+        )}
+      </p>
+    )}
+    {localeInfo && localeInfo.hasMachineTranslations && (
+      <p>
+        {localeInfo.hasMachineTranslations && (
+          <LocalisedMessage
+            t={t}
+            key="viewer.footer.translatedByMachine"
+            params={{
+              link: "/translation",
+            }}
+          />
+        )}
+      </p>
+    )}
   </div>
   <div class="footer-ccc">
     <Image

@@ -61,16 +61,14 @@ const CurrentLocaleIcon = ICON_COMPONENTS[t.locale as LocaleIds];
       densities={[1, 2, 3]}
       alt={t.string("viewer.navigation.selectLanguage").value}
     />
-    {
-      CurrentLocaleIcon && (
-        <CurrentLocaleIcon
-          class="current-icon"
-          width={12}
-          height={12}
-          viewBox="0 0 128 128"
-        />
-      )
-    }
+    {CurrentLocaleIcon && (
+      <CurrentLocaleIcon
+        class="current-icon"
+        width={12}
+        height={12}
+        viewBox="0 0 128 128"
+      />
+    )}
   </button>
   <dialog
     id="language-selector"
@@ -80,29 +78,27 @@ const CurrentLocaleIcon = ICON_COMPONENTS[t.locale as LocaleIds];
   >
     <nav class="popover-content">
       <ul class="language-list">
-        {
-          ENABLED_LOCALES.map((locale) => {
-            const LanguageIcon = ICON_COMPONENTS[locale.astroId];
+        {ENABLED_LOCALES.map((locale) => {
+          const LanguageIcon = ICON_COMPONENTS[locale.astroId];
 
-            return (
-              <li>
-                <a
-                  class:list={[
-                    "language-link",
-                    locale.astroId === t.locale && "current",
-                  ]}
-                  href={getRelativeLocaleUrl(locale.astroId, basePath)}
-                  hreflang={locale.astroId}
-                  data-umami-event="language-selector"
-                  data-umami-event-lang={locale.astroId}
-                >
-                  <LanguageIcon width={24} height={24} viewBox="0 0 128 128" />
-                  {locale.name}
-                </a>
-              </li>
-            );
-          })
-        }
+          return (
+            <li>
+              <a
+                class:list={[
+                  "language-link",
+                  locale.astroId === t.locale && "current",
+                ]}
+                href={getRelativeLocaleUrl(locale.astroId, basePath)}
+                hreflang={locale.astroId}
+                data-umami-event="language-selector"
+                data-umami-event-lang={locale.astroId}
+              >
+                <LanguageIcon width={24} height={24} viewBox="0 0 128 128" />
+                {locale.name}
+              </a>
+            </li>
+          );
+        })}
       </ul>
     </nav>
   </dialog>

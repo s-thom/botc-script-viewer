@@ -10,59 +10,51 @@ interface Props {
 const { node } = Astro.props;
 ---
 
-{
-  node.type === "value" && (
-    <span class:list={["node", "node-value", `node-value-${node.valueType}`]}>
+{node.type === "value" && (
+  <span class:list={["node", "node-value", `node-value-${node.valueType}`]}>
+    <HoverDetail>
+      <ByteList bytes={node.bytes} />
+      <span slot="hover">{node.value}</span>
+    </HoverDetail>
+  </span>
+)}
+{node.type === "tlv" && (
+  <span class:list={["node", "node-tlv"]}>
+    <span class="tlv-field tlv-type">
       <HoverDetail>
-        <ByteList bytes={node.bytes} />
-        <span slot="hover">{node.value}</span>
+        <ByteList bytes={node.typeBytes} />
+        <span slot="hover">{node.typeName}</span>
       </HoverDetail>
     </span>
-  )
-}
-{
-  node.type === "tlv" && (
-    <span class:list={["node", "node-tlv"]}>
-      <span class="tlv-field tlv-type">
-        <HoverDetail>
-          <ByteList bytes={node.typeBytes} />
-          <span slot="hover">{node.typeName}</span>
-        </HoverDetail>
-      </span>
-      <span class="tlv-field tlv-length">
-        <HoverDetail>
-          <ByteList bytes={node.lengthBytes} />
-          <span slot="hover">{`${node.length} bytes`}</span>
-        </HoverDetail>
-      </span>
-      <span class="tlv-field tlv-value">
-        {node.value.map((innerNode) => (
-          <Astro.self node={innerNode} />
-        ))}
-      </span>
-    </span>
-  )
-}
-{
-  node.type === "warning" && (
-    <span class:list={["node", "node-warning"]}>
+    <span class="tlv-field tlv-length">
       <HoverDetail>
-        <ByteList bytes={node.bytes} />
-        <span slot="hover">{node.message}</span>
+        <ByteList bytes={node.lengthBytes} />
+        <span slot="hover">{`${node.length} bytes`}</span>
       </HoverDetail>
     </span>
-  )
-}
-{
-  node.type === "error" && (
-    <span class:list={["node", "node-error"]}>
-      <HoverDetail>
-        <ByteList bytes={node.bytes} />
-        <span slot="hover">{node.message}</span>
-      </HoverDetail>
+    <span class="tlv-field tlv-value">
+      {node.value.map((innerNode) => (
+        <Astro.self node={innerNode} />
+      ))}
     </span>
-  )
-}
+  </span>
+)}
+{node.type === "warning" && (
+  <span class:list={["node", "node-warning"]}>
+    <HoverDetail>
+      <ByteList bytes={node.bytes} />
+      <span slot="hover">{node.message}</span>
+    </HoverDetail>
+  </span>
+)}
+{node.type === "error" && (
+  <span class:list={["node", "node-error"]}>
+    <HoverDetail>
+      <ByteList bytes={node.bytes} />
+      <span slot="hover">{node.message}</span>
+    </HoverDetail>
+  </span>
+)}
 
 <style>
   @property --rotation {

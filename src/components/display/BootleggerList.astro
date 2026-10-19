@@ -13,18 +13,16 @@ const { t, rules, class: className } = Astro.props;
 ---
 
 <ul class:list={["bootlegger-list", className]} id="bootlegger">
-  {
-    rules &&
-      rules.map((rule) => (
-        <li class="bootlegger-list-item">
-          <CharacterListItem
-            t={t}
-            characters={[CHARACTERS_BY_ID.get("bootlegger")!]}
-            description={rule}
-          />
-        </li>
-      ))
-  }
+  {rules &&
+    rules.map((rule) => (
+      <li class="bootlegger-list-item">
+        <CharacterListItem
+          t={t}
+          characters={[CHARACTERS_BY_ID.get("bootlegger")!]}
+          description={rule}
+        />
+      </li>
+    ))}
 </ul>
 
 <style>

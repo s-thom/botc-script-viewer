@@ -18,56 +18,52 @@ const localScriptCollections = getLocalScriptCollections();
     <LocalisedMessage t={t} key="viewer.collection.officialScripts" />
   </h2>
 
-  {
-    Object.entries(localScriptCollections)
-      .filter(
-        ([, collection]) =>
-          collection.isOfficial && collection.showOnHome !== false,
-      )
-      .map(([collectionId, collection]) => (
-        <section>
-          <h3>
-            <LocalisedMessage
-              t={t}
-              key={`viewer.collection.${collectionId}.title`}
-            />
-          </h3>
-          <ScriptList
+  {Object.entries(localScriptCollections)
+    .filter(
+      ([, collection]) =>
+        collection.isOfficial && collection.showOnHome !== false,
+    )
+    .map(([collectionId, collection]) => (
+      <section>
+        <h3>
+          <LocalisedMessage
             t={t}
-            collectionId={collectionId}
-            scripts={collection.scripts}
-            loading="lazy"
+            key={`viewer.collection.${collectionId}.title`}
           />
-        </section>
-      ))
-  }
+        </h3>
+        <ScriptList
+          t={t}
+          collectionId={collectionId}
+          scripts={collection.scripts}
+          loading="lazy"
+        />
+      </section>
+    ))}
 
   <h2>
     <LocalisedMessage t={t} key="viewer.collection.unofficialCollections" />
   </h2>
-  {
-    Object.entries(localScriptCollections)
-      .filter(
-        ([, collection]) =>
-          !collection.isOfficial && collection.showOnHome !== false,
-      )
-      .map(([collectionId, collection]) => (
-        <section>
-          <h3>
-            <LocalisedMessage
-              t={t}
-              key={`viewer.collection.${collectionId}.title`}
-            />
-          </h3>
-          <ScriptList
+  {Object.entries(localScriptCollections)
+    .filter(
+      ([, collection]) =>
+        !collection.isOfficial && collection.showOnHome !== false,
+    )
+    .map(([collectionId, collection]) => (
+      <section>
+        <h3>
+          <LocalisedMessage
             t={t}
-            collectionId={collectionId}
-            scripts={collection.scripts}
-            loading="lazy"
+            key={`viewer.collection.${collectionId}.title`}
           />
-        </section>
-      ))
-  }
+        </h3>
+        <ScriptList
+          t={t}
+          collectionId={collectionId}
+          scripts={collection.scripts}
+          loading="lazy"
+        />
+      </section>
+    ))}
 </div>
 
 <style>

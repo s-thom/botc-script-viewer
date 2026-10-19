@@ -20,7 +20,9 @@ const t = await createTranslator({ locale });
     lang: locale,
   }}
 >
-  <h1><LocalisedMessage t={t} key="viewer.errors.notFoundHeading" /></h1>
+  <h1>
+    <LocalisedMessage t={t} key="viewer.errors.notFoundHeading" />
+  </h1>
 
   <CharacterIcon
     character={CHARACTERS_BY_ID.get("witch")!}

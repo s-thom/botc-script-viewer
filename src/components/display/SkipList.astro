@@ -12,22 +12,22 @@ const { t, script } = Astro.props;
 ---
 
 <nav class="skip-list-nav">
-  <span><LocalisedMessage t={t} key="viewer.skipList.skipTo" /></span>
+  <span>
+    <LocalisedMessage t={t} key="viewer.skipList.skipTo" />
+  </span>
   <ul class="skip-list">
     <li class="skip-list-item">
       <a href="#script">
         <LocalisedMessage t={t} key="app.pages.lobby.script" />
       </a>
     </li>
-    {
-      script.jinxes.length > 0 && (
-        <li class="skip-list-item">
-          <a href="#jinxes">
-            <LocalisedMessage t={t} key="app.tabs.character.jinxes" />
-          </a>
-        </li>
-      )
-    }
+    {script.jinxes.length > 0 && (
+      <li class="skip-list-item">
+        <a href="#jinxes">
+          <LocalisedMessage t={t} key="app.tabs.character.jinxes" />
+        </a>
+      </li>
+    )}
     <li class="skip-list-item">
       <a href="#night-order">
         <LocalisedMessage

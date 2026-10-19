@@ -6,17 +6,17 @@ interface Props {
 const { bytes } = Astro.props;
 ---
 
-<span class="byte-list"
-  >&ZeroWidthSpace;{
-    Array.from(bytes).map((byte) => (
-      <Fragment>
-        &ZeroWidthSpace;
-        <span class="byte">{byte.toString(16).padStart(2, "0")}</span>
-        &ZeroWidthSpace;
-      </Fragment>
-    ))
-  }</span
-><style>
+<span class="byte-list">
+  &ZeroWidthSpace;
+  {Array.from(bytes).map((byte) => (
+    <Fragment>
+      &ZeroWidthSpace;
+      <span class="byte">{byte.toString(16).padStart(2, "0")}</span>
+      &ZeroWidthSpace;
+    </Fragment>
+  ))}
+</span>
+<style>
   .byte {
     padding-inline: 0.5ch;
     word-break: keep-all;

@@ -89,22 +89,20 @@ if (collectionId === "base3") {
       }}
     />
   </ScriptSidebarExtra>
-  {
-    scriptDefinition.botcScripts && (
-      <ScriptSidebarExtra
-        slot="sidebar-after-description"
-        iconCharacterId="grandmother"
-      >
-        <LocalisedMessage
-          t={t}
-          key="viewer.script.viewOnBotcScripts"
-          params={{
-            externalLink: `https://${BOTC_SCRIPTS_HOSTNAME}/script/${scriptDefinition.botcScripts.scriptId}/${scriptDefinition.botcScripts.versionId}`,
-          }}
-        />
-      </ScriptSidebarExtra>
-    )
-  }
+  {scriptDefinition.botcScripts && (
+    <ScriptSidebarExtra
+      slot="sidebar-after-description"
+      iconCharacterId="grandmother"
+    >
+      <LocalisedMessage
+        t={t}
+        key="viewer.script.viewOnBotcScripts"
+        params={{
+          externalLink: `https://${BOTC_SCRIPTS_HOSTNAME}/script/${scriptDefinition.botcScripts.scriptId}/${scriptDefinition.botcScripts.versionId}`,
+        }}
+      />
+    </ScriptSidebarExtra>
+  )}
 </ScriptViewerLayout>
 
 <style>

@@ -17,16 +17,15 @@ const { character } = Astro.props;
     aria-label="Reminder"
   >
     <use x="12" y="12" href="#reminder"></use>
-  </svg>{
-    character && (
-      <CharacterIcon
-        character={character}
-        size={24}
-        includeAlt={false}
-        class="reminder-character-icon"
-      />
-    )
-  }
+  </svg>
+  {character && (
+    <CharacterIcon
+      character={character}
+      size={24}
+      includeAlt={false}
+      class="reminder-character-icon"
+    />
+  )}
 </span>
 
 <style>

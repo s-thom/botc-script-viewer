@@ -54,7 +54,9 @@ const t = await createTranslator({ locale });
     <meta name="robots" content="noindex" />
   </Fragment>
 
-  <h1><LocalisedMessage t={t} key={titleKey} /></h1>
+  <h1>
+    <LocalisedMessage t={t} key={titleKey} />
+  </h1>
 
   <CharacterIcon
     character={CHARACTERS_BY_ID.get(status === 404 ? "witch" : "goblin")!}
@@ -66,8 +68,8 @@ const t = await createTranslator({ locale });
     <LocalisedMessage t={t} key={descriptionKey} params={descriptionParams} />
   </p>
   <p>
-    <a href={getRelativeLocaleUrl(Astro.currentLocale ?? "en", "")}
-      ><LocalisedMessage t={t} key="viewer.errors.backToHome" /></a
-    >
+    <a href={getRelativeLocaleUrl(Astro.currentLocale ?? "en", "")}>
+      <LocalisedMessage t={t} key="viewer.errors.backToHome" />
+    </a>
   </p>
 </CenteredLayout>

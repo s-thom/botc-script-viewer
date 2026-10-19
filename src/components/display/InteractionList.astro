@@ -14,30 +14,28 @@ const { t, script, interactions, class: className } = Astro.props;
 ---
 
 <ul class:list={["interaction-list", className]}>
-  {
-    interactions.map((interaction) => {
-      const characters = interaction.characters.map((id) =>
-        script.charactersById.get(id)!,
-      );
+  {interactions.map((interaction) => {
+    const characters = interaction.characters.map((id) =>
+      script.charactersById.get(id)!,
+    );
 
-      return (
-        <li
-          id={`interaction-${interaction.characters.join("-")}`}
-          class="interaction-list-item"
-        >
-          <CharacterListItem
-            t={t}
-            characters={characters}
-            characterLinks={interaction.characters.map((id) => `#${id}`)}
-            title={t
-              .ListFormat()
-              .format(characters.map((character) => character.name))}
-            description={interaction.value}
-          />
-        </li>
-      );
-    })
-  }
+    return (
+      <li
+        id={`interaction-${interaction.characters.join("-")}`}
+        class="interaction-list-item"
+      >
+        <CharacterListItem
+          t={t}
+          characters={characters}
+          characterLinks={interaction.characters.map((id) => `#${id}`)}
+          title={t
+            .ListFormat()
+            .format(characters.map((character) => character.name))}
+          description={interaction.value}
+        />
+      </li>
+    );
+  })}
 </ul>
 
 <style>

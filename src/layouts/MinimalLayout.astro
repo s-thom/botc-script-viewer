@@ -92,29 +92,23 @@ const shouldAddNoIndexTag = noIndex || !isProperLanguage;
     <title>{title}</title>
     <meta property="og:title" content={title} />
     <meta name="twitter:title" content={title} />
-    {
-      description && (
-        <>
-          <meta name="description" content={description} />
-          <meta property="og:description" content={description} />
-          <meta name="twitter:description" content={description} />
-        </>
-      )
-    }
+    {description && (
+      <>
+        <meta name="description" content={description} />
+        <meta property="og:description" content={description} />
+        <meta name="twitter:description" content={description} />
+      </>
+    )}
     <link rel="icon" href="/favicon.png" />
     <link rel="sitemap" href="/sitemap-index.xml" />
 
-    {
-      translate &&
-        Object.entries(localeAlternateMap).map(([lang, url]) => (
-          <link rel="alternate" href={url} hreflang={lang} />
-        ))
-    }
-    {
-      shouldAddCanonicalLink && (
-        <link rel="canonical" href={canonicalUrl.toString()} />
-      )
-    }
+    {translate &&
+      Object.entries(localeAlternateMap).map(([lang, url]) => (
+        <link rel="alternate" href={url} hreflang={lang} />
+      ))}
+    {shouldAddCanonicalLink && (
+      <link rel="canonical" href={canonicalUrl.toString()} />
+    )}
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content="/banner.png" />

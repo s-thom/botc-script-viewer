@@ -17,7 +17,8 @@ const { t } = Astro.props;
   data-label-default={t.string("viewer.theme.default").value}
   data-label-light={t.string("viewer.theme.light").value}
   data-label-dark={t.string("viewer.theme.dark").value}
-  ><span class="visually-hidden">
+>
+  <span class="visually-hidden">
     <LocalisedMessage
       t={t}
       key="viewer.theme.theme"

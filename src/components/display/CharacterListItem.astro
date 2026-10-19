@@ -32,62 +32,56 @@ const {
 
 <div class="character">
   {characters.length === 0 && <div class="character-icon-placeholder" />}
-  {
-    characters.map((character, i) =>
-      characterLinks?.[i] ? (
-        <a class="character-icon-link" href={characterLinks[i]}>
-          <CharacterIcon
-            character={character}
-            size={iconSize}
-            class:list={["character-icon-offset", iconClass]}
-          />
-        </a>
-      ) : (
+  {characters.map((character, i) =>
+    characterLinks?.[i] ? (
+      <a class="character-icon-link" href={characterLinks[i]}>
         <CharacterIcon
           character={character}
           size={iconSize}
           class:list={["character-icon-offset", iconClass]}
         />
-      ),
-    )
-  }
+      </a>
+    ) : (
+      <CharacterIcon
+        character={character}
+        size={iconSize}
+        class:list={["character-icon-offset", iconClass]}
+      />
+    ),
+  )}
   <div class="character-info">
-    {
-      title && (
-        <div class="character-title-area">
-          <span class="character-title">
-            {titleLink ? (
-              <a class="character-title-link" href={titleLink}>
-                <MessageSegments segments={t.raw(title)} />
-              </a>
-            ) : (
+    {title && (
+      <div class="character-title-area">
+        <span class="character-title">
+          {titleLink ? (
+            <a class="character-title-link" href={titleLink}>
               <MessageSegments segments={t.raw(title)} />
-            )}
-          </span>
-          {wikiLink && (
-            <a
-              class="character-wiki-link"
-              href={wikiLink}
-              rel="external noreferrer"
-              target="_blank"
-              aria-label={t.string("viewer.script.wikiLabel", { title }).value}
-            >
-              <LocalisedMessage t={t} key="viewer.script.wikiLink" />
             </a>
+          ) : (
+            <MessageSegments segments={t.raw(title)} />
           )}
-        </div>
-      )
-    }
-    {
-      description && (
-        <p class="character-description">
-          <MessageSegments
-            segments={t.raw(description, { formatReplacements: true })}
-            character={characters[0] ?? undefined}
-          />
-        </p>
-      )
-    }
+        </span>
+        {wikiLink && (
+          <a
+            class="character-wiki-link"
+            href={wikiLink}
+            rel="external noreferrer"
+            target="_blank"
+            aria-label={t.string("viewer.script.wikiLabel", { title }).value}
+          >
+            <LocalisedMessage t={t} key="viewer.script.wikiLink" />
+          </a>
+        )}
+      </div>
+    )}
+    {description && (
+      <p class="character-description">
+        <MessageSegments
+          segments={t.raw(description, { formatReplacements: true })}
+          character={characters[0] ?? undefined}
+        />
+      </p>
+    )}
   </div>
 </div>
 

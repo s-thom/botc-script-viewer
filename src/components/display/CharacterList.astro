@@ -15,19 +15,17 @@ const { t, characters, class: className, showWikiLink } = Astro.props;
 ---
 
 <ul class:list={["character-list", className]}>
-  {
-    characters.map((character) => (
-      <li class={"character-list-item"} id={character.id}>
-        <CharacterListItem
-          t={t}
-          characters={[character]}
-          title={character.name}
-          description={character.ability}
-          wikiLink={showWikiLink ? getAlmanacLink(character) : undefined}
-        />
-      </li>
-    ))
-  }
+  {characters.map((character) => (
+    <li class={"character-list-item"} id={character.id}>
+      <CharacterListItem
+        t={t}
+        characters={[character]}
+        title={character.name}
+        description={character.ability}
+        wikiLink={showWikiLink ? getAlmanacLink(character) : undefined}
+      />
+    </li>
+  ))}
 </ul>
 
 <style>

@@ -12,82 +12,80 @@ interface Props {
 const { segments, overrideLocale, character } = Astro.props;
 ---
 
-<span lang={overrideLocale}
-  >{
-    segments.map(function mapSingleSegment(segment): unknown {
-      switch (segment.type) {
-        case "text":
-          return <Fragment>{segment.value}</Fragment>;
-        case "tag": {
-          switch (segment.name) {
-            case "link": {
-              let href = segment.params["link"] as string;
-              if (!href) {
-                console.warn(`Missing link parameter for {link} tag`);
-                href = "/";
-              }
+<span lang={overrideLocale}>
+  {segments.map(function mapSingleSegment(segment): unknown {
+    switch (segment.type) {
+      case "text":
+        return <Fragment>{segment.value}</Fragment>;
+      case "tag": {
+        switch (segment.name) {
+          case "link": {
+            let href = segment.params["link"] as string;
+            if (!href) {
+              console.warn(`Missing link parameter for {link} tag`);
+              href = "/";
+            }
 
-              return (
-                // prettier-ignore
-                <a href={href} data-umami-event="internal-link" data-umami-event-href={segment.params["link"]}>{
+            return (
+              // prettier-ignore
+              <a href={href} data-umami-event="internal-link" data-umami-event-href={segment.params["link"]}>{
                   segment.children.map((child) => mapSingleSegment(child))
                 }</a>
+            );
+          }
+          case "externalLink": {
+            let href = segment.params["externalLink"] as string;
+            if (!href) {
+              console.warn(
+                `Missing externalLink parameter for {externalLink} tag`,
               );
+              href = "/";
             }
-            case "externalLink": {
-              let href = segment.params["externalLink"] as string;
-              if (!href) {
-                console.warn(
-                  `Missing externalLink parameter for {externalLink} tag`,
-                );
-                href = "/";
-              }
 
-              return (
-                // prettier-ignore
-                <a href={href} target="_blank" rel="external noreferrer" data-umami-event="external-link" data-umami-event-href={segment.params["externalLink"]}>{
+            return (
+              // prettier-ignore
+              <a href={href} target="_blank" rel="external noreferrer" data-umami-event="external-link" data-umami-event-href={segment.params["externalLink"]}>{
                   segment.children.map((child) => mapSingleSegment(child))
                 }</a>
-              );
-            }
-            case "span":
-              return (
-                // prettier-ignore
-                <span class:list={[segment.params["spanClass"]]}>{
+            );
+          }
+          case "span":
+            return (
+              // prettier-ignore
+              <span class:list={[segment.params["spanClass"]]}>{
                   segment.children.map((child) => mapSingleSegment(child))
                 }</span>
-              );
-            case "bold":
-              return (
-                // prettier-ignore
-                <strong>{
+            );
+          case "bold":
+            return (
+              // prettier-ignore
+              <strong>{
                   segment.children.map((child) => mapSingleSegment(child))
                 }</strong>
-              );
-            case "small":
-              return (
-                // prettier-ignore
-                <span class="small">{
+            );
+          case "small":
+            return (
+              // prettier-ignore
+              <span class="small">{
                   segment.children.map((child) => mapSingleSegment(child))
                 }</span>
-              );
-            case "reminder":
-              return <ReminderToken character={character} />;
-            case "br":
-              return <br />;
-            default:
-              console.warn(`Unknown tag type: ${segment.name}`);
-              return segment.children.map((child) => mapSingleSegment(child));
-          }
+            );
+          case "reminder":
+            return <ReminderToken character={character} />;
+          case "br":
+            return <br />;
+          default:
+            console.warn(`Unknown tag type: ${segment.name}`);
+            return segment.children.map((child) => mapSingleSegment(child));
         }
-        default:
-          console.warn(
-            `Unknown segment type: ${(segment as MessageSegment).type}`,
-          );
       }
-    })
-  }</span
->
+      default:
+        console.warn(
+          `Unknown segment type: ${(segment as MessageSegment).type}`,
+        );
+    }
+  })}
+</span>
 
 <style>
   .small {

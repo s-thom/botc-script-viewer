@@ -134,34 +134,32 @@ Astro.response.headers.set(
       }}
     />
   </ScriptSidebarExtra>
-  {
-    hasOtherVersion && (
-      <ScriptSidebarExtra
-        slot="sidebar-after-description"
-        iconCharacterId="clockmaker"
-      >
-        <LocalisedMessage t={t} key="viewer.script.otherVersions" />{" "}
-        {allVersionIds.map((otherVersionId) =>
-          otherVersionId === versionId ? (
-            <span class="version-link">{otherVersionId}</span>
-          ) : (
-            <a
-              class="version-link"
-              href={getAbsoluteLocaleUrl(
-                locale,
-                `sw/${scriptId}/${otherVersionId}`,
-              )}
-              data-umami-event="botc-scripts-other-version"
-              data-umami-event-scriptid={scriptId}
-              data-umami-event-versionid={otherVersionId}
-            >
-              {otherVersionId}
-            </a>
-          ),
-        )}
-      </ScriptSidebarExtra>
-    )
-  }
+  {hasOtherVersion && (
+    <ScriptSidebarExtra
+      slot="sidebar-after-description"
+      iconCharacterId="clockmaker"
+    >
+      <LocalisedMessage t={t} key="viewer.script.otherVersions" />{" "}
+      {allVersionIds.map((otherVersionId) =>
+        otherVersionId === versionId ? (
+          <span class="version-link">{otherVersionId}</span>
+        ) : (
+          <a
+            class="version-link"
+            href={getAbsoluteLocaleUrl(
+              locale,
+              `sw/${scriptId}/${otherVersionId}`,
+            )}
+            data-umami-event="botc-scripts-other-version"
+            data-umami-event-scriptid={scriptId}
+            data-umami-event-versionid={otherVersionId}
+          >
+            {otherVersionId}
+          </a>
+        ),
+      )}
+    </ScriptSidebarExtra>
+  )}
 </ScriptViewerLayout>
 
 <style>
