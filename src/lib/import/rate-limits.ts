@@ -25,7 +25,7 @@ export class KeyedRateLimit<K> {
 
     let timeout: ReturnType<typeof setTimeout> | undefined;
 
-    queue.on("idle", () => {
+    queue.addEventListener("idle", () => {
       if (timeout !== undefined) {
         clearTimeout(timeout);
       }
