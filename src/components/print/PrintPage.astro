@@ -1,0 +1,80 @@
+---
+import type { BloodOnTheClocktowerCustomScript } from "../../generated/script-schema";
+import MinimalLayout from "../../layouts/MinimalLayout.astro";
+import { getHeaderColor } from "../../lib/color";
+import type { LocaleIds } from "../../lib/i18n";
+import type { Translator } from "../../lib/i18n/types";
+import {
+  applyNormalisedScriptFallbacks,
+  normaliseScript,
+} from "../../lib/normalise";
+import { buildPrintData } from "../../lib/print/build-data";
+import type { NormalisedScriptFallbacks } from "../../types/botc";
+import PrintApp from "./PrintApp.svelte";
+
+interface Props {
+  t: Translator;
+  rawScript: BloodOnTheClocktowerCustomScript;
+  fallbacks?: NormalisedScriptFallbacks;
+  color?: string;
+}
+
+const { t, rawScript, fallbacks, color: overrideColor } = Astro.props;
+
+const script = normaliseScript(rawScript, t);
+if (fallbacks) {
+  applyNormalisedScriptFallbacks(script, fallbacks);
+}
+
+const color = getHeaderColor(overrideColor ?? script.color);
+
+// The print page lives directly beneath the script's own page.
+const scriptPath = Astro.url.pathname.replace(/\/print\/?$/, "") || "/";
+const data = await buildPrintData(t, script, {
+  src: `${scriptPath.replace(/\/$/, "")}/qr.svg`,
+  url: new URL(scriptPath, Astro.url).toString(),
+});
+
+const title = t.string("viewer.print.pageTitle", { title: data.title }).value;
+---
+
+<MinimalLayout
+  t={t}
+  meta={{
+    title: t.string("viewer.head.title", {
+      title,
+      nameShort: t.string("viewer.common.nameShort").value,
+    }).value,
+    lang: t.locale as LocaleIds,
+    noIndex: true,
+    color,
+  }}
+>
+  <main class="print-page">
+    <div class="intro screen-only">
+      <a href={scriptPath}>{t.string("viewer.print.backToScript").value}</a>
+      <h1>{title}</h1>
+      <p>{t.string("viewer.print.intro").value}</p>
+    </div>
+
+    <PrintApp client:only="svelte" data={data}>
+      <p slot="fallback" class="screen-only">
+        {t.string("viewer.print.loading").value}
+      </p>
+    </PrintApp>
+
+    <noscript>
+      <p class="screen-only">{t.string("viewer.print.noscript").value}</p>
+    </noscript>
+  </main>
+</MinimalLayout>
+
+<style>
+  .print-page {
+    padding: 1rem;
+  }
+
+  .intro {
+    margin-inline: 1rem;
+  }
+</style>

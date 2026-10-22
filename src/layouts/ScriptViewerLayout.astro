@@ -1,11 +1,11 @@
 ---
-import { clampChroma, converter, formatRgb, parse } from "culori";
 import ScriptDisplay from "../components/display/ScriptDisplay.astro";
 import ScriptSidebar from "../components/display/ScriptSidebar.astro";
 import SkipList from "../components/display/SkipList.astro";
 import LocalisedMessage from "../components/i18n/LocalisedMessage.astro";
 import PageView from "../components/misc/PageView.astro";
 import type { BloodOnTheClocktowerCustomScript } from "../generated/script-schema";
+import { getHeaderColor } from "../lib/color";
 import { compressToBase64, stringToBytes } from "../lib/compression";
 import type { LocaleIds } from "../lib/i18n";
 import type { Translator } from "../lib/i18n/types";
@@ -51,6 +51,10 @@ const qrPath = fixDoubleSlashPaths(
   new URL(`${Astro.url.pathname}/qr.svg`, Astro.url),
 );
 
+const printPath = fixDoubleSlashPaths(
+  new URL(`${Astro.url.pathname}/print`, Astro.url),
+);
+
 const jsonPath = overrideJsonPathSegment ?? "json";
 const downloadPath = fixDoubleSlashPaths(
   new URL(`${Astro.url.pathname}/${jsonPath}`, Astro.url),
@@ -65,23 +69,7 @@ const scriptBuilderUrl = `https://script.bloodontheclocktower.com/?script=${enco
 const scriptNameWithFallback =
   script.name || t.string("viewer.script.untitledScript").value;
 
-let color = overrideColor ?? script.color;
-if (color !== undefined) {
-  const parsed = parse(color);
-  if (parsed === undefined) {
-    color = undefined;
-  } else {
-    const toOklch = converter("oklch");
-
-    const asOklch = toOklch(parsed);
-    // Reduce lightness so the title text is still readable.
-    // This might put the colour outside of the visible space, so clamp it back in bounds.
-    asOklch.l = Math.min(asOklch.l, 0.4);
-    const clamped = clampChroma(asOklch);
-
-    color = formatRgb(clamped);
-  }
-}
+const color = getHeaderColor(overrideColor ?? script.color);
 ---
 
 <TopBarLayout
@@ -128,6 +116,11 @@ if (color !== undefined) {
       >
         <LocalisedMessage t={t} key="viewer.navigation.print" />
       </button>
+    </li>
+    <li>
+      <a href={printPath} data-umami-event="print-options">
+        <LocalisedMessage t={t} key="viewer.navigation.printOptions" />
+      </a>
     </li>
     <li>
       <a

@@ -1,0 +1,49 @@
+---
+import PrintPage from "../../../../../components/print/PrintPage.astro";
+import {
+  createTranslator,
+  ENABLED_LOCALES,
+  type LocaleIds,
+} from "../../../../../lib/i18n";
+import { getLocalScriptCollections } from "../../../../../scripts";
+
+export function getStaticPaths() {
+  const localScriptCollections = getLocalScriptCollections();
+
+  return ENABLED_LOCALES.flatMap((locale) =>
+    Object.entries(localScriptCollections).flatMap(
+      ([collectionId, collection]) =>
+        collection.scripts.map((script) => ({
+          params: {
+            collectionId: collectionId as keyof typeof localScriptCollections,
+            scriptId: script.id,
+            locale: locale.isDefault ? undefined : locale.astroId,
+          },
+        })),
+    ),
+  );
+}
+
+const { collectionId, scriptId } = Astro.params;
+
+const localScriptCollections = getLocalScriptCollections();
+if (!(collectionId in localScriptCollections)) {
+  return Astro.rewrite("/404");
+}
+
+const scriptDefinition = localScriptCollections[collectionId].scripts.find(
+  (script) => script.id === scriptId,
+);
+if (!scriptDefinition) {
+  return Astro.rewrite("/404");
+}
+
+const locale = (Astro.currentLocale ?? "en") as LocaleIds;
+const getScript =
+  scriptDefinition.localeOverrides?.[locale] ?? scriptDefinition.getScript;
+const rawScript = await getScript();
+
+const t = await createTranslator({ locale });
+---
+
+<PrintPage t={t} rawScript={rawScript} color={scriptDefinition.color} />

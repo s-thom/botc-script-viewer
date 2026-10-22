@@ -1,0 +1,27 @@
+---
+import PrintPage from "../../../../../components/print/PrintPage.astro";
+import { MAX_AGE_SECONDS } from "../../../../../lib/constants";
+import { createTranslator, type LocaleIds } from "../../../../../lib/i18n";
+import { fetchKlutzbananaScript } from "../../../../../lib/import/klutzbanana";
+
+export const prerender = false;
+
+const { scriptId } = Astro.params;
+
+if (!scriptId) {
+  return Astro.rewrite("/404");
+}
+
+const rawScript = await fetchKlutzbananaScript(scriptId);
+
+const t = await createTranslator({
+  locale: (Astro.currentLocale ?? "en") as LocaleIds,
+});
+
+Astro.response.headers.set(
+  "Cache-Control",
+  `public, max-age=${MAX_AGE_SECONDS}`,
+);
+---
+
+<PrintPage t={t} rawScript={rawScript} />

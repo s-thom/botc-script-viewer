@@ -166,8 +166,58 @@
     "downloadJson": "Download JSON",
     "print": "Print",
     "edit": "Edit",
+    "printOptions": "Print setup",
     "qrCode": "QR Code",
     "selectLanguage": "Select language"
+  },
+  "print": {
+    "pageTitle": "Print {title}",
+    "heading": "Print setup",
+    "intro": "Choose how your script should look, check the preview, then print it or save it as a PDF.",
+    "loading": "Loading the print preview…",
+    "noscript": "The print preview needs JavaScript. You can still print the script page itself from your browser.",
+    "backToScript": "Back to script",
+    "printButton": "Print",
+    "printHint": "In the print dialog, set margins to None, scale to 100%, and turn on background graphics.",
+    "optionsHeading": "Options",
+    "style": {
+      "label": "Style",
+      "plain": "Plain",
+      "fancy": "Fancy"
+    },
+    "paper": {
+      "label": "Paper size",
+      "a4": "A4",
+      "letter": "Letter"
+    },
+    "back": {
+      "label": "Back of the script sheet",
+      "info": "Travellers, Fabled and Loric",
+      "fancy": "Decorative background",
+      "blank": "Blank (not printed)"
+    },
+    "night": {
+      "label": "Night order",
+      "simple": "Simple: one sheet, no descriptions",
+      "detailed": "Detailed: two sheets, with descriptions"
+    },
+    "jinxes": "Include jinxes on the back",
+    "qrPage": "Add a QR code page",
+    "doubleSided": "Printing double-sided",
+    "doubleSidedHint": "Adds blank pages after one-sided sheets so that every sheet starts on a new piece of paper.",
+    "copies": {
+      "heading": "How many copies?",
+      "players": "{range}: one copy for each player",
+      "storyteller": "{range}: one copy for the storyteller",
+      "pages": "Pages {from}–{to}",
+      "page": "Page {page}"
+    },
+    "preview": {
+      "heading": "Preview",
+      "page": "Page {page}",
+      "blankBack": "(blank back)",
+      "overflow": "There is too much on this sheet to fit, even at the smallest text size. Part of it will be cut off."
+    }
   },
   "theme": {
     "theme": "Theme: {span}{theme}{/span}",

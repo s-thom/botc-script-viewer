@@ -1,0 +1,35 @@
+---
+import PrintPage from "../../../../../../components/print/PrintPage.astro";
+import { MAX_AGE_SECONDS } from "../../../../../../lib/constants";
+import { createTranslator, type LocaleIds } from "../../../../../../lib/i18n";
+import {
+  fetchScriptInstance,
+  fetchVersionInstance,
+} from "../../../../../../lib/import/botcscripts";
+
+export const prerender = false;
+
+const { scriptId, versionId } = Astro.params;
+
+if (!(scriptId && versionId)) {
+  return Astro.rewrite("/404");
+}
+
+const scriptInstance = await fetchScriptInstance(scriptId);
+const scriptVersion = await fetchVersionInstance(scriptInstance, versionId);
+
+const t = await createTranslator({
+  locale: (Astro.currentLocale ?? "en") as LocaleIds,
+});
+
+Astro.response.headers.set(
+  "Cache-Control",
+  `public, max-age=${MAX_AGE_SECONDS}`,
+);
+---
+
+<PrintPage
+  t={t}
+  rawScript={scriptVersion.content}
+  fallbacks={{ name: scriptVersion.name, author: scriptVersion.author }}
+/>

@@ -5,6 +5,7 @@ import { ALLOWED_EXTERNAL_HOSTNAMES } from "./src/lib/constants";
 import { ENABLED_LOCALES } from "./src/lib/i18n/config";
 
 import sitemap from "@astrojs/sitemap";
+import svelte from "@astrojs/svelte";
 
 const isProd = process.env.ENVIRONMENT === "production";
 
@@ -28,7 +29,10 @@ export default defineConfig({
     ? `https://botc-script-viewer.sthom.kiwi`
     : "http://localhost:4321",
   adapter: cloudflare({ imageService: "compile" }),
-  integrations: [sitemap()],
+  integrations: [
+    sitemap({ filter: (page) => !/\/print\/?$/.test(page) }),
+    svelte(),
+  ],
   image: {
     domains: ALLOWED_EXTERNAL_HOSTNAMES,
   },
