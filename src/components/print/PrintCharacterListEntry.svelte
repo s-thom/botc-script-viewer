@@ -10,9 +10,11 @@
     special?: boolean;
     /** Additional icons for entries with more than one character, such as jinxes. */
     extraIcons?: PrintIcon[];
+    /** Small icons of jinxed characters, shown beside the name. */
+    jinxIcons?: PrintIcon[];
   }
 
-  let { icon, name, text, special = false, extraIcons = [] }: Props = $props();
+  let { icon, name, text, special = false, extraIcons = [], jinxIcons = [] }: Props = $props();
 
   function useFallback(event: Event, fallback: string) {
     const img = event.currentTarget as HTMLImageElement;
@@ -37,7 +39,19 @@
   </div>
   <div class="info">
     {#if name}
-      <div class="name">{name}</div>
+      <div class="name">
+        {name}
+        {#each jinxIcons as { src, fallback }, i (i)}
+          <img
+            {src}
+            alt=""
+            class="jinx-icon"
+            width="192"
+            height="192"
+            onerror={(event) => useFallback(event, fallback)}
+          />
+        {/each}
+      </div>
     {/if}
     {#if text?.length}
       <p class="text"><PrintSegments segments={text} /></p>
@@ -84,6 +98,13 @@
     font-family: var(--print-title-font);
     font-size: 1.25em;
     line-height: 1.1;
+  }
+
+  .jinx-icon {
+    width: 1.4em;
+    height: 1.4em;
+    vertical-align: middle;
+    margin-block: -0.3em;
   }
 
   .text {

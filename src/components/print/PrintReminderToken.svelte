@@ -13,7 +13,7 @@
     display: inline;
     width: 1.2em;
     height: 1.2em;
-    vertical-align: center;
+    vertical-align: middle;
     fill: var(--color-reminder);
     stroke: var(--color-reminder-border);
     print-color-adjust: exact;

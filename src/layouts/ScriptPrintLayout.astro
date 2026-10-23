@@ -13,6 +13,7 @@ import { buildPrintData } from "../lib/print/build-data";
 import type { NormalisedScriptFallbacks } from "../types/botc";
 import LocalisedMessage from "../components/i18n/LocalisedMessage.astro";
 import PrintApp from "../components/print/PrintApp.svelte";
+import Footer from "../components/misc/Footer.astro";
 
 interface Props {
   t: Translator;
@@ -93,6 +94,7 @@ const title = t.string("viewer.print.pageTitle", { title: data.title }).value;
       <p slot="fallback" class="screen-only">
         {t.string("viewer.print.loading").value}
       </p>
+      <Footer slot="footer" t={t} isScreenOnly />
     </PrintApp>
 
     <noscript>

@@ -80,6 +80,16 @@ export async function buildPrintData(
   const formatted = (text: string) =>
     toPrintSegments(t.raw(text, { formatReplacements: true }));
 
+  const jinxedWith = new Map<string, NormalisedScriptCharacter[]>();
+  for (const { character1, character2 } of script.jinxes) {
+    for (const [a, b] of [
+      [character1, character2],
+      [character2, character1],
+    ]) {
+      jinxedWith.set(a.id, [...(jinxedWith.get(a.id) ?? []), b]);
+    }
+  }
+
   const teamEntries = await Promise.all(
     TEAM_IDS.map(async (team) => {
       const characters: PrintCharacter[] = await Promise.all(
@@ -88,6 +98,9 @@ export async function buildPrintData(
           name: t.rawString(character.name),
           ability: formatted(character.ability ?? ""),
           icon: await resolveIcon(character),
+          jinxIcons: await Promise.all(
+            (jinxedWith.get(character.id) ?? []).map(resolveIcon),
+          ),
         })),
       );
       return [team, characters] as const;

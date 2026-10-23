@@ -27,6 +27,7 @@
           icon={character.icon}
           name={character.name}
           text={character.ability}
+          jinxIcons={character.jinxIcons}
         />
       {/each}
     </div>

@@ -160,6 +160,8 @@
         </SheetFrame>
       {/each}
     </div>
+
+    <slot name="footer" />
   </div>
 </div>
 

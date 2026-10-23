@@ -17,6 +17,8 @@ export interface PrintCharacter {
   name: string;
   ability: PrintSegment[];
   icon: PrintIcon;
+  /** Icons of the other characters on the script that this character is jinxed with. */
+  jinxIcons: PrintIcon[];
 }
 
 export interface PrintNightEntry {
