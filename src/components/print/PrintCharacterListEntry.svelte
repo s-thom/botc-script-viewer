@@ -14,7 +14,14 @@
     jinxIcons?: PrintIcon[];
   }
 
-  let { icon, name, text, special = false, extraIcons = [], jinxIcons = [] }: Props = $props();
+  let {
+    icon,
+    name,
+    text,
+    special = false,
+    extraIcons = [],
+    jinxIcons = [],
+  }: Props = $props();
 
   function useFallback(event: Event, fallback: string) {
     const img = event.currentTarget as HTMLImageElement;
@@ -105,6 +112,7 @@
     height: 1.4em;
     vertical-align: middle;
     margin-block: -0.3em;
+    display: inline-block;
   }
 
   .text {

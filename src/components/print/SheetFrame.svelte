@@ -44,6 +44,7 @@
 <style>
   .frame {
     margin: 0;
+    color-scheme: light;
   }
 
   .caption {
