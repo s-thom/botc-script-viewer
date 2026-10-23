@@ -113,7 +113,20 @@
         </label>
       </fieldset>
 
-      <button type="button" class="button" onclick={print}>
+      <button
+        type="button"
+        class="button"
+        onclick={print}
+        data-umami-event="print"
+        data-umami-event-print-style={options.style}
+        data-umami-event-print-paper-size={options.paper}
+        data-umami-event-print-back-style={options.back}
+        data-umami-event-print-night-info-style={options.night}
+        data-umami-event-print-night-info-hide-travellers={String(
+          options.hideTravellersInNight,
+        )}
+        data-umami-event-print-qr-page={String(options.qrPage)}
+      >
         {strings["viewer.print.printButton"]}
       </button>
     </form>
