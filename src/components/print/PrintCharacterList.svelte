@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { PrintCharacter, PrintTeamId } from "../../lib/print/data";
-  import CharacterEntry from "./CharacterEntry.svelte";
+  import PrintCharacterListEntry from "./PrintCharacterListEntry.svelte";
 
   interface Props {
     team: PrintTeamId;
@@ -23,7 +23,7 @@
     <h2 class="heading">{heading}</h2>
     <div class="characters">
       {#each characters as character (character.id)}
-        <CharacterEntry
+        <PrintCharacterListEntry
           icon={character.icon}
           name={character.name}
           text={character.ability}

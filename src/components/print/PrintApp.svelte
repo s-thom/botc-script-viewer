@@ -7,19 +7,17 @@
   } from "../../lib/print/options";
   import {
     buildSheetSequence,
-    hasBackInfo,
-    type PageRange,
     type PrintScriptContent,
   } from "../../lib/print/sequence";
-  import BackInfoSheet from "./BackInfoSheet.svelte";
-  import FancyBackSheet from "./FancyBackSheet.svelte";
-  import NightSheet from "./NightSheet.svelte";
-  import PrintControls from "./PrintControls.svelte";
-  import QrSheet from "./QrSheet.svelte";
-  import ScriptSheet from "./ScriptSheet.svelte";
+  import BackInfoSheet from "./ExtraInfoPage.svelte";
+  import FancyBackSheet from "./ScriptBackPage.svelte";
+  import NightSheet from "./NightOrderPage.svelte";
+  import QrSheet from "./QrCodePage.svelte";
+  import PlayerScriptPage from "./PlayerScriptPage.svelte";
   import SheetFrame from "./SheetFrame.svelte";
+  import PrintSidebar from "./PrintSidebar.svelte";
 
-  interface Props {
+  export interface Props {
     data: PrintData;
   }
 
@@ -85,22 +83,7 @@
     "night-other",
   ]);
 
-  function formatRange(range: PageRange): string {
-    return range.from === range.to
-      ? data.strings["viewer.print.help.page"].replace(
-          "{page}",
-          String(range.from),
-        )
-      : data.strings["viewer.print.help.pages"]
-          .replace("{from}", String(range.from))
-          .replace("{to}", String(range.to));
-  }
-
   const strings = $derived(data.strings);
-
-  function print() {
-    window.print();
-  }
 </script>
 
 <svelte:head>
@@ -113,43 +96,7 @@
   style:--paper-h="{paper.height}mm"
   style:--scale={scale}
 >
-  <aside class="sidebar screen-only">
-    <div class="sidebar-content">
-      <div>
-        <h2>{data.title}</h2>
-      </div>
-
-      <PrintControls
-        bind:options
-        {strings}
-        hasBackInfo={hasBackInfo(content)}
-        onprint={print}
-      />
-
-      <section class="help">
-        <h2 class="help-heading">{strings["viewer.print.help.heading"]}</h2>
-        <p class="help-hint">{strings["viewer.print.help.marginHint"]}</p>
-        <ul>
-          {#if sequence.playerPages}
-            <li>
-              {strings["viewer.print.help.players"].replace(
-                "{range}",
-                formatRange(sequence.playerPages),
-              )}
-            </li>
-          {/if}
-          {#if sequence.storytellerPages}
-            <li>
-              {strings["viewer.print.help.storyteller"].replace(
-                "{range}",
-                formatRange(sequence.storytellerPages),
-              )}
-            </li>
-          {/if}
-        </ul>
-      </section>
-    </div>
-  </aside>
+  <PrintSidebar title={data.title} bind:options {strings} {sequence} />
 
   <div class="preview" bind:clientWidth={previewWidth}>
     <h2 class="preview-heading visually-hidden">
@@ -169,7 +116,7 @@
           overflowMessage={strings["viewer.print.preview.overflow"]}
         >
           {#if sheet.kind === "script"}
-            <ScriptSheet
+            <PlayerScriptPage
               {data}
               teams={["townsfolk", "outsider", "minion", "demon"]}
               deps={layoutKey}
@@ -228,59 +175,9 @@
     }
   }
 
-  .sidebar {
-    filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.5));
-
-    @media (min-width: 1000px) {
-      position: sticky;
-      top: 1rem;
-    }
-  }
-
-  .sidebar-content {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    padding: 1rem;
-    padding-block-end: 1.5rem;
-    color: var(--color-text);
-    background-color: var(--color-control-background);
-
-    clip-path: polygon(
-      0 100%,
-      10% calc(100% - 10px),
-      20% calc(100% - 3px),
-      30% calc(100% - 12px),
-      40% calc(100% - 14px),
-      50% calc(100% - 8px),
-      60% calc(100% - 11px),
-      70% calc(100% - 7px),
-      80% calc(100% - 4px),
-      90% calc(100% - 9px),
-      100% calc(100% - 6px),
-      100% calc(14px - 6px),
-      90% calc(14px - 9px),
-      80% calc(14px - 4px),
-      70% calc(14px - 7px),
-      60% calc(14px - 11px),
-      50% calc(14px - 8px),
-      40% calc(14px - 14px),
-      30% calc(14px - 12px),
-      20% calc(14px - 3px),
-      10% calc(14px - 10px),
-      0 calc(14px - 0px)
-    );
-  }
-
-  .help-heading,
   .preview-heading {
     font-size: 1.3rem;
     margin: 0 0 0.5rem;
-  }
-
-  .help ul {
-    margin: 0;
-    padding-inline-start: 1.2rem;
   }
 
   .preview {

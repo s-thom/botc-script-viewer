@@ -1,27 +1,28 @@
 ---
-import type { BloodOnTheClocktowerCustomScript } from "../../generated/script-schema";
-import TopBarLayout from "../../layouts/TopBarLayout.astro";
-import { getHeaderColor } from "../../lib/color";
-import { compressToBase64, stringToBytes } from "../../lib/compression";
-import type { LocaleIds } from "../../lib/i18n";
-import type { Translator } from "../../lib/i18n/types";
+import type { BloodOnTheClocktowerCustomScript } from "../generated/script-schema";
+import TopBarLayout from "../layouts/TopBarLayout.astro";
+import { getHeaderColor } from "../lib/color";
+import { compressToBase64, stringToBytes } from "../lib/compression";
+import type { LocaleIds } from "../lib/i18n";
+import type { Translator } from "../lib/i18n/types";
 import {
   applyNormalisedScriptFallbacks,
   normaliseScript,
-} from "../../lib/normalise";
-import { buildPrintData } from "../../lib/print/build-data";
-import type { NormalisedScriptFallbacks } from "../../types/botc";
-import LocalisedMessage from "../i18n/LocalisedMessage.astro";
-import PrintApp from "./PrintApp.svelte";
+} from "../lib/normalise";
+import { buildPrintData } from "../lib/print/build-data";
+import type { NormalisedScriptFallbacks } from "../types/botc";
+import LocalisedMessage from "../components/i18n/LocalisedMessage.astro";
+import PrintApp from "../components/print/PrintApp.svelte";
 
 interface Props {
   t: Translator;
   rawScript: BloodOnTheClocktowerCustomScript;
+  basePath: string;
   fallbacks?: NormalisedScriptFallbacks;
   color?: string;
 }
 
-const { t, rawScript, fallbacks, color: overrideColor } = Astro.props;
+const { t, rawScript, basePath, fallbacks, color: overrideColor } = Astro.props;
 
 const script = normaliseScript(rawScript, t);
 if (fallbacks) {
@@ -52,6 +53,10 @@ const title = t.string("viewer.print.pageTitle", { title: data.title }).value;
       title,
       nameShort: t.string("viewer.common.nameShort").value,
     }).value,
+    translate: {
+      basePath,
+      locales: "all",
+    },
     lang: t.locale as LocaleIds,
     noIndex: true,
     color,

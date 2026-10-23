@@ -1,10 +1,11 @@
 ---
-import PrintPage from "../../../../../components/print/PrintPage.astro";
+import ScriptPrintLayout from "../../../../../layouts/ScriptPrintLayout.astro";
 import {
   createTranslator,
   ENABLED_LOCALES,
   type LocaleIds,
 } from "../../../../../lib/i18n";
+import { getPathWithoutLocale } from "../../../../../lib/url";
 import { getLocalScriptCollections } from "../../../../../scripts";
 
 export function getStaticPaths() {
@@ -46,4 +47,13 @@ const rawScript = await getScript();
 const t = await createTranslator({ locale });
 ---
 
-<PrintPage t={t} rawScript={rawScript} color={scriptDefinition.color} />
+<ScriptPrintLayout
+  t={t}
+  rawScript={rawScript}
+  color={scriptDefinition.color}
+  basePath={getPathWithoutLocale(
+    Astro.routePattern,
+    Astro.currentLocale,
+    Astro.url.pathname,
+  )}
+/>

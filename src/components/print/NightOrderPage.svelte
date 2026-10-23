@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { PrintData, PrintNightEntry } from "../../lib/print/data";
-  import CharacterEntry from "./CharacterEntry.svelte";
+  import PrintCharacterListEntry from "./PrintCharacterListEntry.svelte";
   import FitBox from "./FitBox.svelte";
 
   interface Props {
@@ -28,7 +28,7 @@
 
 {#snippet list(entries: PrintNightEntry[], withText: boolean)}
   {#each hideTravellers ? entries.filter((entry) => !entry.traveller) : entries as entry, i (i)}
-    <CharacterEntry
+    <PrintCharacterListEntry
       icon={entry.icon}
       special={entry.special}
       name={entry.name}

@@ -2,8 +2,7 @@
   import type { PrintData, PrintTeamId } from "../../lib/print/data";
   import { PRINT_TEAM_STRING_KEYS } from "../../lib/print/data";
   import FitBox from "./FitBox.svelte";
-  import SheetHeader from "./SheetHeader.svelte";
-  import TeamSection from "./TeamSection.svelte";
+  import PrintCharacterList from "./PrintCharacterList.svelte";
 
   interface Props {
     data: PrintData;
@@ -17,9 +16,15 @@
 
 <div class="strip"></div>
 <FitBox {deps} bind:overflowing class="script-fit">
-  <SheetHeader title={data.title} subtitle={data.author} />
+  <header class={["header"]}>
+    <h1 class="title">{data.title}</h1>
+    {#if data.author}
+      <p class="subtitle">{data.author}</p>
+    {/if}
+  </header>
+
   {#each teams as team (team)}
-    <TeamSection
+    <PrintCharacterList
       {team}
       heading={data.strings[PRINT_TEAM_STRING_KEYS[team]]}
       characters={data.teams[team]}
@@ -61,5 +66,39 @@
     margin-inline-start: -12mm;
     width: calc(100% + 12mm);
     padding-inline-start: calc(var(--strip-width) + var(--strip-gap));
+  }
+
+  .header {
+    flex-shrink: 0;
+    margin-block-end: 0.8em;
+  }
+
+  .title {
+    font-family: var(--print-title-font);
+    font-size: 2.2em;
+    font-weight: 400;
+    line-height: 1;
+    margin: 0;
+  }
+
+  .subtitle {
+    margin: 0.2em 0 0;
+    font-size: 1.2em;
+  }
+
+  :global(.sheet.plain) .header {
+    border-block-end: 0.15em solid currentColor;
+    padding-block-end: 0.3em;
+  }
+
+  :global(.sheet.fancy) .header {
+    text-align: center;
+    color: var(--color-script, #000);
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  :global(.sheet.fancy) .header .title {
+    font-size: 3em;
   }
 </style>

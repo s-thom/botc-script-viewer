@@ -1,8 +1,8 @@
 <script lang="ts">
   import type { PrintData } from "../../lib/print/data";
-  import CharacterEntry from "./CharacterEntry.svelte";
+  import PrintCharacterListEntry from "./PrintCharacterListEntry.svelte";
   import FitBox from "./FitBox.svelte";
-  import TeamSection from "./TeamSection.svelte";
+  import PrintCharacterList from "./PrintCharacterList.svelte";
   import { PRINT_TEAM_STRING_KEYS } from "../../lib/print/data";
 
   interface Props {
@@ -16,7 +16,7 @@
 
 <FitBox {deps} bind:overflowing>
   {#each ["traveller", "fabled", "loric"] as const as team (team)}
-    <TeamSection
+    <PrintCharacterList
       {team}
       heading={data.strings[PRINT_TEAM_STRING_KEYS[team]]}
       characters={data.teams[team]}
@@ -27,7 +27,7 @@
     <section class="section">
       <div class="columns">
         {#each data.bootlegger as rule, i (i)}
-          <CharacterEntry icon={rule.icon} name="" text={rule.text} />
+          <PrintCharacterListEntry icon={rule.icon} name="" text={rule.text} />
         {/each}
       </div>
     </section>
@@ -38,7 +38,7 @@
       <h2 class="heading">{data.strings["app.tabs.character.jinxes"]}</h2>
       <div class="columns">
         {#each data.jinxes as jinx, i (i)}
-          <CharacterEntry
+          <PrintCharacterListEntry
             icon={jinx.icons[0]}
             extraIcons={jinx.icons.slice(1)}
             name={jinx.names}

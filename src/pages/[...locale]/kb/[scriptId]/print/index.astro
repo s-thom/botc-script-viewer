@@ -1,8 +1,9 @@
 ---
-import PrintPage from "../../../../../components/print/PrintPage.astro";
+import ScriptPrintLayout from "../../../../../layouts/ScriptPrintLayout.astro";
 import { MAX_AGE_SECONDS } from "../../../../../lib/constants";
 import { createTranslator, type LocaleIds } from "../../../../../lib/i18n";
 import { fetchKlutzbananaScript } from "../../../../../lib/import/klutzbanana";
+import { getPathWithoutLocale } from "../../../../../lib/url";
 
 export const prerender = false;
 
@@ -24,4 +25,12 @@ Astro.response.headers.set(
 );
 ---
 
-<PrintPage t={t} rawScript={rawScript} />
+<ScriptPrintLayout
+  t={t}
+  rawScript={rawScript}
+  basePath={getPathWithoutLocale(
+    Astro.routePattern,
+    Astro.currentLocale,
+    Astro.url.pathname,
+  )}
+/>

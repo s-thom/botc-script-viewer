@@ -1,5 +1,5 @@
 ---
-import PrintPage from "../../../../../components/print/PrintPage.astro";
+import ScriptPrintLayout from "../../../../../layouts/ScriptPrintLayout.astro";
 import type { BloodOnTheClocktowerCustomScript } from "../../../../../generated/script-schema";
 import {
   bytesToString,
@@ -7,6 +7,7 @@ import {
 } from "../../../../../lib/compression";
 import { MAX_AGE_SECONDS } from "../../../../../lib/constants";
 import { createTranslator } from "../../../../../lib/i18n";
+import { getPathWithoutLocale } from "../../../../../lib/url";
 
 export const prerender = false;
 
@@ -29,4 +30,12 @@ Astro.response.headers.set(
 );
 ---
 
-<PrintPage t={t} rawScript={rawScript} />
+<ScriptPrintLayout
+  t={t}
+  rawScript={rawScript}
+  basePath={getPathWithoutLocale(
+    Astro.routePattern,
+    Astro.currentLocale,
+    Astro.url.pathname,
+  )}
+/>
