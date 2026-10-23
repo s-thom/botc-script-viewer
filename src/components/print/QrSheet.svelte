@@ -1,6 +1,5 @@
 <script lang="ts">
   import type { PrintData } from "../../lib/print/data";
-  import SheetHeader from "./SheetHeader.svelte";
 
   interface Props {
     data: PrintData;
@@ -10,8 +9,11 @@
 </script>
 
 <div class="qr-sheet">
-  <SheetHeader title={data.title} subtitle={data.author} large />
   <div class="body">
+    <h1 class="title">{data.title}</h1>
+    {#if data.author}
+      <p class="subtitle">{data.author}</p>
+    {/if}
     <img
       class="qr"
       src={data.qr.src}

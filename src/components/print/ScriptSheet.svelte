@@ -10,20 +10,13 @@
     teams: PrintTeamId[];
     deps: unknown;
     overflowing: boolean;
-    large?: boolean;
   }
 
-  let {
-    data,
-    teams,
-    deps,
-    overflowing = $bindable(),
-    large = false,
-  }: Props = $props();
+  let { data, teams, deps, overflowing = $bindable() }: Props = $props();
 </script>
 
 <FitBox {deps} bind:overflowing>
-  <SheetHeader title={data.title} subtitle={data.author} {large} />
+  <SheetHeader title={data.title} subtitle={data.author} />
   {#each teams as team (team)}
     <TeamSection
       {team}

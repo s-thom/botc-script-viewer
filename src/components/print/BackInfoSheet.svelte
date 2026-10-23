@@ -7,12 +7,11 @@
 
   interface Props {
     data: PrintData;
-    showJinxes: boolean;
     deps: unknown;
     overflowing: boolean;
   }
 
-  let { data, showJinxes, deps, overflowing = $bindable() }: Props = $props();
+  let { data, deps, overflowing = $bindable() }: Props = $props();
 </script>
 
 <FitBox {deps} bind:overflowing>
@@ -34,7 +33,7 @@
     </section>
   {/if}
 
-  {#if showJinxes && data.jinxes.length > 0}
+  {#if data.jinxes.length > 0}
     <section class="section">
       <h2 class="heading">{data.strings["app.tabs.character.jinxes"]}</h2>
       <div class="columns">

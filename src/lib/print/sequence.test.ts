@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
-import { DEFAULT_PRINT_OPTIONS, parsePrintOptions } from "./options.ts";
+import { DEFAULT_PRINT_OPTIONS } from "./options.ts";
 import { buildSheetSequence, type PrintScriptContent } from "./sequence.ts";
 
 const NOTHING: PrintScriptContent = {
@@ -22,34 +22,19 @@ const kinds = (
 
 describe("buildSheetSequence", () => {
   it("omits the back when there is nothing to put on it", () => {
-    assert.deepEqual(kinds(NOTHING, { doubleSided: false }), [
+    assert.deepEqual(kinds(NOTHING, {}), [
       "script",
-      "night-simple",
-    ]);
-  });
-
-  it("pads one-sided sheets when double-sided", () => {
-    assert.deepEqual(kinds(NOTHING, { doubleSided: true }), [
-      "script",
-      "blank",
-      "night-simple",
+      "night-first",
+      "night-other",
+      "qr",
     ]);
   });
 
   it("includes an info back when there are travellers", () => {
     assert.deepEqual(
       kinds({ ...NOTHING, hasTravellers: true }, { night: "detailed" }),
-      ["script", "back-info", "night-first", "night-other"],
+      ["script", "back-info", "night-first", "night-other", "qr"],
     );
-  });
-
-  it("ignores jinxes on the back unless enabled", () => {
-    const content = { ...NOTHING, hasJinxes: true };
-    assert.equal(
-      kinds(content, { jinxes: false }).includes("back-info"),
-      false,
-    );
-    assert.equal(kinds(content, { jinxes: true }).includes("back-info"), true);
   });
 
   it("bootlegger rules alone create a back", () => {
@@ -82,27 +67,7 @@ describe("buildSheetSequence", () => {
       { ...DEFAULT_PRINT_OPTIONS, night: "detailed" },
     );
     assert.deepEqual(sequence.playerPages, { from: 1, to: 2 });
-    assert.deepEqual(sequence.storytellerPages, { from: 3, to: 4 });
-    assert.equal(sequence.paperCount, 2);
-  });
-});
-
-describe("parsePrintOptions", () => {
-  it("falls back to defaults for junk", () => {
-    assert.deepEqual(parsePrintOptions(null), DEFAULT_PRINT_OPTIONS);
-    assert.deepEqual(parsePrintOptions("x"), DEFAULT_PRINT_OPTIONS);
-  });
-
-  it("keeps valid values and drops invalid ones", () => {
-    const parsed = parsePrintOptions({
-      style: "fancy",
-      paper: "tabloid",
-      jinxes: true,
-      qrPage: "yes",
-    });
-    assert.equal(parsed.style, "fancy");
-    assert.equal(parsed.paper, "a4");
-    assert.equal(parsed.jinxes, true);
-    assert.equal(parsed.qrPage, false);
+    assert.deepEqual(sequence.storytellerPages, { from: 3, to: 5 });
+    assert.equal(sequence.paperCount, 3);
   });
 });

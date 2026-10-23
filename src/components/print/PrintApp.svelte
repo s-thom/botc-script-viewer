@@ -72,7 +72,7 @@
 
   // Anything that changes how much room content takes up.
   const layoutKey = $derived(
-    `${options.style}|${options.paper}|${options.jinxes}|${options.night}`,
+    `${options.style}|${options.paper}|${options.night}`,
   );
 
   // Whether each sheet's content overflows, by position. Only meaningful for sheets that fit their content.
@@ -115,10 +115,15 @@
 >
   <aside class="sidebar screen-only">
     <div class="sidebar-content">
+      <div>
+        <h2>{data.title}</h2>
+        <p>{strings["viewer.print.intro"]}</p>
+      </div>
+
       <PrintControls
         bind:options
         {strings}
-        hasBackInfo={hasBackInfo(content, options)}
+        hasBackInfo={hasBackInfo(content)}
         onprint={print}
       />
 
@@ -147,7 +152,7 @@
   </aside>
 
   <div class="preview" bind:clientWidth={previewWidth}>
-    <h2 class="preview-heading screen-only">
+    <h2 class="preview-heading visually-hidden">
       {strings["viewer.print.preview.heading"]}
     </h2>
     <div class="sheets">
@@ -168,13 +173,11 @@
               {data}
               teams={["townsfolk", "outsider", "minion", "demon"]}
               deps={layoutKey}
-              large
               bind:overflowing={overflow[i]}
             />
           {:else if sheet.kind === "back-info"}
             <BackInfoSheet
               {data}
-              showJinxes={options.jinxes}
               deps={layoutKey}
               bind:overflowing={overflow[i]}
             />

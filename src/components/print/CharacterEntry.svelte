@@ -19,7 +19,7 @@
   }
 </script>
 
-<div class="entry">
+<div class={["entry", { "no-text": !text }]}>
   <div class="icons">
     {#each [icon, ...extraIcons] as { src, fallback }, i (i)}
       <img
@@ -49,6 +49,10 @@
     gap: 0.4em;
     break-inside: avoid;
     margin-block-end: 0.5em;
+
+    &.no-text {
+      align-items: center;
+    }
   }
 
   .icons {
@@ -59,7 +63,6 @@
   .icon {
     width: 2.8em;
     height: 2.8em;
-    margin: -0.2em;
   }
 
   .info {

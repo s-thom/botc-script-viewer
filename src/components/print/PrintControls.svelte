@@ -59,12 +59,6 @@
         {strings[`viewer.print.back.${value}`]}
       </label>
     {/each}
-    {#if options.back === "info"}
-      <label class="nested">
-        <input type="checkbox" bind:checked={options.jinxes} />
-        {strings["viewer.print.jinxes"]}
-      </label>
-    {/if}
   </fieldset>
 
   <fieldset>
@@ -80,12 +74,6 @@
   <label>
     <input type="checkbox" bind:checked={options.qrPage} />
     {strings["viewer.print.qrPage"]}
-  </label>
-
-  <label>
-    <input type="checkbox" bind:checked={options.doubleSided} />
-    {strings["viewer.print.doubleSided"]}
-    <small class="hint">{strings["viewer.print.doubleSidedHint"]}</small>
   </label>
 
   <button type="button" class="button" onclick={onprint}>
@@ -123,10 +111,6 @@
 
   label {
     display: block;
-  }
-
-  .nested {
-    margin-inline-start: 1.5rem;
   }
 
   .hint {

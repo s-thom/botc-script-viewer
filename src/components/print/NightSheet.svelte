@@ -2,7 +2,6 @@
   import type { PrintData, PrintNightEntry } from "../../lib/print/data";
   import CharacterEntry from "./CharacterEntry.svelte";
   import FitBox from "./FitBox.svelte";
-  import SheetHeader from "./SheetHeader.svelte";
 
   interface Props {
     data: PrintData;
@@ -43,11 +42,8 @@
       </div>
     </div>
   {:else}
-    <SheetHeader
-      title={mode === "first" ? phaseTitle.first : phaseTitle.other}
-      subtitle={data.title}
-    />
     <div class="detailed" data-fit>
+      <h2 class="phase">{phaseTitle[mode]}</h2>
       {@render list(mode === "first" ? data.firstNight : data.otherNight, true)}
     </div>
   {/if}
@@ -75,7 +71,7 @@
     font-family: var(--print-title-font);
     font-size: 1.5em;
     font-weight: 400;
-    margin: 0 0 0.4em;
+    margin: 0 0 1em;
     border-block-end: 0.08em solid currentColor;
   }
 

@@ -48,7 +48,7 @@
     font-size: 1.5em;
     font-weight: 400;
     line-height: 1.1;
-    margin: 0 0 0.3em;
+    margin: 0 0 0.5em;
     color: var(--team-color);
     border-block-end: 0.08em solid var(--team-color);
   }

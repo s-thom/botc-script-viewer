@@ -53,6 +53,7 @@ export interface PrintData {
 }
 
 export const PRINT_STRING_KEYS = [
+  "viewer.print.intro",
   "viewer.print.printButton",
   "viewer.print.printHint",
   "viewer.print.optionsHeading",
@@ -69,7 +70,6 @@ export const PRINT_STRING_KEYS = [
   "viewer.print.night.label",
   "viewer.print.night.simple",
   "viewer.print.night.detailed",
-  "viewer.print.jinxes",
   "viewer.print.qrPage",
   "viewer.print.doubleSided",
   "viewer.print.doubleSidedHint",

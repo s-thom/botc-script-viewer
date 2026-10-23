@@ -40,16 +40,13 @@ export interface PageRange {
   to: number;
 }
 
-export function hasBackInfo(
-  content: PrintScriptContent,
-  options: Pick<PrintOptions, "jinxes">,
-): boolean {
+export function hasBackInfo(content: PrintScriptContent): boolean {
   return (
     content.hasTravellers ||
     content.hasFabled ||
     content.hasLoric ||
     content.hasBootlegger ||
-    (options.jinxes && content.hasJinxes)
+    content.hasJinxes
   );
 }
 
@@ -69,7 +66,7 @@ export function buildSheetSequence(
   const scriptBack: Sheet | undefined =
     options.back === "fancy"
       ? { kind: "back-fancy" }
-      : options.back === "info" && hasBackInfo(content, options)
+      : options.back === "info" && hasBackInfo(content)
         ? { kind: "back-info" }
         : undefined;
   papers.push({ front: { kind: "script" }, back: scriptBack });
@@ -98,8 +95,6 @@ export function buildSheetSequence(
     sheets.push(paper.front);
     if (paper.back) {
       sheets.push(paper.back);
-    } else if (options.doubleSided) {
-      sheets.push({ kind: "blank", padding: true });
     }
   }
 

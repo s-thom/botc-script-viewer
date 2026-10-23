@@ -166,13 +166,11 @@
     "downloadJson": "Download JSON",
     "print": "Print",
     "edit": "Edit",
-    "printOptions": "Print setup",
     "qrCode": "QR Code",
     "selectLanguage": "Select language"
   },
   "print": {
-    "pageTitle": "Print {title}",
-    "heading": "Print setup",
+    "pageTitle": "Print: {title}",
     "intro": "Choose how your script should look, check the preview, then print it or save it as a PDF.",
     "loading": "Loading the print preview…",
     "noscript": "The print preview needs JavaScript. You can still print the script page itself from your browser.",
@@ -192,7 +190,7 @@
     },
     "back": {
       "label": "Back of the script sheet",
-      "info": "Travellers, Fabled and Loric",
+      "info": "Travellers, Fabled, Loric, and Jinxes",
       "fancy": "Decorative background",
       "blank": "Blank (not printed)"
     },
@@ -201,7 +199,6 @@
       "simple": "Simple: one sheet, no descriptions",
       "detailed": "Detailed: two sheets, with descriptions"
     },
-    "jinxes": "Include jinxes on the back",
     "qrPage": "Add a QR code page",
     "doubleSided": "Printing double-sided",
     "doubleSidedHint": "Adds blank pages after one-sided sheets so that every sheet starts on a new piece of paper.",
@@ -215,7 +212,7 @@
     "preview": {
       "heading": "Preview",
       "page": "Page {page}",
-      "blankBack": "(blank back)",
+      "blankBack": "(this page intentionally left blank)",
       "overflow": "There is too much on this sheet to fit, even at the smallest text size. Part of it will be cut off."
     }
   },

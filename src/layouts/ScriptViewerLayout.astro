@@ -108,18 +108,8 @@ const color = getHeaderColor(overrideColor ?? script.color);
       </a>
     </li>
     <li>
-      <button
-        type="button"
-        class="link-button"
-        id="print"
-        data-umami-event="print"
-      >
-        <LocalisedMessage t={t} key="viewer.navigation.print" />
-      </button>
-    </li>
-    <li>
       <a href={printPath} data-umami-event="print-options">
-        <LocalisedMessage t={t} key="viewer.navigation.printOptions" />
+        <LocalisedMessage t={t} key="viewer.navigation.print" />
       </a>
     </li>
     <li>
@@ -156,14 +146,6 @@ const color = getHeaderColor(overrideColor ?? script.color);
     <ScriptDisplay t={t} script={script} />
   </div>
 </TopBarLayout>
-
-<script>
-  document.querySelectorAll("button#print").forEach((button) => {
-    button.addEventListener("click", () => {
-      window.print();
-    });
-  });
-</script>
 
 <style>
   .nav-links {
