@@ -42,12 +42,18 @@ const t = await createTranslator({ locale });
       <LocalisedMessage
         t={t}
         key="viewer.home.description"
-        params={{ externalLink: "https://bloodontheclocktower.com/" }}
+        params={{
+          externalLink: "https://bloodontheclocktower.com/",
+          externalLinkKey: "official-site",
+        }}
       />{" "}
       <LocalisedMessage
         t={t}
         key="viewer.home.about"
-        params={{ link: getRelativeLocaleUrl("en", "/about") }}
+        params={{
+          link: getRelativeLocaleUrl("en", "/about"),
+          linkKey: "about",
+        }}
       />
     </p>
 

@@ -59,6 +59,7 @@ Astro.response.headers.set(
       key="viewer.script.viewOnBotcScripts"
       params={{
         externalLink: `https://${BOTC_SCRIPTS_HOSTNAME}/script/${scriptId}/${versionId}`,
+        externalLinkKey: "botc-scripts",
       }}
     />
   </ScriptSidebarExtra>
@@ -68,7 +69,7 @@ Astro.response.headers.set(
       iconCharacterId="clockmaker"
     >
       <LocalisedMessage t={t} key="viewer.script.otherVersions" />{" "}
-      {allVersionIds.map((otherVersionId) =>
+      {allVersionIds.map((otherVersionId, i) =>
         otherVersionId === versionId ? (
           <span class="version-link">{otherVersionId}</span>
         ) : (
@@ -81,6 +82,7 @@ Astro.response.headers.set(
             data-umami-event="botc-scripts-other-version"
             data-umami-event-scriptid={scriptId}
             data-umami-event-versionid={otherVersionId}
+            data-umami-event-is-latest={i === allVersionIds.length - 1}
           >
             {otherVersionId}
           </a>

@@ -27,7 +27,7 @@ const localeInfo: LocaleInfo | undefined = LOCALE_MAP[t.locale as LocaleIds];
         params={{
           author: "Stuart Thomson",
           externalLink: "https://sthom.kiwi",
-          externalLinkEvent: "sthom-link",
+          externalLinkKey: "sthom-link",
         }}
       />{" "}
       {localeInfo && localeInfo.translators.length > 0 && (
@@ -44,7 +44,7 @@ const localeInfo: LocaleInfo | undefined = LOCALE_MAP[t.locale as LocaleIds];
         key="viewer.footer.sourceCode"
         params={{
           externalLink: "https://github.com/s-thom/botc-script-viewer",
-          externalLinkEvent: "github-link",
+          externalLinkKey: "github-link",
         }}
       />
     </p>
@@ -57,7 +57,7 @@ const localeInfo: LocaleInfo | undefined = LOCALE_MAP[t.locale as LocaleIds];
             params={{
               externalLink:
                 "https://docs.google.com/spreadsheets/u/0/d/1aAJdqSTafHnw01w-WZ94UPx1Me70Kz-EG1NFfBht2tA/htmlview#gid=923580658",
-              externalLinkEvent: "translate-spreadsheet-link",
+              externalLinkKey: "translate-spreadsheet-link",
             }}
           />
         )}
@@ -71,6 +71,7 @@ const localeInfo: LocaleInfo | undefined = LOCALE_MAP[t.locale as LocaleIds];
             key="viewer.footer.translatedByMachine"
             params={{
               link: "/translation",
+              linkKey: "translation",
             }}
           />
         )}

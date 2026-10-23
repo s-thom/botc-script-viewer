@@ -34,7 +34,10 @@ const t = await createTranslator({ locale });
     <LocalisedMessage
       t={t}
       key="viewer.errors.notFoundDescription"
-      params={{ link: getRelativeLocaleUrl(Astro.currentLocale ?? "en", "") }}
+      params={{
+        link: getRelativeLocaleUrl(Astro.currentLocale ?? "en", ""),
+        linkKey: "404-home",
+      }}
     />
   </p>
 </CenteredLayout>

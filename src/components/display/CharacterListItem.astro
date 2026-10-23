@@ -68,6 +68,10 @@ const {
             rel="external noreferrer"
             target="_blank"
             aria-label={t.string("viewer.script.wikiLabel", { title }).value}
+            data-umami-event="character-wiki-link"
+            data-umami-event-href={wikiLink}
+            data-umami-event-key="character-wiki-link"
+            data-umami-event-character-id={characters[0]?.id ?? "???"}
           >
             <LocalisedMessage t={t} key="viewer.script.wikiLink" />
           </a>

@@ -85,6 +85,7 @@ if (collectionId === "base3") {
       key="viewer.collection.partOfCollection"
       params={{
         link: "..",
+        linkKey: "back-to-collection",
         collection: t.string(`viewer.collection.${collectionId}.title`).value,
       }}
     />
@@ -99,6 +100,7 @@ if (collectionId === "base3") {
         key="viewer.script.viewOnBotcScripts"
         params={{
           externalLink: `https://${BOTC_SCRIPTS_HOSTNAME}/script/${scriptDefinition.botcScripts.scriptId}/${scriptDefinition.botcScripts.versionId}`,
+          externalLinkKey: "botc-scripts",
         }}
       />
     </ScriptSidebarExtra>

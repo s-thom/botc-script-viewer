@@ -94,6 +94,7 @@ const logoData =
             count: conflictInteractions.length,
             n: conflictInteractions.length,
             link: "#interactions-conflict",
+            linkKey: "interactions-conflict",
           }}
         />
       </ScriptSidebarExtra>
@@ -104,7 +105,7 @@ const logoData =
         <LocalisedMessage
           t={t}
           key="viewer.script.nightOrderModified"
-          params={{ link: "#night-order" }}
+          params={{ link: "#night-order", linkKey: "night-order" }}
         />
       </ScriptSidebarExtra>
     )}
@@ -116,6 +117,7 @@ const logoData =
           key="viewer.pukka.view"
           params={{
             link: "/pukka-flowchart",
+            linkKey: "to-pukka-flowchart",
             content: t.string("viewer.pukka.title").value,
           }}
         />
