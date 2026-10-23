@@ -1,10 +1,11 @@
 <script lang="ts">
-  import type { PrintIcon } from "../../lib/print/data";
+  import type { PrintIcon, PrintSegment } from "../../lib/print/data";
+  import PrintSegments from "./PrintSegments.svelte";
 
   interface Props {
     icon: PrintIcon;
     name: string;
-    text?: string;
+    text?: PrintSegment[];
     /** Icon is not an actual character (e.g. Minion Info), so it isn't scaled up. */
     special?: boolean;
     /** Additional icons for entries with more than one character, such as jinxes. */
@@ -21,7 +22,7 @@
   }
 </script>
 
-<div class={["entry", { "no-text": !text }]}>
+<div class={["entry", { "no-text": !text?.length }]}>
   <div class="icons">
     {#each [icon, ...extraIcons] as { src, fallback }, i (i)}
       <img
@@ -38,8 +39,8 @@
     {#if name}
       <div class="name">{name}</div>
     {/if}
-    {#if text}
-      <p class="text">{text}</p>
+    {#if text?.length}
+      <p class="text"><PrintSegments segments={text} /></p>
     {/if}
   </div>
 </div>

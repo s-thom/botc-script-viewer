@@ -27,7 +27,11 @@
     <section class="section">
       <div class="columns">
         {#each data.bootlegger as rule, i (i)}
-          <PrintCharacterListEntry icon={rule.icon} name="" text={rule.text} />
+          <PrintCharacterListEntry
+            icon={rule.icon}
+            name=""
+            text={[{ type: "text", value: rule.text }]}
+          />
         {/each}
       </div>
     </section>
@@ -42,7 +46,7 @@
             icon={jinx.icons[0]}
             extraIcons={jinx.icons.slice(1)}
             name={jinx.names}
-            text={jinx.reason}
+            text={[{ type: "text", value: jinx.reason }]}
           />
         {/each}
       </div>

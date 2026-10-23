@@ -17,6 +17,7 @@ import {
   type PrintNightEntry,
   type PrintTeamId,
 } from "./data";
+import { toPrintSegments } from "./segments";
 
 /** Pixel size icons are rendered at: about 300dpi at the largest printed size. */
 const ICON_PX = 192;
@@ -76,6 +77,8 @@ export async function buildPrintData(
   const resolveIcon = createIconResolver();
   const plain = (text: string) =>
     t.rawString(text, { formatReplacements: true });
+  const formatted = (text: string) =>
+    toPrintSegments(t.raw(text, { formatReplacements: true }));
 
   const teamEntries = await Promise.all(
     TEAM_IDS.map(async (team) => {
@@ -83,7 +86,7 @@ export async function buildPrintData(
         script.teams[team].map(async (character) => ({
           id: character.id,
           name: t.rawString(character.name),
-          ability: plain(character.ability ?? ""),
+          ability: formatted(character.ability ?? ""),
           icon: await resolveIcon(character),
         })),
       );
@@ -99,7 +102,7 @@ export async function buildPrintData(
           name: t.rawString(
             entry.type === "character" ? entry.character.name : entry.name,
           ),
-          text: entry.reminderText ? plain(entry.reminderText) : undefined,
+          text: entry.reminderText ? formatted(entry.reminderText) : undefined,
           icon: await resolveIcon(character),
           special: entry.type === "special",
           traveller:

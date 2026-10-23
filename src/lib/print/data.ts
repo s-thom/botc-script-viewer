@@ -6,16 +6,22 @@ export interface PrintIcon {
   fallback: string;
 }
 
+/** The formatting that can appear in ability text: bold, and reminder tokens. */
+export type PrintSegment =
+  | { type: "text"; value: string }
+  | { type: "bold"; children: PrintSegment[] }
+  | { type: "reminder" };
+
 export interface PrintCharacter {
   id: string;
   name: string;
-  ability: string;
+  ability: PrintSegment[];
   icon: PrintIcon;
 }
 
 export interface PrintNightEntry {
   name: string;
-  text?: string;
+  text?: PrintSegment[];
   icon: PrintIcon;
   /** Special night order entries (e.g. Minion Info) whose icon isn't a real character. */
   special: boolean;
