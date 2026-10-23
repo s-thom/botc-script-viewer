@@ -40,7 +40,7 @@
 
   :global(.sheet.fancy) .header {
     text-align: center;
-    color: var(--color-script,);
+    color: var(--color-script, #000);
     print-color-adjust: exact;
     -webkit-print-color-adjust: exact;
   }

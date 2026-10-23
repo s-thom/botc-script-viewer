@@ -9,6 +9,7 @@ export interface PrintOptions {
   back: BackMode;
   night: NightMode;
   qrPage: boolean;
+  hideTravellersInNight: boolean;
 }
 
 export const DEFAULT_PRINT_OPTIONS: PrintOptions = {
@@ -17,6 +18,7 @@ export const DEFAULT_PRINT_OPTIONS: PrintOptions = {
   back: "info",
   night: "detailed",
   qrPage: true,
+  hideTravellersInNight: false,
 };
 
 export const PAPER_DIMENSIONS_MM: Record<
@@ -38,7 +40,7 @@ const ENUM_VALUES: {
   night: ["simple", "detailed"],
 };
 
-const BOOLEAN_KEYS = ["qrPage"] as const;
+const BOOLEAN_KEYS = ["qrPage", "hideTravellersInNight"] as const;
 
 /** Merge untrusted data (e.g. from localStorage) over the defaults, dropping anything invalid. */
 export function parsePrintOptions(data: unknown): PrintOptions {

@@ -69,17 +69,25 @@
         {strings[`viewer.print.night.${value}`]}
       </label>
     {/each}
+
+    <label>
+      <input type="checkbox" bind:checked={options.hideTravellersInNight} />
+      {strings["viewer.print.night.hideTravellers"]}
+    </label>
   </fieldset>
 
-  <label>
-    <input type="checkbox" bind:checked={options.qrPage} />
-    {strings["viewer.print.qrPage"]}
-  </label>
+  <fieldset>
+    <legend>{strings["viewer.print.qrCode.label"]}</legend>
+
+    <label>
+      <input type="checkbox" bind:checked={options.qrPage} />
+      {strings["viewer.print.qrCode.addPage"]}
+    </label>
+  </fieldset>
 
   <button type="button" class="button" onclick={onprint}>
     {strings["viewer.print.printButton"]}
   </button>
-  <p class="hint">{strings["viewer.print.printHint"]}</p>
 </form>
 
 <style>
@@ -111,12 +119,5 @@
 
   label {
     display: block;
-  }
-
-  .hint {
-    display: block;
-    opacity: 0.75;
-    font-size: 0.9rem;
-    margin: 0;
   }
 </style>

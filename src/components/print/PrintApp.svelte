@@ -72,7 +72,7 @@
 
   // Anything that changes how much room content takes up.
   const layoutKey = $derived(
-    `${options.style}|${options.paper}|${options.night}`,
+    `${options.style}|${options.paper}|${options.night}|${options.hideTravellersInNight}`,
   );
 
   // Whether each sheet's content overflows, by position. Only meaningful for sheets that fit their content.
@@ -87,11 +87,11 @@
 
   function formatRange(range: PageRange): string {
     return range.from === range.to
-      ? data.strings["viewer.print.copies.page"].replace(
+      ? data.strings["viewer.print.help.page"].replace(
           "{page}",
           String(range.from),
         )
-      : data.strings["viewer.print.copies.pages"]
+      : data.strings["viewer.print.help.pages"]
           .replace("{from}", String(range.from))
           .replace("{to}", String(range.to));
   }
@@ -117,7 +117,6 @@
     <div class="sidebar-content">
       <div>
         <h2>{data.title}</h2>
-        <p>{strings["viewer.print.intro"]}</p>
       </div>
 
       <PrintControls
@@ -127,12 +126,13 @@
         onprint={print}
       />
 
-      <section class="copies">
-        <h2 class="copies-heading">{strings["viewer.print.copies.heading"]}</h2>
+      <section class="help">
+        <h2 class="help-heading">{strings["viewer.print.help.heading"]}</h2>
+        <p class="help-hint">{strings["viewer.print.help.marginHint"]}</p>
         <ul>
           {#if sequence.playerPages}
             <li>
-              {strings["viewer.print.copies.players"].replace(
+              {strings["viewer.print.help.players"].replace(
                 "{range}",
                 formatRange(sequence.playerPages),
               )}
@@ -140,7 +140,7 @@
           {/if}
           {#if sequence.storytellerPages}
             <li>
-              {strings["viewer.print.copies.storyteller"].replace(
+              {strings["viewer.print.help.storyteller"].replace(
                 "{range}",
                 formatRange(sequence.storytellerPages),
               )}
@@ -186,6 +186,7 @@
           {:else if sheet.kind === "night-simple"}
             <NightSheet
               {data}
+              hideTravellers={options.hideTravellersInNight}
               mode="simple"
               deps={layoutKey}
               bind:overflowing={overflow[i]}
@@ -193,6 +194,7 @@
           {:else if sheet.kind === "night-first"}
             <NightSheet
               {data}
+              hideTravellers={options.hideTravellersInNight}
               mode="first"
               deps={layoutKey}
               bind:overflowing={overflow[i]}
@@ -200,6 +202,7 @@
           {:else if sheet.kind === "night-other"}
             <NightSheet
               {data}
+              hideTravellers={options.hideTravellersInNight}
               mode="other"
               deps={layoutKey}
               bind:overflowing={overflow[i]}
@@ -269,13 +272,13 @@
     );
   }
 
-  .copies-heading,
+  .help-heading,
   .preview-heading {
     font-size: 1.3rem;
     margin: 0 0 0.5rem;
   }
 
-  .copies ul {
+  .help ul {
     margin: 0;
     padding-inline-start: 1.2rem;
   }

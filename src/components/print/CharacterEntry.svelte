@@ -5,11 +5,13 @@
     icon: PrintIcon;
     name: string;
     text?: string;
+    /** Icon is not an actual character (e.g. Minion Info), so it isn't scaled up. */
+    special?: boolean;
     /** Additional icons for entries with more than one character, such as jinxes. */
     extraIcons?: PrintIcon[];
   }
 
-  let { icon, name, text, extraIcons = [] }: Props = $props();
+  let { icon, name, text, special = false, extraIcons = [] }: Props = $props();
 
   function useFallback(event: Event, fallback: string) {
     const img = event.currentTarget as HTMLImageElement;
@@ -25,7 +27,7 @@
       <img
         {src}
         alt=""
-        class="icon"
+        class={["icon", { special }]}
         width="192"
         height="192"
         onerror={(event) => useFallback(event, fallback)}
@@ -63,6 +65,14 @@
   .icon {
     width: 2.8em;
     height: 2.8em;
+    transform-origin: center;
+    scale: 1.5;
+    /* Scaling doesn't affect layout; keep the enlarged icon's overhang clear of clipping edges. Applied to every icon so text stays aligned. */
+    margin-inline-start: var(--icon-overhang);
+
+    &.special {
+      scale: 1;
+    }
   }
 
   .info {

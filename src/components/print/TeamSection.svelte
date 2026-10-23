@@ -6,13 +6,20 @@
     team: PrintTeamId;
     heading: string;
     characters: PrintCharacter[];
+    /** Also render the heading as a stacked label in the fancy side strip. */
+    sideLabel?: boolean;
   }
 
-  let { team, heading, characters }: Props = $props();
+  let { team, heading, characters, sideLabel = false }: Props = $props();
 </script>
 
 {#if characters.length > 0}
-  <section class={["team", team]}>
+  <section class={["team", team, { "has-side-label": sideLabel }]}>
+    {#if sideLabel}
+      <div class="side-label" aria-hidden="true">
+        <span class="side-label-text">{heading}</span>
+      </div>
+    {/if}
     <h2 class="heading">{heading}</h2>
     <div class="characters">
       {#each characters as character (character.id)}
@@ -51,6 +58,54 @@
     margin: 0 0 0.5em;
     color: var(--team-color);
     border-block-end: 0.08em solid var(--team-color);
+  }
+
+  .side-label {
+    display: none;
+  }
+
+  :global(.sheet.fancy) .has-side-label {
+    position: relative;
+  }
+
+  /* Fancy: the heading moves into the strip, and a rule separates sections. */
+  :global(.sheet.fancy) .has-side-label .heading {
+    /* Keep it for screen readers; the label is aria-hidden. */
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    margin: 0;
+  }
+
+  :global(.sheet.fancy) .has-side-label .side-label {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    inset-inline-start: calc(-1 * (var(--strip-width) + var(--strip-gap)));
+    width: var(--strip-width);
+    color: var(--color-header-text);
+    font-family: var(--print-title-font);
+    font-size: 1.5em;
+    line-height: 1;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .side-label-text {
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    white-space: nowrap;
+    letter-spacing: -5px;
+    text-transform: uppercase;
+  }
+
+  :global(.sheet.fancy) .has-side-label + :global(.has-side-label) {
+    border-block-start: 0.08em solid var(--color-script, #000);
+    padding-block-start: 0.6em;
   }
 
   .characters {

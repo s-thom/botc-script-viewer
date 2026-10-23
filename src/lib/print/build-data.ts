@@ -101,6 +101,9 @@ export async function buildPrintData(
           ),
           text: entry.reminderText ? plain(entry.reminderText) : undefined,
           icon: await resolveIcon(character),
+          special: entry.type === "special",
+          traveller:
+            entry.type === "character" && entry.character.team === "traveller",
         };
       }),
     );

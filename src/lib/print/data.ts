@@ -17,6 +17,9 @@ export interface PrintNightEntry {
   name: string;
   text?: string;
   icon: PrintIcon;
+  /** Special night order entries (e.g. Minion Info) whose icon isn't a real character. */
+  special: boolean;
+  traveller: boolean;
 }
 
 export interface PrintJinx {
@@ -53,9 +56,7 @@ export interface PrintData {
 }
 
 export const PRINT_STRING_KEYS = [
-  "viewer.print.intro",
   "viewer.print.printButton",
-  "viewer.print.printHint",
   "viewer.print.optionsHeading",
   "viewer.print.style.label",
   "viewer.print.style.plain",
@@ -70,14 +71,15 @@ export const PRINT_STRING_KEYS = [
   "viewer.print.night.label",
   "viewer.print.night.simple",
   "viewer.print.night.detailed",
-  "viewer.print.qrPage",
-  "viewer.print.doubleSided",
-  "viewer.print.doubleSidedHint",
-  "viewer.print.copies.heading",
-  "viewer.print.copies.players",
-  "viewer.print.copies.storyteller",
-  "viewer.print.copies.pages",
-  "viewer.print.copies.page",
+  "viewer.print.night.hideTravellers",
+  "viewer.print.qrCode.label",
+  "viewer.print.qrCode.addPage",
+  "viewer.print.help.heading",
+  "viewer.print.help.marginHint",
+  "viewer.print.help.players",
+  "viewer.print.help.storyteller",
+  "viewer.print.help.pages",
+  "viewer.print.help.page",
   "viewer.print.preview.heading",
   "viewer.print.preview.page",
   "viewer.print.preview.blankBack",

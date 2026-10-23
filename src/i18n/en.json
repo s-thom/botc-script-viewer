@@ -171,12 +171,10 @@
   },
   "print": {
     "pageTitle": "Print: {title}",
-    "intro": "Choose how your script should look, check the preview, then print it or save it as a PDF.",
     "loading": "Loading the print preview…",
     "noscript": "The print preview needs JavaScript. You can still print the script page itself from your browser.",
     "backToScript": "Back to script",
     "printButton": "Print",
-    "printHint": "In the print dialog, set margins to None, scale to 100%, and turn on background graphics.",
     "optionsHeading": "Options",
     "style": {
       "label": "Style",
@@ -196,17 +194,20 @@
     },
     "night": {
       "label": "Night order",
-      "simple": "Simple: one sheet, no descriptions",
-      "detailed": "Detailed: two sheets, with descriptions"
+      "simple": "Simple: one side, no descriptions",
+      "detailed": "Detailed: two sided, with descriptions",
+      "hideTravellers": "Hide travellers in night order"
     },
-    "qrPage": "Add a QR code page",
-    "doubleSided": "Printing double-sided",
-    "doubleSidedHint": "Adds blank pages after one-sided sheets so that every sheet starts on a new piece of paper.",
-    "copies": {
-      "heading": "How many copies?",
-      "players": "{range}: one copy for each player",
-      "storyteller": "{range}: one copy for the storyteller",
-      "pages": "Pages {from}–{to}",
+    "qrCode": {
+      "label": "QR code",
+      "addPage": "Add QR code page"
+    },
+    "help": {
+      "heading": "Printing help",
+      "marginHint": "In the print dialog, set margins to None, scale to 100%, and turn on background graphics.",
+      "players": "{range}: one copy per player",
+      "storyteller": "{range}: one copy",
+      "pages": "Pages {from}-{to}",
       "page": "Page {page}"
     },
     "preview": {

@@ -63,9 +63,13 @@
 <style>
   .fit-box {
     --fit: 1;
+    --icon-overhang: 0.2em;
     width: 100%;
     height: 100%;
     overflow: hidden;
+    box-sizing: content-box;
+    padding-block: var(--icon-overhang);
+    margin-block: calc(-1 * var(--icon-overhang));
     display: flex;
     flex-direction: column;
     font-size: calc(10pt * var(--fit));
