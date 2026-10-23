@@ -15,7 +15,12 @@
     onprint: () => void;
   }
 
-  let { options = $bindable(), strings, hasBackInfo, onprint }: Props = $props();
+  let {
+    options = $bindable(),
+    strings,
+    hasBackInfo,
+    onprint,
+  }: Props = $props();
 
   const STYLES: PrintStyle[] = ["plain", "fancy"];
   const PAPERS: PaperSize[] = ["a4", "letter"];
@@ -83,7 +88,7 @@
     <small class="hint">{strings["viewer.print.doubleSidedHint"]}</small>
   </label>
 
-  <button type="button" class="print-button" onclick={onprint}>
+  <button type="button" class="button" onclick={onprint}>
     {strings["viewer.print.printButton"]}
   </button>
   <p class="hint">{strings["viewer.print.printHint"]}</p>
@@ -94,10 +99,6 @@
     display: flex;
     flex-direction: column;
     gap: 0.8rem;
-    padding: 1rem;
-    background: var(--color-control-background);
-    border: 1px solid var(--color-control-border);
-    border-radius: var(--border-radius);
   }
 
   .heading {
@@ -133,18 +134,5 @@
     opacity: 0.75;
     font-size: 0.9rem;
     margin: 0;
-  }
-
-  .print-button {
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    color: inherit;
-    background: var(--color-control-background-hover);
-    border: 1px solid var(--color-control-border);
-    border-radius: var(--border-radius);
-
-    &:hover {
-      background: var(--color-control-background-active);
-    }
   }
 </style>

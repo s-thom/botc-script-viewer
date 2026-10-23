@@ -1,6 +1,6 @@
 ---
 import type { BloodOnTheClocktowerCustomScript } from "../../generated/script-schema";
-import MinimalLayout from "../../layouts/MinimalLayout.astro";
+import TopBarLayout from "../../layouts/TopBarLayout.astro";
 import { getHeaderColor } from "../../lib/color";
 import type { LocaleIds } from "../../lib/i18n";
 import type { Translator } from "../../lib/i18n/types";
@@ -38,7 +38,7 @@ const data = await buildPrintData(t, script, {
 const title = t.string("viewer.print.pageTitle", { title: data.title }).value;
 ---
 
-<MinimalLayout
+<TopBarLayout
   t={t}
   meta={{
     title: t.string("viewer.head.title", {
@@ -53,7 +53,7 @@ const title = t.string("viewer.print.pageTitle", { title: data.title }).value;
   <main class="print-page">
     <div class="intro screen-only">
       <a href={scriptPath}>{t.string("viewer.print.backToScript").value}</a>
-      <h1>{title}</h1>
+      <h2>{title}</h2>
       <p>{t.string("viewer.print.intro").value}</p>
     </div>
 
@@ -67,7 +67,7 @@ const title = t.string("viewer.print.pageTitle", { title: data.title }).value;
       <p class="screen-only">{t.string("viewer.print.noscript").value}</p>
     </noscript>
   </main>
-</MinimalLayout>
+</TopBarLayout>
 
 <style>
   .print-page {

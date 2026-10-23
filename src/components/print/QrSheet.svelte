@@ -12,7 +12,11 @@
 <div class="qr-sheet">
   <SheetHeader title={data.title} subtitle={data.author} large />
   <div class="body">
-    <img class="qr" src={data.qr.src} alt={data.strings["viewer.navigation.qrCode"]} />
+    <img
+      class="qr"
+      src={data.qr.src}
+      alt={data.strings["viewer.navigation.qrCode"]}
+    />
     <p class="url">{data.qr.url}</p>
   </div>
 </div>

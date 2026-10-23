@@ -47,8 +47,8 @@
     padding: 9mm 12mm 11mm;
     text-align: center;
     color: var(--color-header-text);
-    background:
-      url("../../assets/header-ferns.webp") var(--color-header-background);
+    background: url("../../assets/header-ferns.webp")
+      var(--color-header-background);
     background-blend-mode: multiply;
     clip-path: polygon(
       0 0,

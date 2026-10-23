@@ -22,7 +22,10 @@
   let root: HTMLElement | undefined = $state();
 
   function isOverflowing(el: HTMLElement) {
-    return el.scrollHeight > el.clientHeight + 1 || el.scrollWidth > el.clientWidth + 1;
+    return (
+      el.scrollHeight > el.clientHeight + 1 ||
+      el.scrollWidth > el.clientWidth + 1
+    );
   }
 
   function measure(el: HTMLElement) {

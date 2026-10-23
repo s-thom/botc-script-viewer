@@ -32,7 +32,9 @@
 
   function loadOptions(): PrintOptions {
     try {
-      return parsePrintOptions(JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "null"));
+      return parsePrintOptions(
+        JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "null"),
+      );
     } catch {
       return parsePrintOptions(null);
     }
@@ -112,34 +114,36 @@
   style:--scale={scale}
 >
   <aside class="sidebar screen-only">
-    <PrintControls
-      bind:options
-      {strings}
-      hasBackInfo={hasBackInfo(content, options)}
-      onprint={print}
-    />
+    <div class="sidebar-content">
+      <PrintControls
+        bind:options
+        {strings}
+        hasBackInfo={hasBackInfo(content, options)}
+        onprint={print}
+      />
 
-    <section class="copies">
-      <h2 class="copies-heading">{strings["viewer.print.copies.heading"]}</h2>
-      <ul>
-        {#if sequence.playerPages}
-          <li>
-            {strings["viewer.print.copies.players"].replace(
-              "{range}",
-              formatRange(sequence.playerPages),
-            )}
-          </li>
-        {/if}
-        {#if sequence.storytellerPages}
-          <li>
-            {strings["viewer.print.copies.storyteller"].replace(
-              "{range}",
-              formatRange(sequence.storytellerPages),
-            )}
-          </li>
-        {/if}
-      </ul>
-    </section>
+      <section class="copies">
+        <h2 class="copies-heading">{strings["viewer.print.copies.heading"]}</h2>
+        <ul>
+          {#if sequence.playerPages}
+            <li>
+              {strings["viewer.print.copies.players"].replace(
+                "{range}",
+                formatRange(sequence.playerPages),
+              )}
+            </li>
+          {/if}
+          {#if sequence.storytellerPages}
+            <li>
+              {strings["viewer.print.copies.storyteller"].replace(
+                "{range}",
+                formatRange(sequence.storytellerPages),
+              )}
+            </li>
+          {/if}
+        </ul>
+      </section>
+    </div>
   </aside>
 
   <div class="preview" bind:clientWidth={previewWidth}>
@@ -149,7 +153,10 @@
     <div class="sheets">
       {#each sequence.sheets as sheet, i (`${i}-${sheet.kind}`)}
         <SheetFrame
-          label={strings["viewer.print.preview.page"].replace("{page}", String(i + 1))}
+          label={strings["viewer.print.preview.page"].replace(
+            "{page}",
+            String(i + 1),
+          )}
           padding={sheet.padding}
           blankLabel={strings["viewer.print.preview.blankBack"]}
           fancy={options.style === "fancy"}
@@ -174,11 +181,26 @@
           {:else if sheet.kind === "back-fancy"}
             <FancyBackSheet {data} />
           {:else if sheet.kind === "night-simple"}
-            <NightSheet {data} mode="simple" deps={layoutKey} bind:overflowing={overflow[i]} />
+            <NightSheet
+              {data}
+              mode="simple"
+              deps={layoutKey}
+              bind:overflowing={overflow[i]}
+            />
           {:else if sheet.kind === "night-first"}
-            <NightSheet {data} mode="first" deps={layoutKey} bind:overflowing={overflow[i]} />
+            <NightSheet
+              {data}
+              mode="first"
+              deps={layoutKey}
+              bind:overflowing={overflow[i]}
+            />
           {:else if sheet.kind === "night-other"}
-            <NightSheet {data} mode="other" deps={layoutKey} bind:overflowing={overflow[i]} />
+            <NightSheet
+              {data}
+              mode="other"
+              deps={layoutKey}
+              bind:overflowing={overflow[i]}
+            />
           {:else if sheet.kind === "qr"}
             <QrSheet {data} />
           {/if}
@@ -201,14 +223,47 @@
   }
 
   .sidebar {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+    filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.5));
 
     @media (min-width: 1000px) {
       position: sticky;
       top: 1rem;
     }
+  }
+
+  .sidebar-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+    padding-block-end: 1.5rem;
+    color: var(--color-text);
+    background-color: var(--color-control-background);
+
+    clip-path: polygon(
+      0 100%,
+      10% calc(100% - 10px),
+      20% calc(100% - 3px),
+      30% calc(100% - 12px),
+      40% calc(100% - 14px),
+      50% calc(100% - 8px),
+      60% calc(100% - 11px),
+      70% calc(100% - 7px),
+      80% calc(100% - 4px),
+      90% calc(100% - 9px),
+      100% calc(100% - 6px),
+      100% calc(14px - 6px),
+      90% calc(14px - 9px),
+      80% calc(14px - 4px),
+      70% calc(14px - 7px),
+      60% calc(14px - 11px),
+      50% calc(14px - 8px),
+      40% calc(14px - 14px),
+      30% calc(14px - 12px),
+      20% calc(14px - 3px),
+      10% calc(14px - 10px),
+      0 calc(14px - 0px)
+    );
   }
 
   .copies-heading,

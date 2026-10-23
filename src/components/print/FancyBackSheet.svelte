@@ -24,7 +24,8 @@
     display: grid;
     place-items: center;
     color: var(--color-header-text);
-    background: url("../../assets/header-ferns.webp") var(--color-header-background);
+    background: url("../../assets/header-ferns.webp")
+      var(--color-header-background);
     background-blend-mode: multiply;
     print-color-adjust: exact;
     -webkit-print-color-adjust: exact;

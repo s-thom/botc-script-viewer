@@ -49,6 +49,7 @@
     "prettier": "^3.9.10",
     "prettier-plugin-astro": "^1.1.1",
     "prettier-plugin-organize-imports": "^4.3.0",
+    "prettier-plugin-svelte": "^4.1.1",
     "public-google-sheets-parser": "^1.5.4",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.71.2",
