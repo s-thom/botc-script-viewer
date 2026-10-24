@@ -118,11 +118,10 @@
             "{page}",
             String(i + 1),
           )}
-          padding={sheet.padding}
-          blankLabel={strings["viewer.print.preview.blankBack"]}
-          fancy={options.style === "fancy" && sheet.kind !== "qr"}
+          {sheet}
+          {strings}
+          fancy={options.style === "fancy"}
           overflowing={FITTED_KINDS.has(sheet.kind) && overflow[i]}
-          overflowMessage={strings["viewer.print.preview.overflow"]}
         >
           {#if sheet.kind === "script"}
             <PlayerScriptPage

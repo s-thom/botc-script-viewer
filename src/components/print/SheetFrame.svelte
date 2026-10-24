@@ -1,41 +1,79 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
+  import type { Sheet } from "../../lib/print/sequence";
 
   interface Props {
     label: string;
-    padding?: boolean;
+    sheet: Sheet;
     fancy?: boolean;
-    blankLabel?: string;
     overflowing?: boolean;
-    overflowMessage?: string;
+    strings: Record<string, string>;
     children?: Snippet;
   }
 
   let {
     label,
-    padding = false,
+    sheet,
     fancy = false,
-    blankLabel,
     overflowing = false,
-    overflowMessage,
+    strings,
     children,
   }: Props = $props();
+
+  let fancyNotQr = $derived(fancy && sheet.kind !== "qr");
+  let fancyStripSide = $derived(
+    fancyNotQr
+      ? sheet.kind === "script"
+        ? "left"
+        : sheet.kind === "night-first" || sheet.kind === "night-other"
+          ? "right"
+          : "none"
+      : "none",
+  );
+  let hasFooter = $derived(
+    sheet.kind !== "qr" &&
+      sheet.kind !== "back-fancy" &&
+      sheet.kind !== "blank",
+  );
+  let footerHasNotFirstNight = $derived(sheet.kind === "script");
 </script>
 
 <figure class="frame">
   <figcaption class="caption screen-only">
     {label}
-    {#if padding && blankLabel}
-      <span class="faint">{blankLabel}</span>
+    {#if sheet.padding && strings["viewer.print.preview.blankBack"]}
+      <span class="faint">{strings["viewer.print.preview.blankBack"]}</span>
     {/if}
-    {#if overflowing && overflowMessage}
-      <span class="warning" role="alert">{overflowMessage}</span>
+    {#if overflowing && strings["viewer.print.preview.overflow"]}
+      <span class="warning" role="alert"
+        >{strings["viewer.print.preview.overflow"]}</span
+      >
     {/if}
   </figcaption>
   <div class="paper">
     <div class="sheet-scaler">
-      <div class={["sheet", fancy ? "fancy" : "plain", { blank: padding }]}>
+      <div
+        class={[
+          "sheet",
+          fancyNotQr ? "fancy" : "plain",
+          { blank: sheet.padding },
+        ]}
+      >
         {@render children?.()}
+        {#if hasFooter}
+          <div
+            class={[
+              "footer",
+              fancyStripSide === "left" && "strip-left",
+              fancyStripSide === "right" && "strip-right",
+            ]}
+          >
+            <span>{strings["viewer.print.footer.copyright"]}</span>
+            {#if footerHasNotFirstNight}
+              <span>{strings["script.print.not-first-night"]}</span>
+            {/if}
+          </div>
+        {/if}
       </div>
     </div>
   </div>
@@ -113,6 +151,24 @@
 
     .sheet-scaler {
       transform: none;
+    }
+  }
+
+  .footer {
+    position: absolute;
+    bottom: 1em;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    &.strip-left {
+      padding-left: 7mm;
+      width: calc(100% - 24mm);
+    }
+
+    &.strip-right {
+      padding-right: 7mm;
+      width: calc(100% - 24mm);
     }
   }
 </style>

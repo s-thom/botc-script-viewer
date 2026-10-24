@@ -52,10 +52,6 @@
       </div>
     </section>
   {/if}
-
-  <div class="footer">
-    <span>{data.strings["viewer.print.footer.copyright"]}</span>
-  </div>
 </FitBox>
 
 <style>
@@ -75,10 +71,5 @@
   .columns {
     columns: 2;
     column-gap: 1.2em;
-  }
-
-  .footer {
-    position: absolute;
-    bottom: 0;
   }
 </style>
