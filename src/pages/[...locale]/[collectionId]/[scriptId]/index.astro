@@ -1,4 +1,5 @@
 ---
+import { getAbsoluteLocaleUrl } from "astro:i18n";
 import ScriptSidebarExtra from "../../../../components/display/ScriptSidebarExtra.astro";
 import LocalisedMessage from "../../../../components/i18n/LocalisedMessage.astro";
 import ScriptViewerLayout from "../../../../layouts/ScriptViewerLayout.astro";
@@ -90,6 +91,31 @@ if (collectionId === "base3") {
       }}
     />
   </ScriptSidebarExtra>
+  {scriptDefinition.seeAlsoRefs && (
+    <ScriptSidebarExtra
+      slot="sidebar-after-description"
+      iconCharacterId="fortuneteller"
+    >
+      <LocalisedMessage t={t} key="viewer.script.seeAlso" />{" "}
+      {scriptDefinition.seeAlsoRefs.map((otherRef) => (
+        <a
+          class="version-link"
+          href={getAbsoluteLocaleUrl(
+            locale,
+            `${otherRef.collectionId}/${otherRef.scriptId}`,
+          )}
+          data-umami-event="sidebar-see-also"
+          data-umami-event-collection-id={otherRef.collectionId}
+          data-umami-event-script-id={otherRef.scriptId}
+        >
+          {localScriptCollections[
+            otherRef.collectionId as keyof typeof localScriptCollections
+          ].scripts.find((script) => script.id === otherRef.scriptId)?.title ??
+            ""}
+        </a>
+      ))}
+    </ScriptSidebarExtra>
+  )}
   {scriptDefinition.botcScripts && (
     <ScriptSidebarExtra
       slot="sidebar-after-description"

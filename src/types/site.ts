@@ -48,6 +48,7 @@ export interface LocalScriptDefinition {
   character: string;
   color?: string;
   canonicalRef?: LocalScriptReference;
+  seeAlsoRefs?: LocalScriptReference[];
   botcScripts?: BotcScriptsReference;
   getScript: () => Promise<BloodOnTheClocktowerCustomScript>;
   localeOverrides?: Partial<

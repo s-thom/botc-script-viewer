@@ -31,6 +31,7 @@
     "nightOrder": "Night Order",
     "nightOrderWarning": "The following characters are referenced in the night order, but are not listed on the script: {characters}",
     "nightOrderModified": "The {link}night order{/link} has been modified from the default order",
+    "seeAlso": "See also:",
     "viewOnBotcScripts": "View on {externalLink}botcscripts.com{/externalLink}",
     "viewOnKlutzbanana": "View on {externalLink}Klutzbanana{/externalLink}",
     "otherVersions": "Other versions:"
@@ -143,6 +144,19 @@
     "month": {
       "title": "Script of the Month",
       "description": "The featured scripts of the month in the official app. "
+    },
+    "me": {
+      "title": "My scripts",
+      "description": "Scripts put together by the author of this website. I hope you have fun playing them.",
+      "out-of-hand": {
+        "description": "Our take on a Knaves script, with lots of opportunity for storytellers to lie. The Recluse and the Drunk are really the only sources of mechanical misinformation (beyond Knaves). This choice was deliberate, as we thought having a source of droison that moves (e.g. Poisoner) would be much harder to figure out with the Knaves misinformation, and a Xaan would be effectively unsolvable given the outsider manipulation from the demons."
+      },
+      "be-hind-u-teensy": {
+        "description": "A Hindu script with a full-sized companion! Traveller choice is surprisingly difficult on a Teensy, where you want player to actually be able to use their abilities. I recommend allowing vote manipulation Travellers (Bureaucrat, Thief) to make a choice if they die at night, to keep it fun. Use the sentinel with 5 players to make the outsider count ambiguous, otherwise the balloonist is just confirmed."
+      },
+      "be-hind-u": {
+        "description": "A Hindu script with a teensy companion! Based on the teensy version so that you only need to organise one set of tokens if you're unsure of how many players you'll end up with. Outsider modification is limited on this script, so if you're at a base 0 count, consider adding a Sentinel or bagging a Balloonist or Kazali more often. Or don't and leave them as bluffs for an adventurous evil team."
+      }
     }
   },
   "skipList": {
