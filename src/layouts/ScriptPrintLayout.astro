@@ -115,5 +115,9 @@ const title = t.string("viewer.print.pageTitle", { title: data.title }).value;
 
   .print-page {
     padding: 1rem;
+
+    @media print {
+      padding: 0;
+    }
   }
 </style>

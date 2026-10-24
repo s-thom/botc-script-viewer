@@ -50,7 +50,7 @@
       >
     {/if}
   </figcaption>
-  <div class="paper">
+  <div class={["paper", fancyNotQr && "fancy"]}>
     <div class="sheet-scaler">
       <div
         class={[
@@ -105,6 +105,11 @@
     height: calc(var(--paper-h) * var(--scale));
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
     background: #fff;
+
+    &.fancy {
+      background: url("../../assets/print/paper.avif");
+      background-size: cover;
+    }
   }
 
   .sheet-scaler {
@@ -121,7 +126,6 @@
     overflow: hidden;
     position: relative;
     color: #000;
-    background: #fff;
     --color-text: #000;
     --print-title-font: var(--font-body);
     --color-alignment-good: #0144a7;
@@ -157,18 +161,17 @@
   .footer {
     position: absolute;
     bottom: 1em;
-    width: 100%;
+    width: calc(100% - 24mm);
     display: flex;
     justify-content: space-between;
+    font-size: 0.8em;
 
     &.strip-left {
       padding-left: 7mm;
-      width: calc(100% - 24mm);
     }
 
     &.strip-right {
       padding-right: 7mm;
-      width: calc(100% - 24mm);
     }
   }
 </style>
