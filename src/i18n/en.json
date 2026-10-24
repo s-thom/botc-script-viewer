@@ -215,6 +215,9 @@
       "page": "Page {page}",
       "blankBack": "(this page intentionally left blank)",
       "overflow": "There is too much on this sheet to fit, even at the smallest text size. Part of it will be cut off."
+    },
+    "footer": {
+      "copyright": "© Steven Medway, bloodontheclocktower.com"
     }
   },
   "theme": {

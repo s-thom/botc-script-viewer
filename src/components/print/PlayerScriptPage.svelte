@@ -31,6 +31,11 @@
       sideLabel
     />
   {/each}
+
+  <div class="footer">
+    <span>{data.strings["viewer.print.footer.copyright"]}</span>
+    <span>{data.strings["script.print.not-first-night"]}</span>
+  </div>
 </FitBox>
 
 <style>
@@ -100,5 +105,17 @@
 
   :global(.sheet.fancy) .header .title {
     font-size: 3em;
+  }
+
+  .footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    :global(.sheet.fancy) & {
+      width: calc(100% - 20mm);
+    }
   }
 </style>

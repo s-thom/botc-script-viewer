@@ -73,5 +73,6 @@
     display: flex;
     flex-direction: column;
     font-size: calc(10pt * var(--fit));
+    position: relative;
   }
 </style>

@@ -35,17 +35,17 @@ On this website, you can upload a JSON file on the home page. If you are viewing
 
 JSON files can't be printed directly. This website, the [official script tool](https://script.bloodontheclocktower.com/), and [the fancy script generator](https://fancy.ravenswoodstudio.xyz/) allow you to turn a script JSON file into a PDF.
 
-### The official script tool
-
-1. Upload the script to the [script tool](https://script.bloodontheclocktower.com/).
-2. Open your browser's print dialog (through the menu or pressing `ctrl/cmd + P`).
-3. Select "Save as PDF", or similar, from the printer selection.
-4. Select "Print".
-
 ### This website
 
 1. Upload the script to [this website](/).
 2. Select the "Print" option at the top to open your browser's print menu.
+3. Change any options you want to change.
+4. Select "Print".
+
+### The official script tool
+
+1. Upload the script to the [script tool](https://script.bloodontheclocktower.com/).
+2. Open your browser's print dialog (through the menu or pressing `ctrl/cmd + P`).
 3. Select "Save as PDF", or similar, from the printer selection.
 4. Select "Print".
 

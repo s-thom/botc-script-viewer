@@ -18,7 +18,10 @@ const t = await createTranslator({ locale });
 <TopBarLayout
   t={t}
   meta={{
-    title: t.string("viewer.head.title", { title: frontmatter.title }).value,
+    title: t.string("viewer.head.title", {
+      title: frontmatter.title,
+      nameShort: t.string("viewer.common.nameShort").value,
+    }).value,
     lang: locale,
   }}
 >

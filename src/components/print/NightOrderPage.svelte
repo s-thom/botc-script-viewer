@@ -64,6 +64,10 @@
       {@render list(mode === "first" ? data.firstNight : data.otherNight, true)}
     </div>
   {/if}
+
+  <div class="footer">
+    <span>{data.strings["viewer.print.footer.copyright"]}</span>
+  </div>
 </FitBox>
 
 <style>
@@ -157,5 +161,10 @@
     padding-block: var(--icon-overhang);
     margin-block: calc(-1 * var(--icon-overhang));
     columns: 1;
+  }
+
+  .footer {
+    position: absolute;
+    bottom: 0;
   }
 </style>

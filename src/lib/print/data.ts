@@ -92,6 +92,8 @@ export const PRINT_STRING_KEYS = [
   "viewer.print.preview.page",
   "viewer.print.preview.blankBack",
   "viewer.print.preview.overflow",
+  "viewer.print.footer.copyright",
+  "script.print.not-first-night",
   "viewer.script.nightOrder",
   "viewer.navigation.qrCode",
   "app.grimoire.phases.first_night",
