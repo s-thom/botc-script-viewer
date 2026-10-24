@@ -112,6 +112,7 @@ textarea:not([rows]) {
 
   --border-radius: 0.5rem;
   --panel-resize-handle-size: 3px;
+  --print-background-size: 50mm;
 
   color-scheme: light dark;
 
@@ -140,6 +141,7 @@ textarea:not([rows]) {
   --color-control-border-error: light-dark(#e4a6a7, #3b2a27);
 
   --color-header-background: var(--color-script, #20562d);
+  --color-header-background-edge: #d0ac77;
   --color-header-text: #fdedc9;
   --color-header-paper: #fffdf4;
   --color-header-paper: light-dark(#fffdf4, #25241f);

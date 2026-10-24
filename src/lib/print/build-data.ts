@@ -141,6 +141,13 @@ export async function buildPrintData(
     author: script.author
       ? t.string("viewer.script.byAuthor", { author: script.author }).value
       : undefined,
+    iconUrl: script.logo
+      ? await getImage({
+          src: script.logo,
+          width: ICON_PX,
+          height: ICON_PX,
+        }).then((image) => image.src)
+      : undefined,
     teams: Object.fromEntries(teamEntries) as PrintData["teams"],
     jinxes: await Promise.all(
       script.jinxes.map(async (jinx) => ({

@@ -53,6 +53,7 @@ export interface PrintBootleggerRule {
 export interface PrintData {
   title: string;
   author?: string;
+  iconUrl?: string;
   teams: Record<PrintTeamId, PrintCharacter[]>;
   jinxes: PrintJinx[];
   bootlegger: PrintBootleggerRule[];

@@ -187,10 +187,10 @@
       "letter": "Letter"
     },
     "back": {
-      "label": "Back of the script sheet",
+      "label": "Back of script",
       "info": "Travellers, Fabled, Loric, and Jinxes",
-      "fancy": "Decorative background",
-      "blank": "Blank (not printed)"
+      "fancy": "Fancy background",
+      "blank": "None"
     },
     "night": {
       "label": "Night order",
@@ -200,7 +200,7 @@
     },
     "qrCode": {
       "label": "QR code",
-      "addPage": "Add QR code page"
+      "addPage": "Include QR code page"
     },
     "help": {
       "heading": "Printing help",
@@ -214,7 +214,7 @@
       "heading": "Preview",
       "page": "Page {page}",
       "blankBack": "(this page intentionally left blank)",
-      "overflow": "There is too much on this sheet to fit, even at the smallest text size. Part of it will be cut off."
+      "overflow": "There is too much on this page to fit, even at the smallest text size. Part of it will be cut off."
     },
     "footer": {
       "copyright": "© Steven Medway, bloodontheclocktower.com"

@@ -29,6 +29,7 @@
     background-blend-mode: multiply;
     print-color-adjust: exact;
     -webkit-print-color-adjust: exact;
+    background-size: var(--print-background-size);
   }
 
   .panel {

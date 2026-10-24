@@ -100,7 +100,7 @@
     writing-mode: vertical-rl;
     text-orientation: upright;
     white-space: nowrap;
-    letter-spacing: -5px;
+    letter-spacing: -0.25em;
     text-transform: uppercase;
   }
 

@@ -27,6 +27,10 @@
   const MM_TO_PX = 96 / 25.4;
   /** Space around the sheets in the on-screen preview, in px. */
   const PREVIEW_GUTTER = 16;
+  /** Gap between sheets in the preview, in px. Mirrors `.sheets` gap in the CSS. */
+  const SHEET_GAP = 24;
+  /** Don't go to two columns if it would shrink the sheets below this scale. */
+  const MIN_TWO_COLUMN_SCALE = 0.7;
 
   function loadOptions(): PrintOptions {
     try {
@@ -62,11 +66,15 @@
   const paperPx = $derived(paper.width * MM_TO_PX);
 
   let previewWidth = $state(0);
-  const scale = $derived(
-    previewWidth > 0
-      ? Math.min(1, (previewWidth - PREVIEW_GUTTER) / paperPx)
-      : 1,
+  /** Scale that fits `cols` sheets side by side in the preview, capped at 1. */
+  function fitScale(cols: number) {
+    const available = previewWidth - PREVIEW_GUTTER - SHEET_GAP * (cols - 1);
+    return Math.min(1, available / cols / paperPx);
+  }
+  const columns = $derived(
+    previewWidth > 0 && fitScale(2) >= MIN_TWO_COLUMN_SCALE ? 2 : 1,
   );
+  const scale = $derived(previewWidth > 0 ? fitScale(columns) : 1);
 
   // Anything that changes how much room content takes up.
   const layoutKey = $derived(
@@ -95,6 +103,7 @@
   style:--paper-w="{paper.width}mm"
   style:--paper-h="{paper.height}mm"
   style:--scale={scale}
+  style:--columns={columns}
 >
   <PrintSidebar title={data.title} bind:options {strings} {sequence} />
 
@@ -102,7 +111,7 @@
     <h2 class="preview-heading visually-hidden">
       {strings["viewer.print.preview.heading"]}
     </h2>
-    <div class="sheets">
+    <div class="sheets" class:two-columns={columns === 2}>
       {#each sequence.sheets as sheet, i (`${i}-${sheet.kind}`)}
         <SheetFrame
           label={strings["viewer.print.preview.page"].replace(
@@ -111,7 +120,7 @@
           )}
           padding={sheet.padding}
           blankLabel={strings["viewer.print.preview.blankBack"]}
-          fancy={options.style === "fancy"}
+          fancy={options.style === "fancy" && sheet.kind !== "qr"}
           overflowing={FITTED_KINDS.has(sheet.kind) && overflow[i]}
           overflowMessage={strings["viewer.print.preview.overflow"]}
         >
@@ -190,7 +199,15 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.5rem;
+    gap: 24px;
+
+    @media screen {
+      &.two-columns {
+        display: grid;
+        grid-template-columns: repeat(2, auto);
+        justify-content: center;
+      }
+    }
   }
 
   @media print {

@@ -77,6 +77,7 @@
 
   :global(.sheet.fancy) :is(.strip, :global(.detailed-fit)) {
     --strip-width: 14mm;
+    --strip-edge-width: 1.5mm;
     --strip-gap: 5mm;
   }
 
@@ -86,12 +87,12 @@
     position: absolute;
     inset-block: 0;
     inset-inline-end: 0;
-    width: var(--strip-width);
+    width: calc(var(--strip-width) + var(--strip-edge-width));
     box-sizing: border-box;
     /* Align the title with the top of the content, inside the sheet padding. */
     padding-block-start: 12mm;
     background: url("../../assets/header-ferns.webp")
-      var(--color-header-background);
+      var(--color-header-background-edge);
     background-blend-mode: multiply;
     color: var(--color-header-text);
     font-family: var(--print-title-font);
@@ -99,14 +100,33 @@
     line-height: 1;
     print-color-adjust: exact;
     -webkit-print-color-adjust: exact;
+    box-shadow: 0 0 5mm rgba(0, 0, 0, 0.8);
+    background-size: var(--print-background-size);
+
+    &::before {
+      content: " ";
+      display: block;
+      position: absolute;
+      inset-block: 0;
+      inset-inline-start: 0;
+      width: 100%;
+      background: url("../../assets/header-ferns.webp")
+        var(--color-header-background);
+      background-blend-mode: multiply;
+      print-color-adjust: exact;
+      -webkit-print-color-adjust: exact;
+      clip-path: rect(0 100% 100% var(--strip-edge-width));
+      background-size: var(--print-background-size);
+    }
   }
 
   .strip-title {
     writing-mode: vertical-rl;
     text-orientation: upright;
     white-space: nowrap;
-    letter-spacing: -5px;
+    letter-spacing: -0.25em;
     text-transform: uppercase;
+    z-index: 1;
   }
 
   /* The title moves into the strip; keep the heading for screen readers. */

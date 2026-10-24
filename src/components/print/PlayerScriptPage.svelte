@@ -17,10 +17,15 @@
 <div class="strip"></div>
 <FitBox {deps} bind:overflowing class="script-fit">
   <header class={["header"]}>
-    <h1 class="title">{data.title}</h1>
-    {#if data.author}
-      <p class="subtitle">{data.author}</p>
+    {#if data.iconUrl}
+      <img class="logo" src={data.iconUrl} alt={data.title} />
     {/if}
+    <div class="header-content">
+      <h1 class="title">{data.title}</h1>
+      {#if data.author}
+        <p class="subtitle">{data.author}</p>
+      {/if}
+    </div>
   </header>
 
   {#each teams as team (team)}
@@ -45,6 +50,7 @@
 
   :global(.sheet.fancy) :is(.strip, :global(.script-fit)) {
     --strip-width: 14mm;
+    --strip-edge-width: 1.5mm;
     --strip-gap: 5mm;
   }
 
@@ -59,6 +65,24 @@
     background-blend-mode: multiply;
     print-color-adjust: exact;
     -webkit-print-color-adjust: exact;
+    box-shadow: 0 0 5mm rgba(0, 0, 0, 0.8);
+    background-size: var(--print-background-size);
+
+    &::before {
+      content: " ";
+      display: block;
+      position: absolute;
+      inset-block: 0;
+      inset-inline-start: 0;
+      width: calc(var(--strip-width) + var(--strip-edge-width));
+      background: url("../../assets/header-ferns.webp")
+        var(--color-header-background-edge);
+      background-blend-mode: multiply;
+      print-color-adjust: exact;
+      -webkit-print-color-adjust: exact;
+      clip-path: rect(0 100% 100% var(--strip-width));
+      background-size: var(--print-background-size);
+    }
   }
 
   /*
@@ -76,6 +100,27 @@
   .header {
     flex-shrink: 0;
     margin-block-end: 0.8em;
+
+    :global(.sheet.fancy) & {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  .logo {
+    display: none;
+    max-width: 5em;
+    max-height: 5em;
+
+    :global(.sheet.fancy) & {
+      display: block;
+    }
+  }
+
+  .header-content {
+    flex-shrink: 0;
   }
 
   .title {
