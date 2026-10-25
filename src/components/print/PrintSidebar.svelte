@@ -1,10 +1,13 @@
 <script lang="ts">
-  import type {
-    BackMode,
-    NightMode,
-    PaperSize,
-    PrintOptions,
-    PrintStyle,
+  import ColorPicker from "svelte-awesome-color-picker";
+  import { formatHex, parse } from "culori";
+  import {
+    DEFAULT_PRINT_OPTIONS,
+    type BackMode,
+    type NightMode,
+    type PaperSize,
+    type PrintOptions,
+    type PrintStyle,
   } from "../../lib/print/options";
   import type { PageRange, SheetSequence } from "../../lib/print/sequence";
 
@@ -28,6 +31,24 @@
       : strings["viewer.print.help.pages"]
           .replace("{from}", String(range.from))
           .replace("{to}", String(range.to));
+  }
+
+  /** The header colour as currently rendered, as a hex string for the picker. */
+  function getDefaultColor(): string {
+    const computed = getComputedStyle(document.documentElement)
+      .getPropertyValue("--color-header-background")
+      .trim();
+    const parsed = parse(computed);
+    return (parsed && formatHex(parsed)) ?? "#20562d";
+  }
+
+  // Deliberately not part of `options`, so it isn't persisted.
+  let color = $state(getDefaultColor());
+
+  function setScriptColor(hex: string | null) {
+    if (hex !== null) {
+      document.documentElement.style.setProperty("--color-script", hex);
+    }
   }
 
   function print() {
@@ -57,6 +78,20 @@
             {strings[`viewer.print.style.${value}`]}
           </label>
         {/each}
+        {#if options.style === "fancy" || options.back === "fancy"}
+          <ColorPicker
+            bind:hex={color}
+            label={strings["viewer.print.style.color"]}
+            isAlpha={false}
+            onInput={({ hex }) => setScriptColor(hex)}
+          />
+        {/if}
+        {#if options.style === "fancy"}
+          <label>
+            <input type="checkbox" bind:checked={options.colorScriptHeader} />
+            {strings["viewer.print.style.colorScriptHeader"]}
+          </label>
+        {/if}
       </fieldset>
 
       <fieldset>
@@ -113,6 +148,12 @@
         </label>
       </fieldset>
 
+      {#if options.style === "fancy" || options.back === "fancy"}
+        <fieldset>
+          <legend>{strings["viewer.print.fancyOptions.label"]}</legend>
+        </fieldset>
+      {/if}
+
       <button
         type="button"
         class="button"
@@ -126,6 +167,9 @@
           options.hideTravellersInNight,
         )}
         data-umami-event-print-qr-page={String(options.qrPage)}
+        data-umami-event-print-color-script-header={String(
+          options.colorScriptHeader !== DEFAULT_PRINT_OPTIONS.colorScriptHeader,
+        )}
       >
         {strings["viewer.print.printButton"]}
       </button>

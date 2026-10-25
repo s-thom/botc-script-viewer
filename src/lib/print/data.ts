@@ -83,6 +83,8 @@ export const PRINT_STRING_KEYS = [
   "viewer.print.night.hideTravellers",
   "viewer.print.qrCode.label",
   "viewer.print.qrCode.addPage",
+  "viewer.print.style.color",
+  "viewer.print.style.colorScriptHeader",
   "viewer.print.help.heading",
   "viewer.print.help.marginHint",
   "viewer.print.help.players",

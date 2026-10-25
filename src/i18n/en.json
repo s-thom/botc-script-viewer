@@ -179,7 +179,9 @@
     "style": {
       "label": "Style",
       "plain": "Plain",
-      "fancy": "Fancy"
+      "fancy": "Fancy",
+      "color": "Color",
+      "colorScriptHeader": "Use color for script title"
     },
     "paper": {
       "label": "Paper size",

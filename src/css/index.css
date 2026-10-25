@@ -141,10 +141,12 @@ textarea:not([rows]) {
   --color-control-border-error: light-dark(#e4a6a7, #3b2a27);
 
   --color-header-background: var(--color-script, #20562d);
-  --color-header-background-edge: #d0ac77;
   --color-header-text: #fdedc9;
   --color-header-paper: #fffdf4;
   --color-header-paper: light-dark(#fffdf4, #25241f);
+
+  --color-print-fancy-rule: #d0ac77;
+  --color-print-strip-edge: #7d5e315e;
 
   --color-alignment: var(--color-text);
   --color-alignment-good: #0144a7;

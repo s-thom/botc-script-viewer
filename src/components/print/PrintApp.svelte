@@ -128,6 +128,7 @@
               {data}
               teams={["townsfolk", "outsider", "minion", "demon"]}
               deps={layoutKey}
+              colorHeader={options.colorScriptHeader}
               bind:overflowing={overflow[i]}
             />
           {:else if sheet.kind === "back-info"}

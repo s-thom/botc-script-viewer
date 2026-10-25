@@ -105,7 +105,7 @@
   }
 
   :global(.sheet.fancy) .has-side-label + :global(.has-side-label) {
-    border-block-start: 0.08em solid var(--color-script, #000);
+    border-block-start: 0.08em solid var(--color-print-fancy-rule);
     padding-block-start: 0.6em;
   }
 

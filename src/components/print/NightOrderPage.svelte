@@ -88,7 +88,7 @@
     /* Align the title with the top of the content, inside the sheet padding. */
     padding-block-start: 12mm;
     background: url("../../assets/header-ferns.webp")
-      var(--color-header-background-edge);
+      var(--color-print-strip-edge);
     background-blend-mode: multiply;
     color: var(--color-header-text);
     font-family: var(--print-title-font);

@@ -8,15 +8,22 @@
     data: PrintData;
     teams: PrintTeamId[];
     deps: unknown;
+    colorHeader: boolean;
     overflowing: boolean;
   }
 
-  let { data, teams, deps, overflowing = $bindable() }: Props = $props();
+  let {
+    data,
+    teams,
+    deps,
+    colorHeader,
+    overflowing = $bindable(),
+  }: Props = $props();
 </script>
 
 <div class="strip"></div>
 <FitBox {deps} bind:overflowing class="script-fit">
-  <header class={["header"]}>
+  <header class={["header", colorHeader && "colored"]}>
     {#if data.iconUrl}
       <img class="logo" src={data.iconUrl} alt={data.title} />
     {/if}
@@ -71,7 +78,7 @@
       inset-inline-start: 0;
       width: calc(var(--strip-width) + var(--strip-edge-width));
       background: url("../../assets/header-ferns.webp")
-        var(--color-header-background-edge);
+        var(--color-print-strip-edge);
       background-blend-mode: multiply;
       print-color-adjust: exact;
       -webkit-print-color-adjust: exact;
@@ -138,6 +145,9 @@
 
   :global(.sheet.fancy) .header {
     text-align: center;
+  }
+
+  :global(.sheet.fancy) .header.colored {
     color: var(--color-script, #000);
     print-color-adjust: exact;
     -webkit-print-color-adjust: exact;
