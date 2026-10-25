@@ -8,6 +8,8 @@ import LocalisedMessage from "../i18n/LocalisedMessage.astro";
 import BootleggerList from "./BootleggerList.astro";
 import CharacterIcon from "./CharacterIcon.astro";
 import ScriptSidebarExtra from "./ScriptSidebarExtra.astro";
+import { fixDoubleSlashPaths } from "../../lib/url";
+import { CHARACTERS_BY_ID } from "../../lib/characters";
 
 interface Props {
   t: Translator;
@@ -24,6 +26,10 @@ const logoData =
   ALLOWED_EXTERNAL_HOSTNAMES.includes(new URL(script.logo).hostname)
     ? await getRemoteImageResize(script.logo, { maxWidth: 96, maxHeight: 96 })
     : undefined;
+
+const printPath = fixDoubleSlashPaths(
+  new URL(`${Astro.url.pathname}/print`, Astro.url),
+);
 ---
 
 <div class="script-sidebar screen-only">
@@ -57,6 +63,20 @@ const logoData =
     </div>
 
     {script.description && <p class="description">{script.description}</p>}
+
+    <a
+      class="button print-button"
+      href={printPath}
+      data-umami-event="print-page"
+      data-umami-event-source="sidebar"
+    >
+      <CharacterIcon
+        character={CHARACTERS_BY_ID.get("hellslibrarian")!}
+        size={24}
+        class="extra-icon"
+      />
+      <LocalisedMessage t={t} key="viewer.script.printThisScript" />
+    </a>
 
     <slot name="after-description" />
 
@@ -194,6 +214,13 @@ const logoData =
   .author {
     font-size: 1.5rem;
     --flow-space: 0em;
+  }
+
+  .print-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
   }
 
   .header-area {

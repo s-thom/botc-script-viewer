@@ -34,7 +34,8 @@
     "seeAlso": "See also:",
     "viewOnBotcScripts": "View on {externalLink}botcscripts.com{/externalLink}",
     "viewOnKlutzbanana": "View on {externalLink}Klutzbanana{/externalLink}",
-    "otherVersions": "Other versions:"
+    "otherVersions": "Other versions:",
+    "printThisScript": "Print this script"
   },
   "home": {
     "description": "An unofficial website for viewing {externalLink}Blood on the Clocktower{/externalLink} scripts in your browser.",

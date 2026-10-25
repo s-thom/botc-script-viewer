@@ -103,12 +103,17 @@ const color = getHeaderColor(overrideColor ?? script.color);
         download={downloadFilename}
         type="application/json"
         data-umami-event="download-json"
+        data-umami-event-source="nav"
       >
         <LocalisedMessage t={t} key="viewer.navigation.downloadJson" />
       </a>
     </li>
     <li>
-      <a href={printPath} data-umami-event="print-options">
+      <a
+        href={printPath}
+        data-umami-event="print-page"
+        data-umami-event-source="nav"
+      >
         <LocalisedMessage t={t} key="viewer.navigation.print" />
       </a>
     </li>
