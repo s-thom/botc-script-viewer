@@ -11,7 +11,7 @@ export const GET: APIRoute = async ({ params, rewrite }) => {
     return rewrite("/404");
   }
 
-  const script = await fetchKlutzbananaScript(scriptId);
+  const script = await fetchKlutzbananaScript(scriptId, { userAgent: "user" });
 
   return new Response(JSON.stringify(script), { headers: getJsonHeaders() });
 };

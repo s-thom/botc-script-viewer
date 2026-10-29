@@ -22,8 +22,12 @@ if (!(scriptId && versionId)) {
   return Astro.rewrite("/404");
 }
 
-const scriptInstance = await fetchScriptInstance(scriptId);
-const scriptVersion = await fetchVersionInstance(scriptInstance, versionId);
+const scriptInstance = await fetchScriptInstance(scriptId, {
+  userAgent: "user",
+});
+const scriptVersion = await fetchVersionInstance(scriptInstance, versionId, {
+  userAgent: "user",
+});
 
 const allVersionIds = Object.keys(scriptInstance.versions);
 const hasOtherVersion = Object.keys(scriptInstance.versions).some(

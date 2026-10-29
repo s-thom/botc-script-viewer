@@ -5,7 +5,7 @@ import type {
 } from "../../generated/script-schema";
 import { AppError } from "../../types/site";
 import { KLUTZBANANA_HOSTNAME } from "../constants";
-import { fetchJson } from "./fetch";
+import { fetchJson, type JSONFetchOptions } from "./fetch";
 
 interface KlutzbananaMetadata {
   id: string;
@@ -28,9 +28,11 @@ interface KlutzbananaMetadata {
 
 async function fetchKlutzbananaMetadata(
   scriptId: string,
+  options: JSONFetchOptions,
 ): Promise<KlutzbananaMetadata> {
   const responseStr = await fetchJson(
     new URL(`https://${KLUTZBANANA_HOSTNAME}/api/public/scripts/${scriptId}`),
+    options,
   );
 
   try {
@@ -52,11 +54,13 @@ async function fetchKlutzbananaMetadata(
 
 async function fetchKlutzbananaCharacters(
   scriptId: string,
+  options: JSONFetchOptions,
 ): Promise<ScriptCharacter[]> {
   const responseStr = await fetchJson(
     new URL(
       `https://${KLUTZBANANA_HOSTNAME}/api/public/scripts/${scriptId}/characters`,
     ),
+    options,
   );
 
   try {
@@ -78,10 +82,11 @@ async function fetchKlutzbananaCharacters(
 
 export async function fetchKlutzbananaScript(
   scriptId: string,
+  options: JSONFetchOptions,
 ): Promise<BloodOnTheClocktowerCustomScript> {
   const [metadata, characters] = await Promise.all([
-    fetchKlutzbananaMetadata(scriptId),
-    fetchKlutzbananaCharacters(scriptId),
+    fetchKlutzbananaMetadata(scriptId, options),
+    fetchKlutzbananaCharacters(scriptId, options),
   ]);
 
   const meta: ScriptMetadata = {

@@ -18,7 +18,7 @@ if (!scriptId) {
   return Astro.rewrite("/404");
 }
 
-const script = await fetchKlutzbananaScript(scriptId);
+const script = await fetchKlutzbananaScript(scriptId, { userAgent: "user" });
 
 const locale = (Astro.currentLocale ?? "en") as LocaleIds;
 const t = await createTranslator({ locale });

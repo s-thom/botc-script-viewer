@@ -1,7 +1,7 @@
 import type { BloodOnTheClocktowerCustomScript } from "../../generated/script-schema";
 import { AppError } from "../../types/site";
 import { BOTC_SCRIPTS_HOSTNAME } from "../constants";
-import { fetchJson } from "./fetch";
+import { fetchJson, type JSONFetchOptions } from "./fetch";
 
 const ALLOWED_HOSTS = new Set([BOTC_SCRIPTS_HOSTNAME]);
 
@@ -32,11 +32,12 @@ interface SearchResult {
 
 export async function fetchScriptInstance(
   scriptId: string,
+  options: JSONFetchOptions,
 ): Promise<ScriptInstance> {
   const requestUrl = new URL(
     `https://${BOTC_SCRIPTS_HOSTNAME}/api/script_ids/${scriptId}/`,
   );
-  const responseStr = await fetchJson(requestUrl);
+  const responseStr = await fetchJson(requestUrl, options);
 
   try {
     const instance: ScriptInstance = JSON.parse(responseStr);
@@ -58,6 +59,7 @@ export async function fetchScriptInstance(
 export async function fetchVersionInstance(
   scriptInstance: ScriptInstance,
   versionId: string,
+  options: JSONFetchOptions,
 ): Promise<VersionInstance> {
   const versionUrl = scriptInstance.versions[versionId];
   if (!versionUrl) {
@@ -83,7 +85,7 @@ export async function fetchVersionInstance(
     );
   }
 
-  const responseStr = await fetchJson(parsedUrl);
+  const responseStr = await fetchJson(parsedUrl, options);
 
   try {
     const instance: VersionInstance = JSON.parse(responseStr);
@@ -102,11 +104,13 @@ export async function fetchVersionInstance(
   }
 }
 
-export async function fetchTopScriptsByScore(): Promise<VersionInstance[]> {
+export async function fetchTopScriptsByScore(
+  options: JSONFetchOptions,
+): Promise<VersionInstance[]> {
   const requestUrl = new URL(
     `https://${BOTC_SCRIPTS_HOSTNAME}/api/scripts/?ordering=-score`,
   );
-  const responseStr = await fetchJson(requestUrl);
+  const responseStr = await fetchJson(requestUrl, options);
 
   try {
     const response: SearchResult = JSON.parse(responseStr);

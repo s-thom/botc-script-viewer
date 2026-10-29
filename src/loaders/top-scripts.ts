@@ -1,6 +1,5 @@
 import type { Loader } from "astro/loaders";
 import { z } from "astro/zod";
-import PQueue from "p-queue";
 import type { BloodOnTheClocktowerCustomScript } from "../generated/script-schema";
 import {
   fetchScriptInstance,
@@ -25,7 +24,7 @@ export function topScriptsLoader() {
     name: "botc-top-scripts",
     schema: topScriptSchema,
     load: async ({ store, parseData, logger }) => {
-      const topScripts = await fetchTopScriptsByScore();
+      const topScripts = await fetchTopScriptsByScore({ userAgent: "build" });
       const currentIds = new Set(topScripts.map((s) => String(s.pk)));
 
       for (const id of store.keys()) {
@@ -34,7 +33,6 @@ export function topScriptsLoader() {
         }
       }
 
-      const queue = new PQueue({ interval: 1000, intervalCap: 4 });
       let fetched = 0;
       await Promise.all(
         topScripts.map(async (script) => {
@@ -43,8 +41,9 @@ export function topScriptsLoader() {
             return;
           }
 
-          const instance = await queue.add(() =>
-            fetchScriptInstance(script.script_id.toString()),
+          const instance = await fetchScriptInstance(
+            script.script_id.toString(),
+            { userAgent: "build" },
           );
           fetched++;
 

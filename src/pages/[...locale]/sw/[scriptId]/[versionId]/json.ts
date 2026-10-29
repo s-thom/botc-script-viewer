@@ -17,8 +17,12 @@ export const GET: APIRoute = async ({ params, rewrite }) => {
     return rewrite("/404");
   }
 
-  const scriptInstance = await fetchScriptInstance(scriptId);
-  const scriptVersion = await fetchVersionInstance(scriptInstance, versionId);
+  const scriptInstance = await fetchScriptInstance(scriptId, {
+    userAgent: "user",
+  });
+  const scriptVersion = await fetchVersionInstance(scriptInstance, versionId, {
+    userAgent: "user",
+  });
   const rawScriptString = JSON.stringify(scriptVersion.content);
 
   return new Response(rawScriptString, { headers: getJsonHeaders() });

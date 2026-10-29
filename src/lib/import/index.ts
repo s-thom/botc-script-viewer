@@ -104,7 +104,10 @@ export async function scriptFromFormData(
   } else if (script) {
     const url = URL.parse(script);
     if (url != null) {
-      scriptString = await fetchJson(url);
+      scriptString = await fetchJson(url, {
+        userAgent: "user",
+        redactUrlReason: "user",
+      });
     } else {
       scriptString = script;
     }
