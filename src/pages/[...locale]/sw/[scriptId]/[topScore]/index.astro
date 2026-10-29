@@ -1,4 +1,5 @@
 ---
+import { getCollection } from "astro:content";
 import { getAbsoluteLocaleUrl } from "astro:i18n";
 import ScriptSidebarExtra from "../../../../../components/display/ScriptSidebarExtra.astro";
 import LocalisedMessage from "../../../../../components/i18n/LocalisedMessage.astro";
@@ -12,10 +13,6 @@ import {
   ENABLED_LOCALES,
   type LocaleIds,
 } from "../../../../../lib/i18n";
-import {
-  fetchScriptInstance,
-  fetchTopScriptsByScore,
-} from "../../../../../lib/import/botcscripts";
 import { getPathWithoutLocale } from "../../../../../lib/url";
 import { getLocalScriptCollections } from "../../../../../scripts";
 import type {
@@ -24,7 +21,9 @@ import type {
 } from "../../../../../types/site";
 
 export async function getStaticPaths() {
-  const topScripts = await fetchTopScriptsByScore();
+  const topScripts = (await getCollection("botcTopScripts")).map(
+    (entry) => entry.data,
+  );
 
   // Map these scripts back to
   const pkMap = new Map<
@@ -41,11 +40,9 @@ export async function getStaticPaths() {
     }
   }
 
-  // Fetch all script data now while figuring out the routes rather that calling it multiple times while prerendering.
   const scriptData = await Promise.all(
     topScripts.map(async (script) => {
       const scriptId = script.script_id.toString();
-      const scriptInstance = await fetchScriptInstance(scriptId);
 
       const localScript = pkMap.get(script.script_id);
       let canonicalRef: LocalScriptReference | undefined;
@@ -65,7 +62,10 @@ export async function getStaticPaths() {
       return {
         scriptId,
         versionId: script.version,
-        scriptInstance,
+        scriptInstance: {
+          versions: script.versions,
+          latest_version: script.latest_version,
+        },
         scriptVersion: script,
         canonicalRef,
       };
