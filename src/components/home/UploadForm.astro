@@ -57,6 +57,9 @@ const { t } = Astro.props;
       );
       if (submitButton) {
         form.requestSubmit(submitButton);
+        if ("umami" in window) {
+          window.umami.track("upload-submit");
+        }
         return;
       }
     }

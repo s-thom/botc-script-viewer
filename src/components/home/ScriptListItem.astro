@@ -11,9 +11,10 @@ export interface Props {
   collectionId: string;
   script: LocalScriptDefinition;
   loading?: "eager" | "lazy";
+  page?: string;
 }
 
-const { t, collectionId, script, loading } = Astro.props;
+const { t, collectionId, script, loading, page } = Astro.props;
 
 const getScript =
   script.localeOverrides?.[t.locale as LocaleIds] ?? script.getScript;
@@ -44,6 +45,10 @@ if (
     `/${collectionId}/${script.id}`,
   )}
   class="script-link"
+  data-umami-event="script-list-item"
+  data-umami-event-collection-id={collectionId}
+  data-umami-event-script-id={script.id}
+  data-umami-event-page={page}
 >
   <CharacterIcon
     class="script-icon"

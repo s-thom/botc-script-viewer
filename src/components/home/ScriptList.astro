@@ -8,9 +8,10 @@ interface Props {
   collectionId: string;
   scripts: LocalScriptDefinition[];
   loading?: "eager" | "lazy";
+  page?: string;
 }
 
-const { t, collectionId, scripts, loading } = Astro.props;
+const { t, collectionId, scripts, loading, page } = Astro.props;
 ---
 
 <ul class="script-list">
@@ -21,6 +22,7 @@ const { t, collectionId, scripts, loading } = Astro.props;
         collectionId={collectionId}
         script={script}
         loading={loading}
+        page={page}
       />
     </li>
   ))}
