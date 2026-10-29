@@ -86,7 +86,7 @@ export const STREAMER_STACK: LocalScriptDefinition[] = [
     title: "Dusk in the House of the Damned",
     color: "#272727",
     character: "legion",
-    botcScripts: { scriptId: 181, versionId: "3.0.2", pk: 19510 },
+    botcScripts: { scriptId: 181, versionId: "3.0.3", pk: 23681 },
     getScript: () =>
       import("./Dusk in the House of the Damned.json").then((m) => m.default),
   },

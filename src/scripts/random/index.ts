@@ -54,7 +54,7 @@ export const RANDOM_SCRIPTS: LocalScriptDefinition[] = [
     id: "extension-cord",
     title: "Extension Cord",
     character: "nodashii",
-    botcScripts: { scriptId: 42, versionId: "5.1.0", pk: 947 },
+    botcScripts: { scriptId: 42, versionId: "5.1.1", pk: 23847 },
     getScript: () =>
       import("./Extension Cord_5_1_0.json").then((m) => m.default),
   },
