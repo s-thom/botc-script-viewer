@@ -5,6 +5,8 @@ interface KeyedRateLimitOptions {
   intervalMs: number;
   /** How many tasks can run in the given interval. */
   intervalCap: number;
+  /** How many tasks can be running at once. Useful if requests take longer than the interval. */
+  concurrency: number;
 }
 
 export class KeyedRateLimit<K> {
@@ -44,6 +46,7 @@ export class KeyedRateLimit<K> {
       const newQueue = new PQueue({
         interval: this.options.intervalMs,
         intervalCap: this.options.intervalCap,
+        concurrency: this.options.concurrency,
       });
       this.queueMap.set(key, newQueue);
       this.setupCleanupQueue(key);

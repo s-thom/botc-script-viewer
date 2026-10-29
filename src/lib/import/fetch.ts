@@ -6,6 +6,7 @@ import { KeyedRateLimit } from "./rate-limits";
 export const FETCH_QUEUE = new KeyedRateLimit({
   intervalMs: 1000,
   intervalCap: 5,
+  concurrency: 3,
 });
 export const REQUEST_USR_AGENT =
   "Script Viewer/1.0; (compatible; +https://github.com/s-thom/botc-script-viewer)";
