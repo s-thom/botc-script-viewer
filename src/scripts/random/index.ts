@@ -9,7 +9,7 @@ export const RANDOM_SCRIPTS: LocalScriptDefinition[] = [
     getScript: () => import("./NobodyFUCKINGMOVE.json").then((m) => m.default),
   },
   {
-    id: "tb+1",
+    id: "tb%2B1",
     title: "Trouble Brewing Plus 1",
     character: "imp",
     getScript: () =>
