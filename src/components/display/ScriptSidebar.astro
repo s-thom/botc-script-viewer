@@ -28,7 +28,7 @@ const logoData =
     : undefined;
 
 const printPath = fixDoubleSlashPaths(
-  new URL(`${Astro.url.pathname}/print`, Astro.url),
+  new URL(`${Astro.url.pathname}/print/`, Astro.url),
 );
 ---
 
@@ -136,7 +136,7 @@ const printPath = fixDoubleSlashPaths(
           t={t}
           key="viewer.pukka.view"
           params={{
-            link: "/pukka-flowchart",
+            link: "/pukka-flowchart/",
             linkKey: "to-pukka-flowchart",
             content: t.string("viewer.pukka.title").value,
           }}
