@@ -8,7 +8,6 @@ export type LocaleIds =
   | "es"
   | "es_community"
   | "es-mx"
-  | "es-419"
   | "nl"
   | "nl_community"
   | "pl"
@@ -94,16 +93,6 @@ export const LOCALE_MAP: Record<LocaleIds, LocaleInfo> = {
     isEnabled: true,
     astroId: "es-mx",
     botcId: "es_MX",
-    fallbacks: ["es", "es_community", "en"],
-    translators: [],
-    hasCommunityTranslations: true,
-    hasMachineTranslations: true,
-  },
-  "es-419": {
-    name: "Español (Latinoamérica)",
-    isEnabled: true,
-    astroId: "es-419",
-    botcId: "es_419",
     fallbacks: ["es", "es_community", "en"],
     translators: [],
     hasCommunityTranslations: true,

@@ -118,24 +118,6 @@ export const LANGUAGE_DATA: Record<LocaleIds, () => Promise<LocaleData>> = {
       script: script.default,
       viewer: viewer.default,
     })),
-  "es-419": () =>
-    Promise.all([
-      import("../../generated/i18n/es_419/app.json", {
-        with: { type: "json" },
-      }),
-      import("../../generated/i18n/es_419/game.json", {
-        with: { type: "json" },
-      }),
-      import("../../generated/i18n/es_419/script.json", {
-        with: { type: "json" },
-      }),
-      import("../../i18n/es-419.json", { with: { type: "json" } }),
-    ]).then(([app, game, script, viewer]) => ({
-      app: app.default,
-      game: game.default,
-      script: script.default,
-      viewer: viewer.default,
-    })),
   nl: () =>
     Promise.all([
       import("../../generated/i18n/nl/app.json", { with: { type: "json" } }),
