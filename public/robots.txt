@@ -18,7 +18,6 @@ User-agent: AdSensorBot
 User-agent: Advailo Kuma
 User-agent: AdvallyBot
 User-agent: AgencyToolsPro
-User-agent: AhrefsSiteAudit
 User-agent: AI2Bot
 User-agent: Ai2Bot-Dolma
 User-agent: AirsoftdbBot

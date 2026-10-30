@@ -27,6 +27,7 @@ jobs:
           allowed-bot-names: |
             Chrome-Lighthouse
             AhrefsBot
+            AhrefsSiteAudit
           cloudflare-api-token: ${{ secrets.CLOUDFLARE_RADAR_API_TOKEN }}
           cloudflare-categories: |
             AI_CRAWLER
