@@ -60,6 +60,14 @@ const localeAlternateMap = pageLocales.reduce(
   {} as Record<LocaleIds, string>,
 );
 
+const defaultLocale = ENABLED_LOCALES.find((locale) => locale.isDefault)!;
+const defaultLocaleUrl = getAbsoluteLocaleUrl(
+  defaultLocale.astroId,
+  canonicalPath
+    ? canonicalPath
+    : (translate?.basePath ?? canonicalUrl.pathname),
+);
+
 const currentLocaleInfo = LOCALE_MAP[t.locale as LocaleIds];
 // Don't add canonical links for unofficial language IDs like pirate.
 const isProperLanguage =
@@ -106,6 +114,7 @@ const shouldAddNoIndexTag = noIndex || !isProperLanguage;
       Object.entries(localeAlternateMap).map(([lang, url]) => (
         <link rel="alternate" href={url} hreflang={lang} />
       ))}
+    <link rel="alternate" href={defaultLocaleUrl} hreflang="x-default" />
     {shouldAddCanonicalLink && (
       <link rel="canonical" href={canonicalUrl.toString()} />
     )}
