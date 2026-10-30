@@ -172,6 +172,7 @@
   },
   "print": {
     "pageTitle": "Print: {title}",
+    "pageDescription": "Customize and print the {title} script for Blood on the Clocktower",
     "loading": "Loading print options…",
     "noscript": "The print customization needs JavaScript enabled to work.",
     "backToScript": "Back to script",

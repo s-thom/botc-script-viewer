@@ -54,6 +54,7 @@ const title = t.string("viewer.print.pageTitle", { title: data.title }).value;
       title,
       nameShort: t.string("viewer.common.nameShort").value,
     }).value,
+    description: t.string("viewer.print.pageDescription", { title }).value,
     translate: {
       basePath,
       locales: "all",
