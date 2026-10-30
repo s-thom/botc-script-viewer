@@ -24,19 +24,23 @@ const {
 
 const icon = getCharacterIcon(character);
 
-const fallbackMetadata = getFallbackIcon(character.team);
-const fallbackResult = await getImage({
-  src: fallbackMetadata,
-  width: size,
-  height: size,
-  densities: [1, 2, 3],
-});
+async function getFallback(): Promise<FallbackProps> {
+  const fallbackMetadata = getFallbackIcon(character.team);
+  const fallbackResult = await getImage({
+    src: fallbackMetadata,
+    width: size,
+    height: size,
+    densities: [1, 2, 3],
+  });
 
-const fallback: FallbackProps = {
-  src: fallbackResult.src,
-  srcSet: fallbackResult.srcSet,
-  attributes: fallbackResult.attributes,
-};
+  const fallback: FallbackProps = {
+    src: fallbackResult.src,
+    srcSet: fallbackResult.srcSet,
+    attributes: fallbackResult.attributes,
+  };
+
+  return fallback;
+}
 ---
 
 {
@@ -50,7 +54,9 @@ const fallback: FallbackProps = {
       height={size}
       densities={[1, 2, 3]}
       loading={loading}
-      data-fallback={JSON.stringify(fallback)}
+      data-fallback={
+        character.isHomebrew ? JSON.stringify(await getFallback()) : undefined
+      }
     />
   ) : (
     <Image
