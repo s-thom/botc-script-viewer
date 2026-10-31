@@ -36,10 +36,6 @@ export const BASE_3: LocalScriptDefinition[] = [
         import("../../generated/edition-scripts/es-mx/tb.json").then(
           (m) => m.default,
         ),
-      "es-419": () =>
-        import("../../generated/edition-scripts/es-419/tb.json").then(
-          (m) => m.default,
-        ),
       nl: () =>
         import("../../generated/edition-scripts/nl/tb.json").then(
           (m) => m.default,
@@ -97,10 +93,6 @@ export const BASE_3: LocalScriptDefinition[] = [
         import("../../generated/edition-scripts/es-mx/bmr.json").then(
           (m) => m.default,
         ),
-      "es-419": () =>
-        import("../../generated/edition-scripts/es-419/bmr.json").then(
-          (m) => m.default,
-        ),
       nl: () =>
         import("../../generated/edition-scripts/nl/bmr.json").then(
           (m) => m.default,
@@ -156,10 +148,6 @@ export const BASE_3: LocalScriptDefinition[] = [
         ),
       "es-mx": () =>
         import("../../generated/edition-scripts/es-mx/snv.json").then(
-          (m) => m.default,
-        ),
-      "es-419": () =>
-        import("../../generated/edition-scripts/es-419/snv.json").then(
           (m) => m.default,
         ),
       nl: () =>
