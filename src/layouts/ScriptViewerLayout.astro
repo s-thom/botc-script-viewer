@@ -14,6 +14,7 @@ import {
   normaliseScript,
 } from "../lib/normalise";
 import { getScriptPageDescription } from "../lib/site/description";
+import { getDiscordEmbedJson } from "../lib/site/discord-embed";
 import { fixDoubleSlashPaths } from "../lib/url";
 import type { NormalisedScriptFallbacks } from "../types/botc";
 import TopBarLayout from "./TopBarLayout.astro";
@@ -70,6 +71,12 @@ const scriptNameWithFallback =
   script.name || t.string("viewer.script.untitledScript").value;
 
 const color = getHeaderColor(overrideColor ?? script.color);
+
+const discordEmbedJson = getDiscordEmbedJson(t, script, {
+  color,
+  viewUrl: fixDoubleSlashPaths(new URL(Astro.url.pathname, Astro.url)).href,
+  printUrl: printPath.href,
+});
 ---
 
 <TopBarLayout
@@ -92,6 +99,14 @@ const color = getHeaderColor(overrideColor ?? script.color);
 >
   <Fragment slot="head">
     <PageView />
+    {discordEmbedJson && (
+      <script
+        is:inline
+        id="discord:component-embed"
+        type="application/json"
+        set:html={discordEmbedJson}
+      />
+    )}
   </Fragment>
 
   <SkipList t={t} script={script} slot="top" />

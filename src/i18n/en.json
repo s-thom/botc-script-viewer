@@ -170,6 +170,10 @@
     "qrCode": "QR Code",
     "selectLanguage": "Select language"
   },
+  "discord": {
+    "view": "View",
+    "moreCharacters": "{count} more"
+  },
   "print": {
     "pageTitle": "Print: {title}",
     "pageDescription": "Customize and print the {title} script for Blood on the Clocktower",
