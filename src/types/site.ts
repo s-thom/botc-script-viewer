@@ -12,6 +12,7 @@ export interface PageMeta {
   translate?: PageTranslateData;
   description?: string;
   color?: string;
+  image?: string;
   noIndex?: boolean;
   canonicalRef?: LocalScriptReference;
   noCanonical?: boolean;

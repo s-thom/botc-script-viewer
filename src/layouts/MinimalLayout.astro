@@ -15,6 +15,7 @@ const { t, meta } = Astro.props;
 const {
   title,
   description,
+  image,
   noIndex,
   lang,
   translate,
@@ -93,6 +94,7 @@ const shouldAddNoIndexTag = noIndex || !isProperLanguage;
     {shouldAddNoIndexTag && <meta name="robots" content="noindex" />}
 
     <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl.toString()} />
     <meta
       property="og:site_name"
       content={t.string("viewer.common.nameLong").value}
@@ -118,13 +120,21 @@ const shouldAddNoIndexTag = noIndex || !isProperLanguage;
     {shouldAddCanonicalLink && (
       <link rel="canonical" href={canonicalUrl.toString()} />
     )}
+    <meta property="og:locale" content={currentLocaleInfo.isoId} />
+    {translate &&
+      Object.keys(localeAlternateMap).map((lang) => (
+        <meta
+          property="og:locale:alternate"
+          content={LOCALE_MAP[lang as LocaleIds]?.isoId}
+        />
+      ))}
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content="/banner.png" />
-    <meta property="og:image" content="/banner.png" />
+    <meta name="twitter:image" content={image ?? "/banner.png"} />
+    <meta property="og:image" content={image ?? "/banner.png"} />
     <meta property="og:image:type" content="image/png" />
-    <meta property="og:image:width" content="1280" />
-    <meta property="og:image:height" content="640" />
+    <meta property="og:image:width" content={image ? "1200" : "1280"} />
+    <meta property="og:image:height" content={image ? "630" : "640"} />
 
     <slot name="head" />
   </head>

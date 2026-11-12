@@ -52,6 +52,10 @@ const qrPath = fixDoubleSlashPaths(
   new URL(`${Astro.url.pathname}/qr.svg`, Astro.url),
 );
 
+const ogImagePath = fixDoubleSlashPaths(
+  new URL(`${Astro.url.pathname}/og.png`, Astro.url),
+);
+
 const printPath = fixDoubleSlashPaths(
   new URL(`${Astro.url.pathname}/print/`, Astro.url),
 );
@@ -94,6 +98,7 @@ const discordEmbedJson = getDiscordEmbedJson(t, script, {
       locales: "all",
     },
     color: color,
+    image: ogImagePath.href,
     noIndex,
   }}
 >

@@ -39,6 +39,11 @@ const data = await buildPrintData(t, script, {
   url: new URL(scriptPath, Astro.url).toString(),
 });
 
+const ogImageUrl = new URL(
+  `${scriptPath.replace(/\/$/, "")}/og.png`,
+  Astro.url,
+);
+
 const rawScriptString = JSON.stringify(rawScript);
 const rawScriptBytes = stringToBytes(rawScriptString);
 const rawScriptB64 = await compressToBase64(rawScriptBytes, "gzip", false);
@@ -62,6 +67,7 @@ const title = t.string("viewer.print.pageTitle", { title: data.title }).value;
     lang: t.locale as LocaleIds,
     noIndex: true,
     color,
+    image: ogImageUrl.href,
   }}
 >
   <ul class="nav-links" slot="items-start">

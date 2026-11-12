@@ -19,6 +19,7 @@
     "@astrojs/cloudflare": "^14.4.2",
     "@astrojs/sitemap": "^3.7.4",
     "@astrojs/svelte": "^9.1.1",
+    "@takumi-rs/wasm": "^2.20.0",
     "astro": "^7.4.2",
     "culori": "^4.0.2",
     "idb": "^8.0.4",

@@ -4,6 +4,7 @@ This website makes external requests on users' behalves.
 
 1. When submitting a URL on the home page, the site will request the script JSON.
 2. When viewing a script with custom role icons that match the [allowed domains list](../src/lib/constants.ts), the site will request those images.
+3. OpenGraph images of scripts with custom role icons matching the allowed domains list will request those images.
 
 ## Request behaviours
 
