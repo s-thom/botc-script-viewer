@@ -6,6 +6,7 @@ import type { Translator } from "../i18n/types.ts";
 const MAX_PAYLOAD_BYTES = 3000;
 const MAX_BUTTON_URL_LENGTH = 512;
 const MAX_MEDIA_URL_LENGTH = 2048;
+const MAX_MEDIA_DESCRIPTION_LENGTH = 1024;
 
 const TEAM_ORDER = [
   "townsfolk",
@@ -21,6 +22,7 @@ export interface DiscordEmbedOptions {
   color?: string;
   viewUrl: string;
   printUrl: string;
+  imageUrl: string;
 }
 
 export function getDiscordEmbedJson(
@@ -66,9 +68,28 @@ function buildPayload(
           accessory: { type: 11, media: { url: logoUrl } },
         }
       : header,
+  ];
+
+  if (options.imageUrl.length <= MAX_MEDIA_URL_LENGTH) {
+    const imageAlt = script.author
+      ? t.string("viewer.discord.imageAlt", { title, author: script.author })
+          .value
+      : title;
+    components.push({
+      type: 12,
+      items: [
+        {
+          media: { url: options.imageUrl },
+          description: imageAlt.slice(0, MAX_MEDIA_DESCRIPTION_LENGTH),
+        },
+      ],
+    });
+  }
+
+  components.push(
     { type: 14 },
     { type: 10, content: getTeamsContent(t, script, namesPerTeam) },
-  ];
+  );
 
   const buttons = [
     { label: t.string("viewer.discord.view").value, url: options.viewUrl },

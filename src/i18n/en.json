@@ -172,7 +172,8 @@
   },
   "discord": {
     "view": "View",
-    "moreCharacters": "{count} more"
+    "moreCharacters": "{count} more",
+    "imageAlt": "{title} by {author}"
   },
   "print": {
     "pageTitle": "Print: {title}",

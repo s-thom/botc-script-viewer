@@ -80,6 +80,7 @@ const discordEmbedJson = getDiscordEmbedJson(t, script, {
   color,
   viewUrl: fixDoubleSlashPaths(new URL(Astro.url.pathname, Astro.url)).href,
   printUrl: printPath.href,
+  imageUrl: ogImagePath.href,
 });
 ---
 

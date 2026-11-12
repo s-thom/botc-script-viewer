@@ -15,6 +15,7 @@ const t = await createTranslator({ locale: "en" });
 const options: DiscordEmbedOptions = {
   viewUrl: "https://example.com/tb/tb/",
   printUrl: "https://example.com/tb/tb/print/",
+  imageUrl: "https://example.com/tb/tb/og.png",
 };
 
 function character(
@@ -79,7 +80,7 @@ function build(script: NormalisedScript, opts = options): any {
 }
 
 describe("getDiscordEmbedJson", () => {
-  it("lists every character by team with view and print buttons", () => {
+  it("shows the image and lists every character by team with view and print buttons", () => {
     const { component } = build(
       makeScript(smallScript.characters, { author: "Steven Medway" }),
     );
@@ -88,6 +89,15 @@ describe("getDiscordEmbedJson", () => {
     assert.equal(component.accent_color, undefined);
     assert.deepEqual(component.components, [
       { type: 10, content: "# Trouble Brewing\nby Steven Medway" },
+      {
+        type: 12,
+        items: [
+          {
+            media: { url: options.imageUrl },
+            description: "Trouble Brewing by Steven Medway",
+          },
+        ],
+      },
       { type: 14 },
       {
         type: 10,
@@ -125,8 +135,9 @@ describe("getDiscordEmbedJson", () => {
 
     const { component } = JSON.parse(json);
     assert.equal(component.components[0].content, "# \\# Title");
+    assert.equal(component.components[1].items[0].description, "# Title");
     assert.equal(
-      component.components[2].content,
+      component.components[3].content,
       "**Townsfolk**\n\\<Bad\\_\\*Name\\*\\>",
     );
   });
@@ -155,7 +166,7 @@ describe("getDiscordEmbedJson", () => {
       character(`Townsfolk Character ${i}`, "townsfolk"),
     );
     const { component } = build(makeScript(characters));
-    const teams: string = component.components[2].content;
+    const teams: string = component.components[3].content;
 
     assert.match(teams, /Townsfolk Character 0, /);
     assert.match(teams, /and \d+ more$/);
@@ -164,12 +175,22 @@ describe("getDiscordEmbedJson", () => {
 
   it("drops buttons whose URLs are too long", () => {
     const { component } = build(smallScript, {
-      viewUrl: options.viewUrl,
+      ...options,
       printUrl: `https://example.com/${"a".repeat(600)}/print/`,
     });
     assert.deepEqual(component.components.at(-1).components, [
       { type: 2, style: 5, label: "View", url: options.viewUrl },
     ]);
+  });
+
+  it("drops the image when its URL is too long", () => {
+    const { component } = build(smallScript, {
+      ...options,
+      imageUrl: `https://example.com/${"a".repeat(2100)}/og.png`,
+    });
+    assert.ok(
+      component.components.every(({ type }: { type: number }) => type !== 12),
+    );
   });
 
   it("returns undefined when it can't fit", () => {
