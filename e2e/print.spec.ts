@@ -44,14 +44,13 @@ test.describe("Print page", () => {
   });
 
   test("detailed night order uses two sheets", async ({ page }) => {
-    await page.getByLabel("Back of the script sheet").waitFor();
-    await page.getByLabel("Blank (not printed)").check();
-    await page.getByLabel("Printing double-sided").uncheck();
+    await page.getByRole("radio", { name: "None", exact: true }).check();
+    await page.getByLabel("Include QR code page").uncheck();
 
-    await page.getByLabel(/^Simple/).check();
+    await page.getByRole("radio", { name: /^Simple/ }).check();
     await expect(page.locator(".paper")).toHaveCount(2);
 
-    await page.getByLabel(/^Detailed/).check();
+    await page.getByRole("radio", { name: /^Detailed/ }).check();
     await expect(page.locator(".paper")).toHaveCount(3);
   });
 

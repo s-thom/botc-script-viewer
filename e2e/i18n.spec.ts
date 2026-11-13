@@ -56,12 +56,15 @@ test.describe("i18n URL correctness", () => {
       await page.goto("/base3/tb/");
     });
 
-    test("has one alternate link per enabled standard locale", async ({
+    test("has one alternate link per enabled standard locale plus x-default", async ({
       page,
     }) => {
       await expect(page.locator('head > link[rel="alternate"]')).toHaveCount(
-        standardLocales.length,
+        standardLocales.length + 1,
       );
+      await expect(
+        page.locator('head > link[rel="alternate"][hreflang="x-default"]'),
+      ).toBeAttached();
 
       for (const locale of standardLocales) {
         await expect(
