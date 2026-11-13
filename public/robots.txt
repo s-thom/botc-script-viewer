@@ -103,7 +103,6 @@ User-agent: Criticalcss.com/
 User-agent: CSpeedTP
 User-agent: curly-
 User-agent: CustomerSLO Prober
-User-agent: cXensebot/
 User-agent: Datenbank Crawler
 User-agent: DeepSeekBot
 User-agent: Digicert DCV
