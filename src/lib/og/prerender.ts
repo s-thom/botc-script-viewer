@@ -1,4 +1,4 @@
-import { createRemoteIconLoader, fetchBytes } from "./icons";
+import { createRemoteIconLoader, fetchBytes, fetchLogo } from "./icons";
 import { renderOgImage, type OgImageInput } from "./render";
 
 const iconCache = new Map<string, Promise<Uint8Array>>();
@@ -20,6 +20,6 @@ const loadIcon = createRemoteIconLoader(fetchCachedBytes);
 export async function getPrerenderedOgImageResponse(
   input: OgImageInput,
 ): Promise<Response> {
-  const png = await renderOgImage(input, loadIcon);
+  const png = await renderOgImage(input, { icon: loadIcon, logo: fetchLogo });
   return new Response(png, { headers: { "Content-Type": "image/png" } });
 }

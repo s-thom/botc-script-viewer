@@ -7,12 +7,32 @@ export type OgIconManifest = Record<string, string>;
 
 export type BytesFetcher = (url: string) => Promise<Uint8Array>;
 
+const LOGO_TIMEOUT_MS = 5000;
+const LOGO_MAX_BYTES = 2 * 1024 * 1024;
+
 export async function fetchBytes(url: string): Promise<Uint8Array> {
   const response = await fetch(url);
   if (!response.ok) {
     throw new Error(`Failed to fetch ${url}: ${response.status}`);
   }
   return new Uint8Array(await response.arrayBuffer());
+}
+
+export async function fetchLogo(url: string): Promise<Uint8Array> {
+  const response = await fetch(url, {
+    signal: AbortSignal.timeout(LOGO_TIMEOUT_MS),
+  });
+  if (!response.ok) {
+    throw new Error(`Failed to fetch ${url}: ${response.status}`);
+  }
+  if (Number(response.headers.get("Content-Length")) > LOGO_MAX_BYTES) {
+    throw new Error(`Logo ${url} is too large`);
+  }
+  const bytes = new Uint8Array(await response.arrayBuffer());
+  if (bytes.length > LOGO_MAX_BYTES) {
+    throw new Error(`Logo ${url} is too large`);
+  }
+  return bytes;
 }
 
 export function createRemoteIconLoader(

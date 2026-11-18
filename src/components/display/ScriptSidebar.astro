@@ -1,7 +1,7 @@
 ---
 import { Image } from "astro:assets";
-import { ALLOWED_EXTERNAL_HOSTNAMES } from "../../lib/constants";
 import type { Translator } from "../../lib/i18n/types";
+import { getAllowedImageUrl } from "../../lib/external-image";
 import { getRemoteImageResize } from "../../lib/image";
 import type { NormalisedScript } from "../../types/botc";
 import LocalisedMessage from "../i18n/LocalisedMessage.astro";
@@ -21,11 +21,10 @@ const conflictInteractions = script.interactions.filter(
   (interaction) => interaction.level === "conflict",
 );
 
-const logoData =
-  script.logo &&
-  ALLOWED_EXTERNAL_HOSTNAMES.includes(new URL(script.logo).hostname)
-    ? await getRemoteImageResize(script.logo, { maxWidth: 96, maxHeight: 96 })
-    : undefined;
+const logoUrl = getAllowedImageUrl(script.logo);
+const logoData = logoUrl
+  ? await getRemoteImageResize(logoUrl, { maxWidth: 96, maxHeight: 96 })
+  : undefined;
 
 const printPath = fixDoubleSlashPaths(
   new URL(`${Astro.url.pathname}/print/`, Astro.url),

@@ -54,5 +54,6 @@ export const GET: APIRoute = async ({ params, rewrite, currentLocale }) => {
     t: await createTranslator({ locale }),
     rawScript: await getScript(),
     color: scriptDefinition.color,
+    featuredCharacters: scriptDefinition.featuredCharacters,
   });
 };

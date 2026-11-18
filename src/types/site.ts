@@ -47,6 +47,7 @@ export interface LocalScriptDefinition {
   id: string;
   title: string;
   character: string;
+  featuredCharacters?: string[];
   color?: string;
   canonicalRef?: LocalScriptReference;
   seeAlsoRefs?: LocalScriptReference[];

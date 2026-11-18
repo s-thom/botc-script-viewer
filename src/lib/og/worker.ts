@@ -1,6 +1,7 @@
 import { env, waitUntil } from "cloudflare:workers";
 import {
   createRemoteIconLoader,
+  fetchLogo,
   OG_ICON_MANIFEST_PATH,
   type OgIconManifest,
 } from "./icons";
@@ -77,10 +78,10 @@ export async function getOgImageResponse(
 
   let response: Response;
   try {
-    const png = await renderOgImage(
-      await getInput(),
-      createAssetIconLoader(url.origin),
-    );
+    const png = await renderOgImage(await getInput(), {
+      icon: createAssetIconLoader(url.origin),
+      logo: fetchLogo,
+    });
     response = pngResponse(png, OG_MAX_AGE_SECONDS);
   } catch (err) {
     console.error("Failed to render OpenGraph image", err);

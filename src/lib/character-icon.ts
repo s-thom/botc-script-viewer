@@ -2,7 +2,7 @@ import type { ImageMetadata } from "astro";
 import * as APP_ICONS from "../assets/botc";
 import type { NormalisedScriptCharacter } from "../types/botc";
 import { CHARACTERS_BY_ID } from "./characters";
-import { ALLOWED_EXTERNAL_HOSTNAMES } from "./constants";
+import { getAllowedImageUrl } from "./external-image";
 
 export function getFallbackIcon(
   team: NormalisedScriptCharacter["team"],
@@ -14,16 +14,7 @@ function ensureImageHostname(
   character: NormalisedScriptCharacter,
   imageUrl: string,
 ): string {
-  try {
-    const url = new URL(imageUrl);
-    if (ALLOWED_EXTERNAL_HOSTNAMES.includes(url.hostname)) {
-      return imageUrl;
-    }
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  } catch (err) {
-    // Do nothing
-  }
-  return getFallbackIcon(character.team);
+  return getAllowedImageUrl(imageUrl) ?? getFallbackIcon(character.team);
 }
 
 export function getCharacterIcon(

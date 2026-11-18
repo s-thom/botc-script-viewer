@@ -1,6 +1,6 @@
 import { formatHex, parse } from "culori";
 import type { NormalisedScript } from "../../types/botc.ts";
-import { ALLOWED_EXTERNAL_HOSTNAMES } from "../constants.ts";
+import { getAllowedImageUrl } from "../external-image.ts";
 import type { Translator } from "../i18n/types.ts";
 
 const MAX_PAYLOAD_BYTES = 3000;
@@ -146,16 +146,10 @@ function getTeamsContent(
 }
 
 function getLogoUrl(logo: string | undefined): string | undefined {
-  if (!logo || logo.length > MAX_MEDIA_URL_LENGTH) {
+  if (logo && logo.length > MAX_MEDIA_URL_LENGTH) {
     return undefined;
   }
-
-  try {
-    const url = new URL(logo);
-    return ALLOWED_EXTERNAL_HOSTNAMES.includes(url.hostname) ? logo : undefined;
-  } catch {
-    return undefined;
-  }
+  return getAllowedImageUrl(logo);
 }
 
 function getAccentColor(color: string | undefined): number | undefined {
