@@ -14,7 +14,7 @@ const localScriptCollections = getLocalScriptCollections();
 ---
 
 <div class="box">
-  <h2>
+  <h2 class="ruled-heading">
     <LocalisedMessage t={t} key="viewer.collection.officialScripts" />
   </h2>
 
@@ -25,7 +25,7 @@ const localScriptCollections = getLocalScriptCollections();
     )
     .map(([collectionId, collection]) => (
       <section>
-        <h3>
+        <h3 class="ruled-heading">
           <LocalisedMessage
             t={t}
             key={`viewer.collection.${collectionId}.title`}
@@ -41,7 +41,7 @@ const localScriptCollections = getLocalScriptCollections();
       </section>
     ))}
 
-  <h2>
+  <h2 class="ruled-heading">
     <LocalisedMessage t={t} key="viewer.collection.unofficialCollections" />
   </h2>
   {Object.entries(localScriptCollections)
@@ -51,7 +51,7 @@ const localScriptCollections = getLocalScriptCollections();
     )
     .map(([collectionId, collection]) => (
       <section>
-        <h3>
+        <h3 class="ruled-heading">
           <LocalisedMessage
             t={t}
             key={`viewer.collection.${collectionId}.title`}

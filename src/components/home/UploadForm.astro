@@ -22,7 +22,7 @@ const { t } = Astro.props;
 
   <input type="hidden" name="locale" value={t.locale} />
 
-  <label class="file-input-label" for="file">
+  <label class="inset-field file-input-label" for="file">
     <LocalisedMessage t={t} key="viewer.home.clickToUpload" />
   </label>
   <input
@@ -187,26 +187,29 @@ const { t } = Astro.props;
     align-items: center;
     justify-content: center;
     text-align: center;
+    position: relative;
     height: 160px;
     padding: 16px;
-    border-radius: 15px;
-    background-color: var(--color-control-background);
-    background-color: var(--color-control-background);
-    border: 2px dashed var(--color-control-border);
+    cursor: pointer;
 
-    &:disabled {
-      filter: grayscale();
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 6px;
+      border: 1px dashed var(--color-rule);
+      border-radius: 2px;
+      pointer-events: none;
     }
 
-    &:hover,
-    &:focus-within {
-      background-color: var(--color-control-background-hover);
-      border-color: var(--color-control-border-hover);
+    .form:has(.file-input:focus) & {
+      border-color: var(--color-rule-strong);
     }
 
-    &:active {
-      background-color: var(--color-control-background-active);
-      border-color: var(--color-control-border-active);
+    :global(:root:not([data-input="pointer"]))
+      .form:has(.file-input:focus-visible)
+      & {
+      outline: 2px solid var(--color-accent);
+      outline-offset: 2px;
     }
 
     &.dragover {

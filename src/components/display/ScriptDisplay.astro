@@ -1,4 +1,7 @@
 ---
+import { getImage } from "astro:assets";
+import type { CharacterTeam } from "../../generated/script-schema";
+import { getFallbackIcon } from "../../lib/character-icon";
 import type { Translator } from "../../lib/i18n/types";
 import { fixDoubleSlashPaths } from "../../lib/url";
 import type { InteractionInfo, NormalisedScript } from "../../types/botc";
@@ -18,6 +21,15 @@ interface Props {
   script: NormalisedScript;
 }
 const { t, script } = Astro.props;
+
+async function headingIconStyle(team: CharacterTeam) {
+  const icon = await getImage({
+    src: getFallbackIcon(team),
+    width: 96,
+    height: 96,
+  });
+  return { "--heading-icon": `url(${icon.src})` };
+}
 
 const selfPath = Astro.url.toString();
 const qrPath = fixDoubleSlashPaths(
@@ -89,10 +101,14 @@ const interactionsByLevel = script.interactions.reduce<
         <BootleggerList t={t} rules={script.bootlegger} />
       </div>
     )}
-    <h2 class="category-title">
+    <h2 class="category-title ruled-heading">
       <LocalisedMessage t={t} key="app.tabs.characters.title" />
     </h2>
-    <h3 id="townsfolk" class="category-title">
+    <h3
+      id="townsfolk"
+      class="category-title ruled-heading has-icon"
+      style={await headingIconStyle("townsfolk")}
+    >
       <LocalisedMessage
         t={t}
         key="app.grimoire.townsfolk"
@@ -100,7 +116,11 @@ const interactionsByLevel = script.interactions.reduce<
       />
     </h3>
     <CharacterList t={t} characters={script.teams.townsfolk} showWikiLink />
-    <h3 id="outsiders" class="category-title">
+    <h3
+      id="outsiders"
+      class="category-title ruled-heading has-icon"
+      style={await headingIconStyle("outsider")}
+    >
       <LocalisedMessage
         t={t}
         key="app.grimoire.outsider"
@@ -108,7 +128,11 @@ const interactionsByLevel = script.interactions.reduce<
       />
     </h3>
     <CharacterList t={t} characters={script.teams.outsider} showWikiLink />
-    <h3 id="minions" class="category-title">
+    <h3
+      id="minions"
+      class="category-title ruled-heading has-icon"
+      style={await headingIconStyle("minion")}
+    >
       <LocalisedMessage
         t={t}
         key="app.grimoire.minion"
@@ -116,7 +140,11 @@ const interactionsByLevel = script.interactions.reduce<
       />
     </h3>
     <CharacterList t={t} characters={script.teams.minion} showWikiLink />
-    <h3 id="demons" class="category-title">
+    <h3
+      id="demons"
+      class="category-title ruled-heading has-icon"
+      style={await headingIconStyle("demon")}
+    >
       <LocalisedMessage
         t={t}
         key="app.grimoire.demon"
@@ -133,7 +161,11 @@ const interactionsByLevel = script.interactions.reduce<
     <div class="page">
       {script.teams.traveller.length > 0 && (
         <>
-          <h3 id="travellers" class="category-title">
+          <h3
+            id="travellers"
+            class="category-title ruled-heading has-icon"
+            style={await headingIconStyle("traveller")}
+          >
             <LocalisedMessage
               t={t}
               key="app.grimoire.traveller"
@@ -149,7 +181,11 @@ const interactionsByLevel = script.interactions.reduce<
       )}
       {script.teams.fabled.length > 0 && (
         <>
-          <h3 id="fabled" class="category-title">
+          <h3
+            id="fabled"
+            class="category-title ruled-heading has-icon"
+            style={await headingIconStyle("fabled")}
+          >
             <LocalisedMessage
               t={t}
               key="app.grimoire.fabled"
@@ -161,7 +197,11 @@ const interactionsByLevel = script.interactions.reduce<
       )}
       {script.teams.loric.length > 0 && (
         <>
-          <h3 id="loric" class="category-title">
+          <h3
+            id="loric"
+            class="category-title ruled-heading has-icon"
+            style={await headingIconStyle("loric")}
+          >
             <LocalisedMessage
               t={t}
               key="app.grimoire.loric"
@@ -173,7 +213,7 @@ const interactionsByLevel = script.interactions.reduce<
       )}
       {script.jinxes.length > 0 && (
         <>
-          <h3 id="jinxes" class="category-title">
+          <h3 id="jinxes" class="category-title ruled-heading">
             <LocalisedMessage
               t={t}
               key="app.tabs.character.jinxes"
@@ -189,7 +229,7 @@ const interactionsByLevel = script.interactions.reduce<
   <hr class="screen-only" />
 
   <div class="page">
-    <h2 id="night-order" class="category-title">
+    <h2 id="night-order" class="category-title ruled-heading">
       <LocalisedMessage t={t} key="viewer.script.nightOrder" />
     </h2>
 
@@ -207,13 +247,13 @@ const interactionsByLevel = script.interactions.reduce<
 
     <div class="two-column">
       <div>
-        <h3 id="first-night" class="category-title">
+        <h3 id="first-night" class="category-title ruled-heading">
           <LocalisedMessage t={t} key="app.grimoire.phases.first_night" />
         </h3>
         <NightOrderList t={t} info={script.firstNight} />
       </div>
       <div>
-        <h3 id="other-night" class="category-title">
+        <h3 id="other-night" class="category-title ruled-heading">
           <LocalisedMessage t={t} key="app.grimoire.phases.other_nights" />
         </h3>
         <NightOrderList t={t} info={script.otherNight} />
@@ -227,7 +267,7 @@ const interactionsByLevel = script.interactions.reduce<
 
       {/* TODO: Figure out how to translate all of the interactions data */}
       <div class="page flow screen-only" lang="en">
-        <h2 id="interactions" class="category-title">
+        <h2 id="interactions" class="category-title ruled-heading">
           <LocalisedMessage t={t} key="viewer.interactions.title" />
         </h2>
 
@@ -242,7 +282,7 @@ const interactionsByLevel = script.interactions.reduce<
           />
         </div>
 
-        <h3 id={`interactions-conflict`} class="category-title">
+        <h3 id={`interactions-conflict`} class="category-title ruled-heading">
           <LocalisedMessage
             t={t}
             key="viewer.interactions.levels.conflict"

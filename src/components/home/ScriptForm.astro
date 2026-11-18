@@ -24,7 +24,7 @@ const { t } = Astro.props;
 
   <input type="hidden" name="locale" value={t.locale} />
 
-  <textarea class="textarea" name="script" id="script"></textarea>
+  <textarea class="inset-field text-input" name="script" id="script"></textarea>
 
   <button type="submit" class="button" data-umami-event="script-submit">
     <LocalisedMessage t={t} key="viewer.home.viewScript" />
@@ -37,30 +37,5 @@ const { t } = Astro.props;
     flex-direction: column;
     gap: 0.5rem;
     width: 100%;
-  }
-
-  .textarea {
-    background-color: var(--color-control-background);
-    border: 2px solid var(--color-control-border);
-    color: var(--color-text);
-    padding: 0.5rem;
-    border-radius: 15px;
-    width: 100%;
-    resize: vertical;
-
-    &:disabled {
-      filter: grayscale();
-    }
-
-    &:hover,
-    &:focus-within {
-      background-color: var(--color-control-background-hover);
-      border-color: var(--color-control-border-hover);
-    }
-
-    &:active {
-      background-color: var(--color-control-background-active);
-      border-color: var(--color-control-border-active);
-    }
   }
 </style>

@@ -111,39 +111,53 @@ textarea:not([rows]) {
   font-family: var(--font-body);
 
   --border-radius: 0.5rem;
+  --border-radius-control: 1px;
   --panel-resize-handle-size: 3px;
   --print-background-size: 50mm;
 
   color-scheme: light dark;
 
   --color-background: #e6e3da;
-  --color-background: light-dark(#e6e3da, #1a1918);
+  --color-background: light-dark(#e6e3da, #1c1426);
   --color-text: #282828;
-  --color-text: light-dark(#282828, #e1e1e1);
+  --color-text: light-dark(#282828, #efe7da);
 
   --color-control-background: #f0eee9;
-  --color-control-background: light-dark(#f0eee9, #1e1d1b);
+  --color-control-background: light-dark(#f0eee9, #271c34);
   --color-control-background-hover: #ece9e1;
-  --color-control-background-hover: light-dark(#ece9e1, #252422);
+  --color-control-background-hover: light-dark(#ece9e1, #2f2340);
   --color-control-background-active: #e5dfd1;
-  --color-control-background-active: light-dark(#e5dfd1, #272625);
+  --color-control-background-active: light-dark(#e5dfd1, #36294a);
 
   --color-control-border: #d0c3ab;
-  --color-control-border: light-dark(#d0c3ab, #393733);
+  --color-control-border: light-dark(#d0c3ab, #4d4159);
   --color-control-border-hover: #d8cdb4;
-  --color-control-border-hover: light-dark(#d8cdb4, #302f2c);
+  --color-control-border-hover: light-dark(#d8cdb4, #5d5069);
   --color-control-border-active: #d0c3ab;
-  --color-control-border-active: light-dark(#d0c3ab, #393733);
+  --color-control-border-active: light-dark(#d0c3ab, #4d4159);
+
+  --color-rule: #c49d63;
+  --color-rule: light-dark(#c49d63, #6e5a3c);
+  --color-rule-strong: #8f6c3a;
+  --color-rule-strong: light-dark(#8f6c3a, #a8916a);
+
+  --color-accent: var(--color-script, #20562d);
+  --color-accent: light-dark(
+    var(--color-script, #20562d),
+    color-mix(in oklab, var(--color-script, #20562d) 60%, white)
+  );
 
   --color-control-background-error: #e6cdcc;
-  --color-control-background-error: light-dark(#e6cdcc, #372625);
+  --color-control-background-error: light-dark(#e6cdcc, #3a1f2b);
   --color-control-border-error: #e4a6a7;
-  --color-control-border-error: light-dark(#e4a6a7, #3b2a27);
+  --color-control-border-error: light-dark(#e4a6a7, #6b3040);
 
   --color-header-background: var(--color-script, #20562d);
   --color-header-text: #fdedc9;
   --color-header-paper: #fffdf4;
-  --color-header-paper: light-dark(#fffdf4, #25241f);
+  --color-header-paper: light-dark(#fffdf4, #3d3347);
+  --color-paper: #fffdf4;
+  --color-paper: light-dark(#fffdf4, #2b2038);
 
   --color-print-fancy-rule: #d0ac77;
   --color-print-strip-edge: #7d5e315e;
@@ -164,17 +178,17 @@ textarea:not([rows]) {
   --color-level-border: var(--color-text);
 
   --color-level-background-error: #e8dad8;
-  --color-level-background-error: light-dark(#e8dad8, #332828);
+  --color-level-background-error: light-dark(#e8dad8, #3a1f2b);
   --color-level-border-error: #c03938;
-  --color-level-border-error: light-dark(#c03938, #8b4540);
+  --color-level-border-error: light-dark(#c03938, #9a4552);
   --color-level-background-warning: #e8e2cd;
-  --color-level-background-warning: light-dark(#e8e2cd, #312c1c);
+  --color-level-background-warning: light-dark(#e8e2cd, #33281c);
   --color-level-border-warning: #a88c27;
-  --color-level-border-warning: light-dark(#a88c27, #705a02);
+  --color-level-border-warning: light-dark(#a88c27, #7f6630);
   --color-level-background-info: #d6dfe8;
-  --color-level-background-info: light-dark(#d6dfe8, #272e35);
+  --color-level-background-info: light-dark(#d6dfe8, #252440);
   --color-level-border-info: #579ad4;
-  --color-level-border-info: light-dark(#579ad4, #286190);
+  --color-level-border-info: light-dark(#579ad4, #5b67b0);
 
   --color-reminder: var(--color-control-background);
   --color-reminder-border: var(--color-text);
@@ -233,8 +247,88 @@ body {
   }
 }
 
+::selection {
+  background-color: color-mix(in oklab, var(--color-accent) 35%, transparent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+hr {
+  --ornament-width: 3.5rem;
+  position: relative;
+  height: 0.75rem;
+  margin-block: 2rem;
+  border: none;
+  color: var(--color-rule);
+  background:
+    linear-gradient(to right, transparent, currentColor 15%) left center /
+      calc(50% - var(--ornament-width) / 2 - 0.25rem) 1px no-repeat,
+    linear-gradient(to left, transparent, currentColor 15%) right center /
+      calc(50% - var(--ornament-width) / 2 - 0.25rem) 1px no-repeat;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    width: var(--ornament-width);
+    margin-inline: auto;
+    background-color: currentColor;
+    mask: url("../assets/ornament.svg") center / contain no-repeat;
+  }
+}
+
+.ruled-heading {
+  overflow: hidden;
+
+  &::after {
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    width: 100%;
+    height: 1px;
+    margin-inline-start: 0.75rem;
+    margin-inline-end: -100%;
+    background: linear-gradient(to right, var(--color-rule), transparent 80%);
+  }
+
+  &.has-icon::after {
+    --icon-size: 1.4em;
+    --icon-gap: 0.25em;
+    --line-lead: 0.75em;
+    --icon-x: calc(var(--line-lead) + var(--icon-gap));
+    --line-x: calc(var(--icon-x) + var(--icon-size) + var(--icon-gap));
+    height: var(--icon-size);
+    background: var(--color-rule);
+    mask-image:
+      var(--heading-icon), var(--heading-icon), linear-gradient(#000 0 0),
+      linear-gradient(to right, #000, transparent 80%);
+    mask-mode: alpha, luminance, alpha, alpha;
+    mask-composite: exclude, add, add, add;
+    mask-position:
+      var(--icon-x) center,
+      var(--icon-x) center,
+      0 center,
+      var(--line-x) center;
+    mask-size:
+      var(--icon-size) var(--icon-size),
+      var(--icon-size) var(--icon-size),
+      var(--line-lead) 1px,
+      calc(100% - var(--line-x)) 1px;
+    mask-repeat: no-repeat;
+  }
+}
+
 a {
   color: inherit;
+  text-decoration-color: color-mix(
+    in oklab,
+    var(--color-accent) 60%,
+    currentColor
+  );
+  text-underline-offset: 0.15em;
 
   &:not(:disabled) {
     cursor: pointer;
@@ -250,34 +344,45 @@ a {
   }
 }
 
-.text-input {
-  background-color: var(--color-background);
-  border: 2px solid var(--color-control-border-active);
+.inset-field {
+  background-color: var(--color-control-background);
+  border: 3px double var(--color-rule);
+  border-radius: var(--border-radius-control);
+  box-shadow: inset 0 1px 3px rgb(0 0 0 / 0.15);
   color: var(--color-text);
-  padding: 0.2rem;
-  border-radius: 15px;
+
+  &:hover {
+    background-color: var(--color-control-background-hover);
+  }
+
+  &:focus {
+    border-color: var(--color-rule-strong);
+  }
+
+  :root[data-input="pointer"] &:focus-visible {
+    outline: none;
+  }
+}
+
+.text-input {
+  padding: 0.5rem;
   width: 100%;
   resize: vertical;
 
   &:disabled {
     filter: grayscale();
   }
-
-  &:hover {
-    border-color: var(--color-control-border-hover);
-  }
-
-  &:active {
-    border-color: var(--color-control-border-active);
-  }
 }
 
 .button {
   background-color: var(--color-control-background);
-  border: 2px solid var(--color-control-border);
+  border: 3px double var(--color-rule);
+  border-radius: var(--border-radius-control);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.25);
   color: var(--color-text);
-  padding: 0.5rem;
-  border-radius: 100vw;
+  padding: 0.5rem 1rem;
+  font-variant-caps: small-caps;
+  letter-spacing: 0.05em;
 
   &:disabled {
     filter: grayscale();
@@ -285,12 +390,12 @@ a {
 
   &:hover {
     background-color: var(--color-control-background-hover);
-    border-color: var(--color-control-border-hover);
   }
 
   &:active {
     background-color: var(--color-control-background-active);
-    border-color: var(--color-control-border-active);
+    box-shadow: inset 0 1px 3px rgb(0 0 0 / 0.3);
+    translate: 0 1px;
   }
 }
 
@@ -462,6 +567,16 @@ a {
   }
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  .character-icon {
+    transition: scale 0.15s ease-out;
+  }
+
+  :is(.character, a):hover .character-icon {
+    scale: 1.12;
+  }
+}
+
 .slow-spin {
   animation: Spin 40s linear infinite;
 }
@@ -477,8 +592,7 @@ a {
 
 @keyframes TempOutline {
   0% {
-    outline: 5px auto Highlight;
-    outline: 5px auto -webkit-focus-ring-color;
+    outline: 3px solid var(--color-accent);
     outline-offset: 2px;
   }
   100% {

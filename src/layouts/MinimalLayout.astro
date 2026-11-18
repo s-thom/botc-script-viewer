@@ -88,6 +88,24 @@ const shouldAddNoIndexTag = noIndex || !isProperLanguage;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <script is:inline>
+      /* eslint-disable */
+      addEventListener(
+        "pointerdown",
+        function () {
+          document.documentElement.dataset.input = "pointer";
+        },
+        true,
+      );
+      addEventListener(
+        "keydown",
+        function (e) {
+          e.key === "Tab" && delete document.documentElement.dataset.input;
+        },
+        true,
+      );
+    </script>
+
     <Font cssVariable="--font-dumbledor" />
     <Font cssVariable="--font-sorts-mill-goudy" preload />
 

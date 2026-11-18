@@ -14,7 +14,7 @@ interface Props {
 const { t, collectionId, scripts, loading, page } = Astro.props;
 ---
 
-<ul class="script-list">
+<ul class:list={["script-list", "handbills"]}>
   {scripts.map((script) => (
     <li class="script-list-item">
       <ScriptListItem
@@ -32,9 +32,10 @@ const { t, collectionId, scripts, loading, page } = Astro.props;
   .script-list {
     width: 100%;
     display: grid;
-    gap: 0.5rem;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1.25rem 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     list-style: none;
     padding-inline-start: 0;
+    padding-block: 0.25rem;
   }
 </style>
