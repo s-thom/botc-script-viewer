@@ -19,6 +19,7 @@ export const RANDOM_SCRIPTS: LocalScriptDefinition[] = [
     id: "muppets",
     title: "Muppets on a Clocktower",
     character: "bootlegger",
+    featuredCharacters: ["kermitthefrog", "misspiggy", "scooter", "human"],
     getScript: () =>
       import("./Muppets_on_a_Clocktower.json").then((m) => m.default),
   },
@@ -47,6 +48,7 @@ export const RANDOM_SCRIPTS: LocalScriptDefinition[] = [
     id: "onion-pies",
     title: "Onion Pies",
     character: "ogre",
+    featuredCharacters: ["ogre"],
     botcScripts: { scriptId: 4008, versionId: "1.0.0", pk: 6852 },
     getScript: () => import("./OnionPies.json").then((m) => m.default),
   },
@@ -54,6 +56,7 @@ export const RANDOM_SCRIPTS: LocalScriptDefinition[] = [
     id: "extension-cord",
     title: "Extension Cord",
     character: "nodashii",
+    featuredCharacters: ["nodashii"],
     botcScripts: { scriptId: 42, versionId: "5.1.1", pk: 23847 },
     getScript: () =>
       import("./Extension Cord_5_1_0.json").then((m) => m.default),
@@ -62,6 +65,7 @@ export const RANDOM_SCRIPTS: LocalScriptDefinition[] = [
     id: "trust",
     title: "Trust",
     character: "mayor",
+    featuredCharacters: ["mayor"],
     botcScripts: { scriptId: 754, versionId: "2.0.0", pk: 3078 },
     getScript: () => import("./Trust_2_0_0.json").then((m) => m.default),
   },

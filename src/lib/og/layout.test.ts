@@ -166,14 +166,14 @@ describe("layoutGrimoire", () => {
 
     assert.deepEqual(ids(centre).sort(), ["d0", "d1", "d2", "d3"]);
     assert.ok(centre.every((token) => token.size >= 90));
-    assert.equal(result.tokens.length, 25);
+    assert.equal(result.tokens.length, 29);
     assertNoOverlaps(result);
   });
 
   it("orders the ring by team", () => {
     const result = layout({ townsfolk: 2, outsider: 1, minion: 1, demon: 1 });
 
-    assert.deepEqual(ids(result.tokens), ["t0", "t1", "o0", "m0", "d0"]);
+    assert.deepEqual(ids(result.tokens), ["t0", "t1", "o0", "m0", "d0", "d0"]);
   });
 
   it("uses large tokens for teensies", () => {
@@ -209,15 +209,15 @@ describe("layoutGrimoire", () => {
     assertNoOverlaps(result);
   });
 
-  it("puts featured characters in the centre and nowhere else", () => {
+  it("puts featured characters in the centre as well as their usual place", () => {
     const result = layout(
       { townsfolk: 13, outsider: 4, minion: 4, demon: 4, fabled: 1 },
       { featured: ["t3", "f0"] },
     );
 
     assert.deepEqual(ids(centreTokens(result)).sort(), ["f0", "t3"]);
-    assert.equal(ids(result.tokens).filter((id) => id === "t3").length, 1);
-    assert.equal(ids(result.tokens).filter((id) => id === "f0").length, 1);
+    assert.equal(ids(result.tokens).filter((id) => id === "t3").length, 2);
+    assert.equal(ids(result.tokens).filter((id) => id === "f0").length, 2);
     assert.ok(ids(result.tokens).includes("d3"));
     assertNoOverlaps(result);
   });

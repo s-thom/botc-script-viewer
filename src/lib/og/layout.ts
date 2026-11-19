@@ -19,7 +19,7 @@ export const BYLINE_GAP = 4;
 
 export const GRIMOIRE_PADDING = 8;
 export const TOKEN_GAP = 3;
-export const TEAM_GAP_UNITS = 0.35;
+export const TEAM_GAP_UNITS = 0.25;
 export const RING_MAX_TOKEN_SIZE = 96;
 export const RING_MIN_TOKEN_SIZE = 36;
 export const EMPTY_RING_SEATS = 12;
@@ -317,19 +317,14 @@ export function layoutGrimoire<T>({
       centre = teams.demon;
     }
   }
-  const outside = (items: T[]) =>
-    items.filter((item) => !centre.includes(item));
-
   const ringGroups = [
     teams.townsfolk,
     teams.outsider,
     teams.minion,
     teams.demon,
-  ]
-    .map(outside)
-    .filter((group) => group.length > 0);
-  const left = outside(teams.traveller);
-  const right = outside([...teams.fabled, ...teams.loric]);
+  ].filter((group) => group.length > 0);
+  const left = teams.traveller;
+  const right = [...teams.fabled, ...teams.loric];
 
   const diameter = OG_HEIGHT - headerHeight - 2 * GRIMOIRE_PADDING;
   const cx = OG_WIDTH / 2;

@@ -15,6 +15,7 @@ export const MY_SCRIPTS: LocalScriptDefinition[] = [
     title: "Be-hind-u (teensy)",
     character: "hindu",
     color: "#5e712f",
+    featuredCharacters: ["hindu"],
     seeAlsoRefs: [{ collectionId: "me", scriptId: "be-hind-u" }],
     botcScripts: { scriptId: 13518, versionId: "1.0.0", pk: 23611 },
 
@@ -25,6 +26,7 @@ export const MY_SCRIPTS: LocalScriptDefinition[] = [
     title: "Be-hind-u (full)",
     character: "hindu",
     color: "#5e712f",
+    featuredCharacters: ["hindu"],
     seeAlsoRefs: [{ collectionId: "me", scriptId: "be-hind-u-teensy" }],
     botcScripts: { scriptId: 13519, versionId: "1.0.0", pk: 23612 },
     getScript: () => import("./Be-hind-u (full).json").then((m) => m.default),
