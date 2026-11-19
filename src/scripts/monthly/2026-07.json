@@ -2,7 +2,10 @@
   {
     "id": "_meta",
     "name": "Nobody Move",
-    "author": "Brockwell"
+    "author": "Brockwell",
+    "bootlegger": [
+      "Optional ruling: The Alchemist has a not-in-play Minion ability."
+    ]
   },
   {
     "id": "snakecharmer"
