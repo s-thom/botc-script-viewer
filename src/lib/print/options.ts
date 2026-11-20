@@ -14,9 +14,9 @@ export interface PrintOptions {
 }
 
 export const DEFAULT_PRINT_OPTIONS: PrintOptions = {
-  style: "plain",
+  style: "fancy",
   paper: "a4",
-  back: "info",
+  back: "fancy",
   night: "detailed",
   qrPage: true,
   hideTravellersInNight: false,
